@@ -14,19 +14,19 @@
 # 忽略项目生成目录与中间目录
 ##################################
 Bin/
-Generated/
+**/Generated/
 Library/
 TrashBin/
 
 ##################################
 # Windows系统特定目录
 ##################################
-.vs
+.vs/
 *.vcxproj.user
 
 ##################################
 # MacOS系统特定目录
 ##################################
 .DS_Store
-xcuserdata
-xcshareddata
+xcuserdata/
+xcshareddata/
