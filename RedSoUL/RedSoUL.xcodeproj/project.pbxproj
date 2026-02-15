@@ -1,0 +1,503 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		BD326EC72F3B32F0007EE8EC /* CommonDefines.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD326EC42F3B32F0007EE8EC /* CommonDefines.hpp */; };
+		BD326ECA2F3BF39B007EE8EC /* BuiltInTypes.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD326EC92F3BF39B007EE8EC /* BuiltInTypes.hpp */; };
+		BD326ECC2F3BFC80007EE8EC /* CommonDefines.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD326EC42F3B32F0007EE8EC /* CommonDefines.hpp */; };
+		BD326ECD2F3BFC8B007EE8EC /* BuiltInTypes.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD326EC92F3BF39B007EE8EC /* BuiltInTypes.hpp */; };
+		BD326ED02F3C19E6007EE8EC /* X2TeaEncoder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD326ECF2F3C19E6007EE8EC /* X2TeaEncoder.hpp */; };
+		BD326ED12F3C19E6007EE8EC /* X2TeaEncoder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD326ECF2F3C19E6007EE8EC /* X2TeaEncoder.hpp */; };
+		BD326ED42F3C1B9E007EE8EC /* X2TeaEncoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD326ED32F3C1B9E007EE8EC /* X2TeaEncoder.cpp */; };
+		BD326ED52F3C1B9E007EE8EC /* X2TeaEncoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD326ED32F3C1B9E007EE8EC /* X2TeaEncoder.cpp */; };
+		BD326ED82F3C24A5007EE8EC /* RuntimeAssert.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD326ED72F3C24A5007EE8EC /* RuntimeAssert.hpp */; };
+		BD326ED92F3C24A5007EE8EC /* RuntimeAssert.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD326ED72F3C24A5007EE8EC /* RuntimeAssert.hpp */; };
+		BD326EDB2F3C2625007EE8EC /* CompilerDefines.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD326EDA2F3C2625007EE8EC /* CompilerDefines.hpp */; };
+		BD326EDC2F3C2625007EE8EC /* CompilerDefines.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD326EDA2F3C2625007EE8EC /* CompilerDefines.hpp */; };
+		BD326EDE2F3C40A5007EE8EC /* PlatformDefines.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD326EDD2F3C40A5007EE8EC /* PlatformDefines.hpp */; };
+		BD326EDF2F3C40A5007EE8EC /* PlatformDefines.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD326EDD2F3C40A5007EE8EC /* PlatformDefines.hpp */; };
+		BD326EE22F3C7F9A007EE8EC /* RuntimeAssert.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD326EE12F3C7F9A007EE8EC /* RuntimeAssert.cpp */; };
+		BD326EE32F3C7F9A007EE8EC /* RuntimeAssert.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD326EE12F3C7F9A007EE8EC /* RuntimeAssert.cpp */; };
+		BD326EE62F41773A007EE8EC /* UtilityFunctions.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD326EE52F41773A007EE8EC /* UtilityFunctions.hpp */; };
+		BD326EE72F41773B007EE8EC /* UtilityFunctions.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD326EE52F41773A007EE8EC /* UtilityFunctions.hpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		BD86B60C2F39E1FC00DD8D2E /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		BD326EC42F3B32F0007EE8EC /* CommonDefines.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = CommonDefines.hpp; path = Public/Common/CommonDefines.hpp; sourceTree = "<group>"; };
+		BD326EC92F3BF39B007EE8EC /* BuiltInTypes.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = BuiltInTypes.hpp; path = Public/DataType/BuiltInTypes.hpp; sourceTree = "<group>"; };
+		BD326ECF2F3C19E6007EE8EC /* X2TeaEncoder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = X2TeaEncoder.hpp; path = Public/Encoder/X2TeaEncoder.hpp; sourceTree = "<group>"; };
+		BD326ED32F3C1B9E007EE8EC /* X2TeaEncoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = X2TeaEncoder.cpp; path = Private/Encoder/X2TeaEncoder.cpp; sourceTree = "<group>"; };
+		BD326ED72F3C24A5007EE8EC /* RuntimeAssert.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = RuntimeAssert.hpp; path = Public/Assert/RuntimeAssert.hpp; sourceTree = "<group>"; };
+		BD326EDA2F3C2625007EE8EC /* CompilerDefines.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = CompilerDefines.hpp; path = Public/Common/CompilerDefines.hpp; sourceTree = "<group>"; };
+		BD326EDD2F3C40A5007EE8EC /* PlatformDefines.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = PlatformDefines.hpp; path = Public/Common/PlatformDefines.hpp; sourceTree = "<group>"; };
+		BD326EE12F3C7F9A007EE8EC /* RuntimeAssert.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = RuntimeAssert.cpp; path = Private/Assert/RuntimeAssert.cpp; sourceTree = "<group>"; };
+		BD326EE52F41773A007EE8EC /* UtilityFunctions.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = UtilityFunctions.hpp; path = Public/Math/UtilityFunctions.hpp; sourceTree = "<group>"; };
+		BD86B5FA2F388E1600DD8D2E /* libRedSoUL-macOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libRedSoUL-macOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BD86B60E2F39E1FC00DD8D2E /* libRedSoUL-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libRedSoUL-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BD86B5F82F388E1600DD8D2E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BD86B60B2F39E1FC00DD8D2E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		BD326EC82F3BEF2B007EE8EC /* DateType */ = {
+			isa = PBXGroup;
+			children = (
+				BD326EC92F3BF39B007EE8EC /* BuiltInTypes.hpp */,
+			);
+			name = DateType;
+			sourceTree = "<group>";
+		};
+		BD326ECE2F3C1930007EE8EC /* Encoder */ = {
+			isa = PBXGroup;
+			children = (
+				BD326ECF2F3C19E6007EE8EC /* X2TeaEncoder.hpp */,
+			);
+			name = Encoder;
+			sourceTree = "<group>";
+		};
+		BD326ED22F3C1B50007EE8EC /* Encoder */ = {
+			isa = PBXGroup;
+			children = (
+				BD326ED32F3C1B9E007EE8EC /* X2TeaEncoder.cpp */,
+			);
+			name = Encoder;
+			sourceTree = "<group>";
+		};
+		BD326ED62F3C246F007EE8EC /* Assert */ = {
+			isa = PBXGroup;
+			children = (
+				BD326ED72F3C24A5007EE8EC /* RuntimeAssert.hpp */,
+			);
+			name = Assert;
+			sourceTree = "<group>";
+		};
+		BD326EE02F3C7DF7007EE8EC /* Assert */ = {
+			isa = PBXGroup;
+			children = (
+				BD326EE12F3C7F9A007EE8EC /* RuntimeAssert.cpp */,
+			);
+			name = Assert;
+			sourceTree = "<group>";
+		};
+		BD326EE42F4176F2007EE8EC /* Math */ = {
+			isa = PBXGroup;
+			children = (
+				BD326EE52F41773A007EE8EC /* UtilityFunctions.hpp */,
+			);
+			name = Math;
+			sourceTree = "<group>";
+		};
+		BD86B5F12F388E1600DD8D2E = {
+			isa = PBXGroup;
+			children = (
+				BD86B6182F39E26800DD8D2E /* Private */,
+				BD86B6172F39E25B00DD8D2E /* Public */,
+				BD86B5FB2F388E1600DD8D2E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		BD86B5FB2F388E1600DD8D2E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BD86B5FA2F388E1600DD8D2E /* libRedSoUL-macOS.a */,
+				BD86B60E2F39E1FC00DD8D2E /* libRedSoUL-iOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BD86B6172F39E25B00DD8D2E /* Public */ = {
+			isa = PBXGroup;
+			children = (
+				BD326ED62F3C246F007EE8EC /* Assert */,
+				BD86B6192F3B316800DD8D2E /* Common */,
+				BD326EC82F3BEF2B007EE8EC /* DateType */,
+				BD326ECE2F3C1930007EE8EC /* Encoder */,
+				BD326EE42F4176F2007EE8EC /* Math */,
+			);
+			name = Public;
+			sourceTree = "<group>";
+		};
+		BD86B6182F39E26800DD8D2E /* Private */ = {
+			isa = PBXGroup;
+			children = (
+				BD326EE02F3C7DF7007EE8EC /* Assert */,
+				BD326ED22F3C1B50007EE8EC /* Encoder */,
+			);
+			name = Private;
+			sourceTree = "<group>";
+		};
+		BD86B6192F3B316800DD8D2E /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				BD326EC42F3B32F0007EE8EC /* CommonDefines.hpp */,
+				BD326EDA2F3C2625007EE8EC /* CompilerDefines.hpp */,
+				BD326EDD2F3C40A5007EE8EC /* PlatformDefines.hpp */,
+			);
+			name = Common;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		BD326ECB2F3BFC7C007EE8EC /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BD326EDE2F3C40A5007EE8EC /* PlatformDefines.hpp in Headers */,
+				BD326ED02F3C19E6007EE8EC /* X2TeaEncoder.hpp in Headers */,
+				BD326EE62F41773A007EE8EC /* UtilityFunctions.hpp in Headers */,
+				BD326ED82F3C24A5007EE8EC /* RuntimeAssert.hpp in Headers */,
+				BD326EDB2F3C2625007EE8EC /* CompilerDefines.hpp in Headers */,
+				BD326ECD2F3BFC8B007EE8EC /* BuiltInTypes.hpp in Headers */,
+				BD326ECC2F3BFC80007EE8EC /* CommonDefines.hpp in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BD86B5F62F388E1600DD8D2E /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BD326EDF2F3C40A5007EE8EC /* PlatformDefines.hpp in Headers */,
+				BD326ED12F3C19E6007EE8EC /* X2TeaEncoder.hpp in Headers */,
+				BD326EE72F41773B007EE8EC /* UtilityFunctions.hpp in Headers */,
+				BD326ED92F3C24A5007EE8EC /* RuntimeAssert.hpp in Headers */,
+				BD326EDC2F3C2625007EE8EC /* CompilerDefines.hpp in Headers */,
+				BD326ECA2F3BF39B007EE8EC /* BuiltInTypes.hpp in Headers */,
+				BD326EC72F3B32F0007EE8EC /* CommonDefines.hpp in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		BD86B5F92F388E1600DD8D2E /* RedSoUL-macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BD86B6052F388E1600DD8D2E /* Build configuration list for PBXNativeTarget "RedSoUL-macOS" */;
+			buildPhases = (
+				BD86B5F62F388E1600DD8D2E /* Headers */,
+				BD86B5F72F388E1600DD8D2E /* Sources */,
+				BD86B5F82F388E1600DD8D2E /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "RedSoUL-macOS";
+			productName = RedSoUL;
+			productReference = BD86B5FA2F388E1600DD8D2E /* libRedSoUL-macOS.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		BD86B60D2F39E1FC00DD8D2E /* RedSoUL-iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BD86B6142F39E1FC00DD8D2E /* Build configuration list for PBXNativeTarget "RedSoUL-iOS" */;
+			buildPhases = (
+				BD326ECB2F3BFC7C007EE8EC /* Headers */,
+				BD86B60A2F39E1FC00DD8D2E /* Sources */,
+				BD86B60B2F39E1FC00DD8D2E /* Frameworks */,
+				BD86B60C2F39E1FC00DD8D2E /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "RedSoUL-iOS";
+			productName = "RedSoUL-iOS";
+			productReference = BD86B60E2F39E1FC00DD8D2E /* libRedSoUL-iOS.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BD86B5F22F388E1600DD8D2E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1340;
+				TargetAttributes = {
+					BD86B5F92F388E1600DD8D2E = {
+						CreatedOnToolsVersion = 13.4.1;
+					};
+					BD86B60D2F39E1FC00DD8D2E = {
+						CreatedOnToolsVersion = 13.4.1;
+					};
+				};
+			};
+			buildConfigurationList = BD86B5F52F388E1600DD8D2E /* Build configuration list for PBXProject "RedSoUL" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = BD86B5F12F388E1600DD8D2E;
+			productRefGroup = BD86B5FB2F388E1600DD8D2E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BD86B60D2F39E1FC00DD8D2E /* RedSoUL-iOS */,
+				BD86B5F92F388E1600DD8D2E /* RedSoUL-macOS */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BD86B5F72F388E1600DD8D2E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BD326EE32F3C7F9A007EE8EC /* RuntimeAssert.cpp in Sources */,
+				BD326ED52F3C1B9E007EE8EC /* X2TeaEncoder.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BD86B60A2F39E1FC00DD8D2E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BD326EE22F3C7F9A007EE8EC /* RuntimeAssert.cpp in Sources */,
+				BD326ED42F3C1B9E007EE8EC /* X2TeaEncoder.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		BD86B6032F388E1600DD8D2E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/../Library/$(SUPPORTED_PLATFORMS)/$(CONFIGURATION)";
+				CONFIGURATION_TEMP_DIR = "$(PROJECT_DIR)/../TrashBin/$(PROJECT_NAME)/$(SUPPORTED_PLATFORMS)/$(CONFIGURATION)";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = c11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Public",
+					"$(SRCROOT)/Private",
+				);
+			};
+			name = Debug;
+		};
+		BD86B6042F388E1600DD8D2E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/../Library/$(SUPPORTED_PLATFORMS)/$(CONFIGURATION)";
+				CONFIGURATION_TEMP_DIR = "$(PROJECT_DIR)/../TrashBin/$(PROJECT_NAME)/$(SUPPORTED_PLATFORMS)/$(CONFIGURATION)";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = c11;
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Public",
+					"$(SRCROOT)/Private",
+				);
+			};
+			name = Release;
+		};
+		BD86B6062F388E1600DD8D2E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				EXECUTABLE_PREFIX = lib;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		BD86B6072F388E1600DD8D2E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				EXECUTABLE_PREFIX = lib;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		BD86B6152F39E1FC00DD8D2E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				OTHER_LDFLAGS = "-ObjC";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		BD86B6162F39E1FC00DD8D2E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				OTHER_LDFLAGS = "-ObjC";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BD86B5F52F388E1600DD8D2E /* Build configuration list for PBXProject "RedSoUL" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BD86B6032F388E1600DD8D2E /* Debug */,
+				BD86B6042F388E1600DD8D2E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BD86B6052F388E1600DD8D2E /* Build configuration list for PBXNativeTarget "RedSoUL-macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BD86B6062F388E1600DD8D2E /* Debug */,
+				BD86B6072F388E1600DD8D2E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BD86B6142F39E1FC00DD8D2E /* Build configuration list for PBXNativeTarget "RedSoUL-iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BD86B6152F39E1FC00DD8D2E /* Debug */,
+				BD86B6162F39E1FC00DD8D2E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BD86B5F22F388E1600DD8D2E /* Project object */;
+}
