@@ -18,7 +18,7 @@
               /,    /`             \  __  /                                             
               \\"--\\              (_/ (_/                                              
     Created:  15/02/26  @  4:38 PM
-    FileName: Utility.hpp @ RedSoUL Project
+    FileName: MathUtilities.hpp @ RedSoUL Project
     History:
              - created by: 15/02/26: Zenggang LIU
                                                                                         
@@ -32,7 +32,7 @@
 
 
 /// MARK: - 函数定义
-struct Utility
+struct MathUtility
 {
     /// Clamps给定的数值到给定的区间: [min, max]
     template < typename T >
@@ -68,7 +68,7 @@ struct Utility
 template < typename T >
 INLINE_FUNCTION
 T
-Utility::clamp (
+MathUtility::clamp (
     const T val,
     const T min,
     const T max)
@@ -80,7 +80,7 @@ Utility::clamp (
 template < typename T >
 INLINE_FUNCTION
 T
-Utility::maximum (
+MathUtility::maximum (
     const T a,
     const T b)
 {
@@ -91,7 +91,7 @@ Utility::maximum (
 template < typename T >
 INLINE_FUNCTION
 T
-Utility::minimum (
+MathUtility::minimum (
     const T a,
     const T b)
 {

@@ -1,7 +1,7 @@
 #include <cstring> /// std::memcpy
 #include "Assert/RuntimeAssert.hpp"
 #include "Encoder/X2TeaEncoder.hpp"
-#include "Math/UtilityFunctions.hpp" /// Utility::minimum
+#include "Math/MathUtilities.hpp" /// MathUtility::minimum
 
 
 /// XXTEA cipher: https://en.wikipedia.org/wiki/XXTEA
@@ -9,7 +9,7 @@
 /// Key的长度(128位Key): 16字节
 #define KEY_LENGTH  16
 #define COPY_KEY(key, key_length) \
-    UInt _key_used[KEY_LENGTH >> 2] = {0}; std::memcpy(_key_used, key, Utility::minimum(key_length, (UInt)sizeof(_key_used)));
+    UInt _key_used[KEY_LENGTH >> 2] = {0}; std::memcpy(_key_used, key, MathUtility::minimum(key_length, (UInt)sizeof(_key_used)));
 #define DELTA 0x9E3779B9
 #define MX (((z>>5^y<<2) + (y>>3^z<<4)) ^ ((sum^y) + ((_key_used)[(p&3)^e] ^ z)))
 

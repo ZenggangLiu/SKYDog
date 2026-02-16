@@ -23,8 +23,8 @@
 		BD326EDF2F3C40A5007EE8EC /* PlatformDefines.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD326EDD2F3C40A5007EE8EC /* PlatformDefines.hpp */; };
 		BD326EE22F3C7F9A007EE8EC /* RuntimeAssert.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD326EE12F3C7F9A007EE8EC /* RuntimeAssert.cpp */; };
 		BD326EE32F3C7F9A007EE8EC /* RuntimeAssert.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD326EE12F3C7F9A007EE8EC /* RuntimeAssert.cpp */; };
-		BD326EE62F41773A007EE8EC /* UtilityFunctions.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD326EE52F41773A007EE8EC /* UtilityFunctions.hpp */; };
-		BD326EE72F41773B007EE8EC /* UtilityFunctions.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD326EE52F41773A007EE8EC /* UtilityFunctions.hpp */; };
+		BD326EE62F41773A007EE8EC /* MathUtilities.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD326EE52F41773A007EE8EC /* MathUtilities.hpp */; };
+		BD326EE72F41773B007EE8EC /* MathUtilities.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD326EE52F41773A007EE8EC /* MathUtilities.hpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -48,7 +48,7 @@
 		BD326EDA2F3C2625007EE8EC /* CompilerDefines.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = CompilerDefines.hpp; path = Public/Common/CompilerDefines.hpp; sourceTree = "<group>"; };
 		BD326EDD2F3C40A5007EE8EC /* PlatformDefines.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = PlatformDefines.hpp; path = Public/Common/PlatformDefines.hpp; sourceTree = "<group>"; };
 		BD326EE12F3C7F9A007EE8EC /* RuntimeAssert.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = RuntimeAssert.cpp; path = Private/Assert/RuntimeAssert.cpp; sourceTree = "<group>"; };
-		BD326EE52F41773A007EE8EC /* UtilityFunctions.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = UtilityFunctions.hpp; path = Public/Math/UtilityFunctions.hpp; sourceTree = "<group>"; };
+		BD326EE52F41773A007EE8EC /* MathUtilities.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = MathUtilities.hpp; path = Public/Math/MathUtilities.hpp; sourceTree = "<group>"; };
 		BD86B5FA2F388E1600DD8D2E /* libRedSoUL-macOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libRedSoUL-macOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD86B60E2F39E1FC00DD8D2E /* libRedSoUL-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libRedSoUL-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -114,7 +114,7 @@
 		BD326EE42F4176F2007EE8EC /* Math */ = {
 			isa = PBXGroup;
 			children = (
-				BD326EE52F41773A007EE8EC /* UtilityFunctions.hpp */,
+				BD326EE52F41773A007EE8EC /* MathUtilities.hpp */,
 			);
 			name = Math;
 			sourceTree = "<group>";
@@ -177,7 +177,7 @@
 			files = (
 				BD326EDE2F3C40A5007EE8EC /* PlatformDefines.hpp in Headers */,
 				BD326ED02F3C19E6007EE8EC /* X2TeaEncoder.hpp in Headers */,
-				BD326EE62F41773A007EE8EC /* UtilityFunctions.hpp in Headers */,
+				BD326EE62F41773A007EE8EC /* MathUtilities.hpp in Headers */,
 				BD326ED82F3C24A5007EE8EC /* RuntimeAssert.hpp in Headers */,
 				BD326EDB2F3C2625007EE8EC /* CompilerDefines.hpp in Headers */,
 				BD326ECD2F3BFC8B007EE8EC /* BuiltInTypes.hpp in Headers */,
@@ -191,7 +191,7 @@
 			files = (
 				BD326EDF2F3C40A5007EE8EC /* PlatformDefines.hpp in Headers */,
 				BD326ED12F3C19E6007EE8EC /* X2TeaEncoder.hpp in Headers */,
-				BD326EE72F41773B007EE8EC /* UtilityFunctions.hpp in Headers */,
+				BD326EE72F41773B007EE8EC /* MathUtilities.hpp in Headers */,
 				BD326ED92F3C24A5007EE8EC /* RuntimeAssert.hpp in Headers */,
 				BD326EDC2F3C2625007EE8EC /* CompilerDefines.hpp in Headers */,
 				BD326ECA2F3BF39B007EE8EC /* BuiltInTypes.hpp in Headers */,
