@@ -28,6 +28,7 @@
 #pragma once
 
 
+#include <algorithm> /// std::min, std::max
 #include "Common/CommonDefines.hpp" /// INLINE_FUNCTION
 
 
@@ -43,24 +44,6 @@ struct MathUtility
        const T val,
        const T min,
        const T max);
-
-    /// 求A，B数值中的最大值
-    template < typename T >
-    INLINE_FUNCTION
-    static
-    T
-    maximum (
-       const T a,
-       const T b);
-
-    /// 求A，B数值中的最小值
-    template < typename T >
-    INLINE_FUNCTION
-    static
-    T
-    minimum (
-        const T a,
-        const T b);
 };
 
 
@@ -73,27 +56,5 @@ MathUtility::clamp (
     const T min,
     const T max)
 {
-    return minimum(maximum(val, min), max);
-}
-
-
-template < typename T >
-INLINE_FUNCTION
-T
-MathUtility::maximum (
-    const T a,
-    const T b)
-{
-    return a > b ? a : b;
-}
-
-
-template < typename T >
-INLINE_FUNCTION
-T
-MathUtility::minimum (
-    const T a,
-    const T b)
-{
-    return a < b ? a : b;
+    return std::min(std::max(val, min), max);
 }
