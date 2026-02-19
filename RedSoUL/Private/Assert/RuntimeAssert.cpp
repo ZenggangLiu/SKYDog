@@ -16,7 +16,7 @@
 
 #if (BUILD_MODE == DEBUG_BUILD_MODE)
 void
-RuntimeAssert(
+RuntimeAssert (
    const Bool          condition,
    const ASCII * const file_name,
    const UInt          line_number,
