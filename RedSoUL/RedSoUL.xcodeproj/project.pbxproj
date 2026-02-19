@@ -25,6 +25,10 @@
 		BD326EE32F3C7F9A007EE8EC /* RuntimeAssert.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD326EE12F3C7F9A007EE8EC /* RuntimeAssert.cpp */; };
 		BD326EE62F41773A007EE8EC /* MathUtilities.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD326EE52F41773A007EE8EC /* MathUtilities.hpp */; };
 		BD326EE72F41773B007EE8EC /* MathUtilities.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD326EE52F41773A007EE8EC /* MathUtilities.hpp */; };
+		BD326F2A2F431CD5007EE8EC /* MemoryUtilities.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD326F292F431CD5007EE8EC /* MemoryUtilities.hpp */; };
+		BD326F2B2F431CD5007EE8EC /* MemoryUtilities.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD326F292F431CD5007EE8EC /* MemoryUtilities.hpp */; };
+		BD326F2E2F431F39007EE8EC /* MemoryUtilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD326F2D2F431F39007EE8EC /* MemoryUtilities.cpp */; };
+		BD326F2F2F431F39007EE8EC /* MemoryUtilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD326F2D2F431F39007EE8EC /* MemoryUtilities.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -49,6 +53,8 @@
 		BD326EDD2F3C40A5007EE8EC /* PlatformDefines.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = PlatformDefines.hpp; path = Public/Common/PlatformDefines.hpp; sourceTree = "<group>"; };
 		BD326EE12F3C7F9A007EE8EC /* RuntimeAssert.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = RuntimeAssert.cpp; path = Private/Assert/RuntimeAssert.cpp; sourceTree = "<group>"; };
 		BD326EE52F41773A007EE8EC /* MathUtilities.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = MathUtilities.hpp; path = Public/Math/MathUtilities.hpp; sourceTree = "<group>"; };
+		BD326F292F431CD5007EE8EC /* MemoryUtilities.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = MemoryUtilities.hpp; path = Public/Memory/MemoryUtilities.hpp; sourceTree = "<group>"; };
+		BD326F2D2F431F39007EE8EC /* MemoryUtilities.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = MemoryUtilities.cpp; path = Private/Memory/MemoryUtilities.cpp; sourceTree = "<group>"; };
 		BD86B5FA2F388E1600DD8D2E /* libRedSoUL-macOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libRedSoUL-macOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD86B60E2F39E1FC00DD8D2E /* libRedSoUL-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libRedSoUL-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -119,6 +125,22 @@
 			name = Math;
 			sourceTree = "<group>";
 		};
+		BD326F282F431C8A007EE8EC /* Memory */ = {
+			isa = PBXGroup;
+			children = (
+				BD326F292F431CD5007EE8EC /* MemoryUtilities.hpp */,
+			);
+			name = Memory;
+			sourceTree = "<group>";
+		};
+		BD326F2C2F431F23007EE8EC /* Memory */ = {
+			isa = PBXGroup;
+			children = (
+				BD326F2D2F431F39007EE8EC /* MemoryUtilities.cpp */,
+			);
+			name = Memory;
+			sourceTree = "<group>";
+		};
 		BD86B5F12F388E1600DD8D2E = {
 			isa = PBXGroup;
 			children = (
@@ -145,6 +167,7 @@
 				BD326EC82F3BEF2B007EE8EC /* DateType */,
 				BD326ECE2F3C1930007EE8EC /* Encoder */,
 				BD326EE42F4176F2007EE8EC /* Math */,
+				BD326F282F431C8A007EE8EC /* Memory */,
 			);
 			name = Public;
 			sourceTree = "<group>";
@@ -154,6 +177,7 @@
 			children = (
 				BD326EE02F3C7DF7007EE8EC /* Assert */,
 				BD326ED22F3C1B50007EE8EC /* Encoder */,
+				BD326F2C2F431F23007EE8EC /* Memory */,
 			);
 			name = Private;
 			sourceTree = "<group>";
@@ -181,6 +205,7 @@
 				BD326ED82F3C24A5007EE8EC /* RuntimeAssert.hpp in Headers */,
 				BD326EDB2F3C2625007EE8EC /* CompilerDefines.hpp in Headers */,
 				BD326ECD2F3BFC8B007EE8EC /* BuiltInTypes.hpp in Headers */,
+				BD326F2A2F431CD5007EE8EC /* MemoryUtilities.hpp in Headers */,
 				BD326ECC2F3BFC80007EE8EC /* CommonDefines.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -195,6 +220,7 @@
 				BD326ED92F3C24A5007EE8EC /* RuntimeAssert.hpp in Headers */,
 				BD326EDC2F3C2625007EE8EC /* CompilerDefines.hpp in Headers */,
 				BD326ECA2F3BF39B007EE8EC /* BuiltInTypes.hpp in Headers */,
+				BD326F2B2F431CD5007EE8EC /* MemoryUtilities.hpp in Headers */,
 				BD326EC72F3B32F0007EE8EC /* CommonDefines.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -280,6 +306,7 @@
 			files = (
 				BD326EE32F3C7F9A007EE8EC /* RuntimeAssert.cpp in Sources */,
 				BD326ED52F3C1B9E007EE8EC /* X2TeaEncoder.cpp in Sources */,
+				BD326F2F2F431F39007EE8EC /* MemoryUtilities.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -289,6 +316,7 @@
 			files = (
 				BD326EE22F3C7F9A007EE8EC /* RuntimeAssert.cpp in Sources */,
 				BD326ED42F3C1B9E007EE8EC /* X2TeaEncoder.cpp in Sources */,
+				BD326F2E2F431F39007EE8EC /* MemoryUtilities.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
