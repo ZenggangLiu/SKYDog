@@ -53,8 +53,8 @@ struct MemoryUtility
     /// @param[in]  page_count
     ///      内存页的数目
     /// @return
-    ///      如果申请成功：<- [ 申请的内存地址, 申请的内存大 ]
-    ///      如果申请失败：<- [ nullptr,     0          ]
+    ///      如果申请成功：<- [ 申请的内存地址, 申请的内存长度(字节长度) ]
+    ///      如果申请失败：<- [ nullptr,     0                    ]
     /// @example:
     ///     例如：申请16个虚拟内存页：
     ///     const void * alloc_addr; UInt alloc_size;

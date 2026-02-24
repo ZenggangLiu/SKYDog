@@ -44,6 +44,16 @@ struct MathUtility
        const T val,
        const T min,
        const T max);
+
+    /// 计算A相对于B四舍五入后的整数倍数(即：A/B)
+    /// 例如：Math::multiple_of(-3, 2) == -1
+    template < typename T >
+    INLINE_FUNCTION
+    static
+    T
+    multiple_of (
+        const T a,
+        const T b);
 };
 
 
@@ -58,3 +68,24 @@ MathUtility::clamp (
 {
     return std::min(std::max(val, min), max);
 }
+
+
+/// 整数类型的实现
+template < typename T >
+INLINE_FUNCTION
+T
+MathUtility::multiple_of (
+    const T a,
+    const T b)
+{
+    /// (a + b-1)/b = (a-1)/b + 1
+    return (a - (T)1)/b + (T)1;
+}
+
+/// multiple_of()不可用于浮点数
+template <>
+INLINE_FUNCTION Half MathUtility::multiple_of(const Half, const Half);
+template <>
+INLINE_FUNCTION Float MathUtility::multiple_of(const Float, const Float);
+template <>
+INLINE_FUNCTION Double MathUtility::multiple_of(const Double, const Double);

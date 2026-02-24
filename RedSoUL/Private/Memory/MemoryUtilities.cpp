@@ -55,21 +55,21 @@ allocate_vm(
 
 #if (OS_TYPE == OS_TYPE_MAC)
     // VM_FLAGS_ANYWHERE: 在VM的空间的任意位置创建一个大小合适的区域
-    const  kern_return_t _result =
+    const  kern_return_t op_result =
         mach_vm_allocate(
             (vm_map_t)mach_task_self(),
             (mach_vm_address_t*)alloc_addr,
             (mach_vm_size_t)alloc_size,
             alloc_flag);
 #else
-    const kern_return_t _result =
+    const kern_return_t op_result =
         vm_allocate(
             (vm_map_t)mach_task_self(),
             (vm_address_t*)alloc_addr,
             (vm_size_t)alloc_size,
             alloc_flag);
 #endif /// (OS_TYPE == OS_TYPE_MAC)
-    return _result == KERN_SUCCESS;
+    return op_result == KERN_SUCCESS;
 }
 
 
@@ -84,19 +84,19 @@ release_vm(
                     "The allocated memory size must be a multiple of page size");
 
 #if (OS_TYPE == OS_TYPE_MAC)
-    const kern_return_t _result =
+    const kern_return_t op_result =
         mach_vm_deallocate(
             (vm_map_t)mach_task_self(),
             (mach_vm_address_t)alloc_addr,
             (mach_vm_size_t)alloc_size);
 #else
-    const kern_return_t _result =
+    const kern_return_t op_result =
         vm_deallocate(
             (vm_map_t)mach_task_self(),
             (vm_address_t)alloc_addr,
             (vm_size_t)alloc_size);
 #endif /// (OS_TYPE == OS_TYPE_MAC)
-    return _result == KERN_SUCCESS;
+    return op_result == KERN_SUCCESS;
 }
 #endif /// defined(__APPLE__)
 
@@ -106,55 +106,55 @@ std::tuple<Bool, ULong, ULong>
 MemoryUtility::memory_usage()
 {
 #if (OS_TYPE == OS_TYPE_WIN)
-    PROCESS_MEMORY_COUNTERS _mem_info;
+    PROCESS_MEMORY_COUNTERS mem_info;
     /// WorkingSetSize: Working set/Resident set: the amount of physical memory mapped to this process
     /// PagefileUsage : VM size: the amount of virtual memory committed to this process
     /// GetProcessMemoryInfo(): 返回非零，如果操作成功
-    if (GetProcessMemoryInfo(GetCurrentProcess(), &_mem_info, sizeof(_mem_info)))
+    if (GetProcessMemoryInfo(GetCurrentProcess(), &mem_info, sizeof(mem_info)))
     {
         return std::make_tuple(
-            true, (ULong)_mem_info.WorkingSetSize, (ULong)_mem_info.PagefileUsage);
+            true, (ULong)mem_info.WorkingSetSize, (ULong)mem_info.PagefileUsage);
     }
 #elif defined(__APPLE__)
-    mach_task_basic_info _task_info;
-    mach_msg_type_number_t _info_size = MACH_TASK_BASIC_INFO_COUNT;
-    const kern_return_t _result = task_info(
-        mach_task_self(), MACH_TASK_BASIC_INFO, (task_info_t)&_task_info, &_info_size);
-    if (_result == KERN_SUCCESS)
+    mach_task_basic_info mach_task_info;
+    mach_msg_type_number_t info_size = MACH_TASK_BASIC_INFO_COUNT;
+    const kern_return_t op_result = task_info(
+        mach_task_self(), MACH_TASK_BASIC_INFO, (task_info_t)&mach_task_info, &info_size);
+    if (op_result == KERN_SUCCESS)
     {
         return std::make_tuple(
-            true, (ULong)_task_info.resident_size, (ULong)_task_info.virtual_size);
+            true, (ULong)mach_task_info.resident_size, (ULong)mach_task_info.virtual_size);
     }
 #elif (OS_TYPE == OS_TYPE_LINUX)
     struct ProcessMemoryInfo
     {
         long physical_mem = 0;
         long virtual_mem  = 0;
-    } _mem_info;
+    } mem_info;
 
-    std::ifstream _proc_status_file("/proc/self/status");
-    std::string _status_line;
+    std::ifstream proc_status_file("/proc/self/status");
+    std::string   status_line;
 
-    if (_proc_status_file.is_open())
+    if (proc_status_file.is_open())
     {
-        while(std::getline(_proc_status_file, _status_line))
+        while(std::getline(proc_status_file, status_line))
         {
-            if (_status_line.find("VmSize:") == 0)
+            if (status_line.find("VmSize:") == 0)
             {
-                _mem_info.virtual_mem = std::stol(_status_line.substr(7));
+                mem_info.virtual_mem = std::stol(status_line.substr(7));
             }
-            else if (_status_line.find("VmRSS:") == 0)
+            else if (status_line.find("VmRSS:") == 0)
             {
-                _mem_info.physical_mem = std::stol(_status_line.substr(6));
+                mem_info.physical_mem = std::stol(status_line.substr(6));
             }
         }
-        _proc_status_file.close();
+        proc_status_file.close();
     }
 
-    if (_mem_info.physical_mem && _mem_info.virtual_mem)
+    if (mem_info.physical_mem && mem_info.virtual_mem)
     {
         return std::make_tuple(
-            true, (ULong)_mem_info.physical_mem * 1024, (ULong)_mem_info.virtual_mem * 1024);
+            true, (ULong)mem_info.physical_mem * 1024, (ULong)mem_info.virtual_mem * 1024);
     }
 #else
     #error TODO: No implementation
@@ -170,20 +170,20 @@ UInt
 MemoryUtility::page_size()
 {
 #if (OS_TYPE == OS_TYPE_WIN)
-    SYSTEM_INFO _sys_info;
-    GetSystemInfo(&_sys_info);
-    return (UInt)_sys_info.dwPageSize;
+    SYSTEM_INFO sys_info;
+    GetSystemInfo(&sys_info);
+    return (UInt)sys_info.dwPageSize;
 #elif defined(__APPLE__)
     return (UInt)vm_page_size;
 #elif (OS_TYPE == OS_TYPE_LINUX)
-    const long _page_size = sysconf(_SC_PAGESIZE);
-    if (_page_size == -1)
+    const long page_size = sysconf(_SC_PAGESIZE);
+    if (page_size == -1)
     {
         return 0;
     }
     else
     {
-        return (UInt)_page_size;
+        return (UInt)page_size;
     }
 #else
     #error TODO: No implementation
@@ -198,7 +198,7 @@ MemoryUtility::allocate_vm_pages(
     RUNTIME_ASSERT(page_count * (ULong)page_size() <= 0xFFFFFFFF,
                    "We can JUST allocate 4G at most");
 
-    const UInt _alloc_size = page_count * page_size();
+    const UInt alloc_size = page_count * page_size();
 #if (OS_TYPE == OS_TYPE_WIN)
     /// NOTE：
     /// - MEM_COMMIT：分配虚拟空间
@@ -219,26 +219,26 @@ MemoryUtility::allocate_vm_pages(
     /// === RELEASE ===
     /// [虚拟内存]: 0.44Mb, [物理内存]: 2.62Mb
     ///
-    void * const _memory_addr =
-        VirtualAlloc(NULL, _alloc_size, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
-    if (_memory_addr != nullptr)
+    void * const memory_addr =
+        VirtualAlloc(NULL, alloc_size, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
+    if (memory_addr != nullptr)
 #elif defined(__APPLE__)
-    void * _memory_addr = nullptr;
-    allocate_vm(_alloc_size, VM_FLAGS_ANYWHERE, &_memory_addr);
-    if (_memory_addr != nullptr)
+    void * memory_addr = nullptr;
+    allocate_vm(alloc_size, VM_FLAGS_ANYWHERE, &memory_addr);
+    if (memory_addr != nullptr)
 #elif (OS_TYPE == OS_TYPE_LINUX)
-    void * const _memory_addr = mmap(nullptr,   // system selects the location
-                                     _alloc_size,
-                                     PROT_READ | PROT_WRITE,      // read & write right
-                                     MAP_PRIVATE | MAP_ANONYMOUS, // mapping
+    void * const memory_addr = mmap(nullptr,   // system selects the location
+                                    alloc_size,
+                                    PROT_READ | PROT_WRITE,      // read & write right
+                                    MAP_PRIVATE | MAP_ANONYMOUS, // mapping
                                     -1,                           // file descriptor
                                     0);
-    if (_memory_addr != MAP_FAILED)
+    if (memory_addr != MAP_FAILED)
 #else
     #error TODO: No implementation
 #endif /// (OS_TYPE == OS_TYPE_WIN)
     {
-        return std::make_tuple(_memory_addr, _alloc_size);
+        return std::make_tuple(memory_addr, alloc_size);
     }
     else
     {
