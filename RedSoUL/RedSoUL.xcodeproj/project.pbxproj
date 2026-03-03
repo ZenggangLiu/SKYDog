@@ -29,6 +29,26 @@
 		BD326F2B2F431CD5007EE8EC /* MemoryUtilities.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD326F292F431CD5007EE8EC /* MemoryUtilities.hpp */; };
 		BD326F2E2F431F39007EE8EC /* MemoryUtilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD326F2D2F431F39007EE8EC /* MemoryUtilities.cpp */; };
 		BD326F2F2F431F39007EE8EC /* MemoryUtilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD326F2D2F431F39007EE8EC /* MemoryUtilities.cpp */; };
+		BD326F322F495429007EE8EC /* RingBuffer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD326F312F495429007EE8EC /* RingBuffer.hpp */; };
+		BD326F332F495429007EE8EC /* RingBuffer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD326F312F495429007EE8EC /* RingBuffer.hpp */; };
+		BD326F392F4958CE007EE8EC /* RingBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD326F382F4958CE007EE8EC /* RingBuffer.cpp */; };
+		BD326F3A2F4958CE007EE8EC /* RingBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD326F382F4958CE007EE8EC /* RingBuffer.cpp */; };
+		BD58B0802F4DA6D40024C670 /* WorkerThread.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B07F2F4DA6D40024C670 /* WorkerThread.hpp */; };
+		BD58B0812F4DA6D40024C670 /* WorkerThread.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B07F2F4DA6D40024C670 /* WorkerThread.hpp */; };
+		BD58B0832F4EECE10024C670 /* ThreadDefines.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B0822F4EECE10024C670 /* ThreadDefines.hpp */; };
+		BD58B0842F4EECE10024C670 /* ThreadDefines.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B0822F4EECE10024C670 /* ThreadDefines.hpp */; };
+		BD58B0872F4EF27D0024C670 /* WorkerThread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD58B0862F4EF27D0024C670 /* WorkerThread.cpp */; };
+		BD58B0882F4EF27D0024C670 /* WorkerThread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD58B0862F4EF27D0024C670 /* WorkerThread.cpp */; };
+		BD58B08A2F519C4A0024C670 /* ArenaAllocator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B0892F519C4A0024C670 /* ArenaAllocator.hpp */; };
+		BD58B08B2F519C4A0024C670 /* ArenaAllocator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B0892F519C4A0024C670 /* ArenaAllocator.hpp */; };
+		BD58B08D2F519D890024C670 /* ArenaAllocator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD58B08C2F519D890024C670 /* ArenaAllocator.cpp */; };
+		BD58B08E2F519D890024C670 /* ArenaAllocator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD58B08C2F519D890024C670 /* ArenaAllocator.cpp */; };
+		BD58B0942F51A0B00024C670 /* StaticStringId.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B0932F51A0B00024C670 /* StaticStringId.hpp */; };
+		BD58B0952F51A0B00024C670 /* StaticStringId.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B0932F51A0B00024C670 /* StaticStringId.hpp */; };
+		BD58B0982F56DCDC0024C670 /* ClockTime.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B0972F56DCDC0024C670 /* ClockTime.hpp */; };
+		BD58B0992F56DCDC0024C670 /* ClockTime.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B0972F56DCDC0024C670 /* ClockTime.hpp */; };
+		BD58B09C2F56DE1D0024C670 /* ClockTime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD58B09B2F56DE1D0024C670 /* ClockTime.cpp */; };
+		BD58B09D2F56DE1D0024C670 /* ClockTime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD58B09B2F56DE1D0024C670 /* ClockTime.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -55,6 +75,16 @@
 		BD326EE52F41773A007EE8EC /* MathUtilities.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = MathUtilities.hpp; path = Public/Math/MathUtilities.hpp; sourceTree = "<group>"; };
 		BD326F292F431CD5007EE8EC /* MemoryUtilities.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = MemoryUtilities.hpp; path = Public/Memory/MemoryUtilities.hpp; sourceTree = "<group>"; };
 		BD326F2D2F431F39007EE8EC /* MemoryUtilities.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = MemoryUtilities.cpp; path = Private/Memory/MemoryUtilities.cpp; sourceTree = "<group>"; };
+		BD326F312F495429007EE8EC /* RingBuffer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = RingBuffer.hpp; path = Public/Container/RingBuffer.hpp; sourceTree = "<group>"; };
+		BD326F382F4958CE007EE8EC /* RingBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = RingBuffer.cpp; path = Private/Container/RingBuffer.cpp; sourceTree = "<group>"; };
+		BD58B07F2F4DA6D40024C670 /* WorkerThread.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = WorkerThread.hpp; path = Public/Thread/WorkerThread.hpp; sourceTree = "<group>"; };
+		BD58B0822F4EECE10024C670 /* ThreadDefines.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = ThreadDefines.hpp; path = Public/Thread/ThreadDefines.hpp; sourceTree = "<group>"; };
+		BD58B0862F4EF27D0024C670 /* WorkerThread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = WorkerThread.cpp; path = Private/Thread/WorkerThread.cpp; sourceTree = "<group>"; };
+		BD58B0892F519C4A0024C670 /* ArenaAllocator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = ArenaAllocator.hpp; path = Public/Memory/ArenaAllocator.hpp; sourceTree = "<group>"; };
+		BD58B08C2F519D890024C670 /* ArenaAllocator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = ArenaAllocator.cpp; path = Private/Memory/ArenaAllocator.cpp; sourceTree = "<group>"; };
+		BD58B0932F51A0B00024C670 /* StaticStringId.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = StaticStringId.hpp; path = Public/Text/StaticStringId.hpp; sourceTree = "<group>"; };
+		BD58B0972F56DCDC0024C670 /* ClockTime.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = ClockTime.hpp; path = Public/Time/ClockTime.hpp; sourceTree = "<group>"; };
+		BD58B09B2F56DE1D0024C670 /* ClockTime.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = ClockTime.cpp; path = Private/Time/ClockTime.cpp; sourceTree = "<group>"; };
 		BD86B5FA2F388E1600DD8D2E /* libRedSoUL-macOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libRedSoUL-macOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD86B60E2F39E1FC00DD8D2E /* libRedSoUL-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libRedSoUL-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -77,12 +107,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		BD326EC82F3BEF2B007EE8EC /* DateType */ = {
+		BD326EC82F3BEF2B007EE8EC /* DataType */ = {
 			isa = PBXGroup;
 			children = (
 				BD326EC92F3BF39B007EE8EC /* BuiltInTypes.hpp */,
 			);
-			name = DateType;
+			name = DataType;
 			sourceTree = "<group>";
 		};
 		BD326ECE2F3C1930007EE8EC /* Encoder */ = {
@@ -128,6 +158,7 @@
 		BD326F282F431C8A007EE8EC /* Memory */ = {
 			isa = PBXGroup;
 			children = (
+				BD58B0892F519C4A0024C670 /* ArenaAllocator.hpp */,
 				BD326F292F431CD5007EE8EC /* MemoryUtilities.hpp */,
 			);
 			name = Memory;
@@ -136,9 +167,67 @@
 		BD326F2C2F431F23007EE8EC /* Memory */ = {
 			isa = PBXGroup;
 			children = (
+				BD58B08C2F519D890024C670 /* ArenaAllocator.cpp */,
 				BD326F2D2F431F39007EE8EC /* MemoryUtilities.cpp */,
 			);
 			name = Memory;
+			sourceTree = "<group>";
+		};
+		BD326F302F495402007EE8EC /* Container */ = {
+			isa = PBXGroup;
+			children = (
+				BD326F312F495429007EE8EC /* RingBuffer.hpp */,
+			);
+			name = Container;
+			sourceTree = "<group>";
+		};
+		BD326F372F4958BC007EE8EC /* Container */ = {
+			isa = PBXGroup;
+			children = (
+				BD326F382F4958CE007EE8EC /* RingBuffer.cpp */,
+			);
+			name = Container;
+			sourceTree = "<group>";
+		};
+		BD58B07E2F4DA6920024C670 /* Thread */ = {
+			isa = PBXGroup;
+			children = (
+				BD58B0822F4EECE10024C670 /* ThreadDefines.hpp */,
+				BD58B07F2F4DA6D40024C670 /* WorkerThread.hpp */,
+			);
+			name = Thread;
+			sourceTree = "<group>";
+		};
+		BD58B0852F4EF2640024C670 /* Thread */ = {
+			isa = PBXGroup;
+			children = (
+				BD58B0862F4EF27D0024C670 /* WorkerThread.cpp */,
+			);
+			name = Thread;
+			sourceTree = "<group>";
+		};
+		BD58B08F2F51A03F0024C670 /* Text */ = {
+			isa = PBXGroup;
+			children = (
+				BD58B0932F51A0B00024C670 /* StaticStringId.hpp */,
+			);
+			name = Text;
+			sourceTree = "<group>";
+		};
+		BD58B0962F56DBA70024C670 /* Time */ = {
+			isa = PBXGroup;
+			children = (
+				BD58B0972F56DCDC0024C670 /* ClockTime.hpp */,
+			);
+			name = Time;
+			sourceTree = "<group>";
+		};
+		BD58B09A2F56DE0B0024C670 /* Time */ = {
+			isa = PBXGroup;
+			children = (
+				BD58B09B2F56DE1D0024C670 /* ClockTime.cpp */,
+			);
+			name = Time;
 			sourceTree = "<group>";
 		};
 		BD86B5F12F388E1600DD8D2E = {
@@ -164,10 +253,14 @@
 			children = (
 				BD326ED62F3C246F007EE8EC /* Assert */,
 				BD86B6192F3B316800DD8D2E /* Common */,
-				BD326EC82F3BEF2B007EE8EC /* DateType */,
+				BD326F302F495402007EE8EC /* Container */,
+				BD326EC82F3BEF2B007EE8EC /* DataType */,
 				BD326ECE2F3C1930007EE8EC /* Encoder */,
 				BD326EE42F4176F2007EE8EC /* Math */,
 				BD326F282F431C8A007EE8EC /* Memory */,
+				BD58B08F2F51A03F0024C670 /* Text */,
+				BD58B0962F56DBA70024C670 /* Time */,
+				BD58B07E2F4DA6920024C670 /* Thread */,
 			);
 			name = Public;
 			sourceTree = "<group>";
@@ -176,8 +269,11 @@
 			isa = PBXGroup;
 			children = (
 				BD326EE02F3C7DF7007EE8EC /* Assert */,
+				BD326F372F4958BC007EE8EC /* Container */,
 				BD326ED22F3C1B50007EE8EC /* Encoder */,
 				BD326F2C2F431F23007EE8EC /* Memory */,
+				BD58B09A2F56DE0B0024C670 /* Time */,
+				BD58B0852F4EF2640024C670 /* Thread */,
 			);
 			name = Private;
 			sourceTree = "<group>";
@@ -203,9 +299,15 @@
 				BD326ED02F3C19E6007EE8EC /* X2TeaEncoder.hpp in Headers */,
 				BD326EE62F41773A007EE8EC /* MathUtilities.hpp in Headers */,
 				BD326ED82F3C24A5007EE8EC /* RuntimeAssert.hpp in Headers */,
+				BD58B08A2F519C4A0024C670 /* ArenaAllocator.hpp in Headers */,
 				BD326EDB2F3C2625007EE8EC /* CompilerDefines.hpp in Headers */,
 				BD326ECD2F3BFC8B007EE8EC /* BuiltInTypes.hpp in Headers */,
+				BD58B0832F4EECE10024C670 /* ThreadDefines.hpp in Headers */,
+				BD58B0982F56DCDC0024C670 /* ClockTime.hpp in Headers */,
+				BD326F322F495429007EE8EC /* RingBuffer.hpp in Headers */,
+				BD58B0942F51A0B00024C670 /* StaticStringId.hpp in Headers */,
 				BD326F2A2F431CD5007EE8EC /* MemoryUtilities.hpp in Headers */,
+				BD58B0802F4DA6D40024C670 /* WorkerThread.hpp in Headers */,
 				BD326ECC2F3BFC80007EE8EC /* CommonDefines.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -218,9 +320,15 @@
 				BD326ED12F3C19E6007EE8EC /* X2TeaEncoder.hpp in Headers */,
 				BD326EE72F41773B007EE8EC /* MathUtilities.hpp in Headers */,
 				BD326ED92F3C24A5007EE8EC /* RuntimeAssert.hpp in Headers */,
+				BD58B08B2F519C4A0024C670 /* ArenaAllocator.hpp in Headers */,
 				BD326EDC2F3C2625007EE8EC /* CompilerDefines.hpp in Headers */,
 				BD326ECA2F3BF39B007EE8EC /* BuiltInTypes.hpp in Headers */,
+				BD58B0842F4EECE10024C670 /* ThreadDefines.hpp in Headers */,
+				BD58B0992F56DCDC0024C670 /* ClockTime.hpp in Headers */,
+				BD326F332F495429007EE8EC /* RingBuffer.hpp in Headers */,
+				BD58B0952F51A0B00024C670 /* StaticStringId.hpp in Headers */,
 				BD326F2B2F431CD5007EE8EC /* MemoryUtilities.hpp in Headers */,
+				BD58B0812F4DA6D40024C670 /* WorkerThread.hpp in Headers */,
 				BD326EC72F3B32F0007EE8EC /* CommonDefines.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -305,7 +413,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				BD326EE32F3C7F9A007EE8EC /* RuntimeAssert.cpp in Sources */,
+				BD326F3A2F4958CE007EE8EC /* RingBuffer.cpp in Sources */,
 				BD326ED52F3C1B9E007EE8EC /* X2TeaEncoder.cpp in Sources */,
+				BD58B08E2F519D890024C670 /* ArenaAllocator.cpp in Sources */,
+				BD58B09D2F56DE1D0024C670 /* ClockTime.cpp in Sources */,
+				BD58B0882F4EF27D0024C670 /* WorkerThread.cpp in Sources */,
 				BD326F2F2F431F39007EE8EC /* MemoryUtilities.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -315,7 +427,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				BD326EE22F3C7F9A007EE8EC /* RuntimeAssert.cpp in Sources */,
+				BD326F392F4958CE007EE8EC /* RingBuffer.cpp in Sources */,
 				BD326ED42F3C1B9E007EE8EC /* X2TeaEncoder.cpp in Sources */,
+				BD58B08D2F519D890024C670 /* ArenaAllocator.cpp in Sources */,
+				BD58B09C2F56DE1D0024C670 /* ClockTime.cpp in Sources */,
+				BD58B0872F4EF27D0024C670 /* WorkerThread.cpp in Sources */,
 				BD326F2E2F431F39007EE8EC /* MemoryUtilities.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
