@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.36602.28
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RedSoUL", "RedSoUL\RedSoUL.vcxproj", "{0B5BB046-1BD8-4669-854F-72E8DD1D1478}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TEST", "TEST\TEST.vcxproj", "{0CED7623-A1B1-40FF-9DBB-391FF59DFF11}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0B5BB046-1BD8-4669-854F-72E8DD1D1478}.Debug|x64.ActiveCfg = Debug|x64
+		{0B5BB046-1BD8-4669-854F-72E8DD1D1478}.Debug|x64.Build.0 = Debug|x64
+		{0B5BB046-1BD8-4669-854F-72E8DD1D1478}.Release|x64.ActiveCfg = Release|x64
+		{0B5BB046-1BD8-4669-854F-72E8DD1D1478}.Release|x64.Build.0 = Release|x64
+		{0CED7623-A1B1-40FF-9DBB-391FF59DFF11}.Debug|x64.ActiveCfg = Debug|x64
+		{0CED7623-A1B1-40FF-9DBB-391FF59DFF11}.Debug|x64.Build.0 = Debug|x64
+		{0CED7623-A1B1-40FF-9DBB-391FF59DFF11}.Release|x64.ActiveCfg = Release|x64
+		{0CED7623-A1B1-40FF-9DBB-391FF59DFF11}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D5586FA9-8EE5-464B-B04D-296B49BF7B4F}
+	EndGlobalSection
+EndGlobal

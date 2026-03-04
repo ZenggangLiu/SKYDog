@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Case">
+      <UniqueIdentifier>{8e3f21f1-df31-4ce8-9138-3fc2f0cd163f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="External">
+      <UniqueIdentifier>{4a040b83-9ea0-4724-8565-eb80823c4b44}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Case\UT_Config.hpp">
+      <Filter>Case</Filter>
+    </ClInclude>
+    <ClInclude Include="External\Catch\catch_v2.hpp">
+      <Filter>External</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Case\UT_RingBuffer.cpp">
+      <Filter>Case</Filter>
+    </ClCompile>
+    <ClCompile Include="UnitTestMain.cpp" />
+    <ClCompile Include="Case\UT_GameLoop.cpp">
+      <Filter>Case</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Public">
+      <UniqueIdentifier>{db610d61-aee8-4415-bbff-3d1e3e19f131}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Private">
+      <UniqueIdentifier>{00b53c2a-9f40-4916-ae85-e545ad355f84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Public\Assert">
+      <UniqueIdentifier>{aadfef03-f795-4eaf-932c-95a2c0f5a63f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Public\Common">
+      <UniqueIdentifier>{6f838407-50d1-4b13-8656-d0a666ea9d55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Public\Container">
+      <UniqueIdentifier>{32a165f2-f5c6-46a6-85df-c723ef81f6e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Public\DataType">
+      <UniqueIdentifier>{10e8cda8-3910-4366-955e-65ca6bce204f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Public\Encoder">
+      <UniqueIdentifier>{31056bb9-5552-46cb-8451-c167ad46b73a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Public\Math">
+      <UniqueIdentifier>{72f2b5bb-f141-48f7-92dd-f3775322a498}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Public\Memory">
+      <UniqueIdentifier>{df05a51b-fed5-4c9b-83f0-a6a4071c0873}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Public\Runtime">
+      <UniqueIdentifier>{3970997a-79f4-4865-9446-dfd3391082c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Public\Thread">
+      <UniqueIdentifier>{8ef6a199-f29f-4f1b-8e27-1ffce3ae9235}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Public\Time">
+      <UniqueIdentifier>{449cc016-115d-4f72-8073-169d5b2546ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Private\Assert">
+      <UniqueIdentifier>{3c848763-f2f4-4890-9d86-a6060e1d9a89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Private\Container">
+      <UniqueIdentifier>{4b875034-2bb7-4237-8c49-1a416b279fae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Private\Encoder">
+      <UniqueIdentifier>{9f423a1f-ee4f-4a6c-b1c9-c24efbe5e130}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Private\Memory">
+      <UniqueIdentifier>{b4554d0c-e6e1-4cc6-9f2b-07efc3681f3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Private\Runtime">
+      <UniqueIdentifier>{a4b8dafb-0458-4be2-9bfa-28566c07bef7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Private\Thread">
+      <UniqueIdentifier>{998850ae-3c8c-4f81-8990-aa66969634d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Private\Time">
+      <UniqueIdentifier>{0ced4f38-269b-4679-83f1-224c609c8487}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Public\Assert\RuntimeAssert.hpp">
+      <Filter>Public\Assert</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\Common\CommonDefines.hpp">
+      <Filter>Public\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\Common\CompilerDefines.hpp">
+      <Filter>Public\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\Common\PlatformDefines.hpp">
+      <Filter>Public\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\Container\RingBuffer.hpp">
+      <Filter>Public\Container</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\DataType\BuiltInTypes.hpp">
+      <Filter>Public\DataType</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\Encoder\X2TeaEncoder.hpp">
+      <Filter>Public\Encoder</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\Math\MathUtilities.hpp">
+      <Filter>Public\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\Memory\ArenaAllocator.hpp">
+      <Filter>Public\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\Memory\MemoryUtilities.hpp">
+      <Filter>Public\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\Runtime\GameLogic.hpp">
+      <Filter>Public\Runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\Thread\ThreadDefines.hpp">
+      <Filter>Public\Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\Thread\WorkerThread.hpp">
+      <Filter>Public\Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\Time\ClockTime.hpp">
+      <Filter>Public\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="Private\Runtime\GameMainLoop.hpp">
+      <Filter>Private\Runtime</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Private\Assert\RuntimeAssert.cpp">
+      <Filter>Private\Assert</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\Container\RingBuffer.cpp">
+      <Filter>Private\Container</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\Encoder\X2TeaEncoder.cpp">
+      <Filter>Private\Encoder</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\Memory\ArenaAllocator.cpp">
+      <Filter>Private\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\Memory\MemoryUtilities.cpp">
+      <Filter>Private\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\Runtime\GameMainLoop.cpp">
+      <Filter>Private\Runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\Thread\WorkerThread.cpp">
+      <Filter>Private\Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\Time\ClockTime.cpp">
+      <Filter>Private\Time</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

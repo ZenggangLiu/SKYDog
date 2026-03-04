@@ -49,6 +49,12 @@
 		BD58B0992F56DCDC0024C670 /* ClockTime.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B0972F56DCDC0024C670 /* ClockTime.hpp */; };
 		BD58B09C2F56DE1D0024C670 /* ClockTime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD58B09B2F56DE1D0024C670 /* ClockTime.cpp */; };
 		BD58B09D2F56DE1D0024C670 /* ClockTime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD58B09B2F56DE1D0024C670 /* ClockTime.cpp */; };
+		BD58B0A12F582F330024C670 /* GameLogic.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B0A02F582F330024C670 /* GameLogic.hpp */; };
+		BD58B0A22F582F330024C670 /* GameLogic.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B0A02F582F330024C670 /* GameLogic.hpp */; };
+		BD58B0A52F582F480024C670 /* GameMainLoop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD58B0A32F582F480024C670 /* GameMainLoop.cpp */; };
+		BD58B0A62F582F480024C670 /* GameMainLoop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD58B0A32F582F480024C670 /* GameMainLoop.cpp */; };
+		BD58B0A72F582F480024C670 /* GameMainLoop.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B0A42F582F480024C670 /* GameMainLoop.hpp */; };
+		BD58B0A82F582F480024C670 /* GameMainLoop.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B0A42F582F480024C670 /* GameMainLoop.hpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -85,6 +91,9 @@
 		BD58B0932F51A0B00024C670 /* StaticStringId.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = StaticStringId.hpp; path = Public/Text/StaticStringId.hpp; sourceTree = "<group>"; };
 		BD58B0972F56DCDC0024C670 /* ClockTime.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = ClockTime.hpp; path = Public/Time/ClockTime.hpp; sourceTree = "<group>"; };
 		BD58B09B2F56DE1D0024C670 /* ClockTime.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = ClockTime.cpp; path = Private/Time/ClockTime.cpp; sourceTree = "<group>"; };
+		BD58B0A02F582F330024C670 /* GameLogic.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = GameLogic.hpp; path = Public/Runtime/GameLogic.hpp; sourceTree = "<group>"; };
+		BD58B0A32F582F480024C670 /* GameMainLoop.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = GameMainLoop.cpp; path = Private/Runtime/GameMainLoop.cpp; sourceTree = "<group>"; };
+		BD58B0A42F582F480024C670 /* GameMainLoop.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = GameMainLoop.hpp; path = Private/Runtime/GameMainLoop.hpp; sourceTree = "<group>"; };
 		BD86B5FA2F388E1600DD8D2E /* libRedSoUL-macOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libRedSoUL-macOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD86B60E2F39E1FC00DD8D2E /* libRedSoUL-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libRedSoUL-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -230,6 +239,23 @@
 			name = Time;
 			sourceTree = "<group>";
 		};
+		BD58B09E2F582F0F0024C670 /* Runtime */ = {
+			isa = PBXGroup;
+			children = (
+				BD58B0A32F582F480024C670 /* GameMainLoop.cpp */,
+				BD58B0A42F582F480024C670 /* GameMainLoop.hpp */,
+			);
+			name = Runtime;
+			sourceTree = "<group>";
+		};
+		BD58B09F2F582F180024C670 /* Runtime */ = {
+			isa = PBXGroup;
+			children = (
+				BD58B0A02F582F330024C670 /* GameLogic.hpp */,
+			);
+			name = Runtime;
+			sourceTree = "<group>";
+		};
 		BD86B5F12F388E1600DD8D2E = {
 			isa = PBXGroup;
 			children = (
@@ -258,6 +284,7 @@
 				BD326ECE2F3C1930007EE8EC /* Encoder */,
 				BD326EE42F4176F2007EE8EC /* Math */,
 				BD326F282F431C8A007EE8EC /* Memory */,
+				BD58B09F2F582F180024C670 /* Runtime */,
 				BD58B08F2F51A03F0024C670 /* Text */,
 				BD58B0962F56DBA70024C670 /* Time */,
 				BD58B07E2F4DA6920024C670 /* Thread */,
@@ -272,6 +299,7 @@
 				BD326F372F4958BC007EE8EC /* Container */,
 				BD326ED22F3C1B50007EE8EC /* Encoder */,
 				BD326F2C2F431F23007EE8EC /* Memory */,
+				BD58B09E2F582F0F0024C670 /* Runtime */,
 				BD58B09A2F56DE0B0024C670 /* Time */,
 				BD58B0852F4EF2640024C670 /* Thread */,
 			);
@@ -308,7 +336,9 @@
 				BD58B0942F51A0B00024C670 /* StaticStringId.hpp in Headers */,
 				BD326F2A2F431CD5007EE8EC /* MemoryUtilities.hpp in Headers */,
 				BD58B0802F4DA6D40024C670 /* WorkerThread.hpp in Headers */,
+				BD58B0A12F582F330024C670 /* GameLogic.hpp in Headers */,
 				BD326ECC2F3BFC80007EE8EC /* CommonDefines.hpp in Headers */,
+				BD58B0A72F582F480024C670 /* GameMainLoop.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -329,7 +359,9 @@
 				BD58B0952F51A0B00024C670 /* StaticStringId.hpp in Headers */,
 				BD326F2B2F431CD5007EE8EC /* MemoryUtilities.hpp in Headers */,
 				BD58B0812F4DA6D40024C670 /* WorkerThread.hpp in Headers */,
+				BD58B0A22F582F330024C670 /* GameLogic.hpp in Headers */,
 				BD326EC72F3B32F0007EE8EC /* CommonDefines.hpp in Headers */,
+				BD58B0A82F582F480024C670 /* GameMainLoop.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -414,6 +446,7 @@
 			files = (
 				BD326EE32F3C7F9A007EE8EC /* RuntimeAssert.cpp in Sources */,
 				BD326F3A2F4958CE007EE8EC /* RingBuffer.cpp in Sources */,
+				BD58B0A62F582F480024C670 /* GameMainLoop.cpp in Sources */,
 				BD326ED52F3C1B9E007EE8EC /* X2TeaEncoder.cpp in Sources */,
 				BD58B08E2F519D890024C670 /* ArenaAllocator.cpp in Sources */,
 				BD58B09D2F56DE1D0024C670 /* ClockTime.cpp in Sources */,
@@ -428,6 +461,7 @@
 			files = (
 				BD326EE22F3C7F9A007EE8EC /* RuntimeAssert.cpp in Sources */,
 				BD326F392F4958CE007EE8EC /* RingBuffer.cpp in Sources */,
+				BD58B0A52F582F480024C670 /* GameMainLoop.cpp in Sources */,
 				BD326ED42F3C1B9E007EE8EC /* X2TeaEncoder.cpp in Sources */,
 				BD58B08D2F519D890024C670 /* ArenaAllocator.cpp in Sources */,
 				BD58B09C2F56DE1D0024C670 /* ClockTime.cpp in Sources */,

@@ -2,11 +2,14 @@
 
 
 // ********************
-// *      检测配置      *
+// *  == CHECKING ==  *
 // ********************
 //
 /// 通过设置相应的宏为1，来Enable相应的测试
 ///
+/// 检查Game Loop
+#define GAME_LOOP_CHECKING                  1
+
 /// 检查Ring Buffer
 #define RING_BUFFER_CHECKING                1
 /// 检查XXTEA编码
@@ -14,7 +17,7 @@
 
 
 // ********************
-// *   禁止的测试定义    *
+// *  !! DISABLED !!  *
 // ********************
 ///
 #undef MEMORY_HELPER_CHECKING

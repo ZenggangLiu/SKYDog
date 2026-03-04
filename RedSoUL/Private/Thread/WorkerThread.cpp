@@ -1,6 +1,8 @@
 /// System headers
 #include <cstring>           /// std::memcpy
+#if defined(__APPLE__)
 #include <mach/thread_act.h> /// thread_suspend, thread_resume
+#endif
 /// Library headers
 #include "Assert/RuntimeAssert.hpp"
 /// Self header

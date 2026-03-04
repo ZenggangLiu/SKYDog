@@ -19,8 +19,9 @@ ClockTime::mono_time_ms ()
     /// 获取Performance计数器(以)的频率
     static LARGE_INTEGER COUNTER_FREQUENCY{0};
 
-    if (COUNTER_FREQUENCY.QuadPart == 0)
+    if (COUNTER_FREQUENCY.u.LowPart == 0)
     {
+        /// 获得Ticks/每秒
         QueryPerformanceFrequency(&COUNTER_FREQUENCY);
     }
 
@@ -29,7 +30,7 @@ ClockTime::mono_time_ms ()
     QueryPerformanceCounter(&counter_val);
 
     /// 计算当前时间(多少秒)
-    const Double time_in_sec = (Double)counter_val.QuadPart / COUNTER_FREQUENCY.QuadPart;
+    const Float time_in_sec = (Float)((Double)counter_val.QuadPart / COUNTER_FREQUENCY.QuadPart);
 
     /// 讲秒转换为毫秒
     return time_in_sec * 1000;

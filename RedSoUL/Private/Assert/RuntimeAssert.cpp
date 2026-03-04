@@ -8,7 +8,7 @@
 #elif (OS_TYPE == OS_TYPE_LINUX)
 #include <cassert>
 #endif
-#include <cstdio>   /// std::snprintf, std::vsnprintf
+#include <cstdio>   /// std::printf, std::snprintf, std::vsnprintf
 #include <cstring>  /// std::strlen
 #include <stdarg.h> /// va_list
 #include "Assert/RuntimeAssert.hpp"
