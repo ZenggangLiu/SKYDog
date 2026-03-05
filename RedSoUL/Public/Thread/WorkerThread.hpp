@@ -114,7 +114,7 @@ protected:
     /// 线程堆栈长度
     ConstThreadStackSizeT m_stack_size;
 
-    // --- DEBUG模式的辅助信息 --- //
+    // --- DEBUG模式下的辅助信息 --- //
 #if (BUILD_MODE == DEBUG_BUILD_MODE)
     static constexpr UShort MAX_THREAD_NAME_LENGTH = 32;
     /// 线程的状态
@@ -142,4 +142,19 @@ private:
     void
     cleanup (
         const UInt exit_code);
+
+    // --- DEBUG模式下的辅助函数 --- //
+    /// 获得线程名称
+    const ASCII *
+    get_thread_name () const;
+
+    /// 设置线程名称
+    void
+    set_thread_name (
+        const ASCII * const new_name);
+
+    /// 设置线程状态
+    void
+    set_thread_state (
+        const ThreadState new_state);
 };

@@ -139,7 +139,7 @@ GameMainLoop::run_loop ()
         if (m_is_running && (m_skip_draw == false))
         {
             m_game_logic.draw_level();
-            ++m_frame_number;
+            increase_frame_number();
         }
 
         /// 确定是否下个Frame跳帧

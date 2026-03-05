@@ -16,34 +16,14 @@
 typedef void* (*pthread_start_routine) (void*);
 
 
-/// DEBUG模式下设置线程状态
-static
-void
-set_thread_state (
-    const ThreadState   new_state,
-          ThreadState & thread_state)
-{
-#if (BUILD_MODE == DEBUG_BUILD_MODE)
-    thread_state = new_state;
-#endif
-}
-
-
-
 WorkerThread::WorkerThread (
     const ASCII * const   name       /* = "RedSoUL-Worker Thread" */,
     ConstThreadStackSizeT stack_size /* = ThreadStackSize::DEFAULT_THREAD_STACK_SIZE */)
 :
     m_stack_size(stack_size)
 {
-    set_thread_state(ThreadState::CREATED_THREAD_STATE, m_state);
-
-#if (BUILD_MODE == DEBUG_BUILD_MODE)
-    RUNTIME_ASSERT(name, "Thread name can not be NULL pointer!!");
-    RUNTIME_ASSERT(name && std::strlen(name) <= MAX_THREAD_NAME_LENGTH,
-                   "Thread name is too long(maximal %u characters)!!", MAX_THREAD_NAME_LENGTH);
-    std::memcpy(m_name, name, std::strlen(name) + 1);
-#endif
+    set_thread_name(name);
+    set_thread_state(ThreadState::CREATED_THREAD_STATE);
 }
 
 
@@ -73,20 +53,20 @@ WorkerThread::start ()
         {
             /// 启动失败
             RUNTIME_ASSERT(false, "Can not start Windows thread!!");
-            set_thread_state(ThreadState::INVALID_THREAD_STATE, m_state);
+            set_thread_state(ThreadState::INVALID_THREAD_STATE);
             return false;
         }
         else
         {
             /// 设置状态
-            set_thread_state(ThreadState::STARTED_THREAD_STATE, m_state);
+            set_thread_state(ThreadState::STARTED_THREAD_STATE);
             return true;
         }
     }
     else
     {
         RUNTIME_ASSERT(false, "Can not create Windows thread!!");
-        set_thread_state(ThreadState::INVALID_THREAD_STATE, m_state);
+        set_thread_state(ThreadState::INVALID_THREAD_STATE);
         return false;
     }
 
@@ -110,11 +90,11 @@ WorkerThread::start ()
     if (is_failed)
     {
         RUNTIME_ASSERT(false, "Can not create pthread!!");
-        set_thread_state(ThreadState::INVALID_THREAD_STATE, m_state);
+        set_thread_state(ThreadState::INVALID_THREAD_STATE);
     }
     else
     {
-        set_thread_state(ThreadState::STARTED_THREAD_STATE, m_state);
+        set_thread_state(ThreadState::STARTED_THREAD_STATE);
     }
 
     /// 释放attribute set
@@ -136,7 +116,7 @@ WorkerThread::suspend ()
     /// NOTE：在返回前，将暂停线程的运行
     if (SuspendThread(m_handle) != (DWORD)(-1))
     {
-        set_thread_state(ThreadState::SUSPENDED_THREAD_STATE, m_state);
+        set_thread_state(ThreadState::SUSPENDED_THREAD_STATE);
     }
 
 #elif defined(__APPLE__) /// macOS, iOS
@@ -144,7 +124,7 @@ WorkerThread::suspend ()
     const mach_port_t apple_thread = pthread_mach_thread_np(m_handle);
     if (thread_suspend(apple_thread) == KERN_SUCCESS)
     {
-        set_thread_state(ThreadState::SUSPENDED_THREAD_STATE, m_state);
+        set_thread_state(ThreadState::SUSPENDED_THREAD_STATE);
     }
 
 #else /// Linux
@@ -164,7 +144,7 @@ WorkerThread::resume ()
     /// NOTE：ResumeThread()在返回之前，将运行挂起的线程
     if (ResumeThread(m_handle) != (DWORD)(-1))
     {
-        set_thread_state(ThreadState::RUNNING_THREAD_STATE, m_state);
+        set_thread_state(ThreadState::RUNNING_THREAD_STATE);
     }
 
 #elif defined(__APPLE__) /// macOS, iOS
@@ -172,7 +152,7 @@ WorkerThread::resume ()
     const mach_port_t apple_thread = pthread_mach_thread_np(m_handle);
     if (thread_resume(apple_thread) == KERN_SUCCESS)
     {
-        set_thread_state(ThreadState::RUNNING_THREAD_STATE, m_state);
+        set_thread_state(ThreadState::RUNNING_THREAD_STATE);
     }
 
 #else /// Linux
@@ -230,7 +210,7 @@ WorkerThread::ThreadProc (
 
         THREADNAME_INFO thread_name_info;
         thread_name_info.dwType = 0x1000;
-        thread_name_info.szName = (const LPCSTR)SELF->m_name;
+        thread_name_info.szName = (const LPCSTR)SELF->get_thread_name();
         thread_name_info.dwThreadID = -1; /// -1表示当前线程
         thread_name_info.dwFlags    = 0;
         __try
@@ -244,17 +224,17 @@ WorkerThread::ThreadProc (
         {}
 
 #else /// macOS, iOS, Linux
-    pthread_setname_np(SELF->m_name);
+    pthread_setname_np(SELF->get_thread_name());
 #endif /// (OS_TYPE == OS_TYPE_WIN)
 #endif /// (BUILD_MODE == DEBUG_BUILD_MODE)
 
-    set_thread_state(ThreadState::RUNNING_THREAD_STATE, SELF->m_state);
+    SELF->set_thread_state(ThreadState::RUNNING_THREAD_STATE);
 
     /// 调用RunLoop
     const UInt exit_code = SELF->run_loop();
 
     /// RunLoop调用结束，清理资源
-    set_thread_state(ThreadState::TERMINATING_THREAD_STATE, SELF->m_state);
+    SELF->set_thread_state(ThreadState::TERMINATING_THREAD_STATE);
 
     SELF->cleanup(exit_code);
 
@@ -275,7 +255,7 @@ WorkerThread::cleanup (
     /// 清除缓存的句柄
     m_handle = (HANDLE)-1;
     /// 标记状态
-    set_thread_state(ThreadState::DEAD_THREAD_STATE, m_state);
+    set_thread_state(ThreadState::DEAD_THREAD_STATE);
     /// 清理线程的资源(如果此线程已经退出)
     /// NOTE：如果线程正在忙碌，此函数将Blocking
     ExitThread(exit_code);
@@ -284,9 +264,43 @@ WorkerThread::cleanup (
     /// 清除缓存的句柄
     m_handle = (pthread_t)-1;
     /// 标记状态
-    set_thread_state(ThreadState::DEAD_THREAD_STATE, m_state);
+    set_thread_state(ThreadState::DEAD_THREAD_STATE);
     /// 清理线程的资源(如果此线程已经退出)
     /// NOTE：如果线程正在忙碌，此函数将Blocking
     pthread_exit((void*)(ULong)exit_code); /// 强行将UInt整数作为void*指针返回
 #endif /// (OS_TYPE == OS_TYPE_WIN)
+}
+
+
+const ASCII *
+WorkerThread::get_thread_name () const
+{
+#if (BUILD_MODE == DEBUG_BUILD_MODE)
+    return m_name;
+#else
+    return "";
+#endif
+}
+
+
+void
+WorkerThread::set_thread_name (
+    const ASCII * const new_name)
+{
+#if (BUILD_MODE == DEBUG_BUILD_MODE)
+    RUNTIME_ASSERT(new_name, "Thread name can not be NULL pointer!!");
+    RUNTIME_ASSERT(new_name && std::strlen(new_name) <= MAX_THREAD_NAME_LENGTH,
+                   "Thread name is too long(maximal %u characters)!!", MAX_THREAD_NAME_LENGTH);
+    std::memcpy(m_name, new_name, std::strlen(new_name) + 1);
+#endif
+}
+
+
+void
+WorkerThread::set_thread_state (
+    const ThreadState new_state)
+{
+#if (BUILD_MODE == DEBUG_BUILD_MODE)
+    m_state = new_state;
+#endif
 }
