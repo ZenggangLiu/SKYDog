@@ -1,4 +1,4 @@
-#include "Common/PlatformDefines.hpp"
+#include "Common/PlatformDefines.hpp" /// OS_TYPE 
 #if (OS_TYPE == OS_TYPE_WIN)
 /// 禁止Windows.h包含winsock.h, 因为我们使用winsock2.h
     #define _WINSOCKAPI_

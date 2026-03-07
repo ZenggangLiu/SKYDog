@@ -28,9 +28,23 @@
 #pragma once
 
 
-#include "DataType/BuiltInTypes.hpp"
+#include "Common/PlatformDefines.hpp" /// OS_TYPE
+#include "DataType/BuiltInTypes.hpp"  /// uint32_t, uint64_t
 
 
-typedef UInt StaticStringIdT;
+#if !defined(RUNTIME_STRING_HASH)
+    /// 定义RUNTIME_STRING_HASH()/STATIC_STRING_HASH()来计算字符串的Hash值
+    #if (OS_TYPE == OS_TYPE_IOS) || (OS_TYPE == OS_TYPE_TVOS) /// iOS我们使用32位String Id
+        #define RUNTIME_STRING_HASH(seed, string) RUNTIME_STRING_HASH_32(seed, string)
+        #define STATIC_STRING_HASH(seed,  string) STATIC_STRING_HASH_32(seed,  string)
+        typedef uint32_t StaticStringIdT;
 
-#define INVALID_STATIC_STRING_ID ((StaticStringIdT)(-1))
+    #else /// macOS, Linux, Windows我们使用64位String Id
+        #define RUNTIME_STRING_HASH(seed, string) RUNTIME_STRING_HASH_64(seed, string)
+        #define STATIC_STRING_HASH(seed,  string) STATIC_STRING_HASH_64(seed,  string)
+        typedef uint64_t StaticStringIdT;
+    #endif /// (OS_TYPE == OS_TYPE_IOS) || (OS_TYPE == OS_TYPE_TVOS)
+
+    #define INVALID_STATIC_STRING_ID ((StaticStringIdT)(-1))
+#endif /// !defined(RUNTIME_STRING_HASH)
+

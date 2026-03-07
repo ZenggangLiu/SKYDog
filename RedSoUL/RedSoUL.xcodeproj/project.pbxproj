@@ -43,8 +43,6 @@
 		BD58B08B2F519C4A0024C670 /* ArenaAllocator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B0892F519C4A0024C670 /* ArenaAllocator.hpp */; };
 		BD58B08D2F519D890024C670 /* ArenaAllocator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD58B08C2F519D890024C670 /* ArenaAllocator.cpp */; };
 		BD58B08E2F519D890024C670 /* ArenaAllocator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD58B08C2F519D890024C670 /* ArenaAllocator.cpp */; };
-		BD58B0942F51A0B00024C670 /* StaticStringId.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B0932F51A0B00024C670 /* StaticStringId.hpp */; };
-		BD58B0952F51A0B00024C670 /* StaticStringId.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B0932F51A0B00024C670 /* StaticStringId.hpp */; };
 		BD58B0982F56DCDC0024C670 /* ClockTime.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B0972F56DCDC0024C670 /* ClockTime.hpp */; };
 		BD58B0992F56DCDC0024C670 /* ClockTime.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B0972F56DCDC0024C670 /* ClockTime.hpp */; };
 		BD58B09C2F56DE1D0024C670 /* ClockTime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD58B09B2F56DE1D0024C670 /* ClockTime.cpp */; };
@@ -55,14 +53,30 @@
 		BD58B0A62F582F480024C670 /* GameMainLoop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD58B0A32F582F480024C670 /* GameMainLoop.cpp */; };
 		BD58B0A72F582F480024C670 /* GameMainLoop.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B0A42F582F480024C670 /* GameMainLoop.hpp */; };
 		BD58B0A82F582F480024C670 /* GameMainLoop.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B0A42F582F480024C670 /* GameMainLoop.hpp */; };
-		BD58B0AC2F58EF1B0024C670 /* StaticString.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B0AB2F58EF1B0024C670 /* StaticString.hpp */; };
-		BD58B0AD2F58EF1B0024C670 /* StaticString.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B0AB2F58EF1B0024C670 /* StaticString.hpp */; };
-		BD58B0B02F58EF960024C670 /* StaticStringDepot.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B0AF2F58EF960024C670 /* StaticStringDepot.hpp */; };
-		BD58B0B12F58EF960024C670 /* StaticStringDepot.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B0AF2F58EF960024C670 /* StaticStringDepot.hpp */; };
-		BD58B0B42F58EFE70024C670 /* StaticString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD58B0B22F58EFE70024C670 /* StaticString.cpp */; };
-		BD58B0B52F58EFE70024C670 /* StaticString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD58B0B22F58EFE70024C670 /* StaticString.cpp */; };
-		BD58B0B62F58EFE70024C670 /* StaticStringDepot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD58B0B32F58EFE70024C670 /* StaticStringDepot.cpp */; };
-		BD58B0B72F58EFE70024C670 /* StaticStringDepot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD58B0B32F58EFE70024C670 /* StaticStringDepot.cpp */; };
+		BD58B0BE2F5974630024C670 /* RuntimeHash.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B0BD2F5974630024C670 /* RuntimeHash.hpp */; };
+		BD58B0BF2F5974630024C670 /* RuntimeHash.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B0BD2F5974630024C670 /* RuntimeHash.hpp */; };
+		BD58B0CA2F5AD4BF0024C670 /* StaticStringId.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B0C92F5AD4BF0024C670 /* StaticStringId.hpp */; };
+		BD58B0CB2F5AD4BF0024C670 /* StaticStringId.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B0C92F5AD4BF0024C670 /* StaticStringId.hpp */; };
+		BD58B0CE2F5B93B90024C670 /* StaticXXHash64.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B0CC2F5B93B90024C670 /* StaticXXHash64.hpp */; };
+		BD58B0CF2F5B93B90024C670 /* StaticXXHash64.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B0CC2F5B93B90024C670 /* StaticXXHash64.hpp */; };
+		BD58B0D02F5B93B90024C670 /* StaticXXHash32.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B0CD2F5B93B90024C670 /* StaticXXHash32.hpp */; };
+		BD58B0D12F5B93B90024C670 /* StaticXXHash32.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B0CD2F5B93B90024C670 /* StaticXXHash32.hpp */; };
+		BD58B0D32F5B93F30024C670 /* StaticHash.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B0D22F5B93F30024C670 /* StaticHash.hpp */; };
+		BD58B0D42F5B93F30024C670 /* StaticHash.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B0D22F5B93F30024C670 /* StaticHash.hpp */; };
+		BD58B0D72F5B97750024C670 /* RuntimeXXHash32.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B0D52F5B97750024C670 /* RuntimeXXHash32.hpp */; };
+		BD58B0D82F5B97750024C670 /* RuntimeXXHash32.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B0D52F5B97750024C670 /* RuntimeXXHash32.hpp */; };
+		BD58B0D92F5B97750024C670 /* RuntimeXXHash64.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B0D62F5B97750024C670 /* RuntimeXXHash64.hpp */; };
+		BD58B0DA2F5B97750024C670 /* RuntimeXXHash64.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B0D62F5B97750024C670 /* RuntimeXXHash64.hpp */; };
+		BD58B0DC2F5B97BA0024C670 /* RuntimeHash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD58B0DB2F5B97BA0024C670 /* RuntimeHash.cpp */; };
+		BD58B0DD2F5B97BA0024C670 /* RuntimeHash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD58B0DB2F5B97BA0024C670 /* RuntimeHash.cpp */; };
+		BD58B0E12F5B9C930024C670 /* StaticString.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B0E02F5B9C930024C670 /* StaticString.hpp */; };
+		BD58B0E22F5B9C930024C670 /* StaticString.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B0E02F5B9C930024C670 /* StaticString.hpp */; };
+		BD58B0EB2F5BA1790024C670 /* StaticStringDepot.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B0E92F5BA1790024C670 /* StaticStringDepot.hpp */; };
+		BD58B0EC2F5BA1790024C670 /* StaticStringDepot.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B0E92F5BA1790024C670 /* StaticStringDepot.hpp */; };
+		BD58B0ED2F5BA1790024C670 /* StaticStringDepot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD58B0EA2F5BA1790024C670 /* StaticStringDepot.cpp */; };
+		BD58B0EE2F5BA1790024C670 /* StaticStringDepot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD58B0EA2F5BA1790024C670 /* StaticStringDepot.cpp */; };
+		BD58B0F02F5BB84C0024C670 /* StaticString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD58B0EF2F5BB84C0024C670 /* StaticString.cpp */; };
+		BD58B0F12F5BB84C0024C670 /* StaticString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD58B0EF2F5BB84C0024C670 /* StaticString.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -96,16 +110,23 @@
 		BD58B0862F4EF27D0024C670 /* WorkerThread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = WorkerThread.cpp; path = Private/Thread/WorkerThread.cpp; sourceTree = "<group>"; };
 		BD58B0892F519C4A0024C670 /* ArenaAllocator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = ArenaAllocator.hpp; path = Public/Memory/ArenaAllocator.hpp; sourceTree = "<group>"; };
 		BD58B08C2F519D890024C670 /* ArenaAllocator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = ArenaAllocator.cpp; path = Private/Memory/ArenaAllocator.cpp; sourceTree = "<group>"; };
-		BD58B0932F51A0B00024C670 /* StaticStringId.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = StaticStringId.hpp; path = Public/Text/StaticStringId.hpp; sourceTree = "<group>"; };
 		BD58B0972F56DCDC0024C670 /* ClockTime.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = ClockTime.hpp; path = Public/Time/ClockTime.hpp; sourceTree = "<group>"; };
 		BD58B09B2F56DE1D0024C670 /* ClockTime.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = ClockTime.cpp; path = Private/Time/ClockTime.cpp; sourceTree = "<group>"; };
 		BD58B0A02F582F330024C670 /* GameLogic.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = GameLogic.hpp; path = Public/Runtime/GameLogic.hpp; sourceTree = "<group>"; };
 		BD58B0A32F582F480024C670 /* GameMainLoop.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = GameMainLoop.cpp; path = Private/Runtime/GameMainLoop.cpp; sourceTree = "<group>"; };
 		BD58B0A42F582F480024C670 /* GameMainLoop.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = GameMainLoop.hpp; path = Private/Runtime/GameMainLoop.hpp; sourceTree = "<group>"; };
-		BD58B0AB2F58EF1B0024C670 /* StaticString.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = StaticString.hpp; path = Public/Text/StaticString.hpp; sourceTree = "<group>"; };
-		BD58B0AF2F58EF960024C670 /* StaticStringDepot.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = StaticStringDepot.hpp; path = Private/Text/StaticStringDepot.hpp; sourceTree = "<group>"; };
-		BD58B0B22F58EFE70024C670 /* StaticString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = StaticString.cpp; path = Private/Text/StaticString.cpp; sourceTree = "<group>"; };
-		BD58B0B32F58EFE70024C670 /* StaticStringDepot.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = StaticStringDepot.cpp; path = Private/Text/StaticStringDepot.cpp; sourceTree = "<group>"; };
+		BD58B0BD2F5974630024C670 /* RuntimeHash.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = RuntimeHash.hpp; path = Public/Hashing/RuntimeHash.hpp; sourceTree = "<group>"; };
+		BD58B0C92F5AD4BF0024C670 /* StaticStringId.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = StaticStringId.hpp; path = Public/Text/StaticStringId.hpp; sourceTree = "<group>"; };
+		BD58B0CC2F5B93B90024C670 /* StaticXXHash64.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = StaticXXHash64.hpp; path = Public/Hashing/StaticXXHash64.hpp; sourceTree = "<group>"; };
+		BD58B0CD2F5B93B90024C670 /* StaticXXHash32.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = StaticXXHash32.hpp; path = Public/Hashing/StaticXXHash32.hpp; sourceTree = "<group>"; };
+		BD58B0D22F5B93F30024C670 /* StaticHash.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = StaticHash.hpp; path = Public/Hashing/StaticHash.hpp; sourceTree = "<group>"; };
+		BD58B0D52F5B97750024C670 /* RuntimeXXHash32.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = RuntimeXXHash32.hpp; path = Private/Hashing/RuntimeXXHash32.hpp; sourceTree = "<group>"; };
+		BD58B0D62F5B97750024C670 /* RuntimeXXHash64.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = RuntimeXXHash64.hpp; path = Private/Hashing/RuntimeXXHash64.hpp; sourceTree = "<group>"; };
+		BD58B0DB2F5B97BA0024C670 /* RuntimeHash.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = RuntimeHash.cpp; path = Private/Hashing/RuntimeHash.cpp; sourceTree = "<group>"; };
+		BD58B0E02F5B9C930024C670 /* StaticString.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = StaticString.hpp; path = Public/Text/StaticString.hpp; sourceTree = "<group>"; };
+		BD58B0E92F5BA1790024C670 /* StaticStringDepot.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = StaticStringDepot.hpp; path = Private/Text/StaticStringDepot.hpp; sourceTree = "<group>"; };
+		BD58B0EA2F5BA1790024C670 /* StaticStringDepot.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = StaticStringDepot.cpp; path = Private/Text/StaticStringDepot.cpp; sourceTree = "<group>"; };
+		BD58B0EF2F5BB84C0024C670 /* StaticString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = StaticString.cpp; path = Private/Text/StaticString.cpp; sourceTree = "<group>"; };
 		BD86B5FA2F388E1600DD8D2E /* libRedSoUL-macOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libRedSoUL-macOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD86B60E2F39E1FC00DD8D2E /* libRedSoUL-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libRedSoUL-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -230,8 +251,8 @@
 		BD58B08F2F51A03F0024C670 /* Text */ = {
 			isa = PBXGroup;
 			children = (
-				BD58B0AB2F58EF1B0024C670 /* StaticString.hpp */,
-				BD58B0932F51A0B00024C670 /* StaticStringId.hpp */,
+				BD58B0E02F5B9C930024C670 /* StaticString.hpp */,
+				BD58B0C92F5AD4BF0024C670 /* StaticStringId.hpp */,
 			);
 			name = Text;
 			sourceTree = "<group>";
@@ -272,11 +293,32 @@
 		BD58B0AE2F58EF5C0024C670 /* Text */ = {
 			isa = PBXGroup;
 			children = (
-				BD58B0B22F58EFE70024C670 /* StaticString.cpp */,
-				BD58B0B32F58EFE70024C670 /* StaticStringDepot.cpp */,
-				BD58B0AF2F58EF960024C670 /* StaticStringDepot.hpp */,
+				BD58B0EF2F5BB84C0024C670 /* StaticString.cpp */,
+				BD58B0EA2F5BA1790024C670 /* StaticStringDepot.cpp */,
+				BD58B0E92F5BA1790024C670 /* StaticStringDepot.hpp */,
 			);
 			name = Text;
+			sourceTree = "<group>";
+		};
+		BD58B0B82F5973A10024C670 /* Hashing */ = {
+			isa = PBXGroup;
+			children = (
+				BD58B0DB2F5B97BA0024C670 /* RuntimeHash.cpp */,
+				BD58B0D52F5B97750024C670 /* RuntimeXXHash32.hpp */,
+				BD58B0D62F5B97750024C670 /* RuntimeXXHash64.hpp */,
+			);
+			name = Hashing;
+			sourceTree = "<group>";
+		};
+		BD58B0B92F5973B00024C670 /* Hashing */ = {
+			isa = PBXGroup;
+			children = (
+				BD58B0BD2F5974630024C670 /* RuntimeHash.hpp */,
+				BD58B0D22F5B93F30024C670 /* StaticHash.hpp */,
+				BD58B0CD2F5B93B90024C670 /* StaticXXHash32.hpp */,
+				BD58B0CC2F5B93B90024C670 /* StaticXXHash64.hpp */,
+			);
+			name = Hashing;
 			sourceTree = "<group>";
 		};
 		BD86B5F12F388E1600DD8D2E = {
@@ -305,6 +347,7 @@
 				BD326F302F495402007EE8EC /* Container */,
 				BD326EC82F3BEF2B007EE8EC /* DataType */,
 				BD326ECE2F3C1930007EE8EC /* Encoder */,
+				BD58B0B92F5973B00024C670 /* Hashing */,
 				BD326EE42F4176F2007EE8EC /* Math */,
 				BD326F282F431C8A007EE8EC /* Memory */,
 				BD58B09F2F582F180024C670 /* Runtime */,
@@ -321,6 +364,7 @@
 				BD326EE02F3C7DF7007EE8EC /* Assert */,
 				BD326F372F4958BC007EE8EC /* Container */,
 				BD326ED22F3C1B50007EE8EC /* Encoder */,
+				BD58B0B82F5973A10024C670 /* Hashing */,
 				BD326F2C2F431F23007EE8EC /* Memory */,
 				BD58B09E2F582F0F0024C670 /* Runtime */,
 				BD58B0AE2F58EF5C0024C670 /* Text */,
@@ -347,24 +391,30 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BD58B0B02F58EF960024C670 /* StaticStringDepot.hpp in Headers */,
 				BD326EDE2F3C40A5007EE8EC /* PlatformDefines.hpp in Headers */,
+				BD58B0D02F5B93B90024C670 /* StaticXXHash32.hpp in Headers */,
+				BD58B0CE2F5B93B90024C670 /* StaticXXHash64.hpp in Headers */,
+				BD58B0D72F5B97750024C670 /* RuntimeXXHash32.hpp in Headers */,
 				BD326ED02F3C19E6007EE8EC /* X2TeaEncoder.hpp in Headers */,
 				BD326EE62F41773A007EE8EC /* MathUtilities.hpp in Headers */,
+				BD58B0EB2F5BA1790024C670 /* StaticStringDepot.hpp in Headers */,
 				BD326ED82F3C24A5007EE8EC /* RuntimeAssert.hpp in Headers */,
 				BD58B08A2F519C4A0024C670 /* ArenaAllocator.hpp in Headers */,
 				BD326EDB2F3C2625007EE8EC /* CompilerDefines.hpp in Headers */,
+				BD58B0CA2F5AD4BF0024C670 /* StaticStringId.hpp in Headers */,
 				BD326ECD2F3BFC8B007EE8EC /* BuiltInTypes.hpp in Headers */,
 				BD58B0832F4EECE10024C670 /* ThreadDefines.hpp in Headers */,
 				BD58B0982F56DCDC0024C670 /* ClockTime.hpp in Headers */,
+				BD58B0D92F5B97750024C670 /* RuntimeXXHash64.hpp in Headers */,
+				BD58B0D32F5B93F30024C670 /* StaticHash.hpp in Headers */,
 				BD326F322F495429007EE8EC /* RingBuffer.hpp in Headers */,
-				BD58B0AC2F58EF1B0024C670 /* StaticString.hpp in Headers */,
-				BD58B0942F51A0B00024C670 /* StaticStringId.hpp in Headers */,
 				BD326F2A2F431CD5007EE8EC /* MemoryUtilities.hpp in Headers */,
 				BD58B0802F4DA6D40024C670 /* WorkerThread.hpp in Headers */,
 				BD58B0A12F582F330024C670 /* GameLogic.hpp in Headers */,
+				BD58B0BE2F5974630024C670 /* RuntimeHash.hpp in Headers */,
 				BD326ECC2F3BFC80007EE8EC /* CommonDefines.hpp in Headers */,
 				BD58B0A72F582F480024C670 /* GameMainLoop.hpp in Headers */,
+				BD58B0E12F5B9C930024C670 /* StaticString.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -372,24 +422,30 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BD58B0B12F58EF960024C670 /* StaticStringDepot.hpp in Headers */,
 				BD326EDF2F3C40A5007EE8EC /* PlatformDefines.hpp in Headers */,
+				BD58B0D12F5B93B90024C670 /* StaticXXHash32.hpp in Headers */,
+				BD58B0CF2F5B93B90024C670 /* StaticXXHash64.hpp in Headers */,
+				BD58B0D82F5B97750024C670 /* RuntimeXXHash32.hpp in Headers */,
 				BD326ED12F3C19E6007EE8EC /* X2TeaEncoder.hpp in Headers */,
 				BD326EE72F41773B007EE8EC /* MathUtilities.hpp in Headers */,
+				BD58B0EC2F5BA1790024C670 /* StaticStringDepot.hpp in Headers */,
 				BD326ED92F3C24A5007EE8EC /* RuntimeAssert.hpp in Headers */,
 				BD58B08B2F519C4A0024C670 /* ArenaAllocator.hpp in Headers */,
 				BD326EDC2F3C2625007EE8EC /* CompilerDefines.hpp in Headers */,
+				BD58B0CB2F5AD4BF0024C670 /* StaticStringId.hpp in Headers */,
 				BD326ECA2F3BF39B007EE8EC /* BuiltInTypes.hpp in Headers */,
 				BD58B0842F4EECE10024C670 /* ThreadDefines.hpp in Headers */,
 				BD58B0992F56DCDC0024C670 /* ClockTime.hpp in Headers */,
+				BD58B0DA2F5B97750024C670 /* RuntimeXXHash64.hpp in Headers */,
+				BD58B0D42F5B93F30024C670 /* StaticHash.hpp in Headers */,
 				BD326F332F495429007EE8EC /* RingBuffer.hpp in Headers */,
-				BD58B0AD2F58EF1B0024C670 /* StaticString.hpp in Headers */,
-				BD58B0952F51A0B00024C670 /* StaticStringId.hpp in Headers */,
 				BD326F2B2F431CD5007EE8EC /* MemoryUtilities.hpp in Headers */,
 				BD58B0812F4DA6D40024C670 /* WorkerThread.hpp in Headers */,
 				BD58B0A22F582F330024C670 /* GameLogic.hpp in Headers */,
+				BD58B0BF2F5974630024C670 /* RuntimeHash.hpp in Headers */,
 				BD326EC72F3B32F0007EE8EC /* CommonDefines.hpp in Headers */,
 				BD58B0A82F582F480024C670 /* GameMainLoop.hpp in Headers */,
+				BD58B0E22F5B9C930024C670 /* StaticString.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -475,13 +531,14 @@
 				BD326EE32F3C7F9A007EE8EC /* RuntimeAssert.cpp in Sources */,
 				BD326F3A2F4958CE007EE8EC /* RingBuffer.cpp in Sources */,
 				BD58B0A62F582F480024C670 /* GameMainLoop.cpp in Sources */,
+				BD58B0DD2F5B97BA0024C670 /* RuntimeHash.cpp in Sources */,
 				BD326ED52F3C1B9E007EE8EC /* X2TeaEncoder.cpp in Sources */,
 				BD58B08E2F519D890024C670 /* ArenaAllocator.cpp in Sources */,
 				BD58B09D2F56DE1D0024C670 /* ClockTime.cpp in Sources */,
 				BD58B0882F4EF27D0024C670 /* WorkerThread.cpp in Sources */,
 				BD326F2F2F431F39007EE8EC /* MemoryUtilities.cpp in Sources */,
-				BD58B0B52F58EFE70024C670 /* StaticString.cpp in Sources */,
-				BD58B0B72F58EFE70024C670 /* StaticStringDepot.cpp in Sources */,
+				BD58B0EE2F5BA1790024C670 /* StaticStringDepot.cpp in Sources */,
+				BD58B0F12F5BB84C0024C670 /* StaticString.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -492,13 +549,14 @@
 				BD326EE22F3C7F9A007EE8EC /* RuntimeAssert.cpp in Sources */,
 				BD326F392F4958CE007EE8EC /* RingBuffer.cpp in Sources */,
 				BD58B0A52F582F480024C670 /* GameMainLoop.cpp in Sources */,
+				BD58B0DC2F5B97BA0024C670 /* RuntimeHash.cpp in Sources */,
 				BD326ED42F3C1B9E007EE8EC /* X2TeaEncoder.cpp in Sources */,
 				BD58B08D2F519D890024C670 /* ArenaAllocator.cpp in Sources */,
 				BD58B09C2F56DE1D0024C670 /* ClockTime.cpp in Sources */,
 				BD58B0872F4EF27D0024C670 /* WorkerThread.cpp in Sources */,
 				BD326F2E2F431F39007EE8EC /* MemoryUtilities.cpp in Sources */,
-				BD58B0B42F58EFE70024C670 /* StaticString.cpp in Sources */,
-				BD58B0B62F58EFE70024C670 /* StaticStringDepot.cpp in Sources */,
+				BD58B0ED2F5BA1790024C670 /* StaticStringDepot.cpp in Sources */,
+				BD58B0F02F5BB84C0024C670 /* StaticString.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

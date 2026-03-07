@@ -1,76 +1,97 @@
-#include "assert/runtime-assert.h"
-#include "text/static-string-depot.h"
-#include "text/static-string.h"
+/// Library headers
+#include "Assert/RuntimeAssert.hpp" /// RUNTIME_ASSERT
+#include "Text/StaticStringDepot.hpp"
+/// Self header
+#include "Text/StaticString.hpp"
 
 
-StaticStringIdT StaticString::getEmptyStringId()
+StaticStringIdT
+StaticString::get_empty_string_id ()
 {
-    return StaticStringDepot::ref().getEmptyStringId();
+    return StaticStringDepot::ref().get_empty_string_id();
 }
 
 
-StaticString::StaticString()
+StaticString::StaticString ()
 :
-    mStringId(getEmptyStringId())
+    m_string_id(get_empty_string_id())
 #if (BUILD_MODE == DEBUG_BUILD_MODE)
-    ,mStoredString(data())
-#endif
-{
-    static_assert(sizeof(StaticString::mStringId) == sizeof(StringKeyTypeT), "");
-}
-
-
-StaticString::StaticString(
-    const StaticStringIdT id)
-:
-    mStringId(id)
-#if (BUILD_MODE == DEBUG_BUILD_MODE)
-    , mStoredString(data())
-#endif
-{
-    RUNTIME_ASSERT(id != INVALID_STATIC_STRING_ID, "Invalid string Id!!");
-}
-
-
-StaticString::StaticString(
-    const char* const string)
-:
-    mStringId({ StaticStringDepot::ref().cacheString(string) })
-#if (BUILD_MODE == DEBUG_BUILD_MODE)
-    , mStoredString(data())
+   ,m_cached_string(data())
 #endif
 {
 
 }
 
 
-StaticStringIdT StaticString::id() const
+StaticString::StaticString (
+    const StaticStringIdT string_id)
+:
+    m_string_id(string_id)
+#if (BUILD_MODE == DEBUG_BUILD_MODE)
+   ,m_cached_string(data())
+#endif
 {
-    return mStringId;
+    RUNTIME_ASSERT(string_id != INVALID_STATIC_STRING_ID, "Invalid string Id!!");
+    RUNTIME_ASSERT(StaticStringDepot::ref().is_cached_string_id(string_id),
+                   "No an Id of any cached string. please cache the string at first!!");
 }
 
 
-uint16_t StaticString::length() const
+StaticString::StaticString (
+    const char * const ascii_text)
+:
+    m_string_id(StaticStringDepot::ref().cache_string(ascii_text))
+#if (BUILD_MODE == DEBUG_BUILD_MODE)
+   ,m_cached_string(data())
+#endif
 {
-    return StaticStringDepot::ref().length(mStringId.key);
+
 }
 
 
-const char* StaticString::data() const
+StaticString::StaticString (
+    const uint8_t * const utf8_text)
+:
+    m_string_id(StaticStringDepot::ref().cache_string(utf8_text))
+#if (BUILD_MODE == DEBUG_BUILD_MODE)
+   ,m_cached_string(data())
+#endif
 {
-    return StaticStringDepot::ref().data(mStringId.key);
+
 }
 
 
-bool StaticString::operator==(
+StaticStringIdT
+StaticString::id () const
+{
+    return m_string_id;
+}
+
+
+uint16_t
+StaticString::length () const
+{
+    return StaticStringDepot::ref().length(m_string_id);
+}
+
+
+const uint8_t *
+StaticString::data() const
+{
+    return StaticStringDepot::ref().data(m_string_id);
+}
+
+
+bool
+StaticString::operator== (
     const StaticString other) const
 {
-    return mStringId == other.mStringId;
+    return m_string_id == other.m_string_id;
 }
 
 
-bool StaticString::operator!=(
+bool StaticString::operator!= (
     const StaticString other) const
 {
-    return mStringId != other.mStringId;
+    return m_string_id != other.m_string_id;
 }

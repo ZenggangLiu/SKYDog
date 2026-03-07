@@ -1,96 +1,132 @@
-#include <cstring>
-#include "assert/runtime-assert.h"
-#include "common/common-defines.h"
-#include "hash/runtime-hash.h"
-#include "hash/static-hash.h"
-#include "mathe/mathe-helper.h"
-#include "memory/memory-helper.h"
-#include "text/static-string-depot.h"
+/// System headers
+#include <cstdio>  /// std::printf
+#include <cstring> /// std::memcpy, std::strlen
+/// Library headers
+#include "Assert/RuntimeAssert.hpp"   /// RUNTIME_ASSERT
+#include "Common/CommonDefines.hpp"   /// FOUR_CC
+#include "Hashing/RuntimeHash.hpp"    /// RUNTIME_STRING_HASH
+#include "Hashing/StaticHash.hpp"     /// STATIC_STRING_HASH
+#include "Math/MathUtilities.hpp"     /// multiple_of()
+#include "Memory/MemoryUtilities.hpp" /// page_size()
+/// Self header
+#include "Text/StaticStringDepot.hpp"
 
 
-static StaticStringIdT EMPTY_STRING_ID = StaticStringIdT{ STATIC_HASH(STATIC_STRING_SEED, "") };
+/// 所有Static String Hash时候使用的SEED
+#define STATIC_STRING_SEED FOUR_CC('S', 'T', 'X', 'T')
 
 
-StaticStringDepot & StaticStringDepot::ref()
+/// 空字符的Id
+static StaticStringIdT EMPTY_STRING_ID = StaticStringIdT{ STATIC_STRING_HASH(STATIC_STRING_SEED, "") };
+
+
+StaticStringDepot &
+StaticStringDepot::ref ()
 {
     static StaticStringDepot s_instance;
     return s_instance;
 }
 
 
-void StaticStringDepot::stats() const
+void
+StaticStringDepot::memory_usage () const
 {
 #if (PROFILING_MODE == 1)
-    std::printf("<<static string depot>>: used %.2fmb memory\n", std::get<0>(mAllocator.memoryStats()) / 1024);
+    std::printf("<<static string depot>>: used %.2fMB memory\n", std::get<0>(m_allocator.memory_stats()) / 1024);
 #endif
 }
 
 
-StaticStringIdT StaticStringDepot::getEmptyStringId() const
+bool
+StaticStringDepot::is_cached_string_id (
+    const StaticStringIdT string_id) const
+{
+    return m_info_table.find(string_id) != m_info_table.end();
+}
+
+
+StaticStringIdT
+StaticStringDepot::get_empty_string_id () const
 {
     return EMPTY_STRING_ID;
 }
 
 
-uint16_t StaticStringDepot::length(
-    const StringKeyTypeT key) const
+uint16_t
+StaticStringDepot::length (
+    const StaticStringIdT string_id) const
 {
-    RUNTIME_ASSERT(key != INVALID_STRING_KEY, "Invalid string key!!");
+    RUNTIME_ASSERT(string_id != INVALID_STATIC_STRING_ID, "Invalid string Id!!");
 
-    ConstInfoIteratorT _info = mInfoTab.find(key);
-    RUNTIME_ASSERT(_info != mInfoTab.end(), "Can not find the string key!!");
-    return _info->second.stringLength;
+    ConstInfoIteratorT string_info = m_info_table.find(string_id);
+    RUNTIME_ASSERT(string_info != m_info_table.end(), "Can not find the string key!!");
+
+    return string_info->second.string_length;
 }
 
 
-const char * StaticStringDepot::data(
-    const StringKeyTypeT key) const
+const UTF8 *
+StaticStringDepot::data (
+    const StaticStringIdT string_id) const
 {
-    RUNTIME_ASSERT(key != INVALID_STRING_KEY, "Invalid string key!!");
+    RUNTIME_ASSERT(string_id != INVALID_STATIC_STRING_ID, "Invalid string Id!!");
 
-    ConstInfoIteratorT _info = mInfoTab.find(key);
-    RUNTIME_ASSERT(_info != mInfoTab.end(), "Can not find the string key!!");
-    return (const char*)_info->second.startAddr;
+    ConstInfoIteratorT string_info = m_info_table.find(string_id);
+    RUNTIME_ASSERT(string_info != m_info_table.end(), "Can not find the string key!!");
+
+    return string_info->second.start_address;
 }
 
 
-StringKeyTypeT StaticStringDepot::cacheString(
-    const char * const string)
+StaticStringIdT
+StaticStringDepot::cache_string (
+    const char * const ascii_string)
 {
-    const StringKeyTypeT _data_key = RUNTIME_HASH(STATIC_STRING_SEED, string);
+    return cache_string((const uint8_t*)ascii_string);
+}
 
-    if (mInfoTab.find(_data_key) == mInfoTab.end())
+
+StaticStringIdT
+StaticStringDepot::cache_string (
+    const uint8_t * const utf8_string)
+{
+    const StaticStringIdT string_id = RUNTIME_STRING_HASH(STATIC_STRING_SEED, utf8_string);
+
+    /// 如果Depot中没有数据
+    if (m_info_table.find(string_id) == m_info_table.end())
     {
-        const uint16_t _str_length = (uint16_t)std::strlen(string);
-        uint8_t* const _string_addr = mAllocator.allocate(_str_length + 1);
-        std::memcpy(_string_addr, string, _str_length);
-        _string_addr[_str_length] = 0;
+        /// NOTE: 对于UTF8编码的字符串std::strlen()返回它的总共字节长度(不考虑结尾处的\x0')
+        const uint16_t  string_length  = (uint16_t)std::strlen((const char*)utf8_string);
+        uint8_t * const string_address = m_allocator.allocate(string_length + 1);
+        std::memcpy(string_address, utf8_string, string_length + 1);
 
-        StringDataInfo & _new_info = mInfoTab[_data_key];
-        _new_info.startAddr    = _string_addr;
-        _new_info.stringLength = _str_length;
+        StringDataInfo & new_info = m_info_table[string_id];
+        new_info.start_address = string_address;
+        new_info.string_length = string_length;
     }
 
-    return _data_key;
+    return string_id;
 }
 
 
-StaticStringDepot::StaticStringDepot()
+StaticStringDepot::StaticStringDepot ()
 {
-    static constexpr uint32_t DEPOT_BYTE_SIZE = 8 * 1024 * 1024;
+    static constexpr uint32_t DEPOT_BYTE_SIZE = 4 * 1024;
 
-    mAllocator.initialize(MatheHelper::divideUp(DEPOT_BYTE_SIZE, MemoryHelper::pageSize()), 2);
+    m_allocator.initialize(
+        MathUtility::multiple_of(DEPOT_BYTE_SIZE, MemoryUtility::page_size()), 2);
 
-    uint8_t* const _empty_string_addr = mAllocator.allocate(1);
-    *_empty_string_addr = 0;
-    StringDataInfo & _new_info = mInfoTab[EMPTY_STRING_ID.key];
-    _new_info.startAddr    = _empty_string_addr;
-    _new_info.stringLength = 0;
+    uint8_t * const empty_string_address = m_allocator.allocate(1);
+    empty_string_address[0] = 0;
+
+    StringDataInfo & new_info = m_info_table[get_empty_string_id()];
+    new_info.start_address = empty_string_address;
+    new_info.string_length = 0;
 }
 
 
-StaticStringDepot::~StaticStringDepot()
+StaticStringDepot::~StaticStringDepot ()
 {
-    mInfoTab.clear();
-    mAllocator.release();
+    m_info_table.clear();
+    m_allocator.release();
 }

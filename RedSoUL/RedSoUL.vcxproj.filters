@@ -58,6 +58,18 @@
     <Filter Include="Private\Time">
       <UniqueIdentifier>{0ced4f38-269b-4679-83f1-224c609c8487}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Public\Text">
+      <UniqueIdentifier>{573a6fac-981a-4f43-a381-741ff7d4e1b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Private\Text">
+      <UniqueIdentifier>{556cb699-ee25-4a58-ae69-e5473c4075c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Public\Hashing">
+      <UniqueIdentifier>{18943cef-4100-4e46-acca-db4540a51480}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Private\Hashing">
+      <UniqueIdentifier>{88f2a30e-04e6-4eda-93cb-4a7bc6ba6ad9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Public\Assert\RuntimeAssert.hpp">
@@ -105,6 +117,33 @@
     <ClInclude Include="Private\Runtime\GameMainLoop.hpp">
       <Filter>Private\Runtime</Filter>
     </ClInclude>
+    <ClInclude Include="Public\Text\StaticString.hpp">
+      <Filter>Public\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\Text\StaticStringId.hpp">
+      <Filter>Public\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="Private\Text\StaticStringDepot.hpp">
+      <Filter>Private\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\Hashing\StaticHash.hpp">
+      <Filter>Public\Hashing</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\Hashing\RuntimeHash.hpp">
+      <Filter>Public\Hashing</Filter>
+    </ClInclude>
+    <ClInclude Include="Private\Hashing\RuntimeXXHash32.hpp">
+      <Filter>Private\Hashing</Filter>
+    </ClInclude>
+    <ClInclude Include="Private\Hashing\RuntimeXXHash64.hpp">
+      <Filter>Private\Hashing</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\Hashing\StaticXXHash32.hpp">
+      <Filter>Public\Hashing</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\Hashing\StaticXXHash64.hpp">
+      <Filter>Public\Hashing</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Private\Assert\RuntimeAssert.cpp">
@@ -130,6 +169,15 @@
     </ClCompile>
     <ClCompile Include="Private\Time\ClockTime.cpp">
       <Filter>Private\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\Text\StaticString.cpp">
+      <Filter>Private\Text</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\Text\StaticStringDepot.cpp">
+      <Filter>Private\Text</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\Hashing\RuntimeHash.cpp">
+      <Filter>Private\Hashing</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

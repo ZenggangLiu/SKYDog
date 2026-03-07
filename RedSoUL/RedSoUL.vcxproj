@@ -11,6 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Private\Hashing\RuntimeXXHash32.hpp" />
+    <ClInclude Include="Private\Hashing\RuntimeXXHash64.hpp" />
+    <ClInclude Include="Private\Text\StaticStringDepot.hpp" />
     <ClInclude Include="Public\Assert\RuntimeAssert.hpp" />
     <ClInclude Include="Public\Common\CommonDefines.hpp" />
     <ClInclude Include="Public\Common\CompilerDefines.hpp" />
@@ -18,10 +21,16 @@
     <ClInclude Include="Public\Container\RingBuffer.hpp" />
     <ClInclude Include="Public\DataType\BuiltInTypes.hpp" />
     <ClInclude Include="Public\Encoder\X2TeaEncoder.hpp" />
+    <ClInclude Include="Public\Hashing\RuntimeHash.hpp" />
+    <ClInclude Include="Public\Hashing\StaticHash.hpp" />
+    <ClInclude Include="Public\Hashing\StaticXXHash32.hpp" />
+    <ClInclude Include="Public\Hashing\StaticXXHash64.hpp" />
     <ClInclude Include="Public\Math\MathUtilities.hpp" />
     <ClInclude Include="Public\Memory\ArenaAllocator.hpp" />
     <ClInclude Include="Public\Memory\MemoryUtilities.hpp" />
     <ClInclude Include="Public\Runtime\GameLogic.hpp" />
+    <ClInclude Include="Public\Text\StaticString.hpp" />
+    <ClInclude Include="Public\Text\StaticStringId.hpp" />
     <ClInclude Include="Public\Thread\ThreadDefines.hpp" />
     <ClInclude Include="Public\Thread\WorkerThread.hpp" />
     <ClInclude Include="Public\Time\ClockTime.hpp" />
@@ -31,9 +40,16 @@
     <ClCompile Include="Private\Assert\RuntimeAssert.cpp" />
     <ClCompile Include="Private\Container\RingBuffer.cpp" />
     <ClCompile Include="Private\Encoder\X2TeaEncoder.cpp" />
+    <ClCompile Include="Private\Hashing\RuntimeHash.cpp" />
     <ClCompile Include="Private\Memory\ArenaAllocator.cpp" />
     <ClCompile Include="Private\Memory\MemoryUtilities.cpp" />
     <ClCompile Include="Private\Runtime\GameMainLoop.cpp" />
+    <ClCompile Include="Private\Text\StaticString.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Private\Text\StaticStringDepot.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Private\Thread\WorkerThread.cpp" />
     <ClCompile Include="Private\Time\ClockTime.cpp" />
   </ItemGroup>
