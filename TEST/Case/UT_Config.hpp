@@ -9,7 +9,8 @@
 ///
 /// 检查Game Loop
 #define GAME_LOOP_CHECKING                  1
-
+// 检查Static/Runtime Hashing
+#define HASHING_CHECKING                    1
 /// 检查Ring Buffer
 #define RING_BUFFER_CHECKING                1
 /// 检查XXTEA编码
@@ -21,3 +22,4 @@
 // ********************
 ///
 #undef MEMORY_HELPER_CHECKING
+#undef GAME_LOOP_CHECKING

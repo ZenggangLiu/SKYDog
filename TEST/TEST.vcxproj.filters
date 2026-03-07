@@ -24,5 +24,8 @@
     <ClCompile Include="Case\UT_GameLoop.cpp">
       <Filter>Case</Filter>
     </ClCompile>
+    <ClCompile Include="Case\UT_Hashing.cpp">
+      <Filter>Case</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
