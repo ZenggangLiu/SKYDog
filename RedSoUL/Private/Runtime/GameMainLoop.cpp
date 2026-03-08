@@ -63,7 +63,7 @@ GameMainLoop::run_loop ()
     /// 帧流程:
     ///                                                                1到n次
     ///                                                 +-------------+     +------------+
-    ///  measure_start_time --> update_delayed_time --> | process_msg | --> | update(dt) | --->
+    ///  measure_start_time --> update_delayed_time --> | process_msg | --> | update(dt) | -->
     ///                                                 +-------------+     +------------+
     ///      +------+
     ///  --> | draw | --> measure_end_time --> sleep
@@ -74,8 +74,8 @@ GameMainLoop::run_loop ()
     static constexpr UByte TOLERANCE_DELAYED_TIME_MS = 8;
     /// 最大可以连续跳帧的次数
     static constexpr UByte MAX_SKIPPED_DRAW_COUNT = 5;
-    /// 计算FPS时, 对于测量的Frame Time的权重
-    static constexpr Float FRAME_TIME_WEIGHT = 0.2f;
+    /// 计算FPS时, 对于测量出的FPS的权重
+    static constexpr Float FRAME_FPS_WEIGHT = 0.2f;
 
     /// 初始化
     m_last_start_time = ClockTime::mono_time_ms();
@@ -121,7 +121,8 @@ GameMainLoop::run_loop ()
             m_delayed_time -= m_tick_time;
         }
 
-        /// 判断当前Frame是否忽略DRAW
+        /// 对上帧确定的跳帧标记进行判断
+        /// 来确定当前Frame是否忽略DRAW
         if (m_skip_draw)
         {
             if ((m_skipped_draw_count + 1) >= MAX_SKIPPED_DRAW_COUNT)
@@ -148,9 +149,10 @@ GameMainLoop::run_loop ()
         /// 添加一个容忍区域: 在这个区域, 我们不跳帧
         m_skip_draw = frame_used_time > (m_tick_time + TOLERANCE_DELAYED_TIME_MS);
 
+        /// 使用上一帧的时间, 计算上一帧的FPS
+        const float last_fps = 1000.f / last_frame_time;
         /// 更新FPS
-        m_fps = (1.0f - FRAME_TIME_WEIGHT) * m_fps
-              + FRAME_TIME_WEIGHT * 0.5f * (last_frame_time + frame_used_time);
+        m_fps = (1 - FRAME_FPS_WEIGHT) * m_fps + FRAME_FPS_WEIGHT * last_fps;
 
         /// 更新时间戳
         m_last_start_time = frame_start_time;
@@ -160,7 +162,8 @@ GameMainLoop::run_loop ()
         std::unique_lock<STDMutexT> lock(m_cv_mutex);
         m_condition_var.wait_for(
             lock,
-            std::chrono::milliseconds((SLong)(std::ceil(sleep_time_ms))));
+            std::chrono::milliseconds((SLong)(std::ceil(sleep_time_ms))),
+            [this] { return m_is_running == false; }); /// Predicate为TRUE, wait_for()退出
     }
 
     return 0;
