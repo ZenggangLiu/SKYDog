@@ -1,0 +1,570 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		BD326EFF2F41CA6E007EE8EC /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD326EFE2F41CA6E007EE8EC /* GameViewController.m */; };
+		BD326F022F41CA6E007EE8EC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD326F002F41CA6E007EE8EC /* Main.storyboard */; };
+		BD326F052F41CA6E007EE8EC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD326F032F41CA6E007EE8EC /* LaunchScreen.storyboard */; };
+		BD326F132F41CA6E007EE8EC /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD326F122F41CA6E007EE8EC /* GameViewController.m */; };
+		BD326F162F41CA6E007EE8EC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD326F142F41CA6E007EE8EC /* Main.storyboard */; };
+		BD326F1A2F41CA6E007EE8EC /* Renderer.m in Sources */ = {isa = PBXBuildFile; fileRef = BD326EEF2F41CA6B007EE8EC /* Renderer.m */; };
+		BD326F1B2F41CA6E007EE8EC /* Renderer.m in Sources */ = {isa = PBXBuildFile; fileRef = BD326EEF2F41CA6B007EE8EC /* Renderer.m */; };
+		BD326F1C2F41CA6E007EE8EC /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = BD326EF12F41CA6B007EE8EC /* Shaders.metal */; };
+		BD326F1D2F41CA6E007EE8EC /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = BD326EF12F41CA6B007EE8EC /* Shaders.metal */; };
+		BD326F1E2F41CA6E007EE8EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD326EF22F41CA6E007EE8EC /* Assets.xcassets */; };
+		BD326F1F2F41CA6E007EE8EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD326EF22F41CA6E007EE8EC /* Assets.xcassets */; };
+		BD58B0F62F627B970024C670 /* GeiSTAppDelegate.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B0F32F6279560024C670 /* GeiSTAppDelegate.hpp */; };
+		BD58B0F72F627B980024C670 /* GeiSTAppDelegate.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B0F32F6279560024C670 /* GeiSTAppDelegate.hpp */; };
+		BD58B0F92F627C230024C670 /* GeiSTAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = BD58B0F82F627C230024C670 /* GeiSTAppDelegate.mm */; };
+		BD58B0FA2F627C230024C670 /* GeiSTAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = BD58B0F82F627C230024C670 /* GeiSTAppDelegate.mm */; };
+		BD58B0FC2F6283220024C670 /* GeiSTMain.m in Sources */ = {isa = PBXBuildFile; fileRef = BD58B0FB2F6283220024C670 /* GeiSTMain.m */; };
+		BD58B0FD2F6283220024C670 /* GeiSTMain.m in Sources */ = {isa = PBXBuildFile; fileRef = BD58B0FB2F6283220024C670 /* GeiSTMain.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		BD326EEE2F41CA6B007EE8EC /* Renderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Renderer.h; sourceTree = "<group>"; };
+		BD326EEF2F41CA6B007EE8EC /* Renderer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Renderer.m; sourceTree = "<group>"; };
+		BD326EF02F41CA6B007EE8EC /* ShaderTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShaderTypes.h; sourceTree = "<group>"; };
+		BD326EF12F41CA6B007EE8EC /* Shaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
+		BD326EF22F41CA6E007EE8EC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		BD326EF72F41CA6E007EE8EC /* SKYDog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SKYDog.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BD326EFD2F41CA6E007EE8EC /* GameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
+		BD326EFE2F41CA6E007EE8EC /* GameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
+		BD326F012F41CA6E007EE8EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		BD326F042F41CA6E007EE8EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		BD326F0C2F41CA6E007EE8EC /* SKYDog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SKYDog.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BD326F112F41CA6E007EE8EC /* GameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
+		BD326F122F41CA6E007EE8EC /* GameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
+		BD326F152F41CA6E007EE8EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		BD326F192F41CA6E007EE8EC /* MoonGeiST_macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MoonGeiST_macOS.entitlements; sourceTree = "<group>"; };
+		BD58B0F32F6279560024C670 /* GeiSTAppDelegate.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = GeiSTAppDelegate.hpp; path = Platform/GeiSTAppDelegate.hpp; sourceTree = "<group>"; };
+		BD58B0F82F627C230024C670 /* GeiSTAppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = GeiSTAppDelegate.mm; path = Platform/GeiSTAppDelegate.mm; sourceTree = "<group>"; };
+		BD58B0FB2F6283220024C670 /* GeiSTMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GeiSTMain.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BD326EF42F41CA6E007EE8EC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BD326F092F41CA6E007EE8EC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		BD326EE82F41CA6A007EE8EC = {
+			isa = PBXGroup;
+			children = (
+				BD58B0F22F62791E0024C670 /* Platform */,
+				BD326EED2F41CA6B007EE8EC /* MoonGeiST Shared */,
+				BD326EF92F41CA6E007EE8EC /* MoonGeiST iOS */,
+				BD326F0D2F41CA6E007EE8EC /* MoonGeiST macOS */,
+				BD58B0FB2F6283220024C670 /* GeiSTMain.m */,
+				BD326EF82F41CA6E007EE8EC /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		BD326EED2F41CA6B007EE8EC /* MoonGeiST Shared */ = {
+			isa = PBXGroup;
+			children = (
+				BD326EEE2F41CA6B007EE8EC /* Renderer.h */,
+				BD326EEF2F41CA6B007EE8EC /* Renderer.m */,
+				BD326EF02F41CA6B007EE8EC /* ShaderTypes.h */,
+				BD326EF12F41CA6B007EE8EC /* Shaders.metal */,
+				BD326EF22F41CA6E007EE8EC /* Assets.xcassets */,
+			);
+			path = "MoonGeiST Shared";
+			sourceTree = "<group>";
+		};
+		BD326EF82F41CA6E007EE8EC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BD326EF72F41CA6E007EE8EC /* SKYDog.app */,
+				BD326F0C2F41CA6E007EE8EC /* SKYDog.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BD326EF92F41CA6E007EE8EC /* MoonGeiST iOS */ = {
+			isa = PBXGroup;
+			children = (
+				BD326EFD2F41CA6E007EE8EC /* GameViewController.h */,
+				BD326EFE2F41CA6E007EE8EC /* GameViewController.m */,
+				BD326F002F41CA6E007EE8EC /* Main.storyboard */,
+				BD326F032F41CA6E007EE8EC /* LaunchScreen.storyboard */,
+			);
+			path = "MoonGeiST iOS";
+			sourceTree = "<group>";
+		};
+		BD326F0D2F41CA6E007EE8EC /* MoonGeiST macOS */ = {
+			isa = PBXGroup;
+			children = (
+				BD326F112F41CA6E007EE8EC /* GameViewController.h */,
+				BD326F122F41CA6E007EE8EC /* GameViewController.m */,
+				BD326F142F41CA6E007EE8EC /* Main.storyboard */,
+				BD326F192F41CA6E007EE8EC /* MoonGeiST_macOS.entitlements */,
+			);
+			path = "MoonGeiST macOS";
+			sourceTree = "<group>";
+		};
+		BD58B0F22F62791E0024C670 /* Platform */ = {
+			isa = PBXGroup;
+			children = (
+				BD58B0F82F627C230024C670 /* GeiSTAppDelegate.mm */,
+				BD58B0F32F6279560024C670 /* GeiSTAppDelegate.hpp */,
+			);
+			name = Platform;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		BD58B0F42F627B900024C670 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BD58B0F72F627B980024C670 /* GeiSTAppDelegate.hpp in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BD58B0F52F627B940024C670 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BD58B0F62F627B970024C670 /* GeiSTAppDelegate.hpp in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		BD326EF62F41CA6E007EE8EC /* SKYDog-iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BD326F222F41CA6E007EE8EC /* Build configuration list for PBXNativeTarget "SKYDog-iOS" */;
+			buildPhases = (
+				BD58B0F42F627B900024C670 /* Headers */,
+				BD326EF32F41CA6E007EE8EC /* Sources */,
+				BD326EF42F41CA6E007EE8EC /* Frameworks */,
+				BD326EF52F41CA6E007EE8EC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "SKYDog-iOS";
+			productName = "SKYDog iOS";
+			productReference = BD326EF72F41CA6E007EE8EC /* SKYDog.app */;
+			productType = "com.apple.product-type.application";
+		};
+		BD326F0B2F41CA6E007EE8EC /* SKYDog-macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BD326F252F41CA6E007EE8EC /* Build configuration list for PBXNativeTarget "SKYDog-macOS" */;
+			buildPhases = (
+				BD58B0F52F627B940024C670 /* Headers */,
+				BD326F082F41CA6E007EE8EC /* Sources */,
+				BD326F092F41CA6E007EE8EC /* Frameworks */,
+				BD326F0A2F41CA6E007EE8EC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "SKYDog-macOS";
+			productName = "SKYDog macOS";
+			productReference = BD326F0C2F41CA6E007EE8EC /* SKYDog.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BD326EE92F41CA6A007EE8EC /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1340;
+				TargetAttributes = {
+					BD326EF62F41CA6E007EE8EC = {
+						CreatedOnToolsVersion = 13.4.1;
+					};
+					BD326F0B2F41CA6E007EE8EC = {
+						CreatedOnToolsVersion = 13.4.1;
+					};
+				};
+			};
+			buildConfigurationList = BD326EEC2F41CA6A007EE8EC /* Build configuration list for PBXProject "MoonGeiST" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = BD326EE82F41CA6A007EE8EC;
+			productRefGroup = BD326EF82F41CA6E007EE8EC /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BD326EF62F41CA6E007EE8EC /* SKYDog-iOS */,
+				BD326F0B2F41CA6E007EE8EC /* SKYDog-macOS */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		BD326EF52F41CA6E007EE8EC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BD326F022F41CA6E007EE8EC /* Main.storyboard in Resources */,
+				BD326F1E2F41CA6E007EE8EC /* Assets.xcassets in Resources */,
+				BD326F052F41CA6E007EE8EC /* LaunchScreen.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BD326F0A2F41CA6E007EE8EC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BD326F1F2F41CA6E007EE8EC /* Assets.xcassets in Resources */,
+				BD326F162F41CA6E007EE8EC /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BD326EF32F41CA6E007EE8EC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BD326F1A2F41CA6E007EE8EC /* Renderer.m in Sources */,
+				BD326EFF2F41CA6E007EE8EC /* GameViewController.m in Sources */,
+				BD326F1C2F41CA6E007EE8EC /* Shaders.metal in Sources */,
+				BD58B0FC2F6283220024C670 /* GeiSTMain.m in Sources */,
+				BD58B0F92F627C230024C670 /* GeiSTAppDelegate.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BD326F082F41CA6E007EE8EC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BD326F1B2F41CA6E007EE8EC /* Renderer.m in Sources */,
+				BD326F132F41CA6E007EE8EC /* GameViewController.m in Sources */,
+				BD326F1D2F41CA6E007EE8EC /* Shaders.metal in Sources */,
+				BD58B0FD2F6283220024C670 /* GeiSTMain.m in Sources */,
+				BD58B0FA2F627C230024C670 /* GeiSTAppDelegate.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		BD326F002F41CA6E007EE8EC /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BD326F012F41CA6E007EE8EC /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		BD326F032F41CA6E007EE8EC /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BD326F042F41CA6E007EE8EC /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		BD326F142F41CA6E007EE8EC /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BD326F152F41CA6E007EE8EC /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		BD326F202F41CA6E007EE8EC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/../Binary/$(PROJECT_NAME)/$(PLATFORM_NAME)/$(CONFIGURATION)";
+				CONFIGURATION_TEMP_DIR = "$(PROJECT_DIR)/../TrashBin/$(PROJECT_NAME)/$(PLATFORM_NAME)/$(CONFIGURATION)";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = c11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LIBRARY_SEARCH_PATHS = "\"$(PROJECT_DIR)/../Library/$(SUPPORTED_PLATFORMS)/$(CONFIGURATION)\"";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../RedSoUL/Public";
+			};
+			name = Debug;
+		};
+		BD326F212F41CA6E007EE8EC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/../Binary/$(PROJECT_NAME)/$(PLATFORM_NAME)/$(CONFIGURATION)";
+				CONFIGURATION_TEMP_DIR = "$(PROJECT_DIR)/../TrashBin/$(PROJECT_NAME)/$(PLATFORM_NAME)/$(CONFIGURATION)";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = c11;
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LIBRARY_SEARCH_PATHS = "\"$(PROJECT_DIR)/../Library/$(SUPPORTED_PLATFORMS)/$(CONFIGURATION)\"";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../RedSoUL/Public";
+			};
+			name = Release;
+		};
+		BD326F232F41CA6E007EE8EC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Y5GL7GR624;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.RedSoUL.SKYDog;
+				PRODUCT_NAME = SKYDog;
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		BD326F242F41CA6E007EE8EC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Y5GL7GR624;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.RedSoUL.SKYDog;
+				PRODUCT_NAME = SKYDog;
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		BD326F262F41CA6E007EE8EC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "MoonGeiST macOS/MoonGeiST_macOS.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Y5GL7GR624;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.RedSoUL.SKYDog.;
+				PRODUCT_NAME = SKYDog;
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+			};
+			name = Debug;
+		};
+		BD326F272F41CA6E007EE8EC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "MoonGeiST macOS/MoonGeiST_macOS.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Y5GL7GR624;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.RedSoUL.SKYDog;
+				PRODUCT_NAME = SKYDog;
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BD326EEC2F41CA6A007EE8EC /* Build configuration list for PBXProject "MoonGeiST" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BD326F202F41CA6E007EE8EC /* Debug */,
+				BD326F212F41CA6E007EE8EC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BD326F222F41CA6E007EE8EC /* Build configuration list for PBXNativeTarget "SKYDog-iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BD326F232F41CA6E007EE8EC /* Debug */,
+				BD326F242F41CA6E007EE8EC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BD326F252F41CA6E007EE8EC /* Build configuration list for PBXNativeTarget "SKYDog-macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BD326F262F41CA6E007EE8EC /* Debug */,
+				BD326F272F41CA6E007EE8EC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BD326EE92F41CA6A007EE8EC /* Project object */;
+}
