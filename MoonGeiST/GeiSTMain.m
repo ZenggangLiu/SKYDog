@@ -3,8 +3,8 @@
 
 int
 main (
-    int    argc,
-    char * argv[])
+    int           argc,
+    const char ** argv)
 {
     /// 创建Application以及ApplicationDelegate
 #if (OS_TYPE == OS_TYPE_IOS)
@@ -14,7 +14,7 @@ main (
         app_delegate_class_name = NSStringFromClass([GeiSTAppDelegate class]);
     }
 
-    return UIApplicationMain(argc, argv, nil, app_delegate_class_name);
+    return UIApplicationMain(argc, (char**)argv, nil, app_delegate_class_name);
 
 #elif (OS_TYPE == OS_TYPE_MAC)
     return NSApplicationMain(argc, argv);
