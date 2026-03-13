@@ -276,8 +276,8 @@
 		BD58B09E2F582F0F0024C670 /* Runtime */ = {
 			isa = PBXGroup;
 			children = (
-				BD58B0A32F582F480024C670 /* GameMainLoop.cpp */,
 				BD58B0A42F582F480024C670 /* GameMainLoop.hpp */,
+				BD58B0A32F582F480024C670 /* GameMainLoop.cpp */,
 			);
 			name = Runtime;
 			sourceTree = "<group>";
@@ -294,8 +294,8 @@
 			isa = PBXGroup;
 			children = (
 				BD58B0EF2F5BB84C0024C670 /* StaticString.cpp */,
-				BD58B0EA2F5BA1790024C670 /* StaticStringDepot.cpp */,
 				BD58B0E92F5BA1790024C670 /* StaticStringDepot.hpp */,
+				BD58B0EA2F5BA1790024C670 /* StaticStringDepot.cpp */,
 			);
 			name = Text;
 			sourceTree = "<group>";
