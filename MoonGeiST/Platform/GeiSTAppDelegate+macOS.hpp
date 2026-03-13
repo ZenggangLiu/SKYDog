@@ -17,10 +17,10 @@
     Author:   (___()'`; Zee...  \_/|_)     )                                            
               /,    /`             \  __  /                                             
               \\"--\\              (_/ (_/                                              
-    Created:  12/03/26  @  5:32 PM
-    FileName: GeiSTAppDelegate.hpp @ MoonGeiST Project
+    Created:  13/03/26  @  1:26 PM
+    FileName: GeiSTAppDelegate+macOS.hpp @ MoonGeiST Project
     History:
-             - created by: 12/03/26: Zenggang LIU
+             - created by: 13/03/26: Zenggang LIU
                                                                                         
 ***************************************************************************************/
 
@@ -28,29 +28,10 @@
 #pragma once
 
 
-/// System headers
-#include "Common/PlatformDefines.hpp" /// OS_TYPE
-#if (OS_TYPE == OS_TYPE_IOS)
-#import <UIKit/UIKit.h>
-#elif (OS_TYPE == OS_TYPE_MAC)
-#import <Cocoa/Cocoa.h>
-#else
-#error Not supported Platform!!
-#endif /// (OS_TYPE == OS_TYPE_IOS)
+#import "GeiSTAppDelegate.hpp"
 
 
-/// 定义GeiSTAppDelegate类型, 以及共享功能。
-/// 具体的内容参见对应的Category。例如(iOS), (macOS)
-#if (OS_TYPE == OS_TYPE_IOS) /// iOS
-@interface GeiSTAppDelegate : UIResponder <UIApplicationDelegate>
-
-/// NOTE: iOS需要此属性。系统用来保存主窗口。如果删除，将黑屏!!
-@property (nonatomic, strong) UIWindow * window;
-
-#elif (OS_TYPE == OS_TYPE_MAC) /// macOS
-@interface GeiSTAppDelegate : NSObject <NSApplicationDelegate>
-#else
-#error Not supported Platform!!
-#endif /// (OS_TYPE == OS_TYPE_IOS)
-
+#if (OS_TYPE == OS_TYPE_MAC)
+@interface GeiSTAppDelegate (macOS)
 @end
+#endif

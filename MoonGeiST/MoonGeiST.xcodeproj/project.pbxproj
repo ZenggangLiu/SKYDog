@@ -24,6 +24,14 @@
 		BD58B0FA2F627C230024C670 /* GeiSTAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = BD58B0F82F627C230024C670 /* GeiSTAppDelegate.mm */; };
 		BD58B0FC2F6283220024C670 /* GeiSTMain.m in Sources */ = {isa = PBXBuildFile; fileRef = BD58B0FB2F6283220024C670 /* GeiSTMain.m */; };
 		BD58B0FD2F6283220024C670 /* GeiSTMain.m in Sources */ = {isa = PBXBuildFile; fileRef = BD58B0FB2F6283220024C670 /* GeiSTMain.m */; };
+		BD58B10F2F63C6870024C670 /* GeiSTAppDelegate+macOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = BD58B10A2F63C6870024C670 /* GeiSTAppDelegate+macOS.mm */; };
+		BD58B1102F63C6870024C670 /* GeiSTAppDelegate+iOS.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B10B2F63C6870024C670 /* GeiSTAppDelegate+iOS.hpp */; };
+		BD58B1122F63C6870024C670 /* GeiSTAppDelegate+iOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = BD58B10C2F63C6870024C670 /* GeiSTAppDelegate+iOS.mm */; };
+		BD58B1152F63C6870024C670 /* GeiSTAppDelegate+macOS.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B10D2F63C6870024C670 /* GeiSTAppDelegate+macOS.hpp */; };
+		BD58B1162F63CF190024C670 /* GeiSTAppDelegate+iOS.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B10B2F63C6870024C670 /* GeiSTAppDelegate+iOS.hpp */; };
+		BD58B1172F63CF1F0024C670 /* GeiSTAppDelegate+iOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = BD58B10C2F63C6870024C670 /* GeiSTAppDelegate+iOS.mm */; };
+		BD58B1182F63CF220024C670 /* GeiSTAppDelegate+macOS.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B10D2F63C6870024C670 /* GeiSTAppDelegate+macOS.hpp */; };
+		BD58B1192F63CF250024C670 /* GeiSTAppDelegate+macOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = BD58B10A2F63C6870024C670 /* GeiSTAppDelegate+macOS.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +53,10 @@
 		BD58B0F32F6279560024C670 /* GeiSTAppDelegate.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = GeiSTAppDelegate.hpp; path = Platform/GeiSTAppDelegate.hpp; sourceTree = "<group>"; };
 		BD58B0F82F627C230024C670 /* GeiSTAppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = GeiSTAppDelegate.mm; path = Platform/GeiSTAppDelegate.mm; sourceTree = "<group>"; };
 		BD58B0FB2F6283220024C670 /* GeiSTMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GeiSTMain.m; sourceTree = "<group>"; };
+		BD58B10A2F63C6870024C670 /* GeiSTAppDelegate+macOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = "GeiSTAppDelegate+macOS.mm"; path = "Platform/GeiSTAppDelegate+macOS.mm"; sourceTree = "<group>"; };
+		BD58B10B2F63C6870024C670 /* GeiSTAppDelegate+iOS.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = "GeiSTAppDelegate+iOS.hpp"; path = "Platform/GeiSTAppDelegate+iOS.hpp"; sourceTree = "<group>"; };
+		BD58B10C2F63C6870024C670 /* GeiSTAppDelegate+iOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = "GeiSTAppDelegate+iOS.mm"; path = "Platform/GeiSTAppDelegate+iOS.mm"; sourceTree = "<group>"; };
+		BD58B10D2F63C6870024C670 /* GeiSTAppDelegate+macOS.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = "GeiSTAppDelegate+macOS.hpp"; path = "Platform/GeiSTAppDelegate+macOS.hpp"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,8 +135,12 @@
 		BD58B0F22F62791E0024C670 /* Platform */ = {
 			isa = PBXGroup;
 			children = (
-				BD58B0F82F627C230024C670 /* GeiSTAppDelegate.mm */,
 				BD58B0F32F6279560024C670 /* GeiSTAppDelegate.hpp */,
+				BD58B0F82F627C230024C670 /* GeiSTAppDelegate.mm */,
+				BD58B10B2F63C6870024C670 /* GeiSTAppDelegate+iOS.hpp */,
+				BD58B10C2F63C6870024C670 /* GeiSTAppDelegate+iOS.mm */,
+				BD58B10D2F63C6870024C670 /* GeiSTAppDelegate+macOS.hpp */,
+				BD58B10A2F63C6870024C670 /* GeiSTAppDelegate+macOS.mm */,
 			);
 			name = Platform;
 			sourceTree = "<group>";
@@ -136,6 +152,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD58B1102F63C6870024C670 /* GeiSTAppDelegate+iOS.hpp in Headers */,
+				BD58B1182F63CF220024C670 /* GeiSTAppDelegate+macOS.hpp in Headers */,
 				BD58B0F72F627B980024C670 /* GeiSTAppDelegate.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -144,6 +162,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD58B1152F63C6870024C670 /* GeiSTAppDelegate+macOS.hpp in Headers */,
+				BD58B1162F63CF190024C670 /* GeiSTAppDelegate+iOS.hpp in Headers */,
 				BD58B0F62F627B970024C670 /* GeiSTAppDelegate.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -250,10 +270,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD58B1122F63C6870024C670 /* GeiSTAppDelegate+iOS.mm in Sources */,
 				BD326F1A2F41CA6E007EE8EC /* Renderer.m in Sources */,
 				BD326EFF2F41CA6E007EE8EC /* GameViewController.m in Sources */,
 				BD326F1C2F41CA6E007EE8EC /* Shaders.metal in Sources */,
 				BD58B0FC2F6283220024C670 /* GeiSTMain.m in Sources */,
+				BD58B1192F63CF250024C670 /* GeiSTAppDelegate+macOS.mm in Sources */,
 				BD58B0F92F627C230024C670 /* GeiSTAppDelegate.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -262,11 +284,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD58B1172F63CF1F0024C670 /* GeiSTAppDelegate+iOS.mm in Sources */,
 				BD326F1B2F41CA6E007EE8EC /* Renderer.m in Sources */,
 				BD326F132F41CA6E007EE8EC /* GameViewController.m in Sources */,
 				BD326F1D2F41CA6E007EE8EC /* Shaders.metal in Sources */,
 				BD58B0FD2F6283220024C670 /* GeiSTMain.m in Sources */,
 				BD58B0FA2F627C230024C670 /* GeiSTAppDelegate.mm in Sources */,
+				BD58B10F2F63C6870024C670 /* GeiSTAppDelegate+macOS.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
