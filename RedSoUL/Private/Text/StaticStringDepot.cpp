@@ -65,7 +65,7 @@ StaticStringDepot::length (
 }
 
 
-const UTF8 *
+const uint8_t *
 StaticStringDepot::data (
     const StaticStringIdT string_id) const
 {

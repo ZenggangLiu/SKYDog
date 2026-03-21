@@ -28,8 +28,10 @@
 #pragma once
 
 
+/// System headers
+#include <stdint.h> /// uint32_t,...
+/// Library headers
 #include "Common/PlatformDefines.hpp" /// OS_TYPE
-#include "DataType/BuiltInTypes.hpp"  /// uint32_t, uint64_t
 
 
 #if !defined(RUNTIME_STRING_HASH)

@@ -11,8 +11,8 @@
 
 
 GameMainLoop::GameMainLoop (
-    const UByte tick_freq,
-    GameLogic & game_logic)
+    const uint8_t tick_freq,
+    GameLogic &   game_logic)
 :
     SuperT("== SKY-Dog Game Main Loop =="),
     m_game_logic(game_logic),
@@ -29,7 +29,7 @@ GameMainLoop::GameMainLoop (
 }
 
 
-Float
+float
 GameMainLoop::fps () const
 {
     return m_fps;
@@ -38,7 +38,7 @@ GameMainLoop::fps () const
 
 void
 GameMainLoop::scale_tick_time (
-    const Float scale)
+    const float scale)
 {
 #if (BUILD_MODE == DEBUG_BUILD_MODE)
     m_tick_time_scale = scale;
@@ -57,7 +57,7 @@ GameMainLoop::want_exit ()
 }
 
 
-UInt
+uint32_t
 GameMainLoop::run_loop ()
 {
     /// 帧流程:
@@ -71,11 +71,11 @@ GameMainLoop::run_loop ()
     ///       0到1次
     ///
     /// 进行跳帧前, 最大的延迟容忍度
-    static constexpr UByte TOLERANCE_DELAYED_TIME_MS = 8;
+    static constexpr uint8_t TOLERANCE_DELAYED_TIME_MS = 8;
     /// 最大可以连续跳帧的次数
-    static constexpr UByte MAX_SKIPPED_DRAW_COUNT = 5;
+    static constexpr uint8_t MAX_SKIPPED_DRAW_COUNT = 5;
     /// 计算FPS时, 对于测量出的FPS的权重
-    static constexpr Float FRAME_FPS_WEIGHT = 0.2f;
+    static constexpr float FRAME_FPS_WEIGHT = 0.2f;
 
     /// 初始化
     m_last_start_time = ClockTime::mono_time_ms();
@@ -83,7 +83,7 @@ GameMainLoop::run_loop ()
     while (m_is_running)
     {
         /// 记录当前Frame的起始时间
-        const Float frame_start_time = ClockTime::mono_time_ms();
+        const float frame_start_time = ClockTime::mono_time_ms();
 
         /// 更新累积的延迟(Delayed Time)
         /// NOTE: 前帧时间(Frame Time)定义为: 这样可以将系统的延迟考虑在内(如Thread调度的时间)
@@ -99,7 +99,7 @@ GameMainLoop::run_loop ()
         /// Last Frame Time = Frame Start - Last Start
         /// NOTE: 由于我们以Fixed的频率更新GameLoop, 所有每一个Frame Time >= Tick Time
         ///
-        const Float last_frame_time = frame_start_time - m_last_start_time;
+        const float last_frame_time = frame_start_time - m_last_start_time;
 
         /// 计算累积的延迟
         m_delayed_time += last_frame_time;
@@ -144,13 +144,13 @@ GameMainLoop::run_loop ()
         }
 
         /// 确定是否下个Frame跳帧
-        const Float frame_end_time  = ClockTime::mono_time_ms();
-        const Float frame_used_time = frame_end_time - frame_start_time;
+        const float frame_end_time  = ClockTime::mono_time_ms();
+        const float frame_used_time = frame_end_time - frame_start_time;
         /// 添加一个容忍区域: 在这个区域, 我们不跳帧
         m_skip_draw = frame_used_time > (m_tick_time + TOLERANCE_DELAYED_TIME_MS);
 
         /// 使用上一帧的时间, 计算上一帧的FPS
-        const float last_fps = 1000.f / last_frame_time;
+        const float last_fps = 1000.0f / last_frame_time;
         /// 更新FPS
         m_fps = (1 - FRAME_FPS_WEIGHT) * m_fps + FRAME_FPS_WEIGHT * last_fps;
 
@@ -158,11 +158,11 @@ GameMainLoop::run_loop ()
         m_last_start_time = frame_start_time;
 
         /// 如有剩余时间, 休眠
-        const Float sleep_time_ms = m_tick_time - frame_used_time;
+        const float sleep_time_ms = m_tick_time - frame_used_time;
         std::unique_lock<STDMutexT> lock(m_cv_mutex);
         m_condition_var.wait_for(
             lock,
-            std::chrono::milliseconds((SLong)(std::ceil(sleep_time_ms))),
+            std::chrono::milliseconds((int64_t)(std::ceil(sleep_time_ms))),
             [this] { return m_is_running == false; }); /// Predicate为TRUE, wait_for()退出
     }
 
@@ -177,7 +177,7 @@ GameMainLoop::increase_frame_number()
 }
 
 
-ULong
+uint64_t
 GameMainLoop::get_frame_number() const
 {
 #if (BUILD_MODE == DEBUG_BUILD_MODE)
@@ -190,7 +190,7 @@ GameMainLoop::get_frame_number() const
 
 void
 GameMainLoop::set_frame_number (
-    const ULong new_number)
+    const uint64_t new_number)
 {
 #if (BUILD_MODE == DEBUG_BUILD_MODE)
     m_frame_number = new_number;

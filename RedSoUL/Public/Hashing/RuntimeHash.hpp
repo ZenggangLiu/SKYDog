@@ -28,8 +28,8 @@
 #pragma once
 
 
-/// Library headers
-#include "DataType/BuiltInTypes.hpp" /// uint8_t, uint32_t, uint64_t
+/// System headers
+#include <stdint.h> /// uint32_t,...
 
 
 struct RuntimeHash

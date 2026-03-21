@@ -1,15 +1,18 @@
+/// System headers
 #include <algorithm> /// std::min
 #include <cstring>   /// std::memcpy
+/// Library headers
 #include "Assert/RuntimeAssert.hpp"
 #include "Math/MathUtilities.hpp"
 #include "Memory/MemoryUtilities.hpp"
+/// Self header
 #include "Container/RingBuffer.hpp"
 
 
 static
-Bool
+bool
 is_power_of_two (
-    const ULong size)
+    const uint64_t size)
 {
     return size && (size & (size - 1)) == 0;
 }
@@ -17,14 +20,14 @@ is_power_of_two (
 
 /// 将指定Size，RoundUp到下一个2的N此幂
 static
-ULong
+uint64_t
 round_up_to_power_of_two (
-    const ULong size)
+    const uint64_t size)
 {
     /// 2, 3,...
     if (size > 1)
     {
-        ULong rounded = size - 1;
+        uint64_t rounded = size - 1;
         rounded |= rounded >> 1;
         rounded |= rounded >> 2;
         rounded |= rounded >> 4;
@@ -45,33 +48,33 @@ round_up_to_power_of_two (
 
 /// 计算需要的内存页数目
 static
-UInt
+uint32_t
 vm_pages_needed (
-    const ULong exp_size)
+    const uint64_t exp_size)
 {
-    const UInt needed_pages =
-        (UInt)MathUtility::multiple_of(
-            round_up_to_power_of_two(exp_size), (ULong)MemoryUtility::page_size());
+    const uint32_t needed_pages =
+        (uint32_t)MathUtility::multiple_of(
+            round_up_to_power_of_two(exp_size), (uint64_t)MemoryUtility::page_size());
     return needed_pages;
 }
 
 
 static
-UByte *
+uint8_t *
 allocate_data_buffer (
-    const UInt page_count)
+    const uint32_t page_count)
 {
     /// 申请内存页
-    void * alloc_addr;
-    UInt   alloc_bytes;
+    void *   alloc_addr;
+    uint32_t alloc_bytes;
     std::tie(alloc_addr, alloc_bytes) = MemoryUtility::allocate_vm_pages(page_count);
-    return (UByte*)alloc_addr;
+    return (uint8_t*)alloc_addr;
 }
 
 
 
 RingBuffer::RingBuffer (
-    const ULong exp_size)
+    const uint64_t exp_size)
 :
     m_vm_page_count(vm_pages_needed(exp_size)),
     m_buffer_size(m_vm_page_count * MemoryUtility::page_size()),
@@ -99,12 +102,12 @@ RingBuffer::~RingBuffer()
 // +----------------------------------+ //
 // |   CONSUMER THREAD ACCESS ONLY    | //
 // +----------------------------------+ //
-Bool
+bool
 RingBuffer::is_empty () const
 {
     /// 读入辅助线程(Producer)最新设定的数据尾部值
     /// 并同步Producer线程(即，同步所有mSaveDataTail之前的所有内存操作)
-    const ULong saved_data_tail = m_saved_data_tail.load(std::memory_order_acquire);
+    const uint64_t saved_data_tail = m_saved_data_tail.load(std::memory_order_acquire);
     return (saved_data_tail - m_data_read_pos) == 0;
 }
 
@@ -129,14 +132,14 @@ RingBuffer::reset_read ()
 // +----------------------------------+ //
 // |   PRODUCER THREAD ACCESS ONLY    | //
 // +----------------------------------+ //
-Bool
+bool
 RingBuffer::is_full () const
 {
     /// 读入辅助线程(Consumer)最新设定的数据头部值
     /// 并同步Consumer线程(即，同步所有mSaveDataHead之前的所有内存操作)
-    const ULong saved_data_head = m_saved_data_head.load(std::memory_order_acquire);
-    const ULong saved_data_size = m_data_save_pos - saved_data_head;
-    const ULong free_space_size = m_buffer_size   - saved_data_size;
+    const uint64_t saved_data_head = m_saved_data_head.load(std::memory_order_acquire);
+    const uint64_t saved_data_size = m_data_save_pos - saved_data_head;
+    const uint64_t free_space_size = m_buffer_size   - saved_data_size;
 
     return free_space_size == 0;
 }
@@ -157,37 +160,37 @@ RingBuffer::reset_save ()
 }
 
 
-Bool
+bool
 RingBuffer::read_data_in_bytes (
-    void * const output_buffer_ptr,
-    const ULong  buffer_size_in_bytes,
-    const ULong  exp_data_size_in_bytes)
+    void * const   output_buffer_ptr,
+    const uint64_t buffer_size_in_bytes,
+    const uint64_t exp_data_size_in_bytes)
 {
     /// Buffer足够长
     if (buffer_size_in_bytes >= exp_data_size_in_bytes)
     {
         /// 读入辅助线程(Producer)最新设定的数据尾部值
         /// 并同步Producer线程(即，同步所有mSaveDataTail之前的所有内存操作)
-        const ULong saved_data_tail = m_saved_data_tail.load(std::memory_order_acquire);
-        const ULong saved_data_size = saved_data_tail - m_data_read_pos;
+        const uint64_t saved_data_tail = m_saved_data_tail.load(std::memory_order_acquire);
+        const uint64_t saved_data_size = saved_data_tail - m_data_read_pos;
         /// 有足够的数据可读
         if (saved_data_size >= exp_data_size_in_bytes)
         {
             /// 计算Mod后, 数据读入位置索引
-            const ULong data_read_index = m_data_read_pos & m_modulo_mask;
+            const uint64_t data_read_index = m_data_read_pos & m_modulo_mask;
 
             /// 计算最多可以往后读入多少字节：从当前ReadIndex开始一直到Buffer末尾
-            const ULong read_bytes_to_buffer_end =
-                (ULong)std::min(exp_data_size_in_bytes, m_buffer_size - data_read_index);
+            const uint64_t read_bytes_to_buffer_end =
+                (uint64_t)std::min(exp_data_size_in_bytes, m_buffer_size - data_read_index);
             /// 复制随后的数据
-            UByte * const data_outout_buffer = static_cast<UByte*>(output_buffer_ptr);
+            uint8_t * const data_outout_buffer = static_cast<uint8_t*>(output_buffer_ptr);
             std::memcpy(
                 data_outout_buffer,
                 &m_data_buffer[data_read_index],
                 read_bytes_to_buffer_end);
 
             /// 计算需要从Buffer头部读入多少字节，如果有Wrap
-            const ULong read_bytes_from_buffer_start =
+            const uint64_t read_bytes_from_buffer_start =
                 exp_data_size_in_bytes - read_bytes_to_buffer_end;
             /// 复制Buffer开头处的数据
             if (read_bytes_from_buffer_start)
@@ -214,34 +217,34 @@ RingBuffer::read_data_in_bytes (
 }
 
 
-Bool
+bool
 RingBuffer::save_data_in_bytes (
     const void * const input_buffer_ptr,
-    const ULong        exp_data_size_in_bytes)
+    const uint64_t     exp_data_size_in_bytes)
 {
     /// 读入辅助线程(Consumer)最新设定的数据头部值
     /// 并同步Consumer线程(即，同步所有mSaveDataHead之前的所有内存操作)
-    const ULong saved_data_head = m_saved_data_head.load(std::memory_order_acquire);
-    const ULong saved_data_size = m_data_save_pos - saved_data_head;
-    const ULong free_space_size = m_buffer_size   - saved_data_size;
+    const uint64_t saved_data_head = m_saved_data_head.load(std::memory_order_acquire);
+    const uint64_t saved_data_size = m_data_save_pos - saved_data_head;
+    const uint64_t free_space_size = m_buffer_size   - saved_data_size;
     /// 有足够空间可写出
     if (free_space_size >= exp_data_size_in_bytes)
     {
         /// 计算Mod后, 数据写出位置索引
-        const ULong data_save_index = m_data_save_pos & m_modulo_mask;
+        const uint64_t data_save_index = m_data_save_pos & m_modulo_mask;
 
         /// 计算最多可以往后写出多少字节：从当前SaveIndex开始一直到Buffer末尾
-        const ULong save_bytes_to_buffer_end =
-            (ULong)std::min(exp_data_size_in_bytes, m_buffer_size - data_save_index);
+        const uint64_t save_bytes_to_buffer_end =
+            (uint64_t)std::min(exp_data_size_in_bytes, m_buffer_size - data_save_index);
         /// 依次写出数据
-        const UByte * const data_input_buffer = static_cast<const UByte*>(input_buffer_ptr);
+        const uint8_t * const data_input_buffer = static_cast<const uint8_t*>(input_buffer_ptr);
         std::memcpy(
             &m_data_buffer[data_save_index],
             data_input_buffer,
             save_bytes_to_buffer_end);
 
         /// 计算需要从Buffer头部写出多少字节，如果有Wrap
-        const ULong save_bytes_from_buffer_start =
+        const uint64_t save_bytes_from_buffer_start =
             exp_data_size_in_bytes - save_bytes_to_buffer_end;
         if (save_bytes_from_buffer_start)
         {

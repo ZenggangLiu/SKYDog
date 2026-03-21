@@ -29,11 +29,11 @@
 
 
 /// System headers
+#include <stdint.h> /// uint32_t,...
 #include <unordered_map>
 /// Library headers
-#include "DataType/BuiltInTypes.hpp"  /// uint8_t, uint16_t
-#include "Memory/ArenaAllocator.hpp"  /// ArenaAllocator
-#include "Text/StaticStringId.hpp"    /// StaticStringIdT
+#include "Memory/ArenaAllocator.hpp" /// ArenaAllocator
+#include "Text/StaticStringId.hpp"   /// StaticStringIdT
 
 
 class StaticStringDepot

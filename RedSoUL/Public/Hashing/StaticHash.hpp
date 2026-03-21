@@ -28,8 +28,9 @@
 #pragma once
 
 
+/// System headers
+#include <stdint.h> /// uint32_t,...
 /// Library headers
-#include "DataType/BuiltInTypes.hpp" /// uint8_t, uint64_t
 #include "Hashing/StaticXXHash32.hpp"
 #include "Hashing/StaticXXHash64.hpp"
 

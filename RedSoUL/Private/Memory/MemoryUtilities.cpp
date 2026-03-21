@@ -1,4 +1,5 @@
 #include "Common/PlatformDefines.hpp" /// OS_TYPE 
+/// System headers
 #if (OS_TYPE == OS_TYPE_WIN)
 /// 禁止Windows.h包含winsock.h, 因为我们使用winsock2.h
     #define _WINSOCKAPI_
@@ -22,7 +23,9 @@
     #include <sys/mman.h> /// mmap, munmap
     #include <unistd.h>   /// sysconf
 #endif
+/// Library headers
 #include "Assert/RuntimeAssert.hpp"
+/// Self header
 #include "Memory/MemoryUtilities.hpp"
 
 
@@ -44,11 +47,11 @@
 ///      如果alloc_flag为VM_FLAGS_FIXED：    目标地址
 ///
 static
-Bool
+bool
 allocate_vm(
-    const UInt    alloc_size,
-    const UInt    alloc_flag,
-    void ** const alloc_addr)
+    const uint32_t alloc_size,
+    const uint32_t alloc_flag,
+    void ** const  alloc_addr)
 {
     RUNTIME_ASSERT((alloc_size & (MemoryUtility::page_size() - 1)) == 0,
                     "The allocated memory size must be a multiple of page size");
@@ -75,10 +78,10 @@ allocate_vm(
 
 /// 释放指定大小的内存
 static
-Bool
+bool
 release_vm(
-    void * const alloc_addr,
-    const UInt   alloc_size)
+    void * const   alloc_addr,
+    const uint32_t alloc_size)
 {
     RUNTIME_ASSERT((alloc_size & (MemoryUtility::page_size() - 1)) == 0,
                     "The allocated memory size must be a multiple of page size");
@@ -102,7 +105,7 @@ release_vm(
 
 
 
-std::tuple<Bool, ULong, ULong>
+std::tuple<bool, uint64_t, uint64_t>
 MemoryUtility::memory_usage()
 {
 #if (OS_TYPE == OS_TYPE_WIN)
@@ -113,7 +116,7 @@ MemoryUtility::memory_usage()
     if (GetProcessMemoryInfo(GetCurrentProcess(), &mem_info, sizeof(mem_info)))
     {
         return std::make_tuple(
-            true, (ULong)mem_info.WorkingSetSize, (ULong)mem_info.PagefileUsage);
+            true, (uint64_t)mem_info.WorkingSetSize, (uint64_t)mem_info.PagefileUsage);
     }
 #elif defined(__APPLE__)
     mach_task_basic_info mach_task_info;
@@ -123,7 +126,7 @@ MemoryUtility::memory_usage()
     if (op_result == KERN_SUCCESS)
     {
         return std::make_tuple(
-            true, (ULong)mach_task_info.resident_size, (ULong)mach_task_info.virtual_size);
+            true, (uint64_t)mach_task_info.resident_size, (uint64_t)mach_task_info.virtual_size);
     }
 #elif (OS_TYPE == OS_TYPE_LINUX)
     struct ProcessMemoryInfo
@@ -154,7 +157,7 @@ MemoryUtility::memory_usage()
     if (mem_info.physical_mem && mem_info.virtual_mem)
     {
         return std::make_tuple(
-            true, (ULong)mem_info.physical_mem * 1024, (ULong)mem_info.virtual_mem * 1024);
+            true, (uint64_t)mem_info.physical_mem * 1024, (uint64_t)mem_info.virtual_mem * 1024);
     }
 #else
     #error TODO: No implementation
@@ -166,15 +169,15 @@ MemoryUtility::memory_usage()
 }
 
 
-UInt
+uint32_t
 MemoryUtility::page_size()
 {
 #if (OS_TYPE == OS_TYPE_WIN)
     SYSTEM_INFO sys_info;
     GetSystemInfo(&sys_info);
-    return (UInt)sys_info.dwPageSize;
+    return (uint32_t)sys_info.dwPageSize;
 #elif defined(__APPLE__)
-    return (UInt)vm_page_size;
+    return (uint32_t)vm_page_size;
 #elif (OS_TYPE == OS_TYPE_LINUX)
     const long page_size = sysconf(_SC_PAGESIZE);
     if (page_size == -1)
@@ -183,7 +186,7 @@ MemoryUtility::page_size()
     }
     else
     {
-        return (UInt)page_size;
+        return (uint32_t)page_size;
     }
 #else
     #error TODO: No implementation
@@ -191,14 +194,14 @@ MemoryUtility::page_size()
 }
 
 
-std::tuple<void*, UInt>
+std::tuple<void*, uint32_t>
 MemoryUtility::allocate_vm_pages(
-    const UInt page_count)
+    const uint32_t page_count)
 {
-    RUNTIME_ASSERT(page_count * (ULong)page_size() <= 0xFFFFFFFF,
+    RUNTIME_ASSERT(page_count * page_size() <= 0xFFFFFFFF,
                    "We can JUST allocate 4G at most");
 
-    const UInt alloc_size = page_count * page_size();
+    const uint32_t alloc_size = page_count * page_size();
 #if (OS_TYPE == OS_TYPE_WIN)
     /// NOTE：
     /// - MEM_COMMIT：分配虚拟空间
@@ -247,12 +250,12 @@ MemoryUtility::allocate_vm_pages(
 }
 
 
-Bool
+bool
 MemoryUtility::release_vm_pages(
-    void * const alloc_addr,
-    const UInt   page_count)
+    void * const   alloc_addr,
+    const uint32_t page_count)
 {
-    RUNTIME_ASSERT(page_count * (ULong)page_size() <= 0xFFFFFFFF,
+    RUNTIME_ASSERT(page_count * page_size() <= 0xFFFFFFFF,
                    "We can JUST allocate 4G at most");
 
 #if (OS_TYPE == OS_TYPE_WIN)

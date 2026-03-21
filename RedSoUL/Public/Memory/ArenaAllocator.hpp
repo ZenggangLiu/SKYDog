@@ -28,9 +28,10 @@
 #pragma once
 
 
+/// System headers
+#include <stdint.h> /// uint32_t,...
 #include <tuple>
 #include <vector>
-#include "DataType/BuiltInTypes.hpp"
 
 
 /// 内存Arena：
@@ -42,7 +43,7 @@ class ArenaAllocator
 public:
     /// 获得最大可申请空间长度(字节长度)
     static
-    UShort
+    uint16_t
     max_alloc_size ();
 
     ArenaAllocator ();
@@ -57,16 +58,16 @@ public:
     ///      递增比率
     ///      例如：设定为2，则表示：
     ///           如果需要申请新的内存，则申请两倍当前页数目的空间
-    Bool
+    bool
     initialize (
-        const UShort page_count,
-        const UByte  increment_rate);
+        const uint16_t page_count,
+        const uint8_t  increment_rate);
 
     /// 获得内存统计
     ///
     /// @return
     ///      [ 总共申请的内存长度(KB长度)，空闲的内存长度(KB长度) ]
-    std::tuple<Float, Float>
+    std::tuple<float, float>
     memory_stats () const;
 
     /// 申请空间
@@ -77,9 +78,9 @@ public:
     /// @return
     ///      申请的空间，如果申请成功
     ///      nullptr,  如果申请失败
-    UByte *
+    uint8_t *
     allocate (
-        const UShort size);
+        const uint16_t size);
 
     /// 释放当前的Arena：即释放所有控制的内存
     void
@@ -88,13 +89,13 @@ public:
 
 private:
     /// 添加一个新的Memory Block
-    Bool
+    bool
     alloc_new_memory_block ();
 
     /// 在第一个空闲Memory Block中分配空间
-    UByte *
+    uint8_t *
     alloc_in_head_block (
-        const UShort size);
+        const uint16_t size);
 
     /// UNIT TEST逻辑
 #if defined(CATCH_PLATFORM_MAC) || defined(CATCH_PLATFORM_WINDOWS) || defined(CATCH_PLATFORM_LINUX)
@@ -105,24 +106,24 @@ private:
     struct MemoryBlock
     {
         /// 起始地址
-        UByte * start_addr;
+        uint8_t * start_addr;
         /// 下一个Memory Block的索引: 可能为INVALID_BLOCK_INDEX
-        SInt    next_block;
+        int32_t   next_block;
         /// 内存页数目
-        UInt    page_count;
+        uint32_t  page_count;
         /// Memory Block总共的字节大小
-        UInt    block_bytes;
+        uint32_t  block_bytes;
         /// 空闲字节数目
-        UInt    free_bytes;
+        uint32_t  free_bytes;
     };
     typedef std::vector<MemoryBlock> MemoryBlockListT;
 
     /// 所有Memory Block的列表
     MemoryBlockListT m_block_list;
     /// 第一个空闲Memory Block的索引: 可能为INVALID_BLOCK_INDEX
-    SInt             m_free_block_head;
+    int32_t          m_free_block_head;
     /// 如果要申请新的Memory Block使用的页数目
-    UShort           m_page_count;
+    uint16_t         m_page_count;
     /// 递增比率
-    UByte            m_increment_rate;
+    uint8_t          m_increment_rate;
 };

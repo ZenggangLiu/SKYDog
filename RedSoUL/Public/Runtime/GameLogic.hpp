@@ -1,7 +1,4 @@
-﻿#pragma once
-
-
-#include "DataType/BuiltInTypes.hpp"
+#pragma once
 
 
 /// 游戏逻辑
@@ -21,7 +18,7 @@ public:
     virtual
     void
     update_level (
-        const Float delta_time_ms) = 0;
+        const float delta_time_ms) = 0;
 
     /// 绘制关卡
     virtual

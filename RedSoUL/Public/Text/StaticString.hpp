@@ -28,9 +28,10 @@
 #pragma once
 
 
+/// System headers
+#include <stdint.h> /// uint32_t,...
 /// Library headers
 #include "Common/CompilerDefines.hpp" /// BUILD_MODE
-#include "DataType/BuiltInTypes.hpp"  /// uint8_t, uint16_t
 #include "Text/StaticStringId.hpp"    /// StaticStringIdT
 
 

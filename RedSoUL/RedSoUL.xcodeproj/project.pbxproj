@@ -8,9 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		BD326EC72F3B32F0007EE8EC /* CommonDefines.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD326EC42F3B32F0007EE8EC /* CommonDefines.hpp */; };
-		BD326ECA2F3BF39B007EE8EC /* BuiltInTypes.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD326EC92F3BF39B007EE8EC /* BuiltInTypes.hpp */; };
 		BD326ECC2F3BFC80007EE8EC /* CommonDefines.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD326EC42F3B32F0007EE8EC /* CommonDefines.hpp */; };
-		BD326ECD2F3BFC8B007EE8EC /* BuiltInTypes.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD326EC92F3BF39B007EE8EC /* BuiltInTypes.hpp */; };
 		BD326ED02F3C19E6007EE8EC /* X2TeaEncoder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD326ECF2F3C19E6007EE8EC /* X2TeaEncoder.hpp */; };
 		BD326ED12F3C19E6007EE8EC /* X2TeaEncoder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD326ECF2F3C19E6007EE8EC /* X2TeaEncoder.hpp */; };
 		BD326ED42F3C1B9E007EE8EC /* X2TeaEncoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD326ED32F3C1B9E007EE8EC /* X2TeaEncoder.cpp */; };
@@ -77,6 +75,8 @@
 		BD58B0EE2F5BA1790024C670 /* StaticStringDepot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD58B0EA2F5BA1790024C670 /* StaticStringDepot.cpp */; };
 		BD58B0F02F5BB84C0024C670 /* StaticString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD58B0EF2F5BB84C0024C670 /* StaticString.cpp */; };
 		BD58B0F12F5BB84C0024C670 /* StaticString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD58B0EF2F5BB84C0024C670 /* StaticString.cpp */; };
+		BD9FAFAF2F6D5DE9000B085D /* MathDefines.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD9FAFAE2F6D5DE9000B085D /* MathDefines.hpp */; };
+		BD9FAFB02F6D5DE9000B085D /* MathDefines.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD9FAFAE2F6D5DE9000B085D /* MathDefines.hpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -93,7 +93,6 @@
 
 /* Begin PBXFileReference section */
 		BD326EC42F3B32F0007EE8EC /* CommonDefines.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = CommonDefines.hpp; path = Public/Common/CommonDefines.hpp; sourceTree = "<group>"; };
-		BD326EC92F3BF39B007EE8EC /* BuiltInTypes.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = BuiltInTypes.hpp; path = Public/DataType/BuiltInTypes.hpp; sourceTree = "<group>"; };
 		BD326ECF2F3C19E6007EE8EC /* X2TeaEncoder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = X2TeaEncoder.hpp; path = Public/Encoder/X2TeaEncoder.hpp; sourceTree = "<group>"; };
 		BD326ED32F3C1B9E007EE8EC /* X2TeaEncoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = X2TeaEncoder.cpp; path = Private/Encoder/X2TeaEncoder.cpp; sourceTree = "<group>"; };
 		BD326ED72F3C24A5007EE8EC /* RuntimeAssert.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = RuntimeAssert.hpp; path = Public/Assert/RuntimeAssert.hpp; sourceTree = "<group>"; };
@@ -129,6 +128,7 @@
 		BD58B0EF2F5BB84C0024C670 /* StaticString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = StaticString.cpp; path = Private/Text/StaticString.cpp; sourceTree = "<group>"; };
 		BD86B5FA2F388E1600DD8D2E /* libRedSoUL-macOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libRedSoUL-macOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD86B60E2F39E1FC00DD8D2E /* libRedSoUL-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libRedSoUL-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BD9FAFAE2F6D5DE9000B085D /* MathDefines.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = MathDefines.hpp; path = Public/Math/MathDefines.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,7 +152,6 @@
 		BD326EC82F3BEF2B007EE8EC /* DataType */ = {
 			isa = PBXGroup;
 			children = (
-				BD326EC92F3BF39B007EE8EC /* BuiltInTypes.hpp */,
 			);
 			name = DataType;
 			sourceTree = "<group>";
@@ -192,6 +191,7 @@
 		BD326EE42F4176F2007EE8EC /* Math */ = {
 			isa = PBXGroup;
 			children = (
+				BD9FAFAE2F6D5DE9000B085D /* MathDefines.hpp */,
 				BD326EE52F41773A007EE8EC /* MathUtilities.hpp */,
 			);
 			name = Math;
@@ -402,9 +402,9 @@
 				BD58B08A2F519C4A0024C670 /* ArenaAllocator.hpp in Headers */,
 				BD326EDB2F3C2625007EE8EC /* CompilerDefines.hpp in Headers */,
 				BD58B0CA2F5AD4BF0024C670 /* StaticStringId.hpp in Headers */,
-				BD326ECD2F3BFC8B007EE8EC /* BuiltInTypes.hpp in Headers */,
 				BD58B0832F4EECE10024C670 /* ThreadDefines.hpp in Headers */,
 				BD58B0982F56DCDC0024C670 /* ClockTime.hpp in Headers */,
+				BD9FAFAF2F6D5DE9000B085D /* MathDefines.hpp in Headers */,
 				BD58B0D92F5B97750024C670 /* RuntimeXXHash64.hpp in Headers */,
 				BD58B0D32F5B93F30024C670 /* StaticHash.hpp in Headers */,
 				BD326F322F495429007EE8EC /* RingBuffer.hpp in Headers */,
@@ -433,9 +433,9 @@
 				BD58B08B2F519C4A0024C670 /* ArenaAllocator.hpp in Headers */,
 				BD326EDC2F3C2625007EE8EC /* CompilerDefines.hpp in Headers */,
 				BD58B0CB2F5AD4BF0024C670 /* StaticStringId.hpp in Headers */,
-				BD326ECA2F3BF39B007EE8EC /* BuiltInTypes.hpp in Headers */,
 				BD58B0842F4EECE10024C670 /* ThreadDefines.hpp in Headers */,
 				BD58B0992F56DCDC0024C670 /* ClockTime.hpp in Headers */,
+				BD9FAFB02F6D5DE9000B085D /* MathDefines.hpp in Headers */,
 				BD58B0DA2F5B97750024C670 /* RuntimeXXHash64.hpp in Headers */,
 				BD58B0D42F5B93F30024C670 /* StaticHash.hpp in Headers */,
 				BD326F332F495429007EE8EC /* RingBuffer.hpp in Headers */,

@@ -28,9 +28,11 @@
 #pragma once
 
 
+/// System headers
+#include <stdint.h> /// uint32_t,...
+/// Library headers
 #include "Common/CompilerDefines.hpp" /// BUILD_MODE
 #include "Common/PlatformDefines.hpp" /// OS_TYPE
-#include "DataType/BuiltInTypes.hpp"  /// UInt, ULong
 
 
 /// 获得类型 T 中给定成员变量的64位偏移
@@ -39,10 +41,10 @@
 /// {
 /// public:
 ///     T() : iVal(0xC00DDEC0) {}
-///     SInt  iVal;   // 4bytes
-///     UTF8  cVal;   // 4bytes: 1byte + 3bytes padding
-///     Float fVal;   // 4bytes
-///     UTF8  var;
+///     int32_t  iVal; /// 4bytes
+///     uint8_t  cVal; /// 4bytes: 1byte + 3bytes padding
+///     float fVal;    /// 4bytes
+///     uint8_t  var;
 /// };
 ///
 /// MEMBER_OFFSET(T, var) 返回 12: 即 var 的偏移
@@ -57,9 +59,9 @@
 /// 在Windows系统上，Clang将产出错误
 /// SO, we always using intrinsic, if the code is not being compiled using visual studio
     #if (OS_TYPE == OS_TYPE_WIN && defined(_MSC_VER))
-        #define MEMBER_OFFSET(T, member) ((ULong)&(((T*)0)->member))
+        #define MEMBER_OFFSET(T, member) ((uint64_t)&(((T*)0)->member))
     #else
-        #define MEMBER_OFFSET(T, member) ((ULong)(__builtin_offsetof(T, member)))
+        #define MEMBER_OFFSET(T, member) ((uint64_t)(__builtin_offsetof(T, member)))
     #endif /// (OS_TYPE == OS_TYPE_WIN && defined(_MSC_VER))
 #endif /// !defined(MEMBER_OFFSET)
 
@@ -71,7 +73,7 @@
 /// 使用如下方法定义一个对char[N]参考：
 /// - char(&reference) [N]: reference is a reference to char[N]
 /// NOTE：if the array has overloaded operator[], it will change the expected behavior
-    template < typename T, UInt N > char(&__GetArraySize__(const T(&)[N]))[N];
+    template < typename T, uint32_t N > char(&__GetArraySize__(const T(&)[N]))[N];
 /// 我们使用 sizeof 操作符来获得静态数组的成员个数
 /// NOTE:
 /// sizeof 不会真正计算（evaluate）给定的表达式：此处不会真正调用 _GetArrayItemCount 函数
@@ -104,7 +106,7 @@
 /// * 存储的字符序列：C0 C1 C2 C3
 #if !defined(FOUR_CC)
     #define FOUR_CC(c0, c1, c2, c3) \
-        (((UInt)(c3) << 24 ) | ((UInt)(c2) << 16) | ((UInt)(c1) << 8) | ((UInt)(c0)))
+        (((uint32_t)(c3) << 24 ) | ((uint32_t)(c2) << 16) | ((uint32_t)(c1) << 8) | ((uint32_t)(c0)))
 #endif /// !defined(FOUR_CC)
 
 

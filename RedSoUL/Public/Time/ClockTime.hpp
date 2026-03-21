@@ -28,14 +28,11 @@
 #pragma once
 
 
-#include "DataType/BuiltInTypes.hpp"
-
-
 struct ClockTime
 {
     /// 返回自系统启动以来的递增时间(多少毫秒)
     /// - Monotonic Time
     static
-    Float
+    float
     mono_time_ms ();
 };

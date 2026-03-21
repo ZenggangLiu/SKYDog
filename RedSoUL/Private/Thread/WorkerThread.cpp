@@ -10,14 +10,14 @@
 
 
 /// PThread的回调函数类型
-/// NOTE: 内部的回调返回值类型为UInt。
-///       PThread将UInt整数作为void*看待：(void*)(ULong)1234。此处exit_code为1234
-///       所以在wait_for_exit()中必须将其CAST回Int：(UInt)(ULong)exit_code
+/// NOTE: 内部的回调返回值类型为uint32_t。
+///       PThread将uint32_t整数作为void*看待：(void*)(uint64_t)1234。此处exit_code为1234
+///       所以在wait_for_exit()中必须将其CAST回Int：(uint32_t)(uint64_t)exit_code
 typedef void* (*pthread_start_routine) (void*);
 
 
 WorkerThread::WorkerThread (
-    const ASCII * const   name       /* = "RedSoUL-Worker Thread" */,
+    const char * const    name       /* = "RedSoUL-Worker Thread" */,
     ConstThreadStackSizeT stack_size /* = ThreadStackSize::DEFAULT_THREAD_STACK_SIZE */)
 :
     m_stack_size(stack_size)
@@ -27,7 +27,7 @@ WorkerThread::WorkerThread (
 }
 
 
-Bool
+bool
 WorkerThread::start ()
 {
     RUNTIME_ASSERT(m_state == ThreadState::CREATED_THREAD_STATE,
@@ -82,7 +82,7 @@ WorkerThread::start ()
     pthread_attr_setstacksize(&thread_attr, stack_size);
 
     /// pthread_create(): 0表示成功，非0为错误码
-    const Bool is_failed =
+    const bool is_failed =
         pthread_create(&m_handle,
                        &thread_attr,
                        (pthread_start_routine)&WorkerThread::ThreadProc,
@@ -161,7 +161,7 @@ WorkerThread::resume ()
 }
 
 
-UInt
+uint32_t
 WorkerThread::wait_for_exit () const
 {
 #if (OS_TYPE == OS_TYPE_WIN)
@@ -169,19 +169,19 @@ WorkerThread::wait_for_exit () const
     if ((WaitForSingleObject(m_handle, INFINITE) == WAIT_OBJECT_0) &&
         GetExitCodeThread(m_handle, &exit_code)) /// True: GetExitCodeThread() succeeded
     {
-        return (UInt)exit_code;
+        return (uint32_t)exit_code;
     }
     return ERROR_EXIT_CODE;
 
 #else /// macOS, iOS, Linux
     void * exit_code; /// 保存强行CAST为void*的整数
     pthread_join(m_handle, &exit_code);
-    return (UInt)(ULong)exit_code; /// 再强行CAST回整数
+    return (uint32_t)(uint64_t)exit_code; /// 再强行CAST回整数
 #endif /// (OS_TYPE == OS_TYPE_WIN)
 }
 
 
-UInt
+uint32_t
 WorkerThread::ThreadProc (
     void * const self_thread)
 {
@@ -231,7 +231,7 @@ WorkerThread::ThreadProc (
     SELF->set_thread_state(ThreadState::RUNNING_THREAD_STATE);
 
     /// 调用RunLoop
-    const UInt exit_code = SELF->run_loop();
+    const uint32_t exit_code = SELF->run_loop();
 
     /// RunLoop调用结束，清理资源
     SELF->set_thread_state(ThreadState::TERMINATING_THREAD_STATE);
@@ -244,7 +244,7 @@ WorkerThread::ThreadProc (
 
 void
 WorkerThread::cleanup (
-    const UInt exit_code)
+    const uint32_t exit_code)
 {
     RUNTIME_ASSERT(m_state == ThreadState::TERMINATING_THREAD_STATE,
                    "The thread is NOT in the 'TERMINATING' state!!");
@@ -267,12 +267,12 @@ WorkerThread::cleanup (
     set_thread_state(ThreadState::DEAD_THREAD_STATE);
     /// 清理线程的资源(如果此线程已经退出)
     /// NOTE：如果线程正在忙碌，此函数将Blocking
-    pthread_exit((void*)(ULong)exit_code); /// 强行将UInt整数作为void*指针返回
+    pthread_exit((void*)(uint64_t)exit_code); /// 强行将uint32_t整数作为void*指针返回
 #endif /// (OS_TYPE == OS_TYPE_WIN)
 }
 
 
-const ASCII *
+const char *
 WorkerThread::get_thread_name () const
 {
 #if (BUILD_MODE == DEBUG_BUILD_MODE)
@@ -285,7 +285,7 @@ WorkerThread::get_thread_name () const
 
 void
 WorkerThread::set_thread_name (
-    const ASCII * const new_name)
+    const char * const new_name)
 {
 #if (BUILD_MODE == DEBUG_BUILD_MODE)
     RUNTIME_ASSERT(new_name, "Thread name can not be NULL pointer!!");

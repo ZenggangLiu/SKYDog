@@ -28,8 +28,9 @@
 #pragma once
 
 
+/// System headers
+#include <stdint.h> /// uint32_t,...
 #include <tuple>
-#include "DataType/BuiltInTypes.hpp"
 
 
 struct MemoryUtility
@@ -40,12 +41,12 @@ struct MemoryUtility
     ///      如果申请成功：<- [ true,  使用的物理内存(字节), 使用的虚拟内存(字节) ]
     ///      如果申请失败：<- [ false, 0,                 0                ]
     static
-    std::tuple<Bool, ULong, ULong>
+    std::tuple<bool, uint64_t, uint64_t>
     memory_usage ();
 
     /// 获得操作系统(OS)提供的内存页长度(字节数)
     static
-    UInt
+    uint32_t
     page_size ();
 
     /// 申请指定个数目的内存页(虚拟内存页)
@@ -57,12 +58,12 @@ struct MemoryUtility
     ///      如果申请失败：<- [ nullptr,     0                    ]
     /// @example:
     ///     例如：申请16个虚拟内存页：
-    ///     const void * alloc_addr; UInt alloc_size;
+    ///     const void * alloc_addr; uint32_t alloc_size;
     ///     std::tie(alloc_addr, alloc_size) = MemoryUtility::allocate_vm_pages(16);
     static
-    std::tuple<void*, UInt>
+    std::tuple<void*, uint32_t>
     allocate_vm_pages (
-        const UInt page_count);
+        const uint32_t page_count);
 
     /// 释放指定的内存页(虚拟内存页)
     ///
@@ -74,8 +75,8 @@ struct MemoryUtility
     ///      TRUE:  如果内存释放成功
     ///      FALSE: 如果失败
     static
-    Bool
+    bool
     release_vm_pages (
-        void * const alloc_addr,
-        const UInt   page_count);
+        void * const   alloc_addr,
+        const uint32_t page_count);
 };

@@ -1,4 +1,5 @@
 #include "Common/PlatformDefines.hpp" /// OS_TYPE
+/// System headers
 #if (OS_TYPE == OS_TYPE_WIN)
 #define _WINSOCKAPI_
 #include <Windows.h>
@@ -11,16 +12,17 @@
 #include <cstdio>   /// std::printf, std::snprintf, std::vsnprintf
 #include <cstring>  /// std::strlen
 #include <stdarg.h> /// va_list
+/// Self header
 #include "Assert/RuntimeAssert.hpp"
 
 
 #if (BUILD_MODE == DEBUG_BUILD_MODE)
 void
 RuntimeAssert (
-   const Bool          condition,
-   const ASCII * const file_name,
-   const UInt          line_number,
-   const ASCII * const format,
+   const bool         condition,
+   const char * const file_name,
+   const uint32_t     line_number,
+   const char * const format,
    ...)
 {
     if (condition)
@@ -29,12 +31,12 @@ RuntimeAssert (
     }
     else
     {
-        static constexpr UShort MAX_FORMAT_LENGTH = 1024*2;
+        static constexpr uint16_t MAX_FORMAT_LENGTH = 1024*2;
 
         va_list arg_list;
         va_start(arg_list, format);
 
-        ASCII buffer[MAX_FORMAT_LENGTH];
+        char buffer[MAX_FORMAT_LENGTH];
         std::snprintf(buffer, MAX_FORMAT_LENGTH,
                       "--- [ASSERT FAILED] ---\n"
                       "Message: %s\n"
@@ -42,7 +44,7 @@ RuntimeAssert (
                       "-----------------------\n",
                       format, file_name, line_number);
 
-        const UShort msgIdx = (UShort)(std::strlen(buffer) + 1 /* '0' */);
+        const uint16_t msgIdx = (uint16_t)(std::strlen(buffer) + 1 /* '0' */);
         std::vsnprintf(buffer + msgIdx, sizeof(buffer) - msgIdx, buffer, arg_list);
 
         va_end(arg_list);
@@ -51,8 +53,8 @@ RuntimeAssert (
 #if (OS_TYPE == OS_TYPE_WIN)
     #if defined(UNICODE)
         /// 转换：ANSI --> WCHAR
-        const SInt wchar_length =
-            (SInt)MultiByteToWideChar(CP_ACP, 0, buffer + msgIdx, -1, nullptr, 0);
+        const int32_t wchar_length =
+            (int32_t)MultiByteToWideChar(CP_ACP, 0, buffer + msgIdx, -1, nullptr, 0);
         const std::wstring utf16_string(wchar_length, L'\0');
 
         MultiByteToWideChar(

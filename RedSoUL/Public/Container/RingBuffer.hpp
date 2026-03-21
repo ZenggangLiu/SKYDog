@@ -28,10 +28,12 @@
 #pragma once
 
 
+/// System headers
 #include <atomic>
+#include <stdint.h> /// uint32_t,...
 #include <string>
+/// Libray headers
 #include "Common/CommonDefines.hpp" /// INLINE_FUNCTION
-#include "DataType/BuiltInTypes.hpp"
 
 
 /// Single Producer - Single Consumer Ring Buffer
@@ -49,7 +51,7 @@ public:
     ///     期望的Ring Buffer的长度(字节长度)
     ///     NOTE: 此长度将RoundUp到下一个内存页的倍数
     RingBuffer (
-        const ULong exp_size);
+        const uint64_t exp_size);
 
     ~RingBuffer();
 
@@ -60,7 +62,7 @@ public:
     // +----------------------------------+ //
 
     /// 检查是否此Ring Buffer为空
-    Bool
+    bool
     is_empty () const;
 
     /// Read数据
@@ -69,7 +71,7 @@ public:
     ///     数据存入的变量
     template <typename T>
     INLINE_FUNCTION
-    Bool
+    bool
     read_data (
         T & output);
 
@@ -88,7 +90,7 @@ public:
     // +----------------------------------+ //
 
     /// 检查是否此Ring Buffer满
-    Bool
+    bool
     is_full () const;
 
     /// Save数据
@@ -97,7 +99,7 @@ public:
     ///     期待写出的数据
     template<typename T>
     INLINE_FUNCTION
-    Bool
+    bool
     save_data (
         const T & data);
 
@@ -112,10 +114,10 @@ public:
 
 private:
     /// Ring Buffer读/写头的类型(NOTE：按照Cache Line边界对齐(64 Bytes对齐)
-#define AccessHeadT   alignas(64) std::atomic<ULong>
-#define ConstUIntT    const UInt
-#define ConstULongT   const ULong
-#define MutableULongT ULong
+#define AccessHeadT    alignas(64) std::atomic<uint64_t>
+#define ConstUInt32T   const uint32_t
+#define ConstUInt64T   const uint64_t
+#define MutableUInt64T uint64_t
 
     /// 读入指定长度的数据
     ///
@@ -127,11 +129,11 @@ private:
     ///     期待读入的数据长度(字节长度)
     /// @return
     ///     TRUE, 读入成功
-    Bool
+    bool
     read_data_in_bytes (
-        void * const output_buffer_ptr,
-        const ULong  buffer_size_in_bytes,
-        const ULong  exp_data_size_in_bytes);
+        void * const   output_buffer_ptr,
+        const uint64_t buffer_size_in_bytes,
+        const uint64_t exp_data_size_in_bytes);
 
     /// 写出指定长度的数据
     ///
@@ -141,10 +143,10 @@ private:
     ///     期待写出的数据长度(字节长度)
     /// @return
     ///     TRUE, 写出成功
-    Bool
+    bool
     save_data_in_bytes (
         const void * const input_buffer_ptr,
-        const ULong        exp_data_size_in_bytes);
+        const uint64_t     exp_data_size_in_bytes);
 
     /// UNIT TEST逻辑
 #if defined(CATCH_PLATFORM_MAC) || defined(CATCH_PLATFORM_WINDOWS) || defined(CATCH_PLATFORM_LINUX)
@@ -153,19 +155,19 @@ public:
 private:
 #endif
     // --- cached values --- //
-    ConstUIntT    m_vm_page_count;
-    ConstULongT   m_buffer_size;
-    ConstULongT   m_modulo_mask; /// 计算Modulo(%)使用的Mask
+    ConstUInt32T    m_vm_page_count;
+    ConstUInt64T    m_buffer_size;
+    ConstUInt64T    m_modulo_mask; /// 计算Modulo(%)使用的Mask
     // --- 数据Buffer --- //
-    UByte * const m_data_buffer;
+    uint8_t * const m_data_buffer;
     // --- local values --- //
     /// 在完成整个读入操作前，最后的数据读入位置
-    MutableULongT m_data_read_pos; /// Consumer local
+    MutableUInt64T  m_data_read_pos; /// Consumer local
     /// 在完成整个存入操作前，最后的数据写入位置
-    MutableULongT m_data_save_pos; /// Producer local
+    MutableUInt64T  m_data_save_pos; /// Producer local
     // --- saved data's head/tail --- //
-    AccessHeadT   m_saved_data_head; /// Consumer updates
-    AccessHeadT   m_saved_data_tail; /// Producer updates
+    AccessHeadT     m_saved_data_head; /// Consumer updates
+    AccessHeadT     m_saved_data_tail; /// Producer updates
 };
 
 
@@ -178,7 +180,7 @@ private:
 /// 通用readData函数：uint64_t, const char*, CustomType
 template <typename T>
 INLINE_FUNCTION
-Bool
+bool
 RingBuffer::read_data (
     T & output_buffer_ref)
 {
@@ -192,7 +194,7 @@ RingBuffer::read_data (
 ///     将读入的字符串保存此std::string中
 template<>
 INLINE_FUNCTION
-Bool
+bool
 RingBuffer::read_data (
     std::string & output_string_ref)
 {
@@ -202,12 +204,12 @@ RingBuffer::read_data (
     /// +----------------------+-----------------+
     ///  16 Bits                std:strlen Bytes
     ///
-    UShort string_lenght;
-    Bool is_success = read_data(string_lenght);
+    uint16_t string_lenght;
+    bool is_success = read_data(string_lenght);
     if (is_success)
     {
         output_string_ref.resize(string_lenght);
-        is_success &= read_data_in_bytes(const_cast<ASCII*>(output_string_ref.data()), string_lenght, string_lenght);
+        is_success &= read_data_in_bytes(const_cast<char*>(output_string_ref.data()), string_lenght, string_lenght);
     }
     return is_success;
 }
@@ -216,14 +218,14 @@ RingBuffer::read_data (
 /// 禁止将const char*作为输出目标。请使用std::string
 template<>
 INLINE_FUNCTION
-Bool
-RingBuffer::read_data (const ASCII *&);
+bool
+RingBuffer::read_data (const char *&);
 
 
 /// 通用saveData函数：uint64_t, const char*, CustomType
 template<typename T>
 INLINE_FUNCTION
-Bool
+bool
 RingBuffer::save_data (
     const T & data)
 {
@@ -240,9 +242,9 @@ RingBuffer::save_data (
 /// c type string(const char*)专用saveData函数
 template<>
 INLINE_FUNCTION
-Bool
+bool
 RingBuffer::save_data (
-    const ASCII * const & c_string_ref)
+    const char * const & c_string_ref)
 {
     /// 目前字符串的保存格式：
     /// +----------------------+-----------------+
@@ -250,7 +252,7 @@ RingBuffer::save_data (
     /// +----------------------+-----------------+
     ///  16 Bits                std:strlen Bytes
     ///
-    const UShort string_length = (UShort)std::strlen(c_string_ref);
+    const uint16_t string_length = (uint16_t)std::strlen(c_string_ref);
     return save_data(string_length) && save_data_in_bytes(c_string_ref, string_length);
 }
 
@@ -258,7 +260,7 @@ RingBuffer::save_data (
 /// std::string专用saveData函数
 template<>
 INLINE_FUNCTION
-Bool
+bool
 RingBuffer::save_data (
     const std::string & std_string_ref)
 {

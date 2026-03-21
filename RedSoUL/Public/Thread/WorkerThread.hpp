@@ -38,9 +38,10 @@
 #else /// MacOS, iOS, Linux
 #include <pthread.h>
 #endif /// (OS_TYPE == OS_TYPE_WIN)
+#include <stdint.h> /// uint32_t,...
 /// Library headers
 #include "Common/CompilerDefines.hpp" /// BUILD_MODE
-#include "DataType/BuiltInTypes.hpp"  /// UInt,...
+#include "Math/MathDefines.hpp"       ///  MAXIMAL_UINT32
 #include "Thread/ThreadDefines.hpp"
 
 
@@ -51,12 +52,12 @@ class WorkerThread
     typedef const ThreadStackSize ConstThreadStackSizeT;
 public:
     /// 错误返回值(线程错误退出时的数值)
-    static constexpr UInt ERROR_EXIT_CODE = (UInt)(~0);
+    static constexpr uint32_t ERROR_EXIT_CODE = MAXIMAL_UINT32;
 
     /// 构造一个辅助线程
     explicit
     WorkerThread (
-        const ASCII * const   name       = "RedSoUL-Worker Thread",
+        const char * const   name        = "RedSoUL-Worker Thread",
         ConstThreadStackSizeT stack_size = ThreadStackSize::DEFAULT_THREAD_STACK_SIZE);
 
     /// 启动此线程: 让OS规划它的运行
@@ -64,7 +65,7 @@ public:
     /// @return
     ///      True:  如果成功启动
     ///      False: 如果启动失败
-    Bool
+    bool
     start ();
 
     /// 挂起此线程(暂停此线程的运行)
@@ -81,7 +82,7 @@ public:
     ///     线程的返回值
     ///     - 0:               成功退出
     ///     - ERROR_EXIT_CODE: 错误退出
-    UInt
+    uint32_t
     wait_for_exit () const;
 
 
@@ -94,7 +95,7 @@ protected:
     ///     - 0:               成功退出
     ///     - ERROR_EXIT_CODE: 错误退出
     virtual
-    UInt
+    uint32_t
     run_loop () = 0;
 
 protected:
@@ -116,11 +117,11 @@ protected:
 
     // --- DEBUG模式下的辅助信息 --- //
 #if (BUILD_MODE == DEBUG_BUILD_MODE)
-    static constexpr UShort MAX_THREAD_NAME_LENGTH = 32;
+    static constexpr uint16_t MAX_THREAD_NAME_LENGTH = 32;
     /// 线程的状态
     ThreadState m_state;
     /// 线程的名称
-    ASCII       m_name[MAX_THREAD_NAME_LENGTH + 1];
+    char        m_name[MAX_THREAD_NAME_LENGTH + 1];
 #endif
 
 
@@ -134,24 +135,24 @@ private:
     ///     - 0:               成功退出
     ///     - ERROR_EXIT_CODE: 错误退出
     static
-    UInt
+    uint32_t
     ThreadProc (
         void * const self_thread);
 
     /// 清理资源
     void
     cleanup (
-        const UInt exit_code);
+        const uint32_t exit_code);
 
     // --- DEBUG模式下的辅助函数 --- //
     /// 获得线程名称
-    const ASCII *
+    const char *
     get_thread_name () const;
 
     /// 设置线程名称
     void
     set_thread_name (
-        const ASCII * const new_name);
+        const char * const new_name);
 
     /// 设置线程状态
     void

@@ -28,7 +28,8 @@
 #pragma once
 
 
-#include "DataType/BuiltInTypes.hpp"
+/// System headers
+#include <stdint.h> /// uint32_t,...
 
 
 /// 线程堆栈的长度(字节长度)
@@ -84,4 +85,4 @@ enum class ThreadState
 
 
 /// 线程ID
-typedef ULong WorkerThreadIdT;
+typedef uint64_t WorkerThreadIdT;
