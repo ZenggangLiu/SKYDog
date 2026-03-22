@@ -77,6 +77,24 @@
 		BD58B0F12F5BB84C0024C670 /* StaticString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD58B0EF2F5BB84C0024C670 /* StaticString.cpp */; };
 		BD9FAFAF2F6D5DE9000B085D /* MathDefines.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD9FAFAE2F6D5DE9000B085D /* MathDefines.hpp */; };
 		BD9FAFB02F6D5DE9000B085D /* MathDefines.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD9FAFAE2F6D5DE9000B085D /* MathDefines.hpp */; };
+		BD9FAFB32F6E528C000B085D /* MathUtilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD9FAFB22F6E528C000B085D /* MathUtilities.cpp */; };
+		BD9FAFB42F6E528C000B085D /* MathUtilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD9FAFB22F6E528C000B085D /* MathUtilities.cpp */; };
+		BD9FAFB92F6E7430000B085D /* Float4D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD9FAFB82F6E7430000B085D /* Float4D.hpp */; };
+		BD9FAFBA2F6E7430000B085D /* Float4D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD9FAFB82F6E7430000B085D /* Float4D.hpp */; };
+		BD9FAFBD2F6E756B000B085D /* Float4D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD9FAFBC2F6E756B000B085D /* Float4D.cpp */; };
+		BD9FAFBE2F6E756B000B085D /* Float4D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD9FAFBC2F6E756B000B085D /* Float4D.cpp */; };
+		BDA8960E2F6F6F0300B0683B /* Float3D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA8960D2F6F6F0300B0683B /* Float3D.hpp */; };
+		BDA8960F2F6F6F0300B0683B /* Float3D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA8960D2F6F6F0300B0683B /* Float3D.hpp */; };
+		BDA896112F6F70FA00B0683B /* Float3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDA896102F6F70FA00B0683B /* Float3D.cpp */; };
+		BDA896122F6F70FA00B0683B /* Float3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDA896102F6F70FA00B0683B /* Float3D.cpp */; };
+		BDA896142F6F9B9600B0683B /* Matrix3x4.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA896132F6F9B9600B0683B /* Matrix3x4.hpp */; };
+		BDA896152F6F9B9600B0683B /* Matrix3x4.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA896132F6F9B9600B0683B /* Matrix3x4.hpp */; };
+		BDA896172F6F9C8300B0683B /* Matrix3x4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDA896162F6F9C8300B0683B /* Matrix3x4.cpp */; };
+		BDA896182F6F9C8300B0683B /* Matrix3x4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDA896162F6F9C8300B0683B /* Matrix3x4.cpp */; };
+		BDA8961A2F6FE7E900B0683B /* Matrix4x4.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA896192F6FE7E900B0683B /* Matrix4x4.hpp */; };
+		BDA8961B2F6FE7E900B0683B /* Matrix4x4.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA896192F6FE7E900B0683B /* Matrix4x4.hpp */; };
+		BDA8961D2F6FE89900B0683B /* Matrix4x4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDA8961C2F6FE89900B0683B /* Matrix4x4.cpp */; };
+		BDA8961E2F6FE89900B0683B /* Matrix4x4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDA8961C2F6FE89900B0683B /* Matrix4x4.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -129,6 +147,15 @@
 		BD86B5FA2F388E1600DD8D2E /* libRedSoUL-macOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libRedSoUL-macOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD86B60E2F39E1FC00DD8D2E /* libRedSoUL-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libRedSoUL-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD9FAFAE2F6D5DE9000B085D /* MathDefines.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = MathDefines.hpp; path = Public/Math/MathDefines.hpp; sourceTree = "<group>"; };
+		BD9FAFB22F6E528C000B085D /* MathUtilities.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = MathUtilities.cpp; path = Private/Math/MathUtilities.cpp; sourceTree = "<group>"; };
+		BD9FAFB82F6E7430000B085D /* Float4D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = Float4D.hpp; path = Public/DataType/Float4D.hpp; sourceTree = "<group>"; };
+		BD9FAFBC2F6E756B000B085D /* Float4D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = Float4D.cpp; path = Private/DataType/Float4D.cpp; sourceTree = "<group>"; };
+		BDA8960D2F6F6F0300B0683B /* Float3D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = Float3D.hpp; path = Public/DataType/Float3D.hpp; sourceTree = "<group>"; };
+		BDA896102F6F70FA00B0683B /* Float3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = Float3D.cpp; path = Private/DataType/Float3D.cpp; sourceTree = "<group>"; };
+		BDA896132F6F9B9600B0683B /* Matrix3x4.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = Matrix3x4.hpp; path = Public/DataType/Matrix3x4.hpp; sourceTree = "<group>"; };
+		BDA896162F6F9C8300B0683B /* Matrix3x4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = Matrix3x4.cpp; path = Private/DataType/Matrix3x4.cpp; sourceTree = "<group>"; };
+		BDA896192F6FE7E900B0683B /* Matrix4x4.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = Matrix4x4.hpp; path = Public/DataType/Matrix4x4.hpp; sourceTree = "<group>"; };
+		BDA8961C2F6FE89900B0683B /* Matrix4x4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = Matrix4x4.cpp; path = Private/DataType/Matrix4x4.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,6 +179,10 @@
 		BD326EC82F3BEF2B007EE8EC /* DataType */ = {
 			isa = PBXGroup;
 			children = (
+				BDA8960D2F6F6F0300B0683B /* Float3D.hpp */,
+				BD9FAFB82F6E7430000B085D /* Float4D.hpp */,
+				BDA896132F6F9B9600B0683B /* Matrix3x4.hpp */,
+				BDA896192F6FE7E900B0683B /* Matrix4x4.hpp */,
 			);
 			name = DataType;
 			sourceTree = "<group>";
@@ -363,8 +394,10 @@
 			children = (
 				BD326EE02F3C7DF7007EE8EC /* Assert */,
 				BD326F372F4958BC007EE8EC /* Container */,
+				BD9FAFBB2F6E753F000B085D /* DataType */,
 				BD326ED22F3C1B50007EE8EC /* Encoder */,
 				BD58B0B82F5973A10024C670 /* Hashing */,
+				BD9FAFB12F6E526F000B085D /* Math */,
 				BD326F2C2F431F23007EE8EC /* Memory */,
 				BD58B09E2F582F0F0024C670 /* Runtime */,
 				BD58B0AE2F58EF5C0024C670 /* Text */,
@@ -384,6 +417,25 @@
 			name = Common;
 			sourceTree = "<group>";
 		};
+		BD9FAFB12F6E526F000B085D /* Math */ = {
+			isa = PBXGroup;
+			children = (
+				BD9FAFB22F6E528C000B085D /* MathUtilities.cpp */,
+			);
+			name = Math;
+			sourceTree = "<group>";
+		};
+		BD9FAFBB2F6E753F000B085D /* DataType */ = {
+			isa = PBXGroup;
+			children = (
+				BDA896102F6F70FA00B0683B /* Float3D.cpp */,
+				BD9FAFBC2F6E756B000B085D /* Float4D.cpp */,
+				BDA896162F6F9C8300B0683B /* Matrix3x4.cpp */,
+				BDA8961C2F6FE89900B0683B /* Matrix4x4.cpp */,
+			);
+			name = DataType;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -391,6 +443,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BDA8961A2F6FE7E900B0683B /* Matrix4x4.hpp in Headers */,
 				BD326EDE2F3C40A5007EE8EC /* PlatformDefines.hpp in Headers */,
 				BD58B0D02F5B93B90024C670 /* StaticXXHash32.hpp in Headers */,
 				BD58B0CE2F5B93B90024C670 /* StaticXXHash64.hpp in Headers */,
@@ -409,9 +462,12 @@
 				BD58B0D32F5B93F30024C670 /* StaticHash.hpp in Headers */,
 				BD326F322F495429007EE8EC /* RingBuffer.hpp in Headers */,
 				BD326F2A2F431CD5007EE8EC /* MemoryUtilities.hpp in Headers */,
+				BD9FAFB92F6E7430000B085D /* Float4D.hpp in Headers */,
 				BD58B0802F4DA6D40024C670 /* WorkerThread.hpp in Headers */,
+				BDA896142F6F9B9600B0683B /* Matrix3x4.hpp in Headers */,
 				BD58B0A12F582F330024C670 /* GameLogic.hpp in Headers */,
 				BD58B0BE2F5974630024C670 /* RuntimeHash.hpp in Headers */,
+				BDA8960E2F6F6F0300B0683B /* Float3D.hpp in Headers */,
 				BD326ECC2F3BFC80007EE8EC /* CommonDefines.hpp in Headers */,
 				BD58B0A72F582F480024C670 /* GameMainLoop.hpp in Headers */,
 				BD58B0E12F5B9C930024C670 /* StaticString.hpp in Headers */,
@@ -422,6 +478,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BDA8961B2F6FE7E900B0683B /* Matrix4x4.hpp in Headers */,
 				BD326EDF2F3C40A5007EE8EC /* PlatformDefines.hpp in Headers */,
 				BD58B0D12F5B93B90024C670 /* StaticXXHash32.hpp in Headers */,
 				BD58B0CF2F5B93B90024C670 /* StaticXXHash64.hpp in Headers */,
@@ -440,9 +497,12 @@
 				BD58B0D42F5B93F30024C670 /* StaticHash.hpp in Headers */,
 				BD326F332F495429007EE8EC /* RingBuffer.hpp in Headers */,
 				BD326F2B2F431CD5007EE8EC /* MemoryUtilities.hpp in Headers */,
+				BD9FAFBA2F6E7430000B085D /* Float4D.hpp in Headers */,
 				BD58B0812F4DA6D40024C670 /* WorkerThread.hpp in Headers */,
+				BDA896152F6F9B9600B0683B /* Matrix3x4.hpp in Headers */,
 				BD58B0A22F582F330024C670 /* GameLogic.hpp in Headers */,
 				BD58B0BF2F5974630024C670 /* RuntimeHash.hpp in Headers */,
+				BDA8960F2F6F6F0300B0683B /* Float3D.hpp in Headers */,
 				BD326EC72F3B32F0007EE8EC /* CommonDefines.hpp in Headers */,
 				BD58B0A82F582F480024C670 /* GameMainLoop.hpp in Headers */,
 				BD58B0E22F5B9C930024C670 /* StaticString.hpp in Headers */,
@@ -531,14 +591,19 @@
 				BD326EE32F3C7F9A007EE8EC /* RuntimeAssert.cpp in Sources */,
 				BD326F3A2F4958CE007EE8EC /* RingBuffer.cpp in Sources */,
 				BD58B0A62F582F480024C670 /* GameMainLoop.cpp in Sources */,
+				BDA8961E2F6FE89900B0683B /* Matrix4x4.cpp in Sources */,
 				BD58B0DD2F5B97BA0024C670 /* RuntimeHash.cpp in Sources */,
 				BD326ED52F3C1B9E007EE8EC /* X2TeaEncoder.cpp in Sources */,
+				BDA896182F6F9C8300B0683B /* Matrix3x4.cpp in Sources */,
 				BD58B08E2F519D890024C670 /* ArenaAllocator.cpp in Sources */,
+				BD9FAFBE2F6E756B000B085D /* Float4D.cpp in Sources */,
 				BD58B09D2F56DE1D0024C670 /* ClockTime.cpp in Sources */,
 				BD58B0882F4EF27D0024C670 /* WorkerThread.cpp in Sources */,
+				BD9FAFB42F6E528C000B085D /* MathUtilities.cpp in Sources */,
 				BD326F2F2F431F39007EE8EC /* MemoryUtilities.cpp in Sources */,
 				BD58B0EE2F5BA1790024C670 /* StaticStringDepot.cpp in Sources */,
 				BD58B0F12F5BB84C0024C670 /* StaticString.cpp in Sources */,
+				BDA896122F6F70FA00B0683B /* Float3D.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -549,14 +614,19 @@
 				BD326EE22F3C7F9A007EE8EC /* RuntimeAssert.cpp in Sources */,
 				BD326F392F4958CE007EE8EC /* RingBuffer.cpp in Sources */,
 				BD58B0A52F582F480024C670 /* GameMainLoop.cpp in Sources */,
+				BDA8961D2F6FE89900B0683B /* Matrix4x4.cpp in Sources */,
 				BD58B0DC2F5B97BA0024C670 /* RuntimeHash.cpp in Sources */,
 				BD326ED42F3C1B9E007EE8EC /* X2TeaEncoder.cpp in Sources */,
+				BDA896172F6F9C8300B0683B /* Matrix3x4.cpp in Sources */,
 				BD58B08D2F519D890024C670 /* ArenaAllocator.cpp in Sources */,
+				BD9FAFBD2F6E756B000B085D /* Float4D.cpp in Sources */,
 				BD58B09C2F56DE1D0024C670 /* ClockTime.cpp in Sources */,
 				BD58B0872F4EF27D0024C670 /* WorkerThread.cpp in Sources */,
+				BD9FAFB32F6E528C000B085D /* MathUtilities.cpp in Sources */,
 				BD326F2E2F431F39007EE8EC /* MemoryUtilities.cpp in Sources */,
 				BD58B0ED2F5BA1790024C670 /* StaticStringDepot.cpp in Sources */,
 				BD58B0F02F5BB84C0024C670 /* StaticString.cpp in Sources */,
+				BDA896112F6F70FA00B0683B /* Float3D.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
