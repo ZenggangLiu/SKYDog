@@ -50,17 +50,6 @@ struct MathUtility
     fast_acos (
         const float num);
 
-    /// 同时计算Sine与Cosine
-    ///
-    /// @param[in]  rads
-    ///     角度(以弧度衡量)
-    static
-    void
-    sincos (
-        const float rads,
-        float &     sin,
-        float &     cos);
-
     /// Clamps给定的数值到给定的区间: [min, max]
     template < typename T >
     INLINE_FUNCTION
