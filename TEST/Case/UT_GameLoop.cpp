@@ -24,7 +24,7 @@ class TestLogic : public GameLogic
     virtual
     void
     update_level (
-        const Float delta_time_ms) override
+        const float delta_time_ms) override
     {
         std::printf("[Update]: dt(%fms)\n", delta_time_ms);
     }

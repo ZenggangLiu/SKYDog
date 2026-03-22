@@ -18,35 +18,35 @@ TEST_CASE("Checking RingBuffer", "[RingBuffer]")
 
     // -- 输出数据 -- //
     /// Primitive types
-    const SByte      sbyte_out   = 0x1A;
-    const SShort     sshort_out  = 0x1ABB;
-    const SInt       sint_out    = 0x1ABBCCDD;
-    const SLong      slong_out   = 0x1ABBCCDDEEFF1122;
-    const UByte      ubyte_out   = 0x0A;
-    const UShort     ushort_out  = 0x0ABB;
-    const UInt       uint_out    = 0x0ABBCCDD;
-    const ULong      ulong_out   = 0x0ABBCCDDEEFF1122;
-    const ASCII *    cstring_out = "SOMETHING";
+    const int8_t     sbyte_out   = 0x1A;
+    const int16_t    sshort_out  = 0x1ABB;
+    const int32_t    sint_out    = 0x1ABBCCDD;
+    const int64_t    slong_out   = 0x1ABBCCDDEEFF1122;
+    const uint8_t    ubyte_out   = 0x0A;
+    const uint16_t   ushort_out  = 0x0ABB;
+    const uint32_t   uint_out    = 0x0ABBCCDD;
+    const uint64_t   ulong_out   = 0x0ABBCCDDEEFF1122;
+    const char *     cstring_out = "SOMETHING";
     const StdStringT stdstring_out("OTHERTHING");
 
     /// Custum types
     struct CustomType
     {
-        UByte array[16];
+        uint8_t array[16];
     };
     const CustomType array_out = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0xA, 0xB, 0xC, 0xD, 0xE, 0xF };
     const CustomType * const array_ptr_out = &array_out;
 
     // --- 输入数据 --- //
     /// Primitive types
-    SByte      sbyte_in  = 0;
-    SShort     sshort_in = 0;
-    SInt       sint_in   = 0;
-    SLong      slong_in  = 0;
-    UByte      ubyte_in  = 0;
-    UShort     ushort_in = 0;
-    UInt       uint_in   = 0;
-    ULong      ulong_in  = 0;
+    int8_t     sbyte_in  = 0;
+    int16_t    sshort_in = 0;
+    int32_t    sint_in   = 0;
+    int64_t    slong_in  = 0;
+    uint8_t    ubyte_in  = 0;
+    uint16_t   ushort_in = 0;
+    uint32_t   uint_in   = 0;
+    uint64_t   ulong_in  = 0;
     StdStringT cstring_in;
     StdStringT stdstring_in;
 
@@ -55,7 +55,7 @@ TEST_CASE("Checking RingBuffer", "[RingBuffer]")
     const CustomType * array_ptr_in = nullptr;
 
     // --- RingBuffer实例 --- //
-    static constexpr UInt BUFFER_BYTE_SIZE = 1024;
+    static constexpr uint32_t BUFFER_BYTE_SIZE = 1024;
     RingBuffer ring_buffer(BUFFER_BYTE_SIZE);
 
     SECTION("Checking RingBuffer")

@@ -5,9 +5,9 @@
     TEST_CASE("Checking XXTEA encode/decode", "[XXTEA]")
     {
         /// 定义共享的变量
-        const UInt8 _key[] = { 0, 1, 2, 3, 4, 5 };
-        const UInt8 _clear_txt[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
-        const UInt8 _encoded_txt[] =
+        const uint8_t _key[] = { 0, 1, 2, 3, 4, 5 };
+        const uint8_t _clear_txt[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
+        const uint8_t _encoded_txt[] =
         {
             0x50, 0x23, 0x8A, 0xAF,
             0x5C, 0xF7, 0x59, 0x71,
@@ -15,16 +15,16 @@
             0x56, 0xAD, 0x01, 0x1B
         };
         /// 操作用的缓存
-        UInt32 _buffer[sizeof(_clear_txt) >> 2];
+        uint32_t _buffer[sizeof(_clear_txt) >> 2];
 
         /// 第一个Check Section
         SECTION("Checking Encoding:")
         {
             std::memcpy(_buffer, _clear_txt, sizeof(_buffer));
             XXTEA::encode(_key, sizeof(_key), _buffer, ARRAY_ITEM_COUNT(_buffer));
-            for (UInt32 c = 0; c < sizeof(_buffer); ++c)
+            for (uint32_t c = 0; c < sizeof(_buffer); ++c)
             {
-                REQUIRE((((const UInt8*)_buffer)[c] != _encoded_txt[c]));
+                REQUIRE((((const uint8_t*)_buffer)[c] != _encoded_txt[c]));
             }
         }
 
@@ -33,9 +33,9 @@
         {
             std::memcpy(_buffer, _encoded_txt, sizeof(_buffer));
             XXTEA::decode(_key, sizeof(_key), _buffer, ARRAY_ITEM_COUNT(_buffer));
-            for (UInt32 c = 0; c < sizeof(_buffer); ++c)
+            for (uint32_t c = 0; c < sizeof(_buffer); ++c)
             {
-                REQUIRE((((const UInt8*)_buffer)[c] == _clear_txt[c]));
+                REQUIRE((((const uint8_t*)_buffer)[c] == _clear_txt[c]));
             }
         }
     } /// TEST_CASE("Checking XXTEA encode/decode", "[XXTEA]")
