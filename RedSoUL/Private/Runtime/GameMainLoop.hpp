@@ -20,7 +20,7 @@ public:
     /// 创建一个游戏主循环
     ///
     /// @param[in]  tick_freq
-    ///     游戏世界中Tick的频率(例如30赫兹): 即, 定义多长时间我们要进行一次世界更新
+    ///     游戏世界中Tick的频率(例如30赫兹): 即: 定义多长时间我们要进行一次世界更新
     /// @param[in]  game_logic
     ///     游戏逻辑实例
     explicit
@@ -73,7 +73,7 @@ private:
 
     /// 游戏逻辑
     GameLogic &   m_game_logic;
-    /// 游戏时间/Tick时间(多少毫秒): 即, 每个Tick之间的时间间隔
+    /// 游戏时间/Tick时间(多少毫秒): 即: 每个Tick之间的时间间隔
     const float   m_tick_time;
 #if (BUILD_MODE == DEBUG_BUILD_MODE)
     /// 帧的号码(1开始)
@@ -81,7 +81,7 @@ private:
     /// Tick时间的放缩系数
     float         m_tick_time_scale;
 #endif
-    /// 累积的游戏时间延迟(多少毫秒): 即, 相对于Tick时间的延迟
+    /// 累积的游戏时间延迟(多少毫秒): 即: 相对于Tick时间的延迟
     float         m_delayed_time;
     /// 前个Frame的起始时间(多少毫秒)
     float         m_last_start_time;
@@ -92,6 +92,6 @@ private:
     AtomicBoolT   m_is_running;
     /// 连续跳帧的次数
     uint8_t       m_skipped_draw_count;
-    /// 是否跳帧: 即,是否跳过绘制(DRAW)操作
+    /// 是否跳帧: 即: 是否跳过绘制(DRAW)操作
     bool          m_skip_draw;
 };

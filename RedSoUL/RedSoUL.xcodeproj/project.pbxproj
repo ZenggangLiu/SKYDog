@@ -95,6 +95,8 @@
 		BDA8961B2F6FE7E900B0683B /* Matrix4x4.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA896192F6FE7E900B0683B /* Matrix4x4.hpp */; };
 		BDA8961D2F6FE89900B0683B /* Matrix4x4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDA8961C2F6FE89900B0683B /* Matrix4x4.cpp */; };
 		BDA8961E2F6FE89900B0683B /* Matrix4x4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDA8961C2F6FE89900B0683B /* Matrix4x4.cpp */; };
+		BDA896202F714B9400B0683B /* Quaternion.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA8961F2F714B9400B0683B /* Quaternion.hpp */; };
+		BDA896212F714B9400B0683B /* Quaternion.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA8961F2F714B9400B0683B /* Quaternion.hpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -156,6 +158,7 @@
 		BDA896162F6F9C8300B0683B /* Matrix3x4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = Matrix3x4.cpp; path = Private/DataType/Matrix3x4.cpp; sourceTree = "<group>"; };
 		BDA896192F6FE7E900B0683B /* Matrix4x4.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = Matrix4x4.hpp; path = Public/DataType/Matrix4x4.hpp; sourceTree = "<group>"; };
 		BDA8961C2F6FE89900B0683B /* Matrix4x4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = Matrix4x4.cpp; path = Private/DataType/Matrix4x4.cpp; sourceTree = "<group>"; };
+		BDA8961F2F714B9400B0683B /* Quaternion.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = Quaternion.hpp; path = Public/DataType/Quaternion.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,6 +186,7 @@
 				BD9FAFB82F6E7430000B085D /* Float4D.hpp */,
 				BDA896132F6F9B9600B0683B /* Matrix3x4.hpp */,
 				BDA896192F6FE7E900B0683B /* Matrix4x4.hpp */,
+				BDA8961F2F714B9400B0683B /* Quaternion.hpp */,
 			);
 			name = DataType;
 			sourceTree = "<group>";
@@ -451,6 +455,7 @@
 				BD326ED02F3C19E6007EE8EC /* X2TeaEncoder.hpp in Headers */,
 				BD326EE62F41773A007EE8EC /* MathUtilities.hpp in Headers */,
 				BD58B0EB2F5BA1790024C670 /* StaticStringDepot.hpp in Headers */,
+				BDA896202F714B9400B0683B /* Quaternion.hpp in Headers */,
 				BD326ED82F3C24A5007EE8EC /* RuntimeAssert.hpp in Headers */,
 				BD58B08A2F519C4A0024C670 /* ArenaAllocator.hpp in Headers */,
 				BD326EDB2F3C2625007EE8EC /* CompilerDefines.hpp in Headers */,
@@ -486,6 +491,7 @@
 				BD326ED12F3C19E6007EE8EC /* X2TeaEncoder.hpp in Headers */,
 				BD326EE72F41773B007EE8EC /* MathUtilities.hpp in Headers */,
 				BD58B0EC2F5BA1790024C670 /* StaticStringDepot.hpp in Headers */,
+				BDA896212F714B9400B0683B /* Quaternion.hpp in Headers */,
 				BD326ED92F3C24A5007EE8EC /* RuntimeAssert.hpp in Headers */,
 				BD58B08B2F519C4A0024C670 /* ArenaAllocator.hpp in Headers */,
 				BD326EDC2F3C2625007EE8EC /* CompilerDefines.hpp in Headers */,

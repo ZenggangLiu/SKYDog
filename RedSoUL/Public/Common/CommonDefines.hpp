@@ -47,7 +47,7 @@
 ///     uint8_t  var;
 /// };
 ///
-/// MEMBER_OFFSET(T, var) 返回 12: 即 var 的偏移
+/// MEMBER_OFFSET(T, var) 返回 12(即: var的偏移)
 #if !defined(MEMBER_OFFSET)
 /// NOTE:
 /// 由于对C++11标准的支持问题

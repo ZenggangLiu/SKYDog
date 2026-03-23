@@ -82,7 +82,7 @@ public:
     allocate (
         const uint16_t size);
 
-    /// 释放当前的Arena：即释放所有控制的内存
+    /// 释放当前的Arena(即: 释放所有控制的内存)
     void
     release();
 

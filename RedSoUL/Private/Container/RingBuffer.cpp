@@ -106,7 +106,7 @@ bool
 RingBuffer::is_empty () const
 {
     /// 读入辅助线程(Producer)最新设定的数据尾部值
-    /// 并同步Producer线程(即，同步所有mSaveDataTail之前的所有内存操作)
+    /// 并同步Producer线程(即: 同步所有mSaveDataTail之前的所有内存操作)
     const uint64_t saved_data_tail = m_saved_data_tail.load(std::memory_order_acquire);
     return (saved_data_tail - m_data_read_pos) == 0;
 }
@@ -136,7 +136,7 @@ bool
 RingBuffer::is_full () const
 {
     /// 读入辅助线程(Consumer)最新设定的数据头部值
-    /// 并同步Consumer线程(即，同步所有mSaveDataHead之前的所有内存操作)
+    /// 并同步Consumer线程(即: 同步所有mSaveDataHead之前的所有内存操作)
     const uint64_t saved_data_head = m_saved_data_head.load(std::memory_order_acquire);
     const uint64_t saved_data_size = m_data_save_pos - saved_data_head;
     const uint64_t free_space_size = m_buffer_size   - saved_data_size;
@@ -170,7 +170,7 @@ RingBuffer::read_data_in_bytes (
     if (buffer_size_in_bytes >= exp_data_size_in_bytes)
     {
         /// 读入辅助线程(Producer)最新设定的数据尾部值
-        /// 并同步Producer线程(即，同步所有mSaveDataTail之前的所有内存操作)
+        /// 并同步Producer线程(即: 同步所有mSaveDataTail之前的所有内存操作)
         const uint64_t saved_data_tail = m_saved_data_tail.load(std::memory_order_acquire);
         const uint64_t saved_data_size = saved_data_tail - m_data_read_pos;
         /// 有足够的数据可读
@@ -223,7 +223,7 @@ RingBuffer::save_data_in_bytes (
     const uint64_t     exp_data_size_in_bytes)
 {
     /// 读入辅助线程(Consumer)最新设定的数据头部值
-    /// 并同步Consumer线程(即，同步所有mSaveDataHead之前的所有内存操作)
+    /// 并同步Consumer线程(即: 同步所有mSaveDataHead之前的所有内存操作)
     const uint64_t saved_data_head = m_saved_data_head.load(std::memory_order_acquire);
     const uint64_t saved_data_size = m_data_save_pos - saved_data_head;
     const uint64_t free_space_size = m_buffer_size   - saved_data_size;

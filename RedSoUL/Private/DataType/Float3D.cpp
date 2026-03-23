@@ -180,7 +180,7 @@ float_3::cross (
     ///  +--+---------+-->
     ///        v2
     /// 它的面积为：|v2| * h。此处h := |v1|*sin(ϕ)
-    /// 因此这个四边形的面积为|v1 x v2|: 即, v1与v2的Cross Product的绝对值
+    /// 因此这个四边形的面积为|v1 x v2|: 即: v1与v2的Cross Product的绝对值
     const float cross_x = (y * vec.z) - (z * vec.y);
     const float cross_y = (z * vec.x) - (x * vec.z);
     const float cross_z = (x * vec.y) - (y * vec.x);
