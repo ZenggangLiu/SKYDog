@@ -7,14 +7,14 @@
 #include "DataType/Float3D.hpp"
 
 
-const float_3 float_3::ZERO     = float_3::make( 0,  0,  0 );
-const float_3 float_3::ONE      = float_3::make( 1,  1,  1 );
-const float_3 float_3::LEFT     = float_3::make(-1,  0,  0 );
-const float_3 float_3::RIGHT    = float_3::make( 1,  0,  0 );
-const float_3 float_3::UP       = float_3::make( 0,  1,  0 );
-const float_3 float_3::DOWN     = float_3::make( 0, -1,  0 );
-const float_3 float_3::FORWARD  = float_3::make( 0,  0,  1 );
-const float_3 float_3::BACKWARD = float_3::make( 0,  0, -1 );
+const float_3 float_3::ZERO    {  0,  0,  0 };
+const float_3 float_3::ONE     {  1,  1,  1 };
+const float_3 float_3::LEFT    { -1,  0,  0 };
+const float_3 float_3::RIGHT   {  1,  0,  0 };
+const float_3 float_3::UP      {  0,  1,  0 };
+const float_3 float_3::DOWN    {  0, -1,  0 };
+const float_3 float_3::FORWARD {  0,  0,  1 };
+const float_3 float_3::BACKWARD{  0,  0, -1 };
 
 
 float_3
@@ -30,7 +30,7 @@ float_3::make (
     const float y,
     const float z)
 {
-    return float_3 {x, y, z };
+    return float_3{ x, y, z };
 }
 
 
@@ -217,6 +217,23 @@ float_3::unified_vec () const
     float_3 normalized_vec = *this;
     normalized_vec.normalize();
     return normalized_vec;
+}
+
+
+float_3
+float_3::perpendicular_vec ()const
+{
+    /// NOTE: 有无穷多个向量与当前向量垂直,
+    /// 我们尽量：使Cross(Perp, THIS)指向上方
+    ///
+    /// 先计算一个不平行的参考轴
+    const float_3 ref_vec = (std::fabsf(y) < 0.99f)
+                          ? float_3{ 0, 1, 0 }
+                          : float_3{ 1, 0, 0 };
+    /// Cross(THIS, Ref)
+    const float_3 perp_vec = cross(ref_vec);
+    const float sign = (cross(perp_vec).y >= 0.0f) ? 1.0f : -1.0f;
+    return perp_vec * sign;
 }
 
 

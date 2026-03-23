@@ -50,6 +50,17 @@ struct MathUtility
     fast_acos (
         const float num);
 
+    /// 同时计算Sine与Cosine
+    ///
+    /// @param[in]  degs
+    ///     输入角度(以度数衡量)
+    static
+    void
+    sincos (
+        const float degs,
+        float &     sin,
+        float &     cos);
+
     /// Clamps给定的数值到给定的区间: [min, max]
     template < typename T >
     INLINE_FUNCTION

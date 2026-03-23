@@ -7,13 +7,13 @@
 
 /// 最大的32位整数
 #if !defined(MAXIMAL_UINT32)
-#define MAXIMAL_UINT32              ((uint32_t)-1)
+#define MAXIMAL_UINT32               ((uint32_t)-1)
 #endif
 
 
 /// 最大的64位整数
 #if !defined(MAXIMAL_UINT64)
-#define MAXIMAL_UINT64              ((uint64_t)-1)
+#define MAXIMAL_UINT64               ((uint64_t)-1)
 #endif
 
 
@@ -21,25 +21,35 @@
 /// 由于相邻的两个32位浮点数的最小数值差为：0.00000006：6e-8
 /// 所以我们使用0.000001：1e-6
 #if !defined(EPSILON)
-#define EPSILON                     (1.0e-6f)
+#define EPSILON                      (1.0e-6f)
 #endif
 
 
 /// PI
 #if !defined(ONE_PI)
-#define ONE_PI                      (3.14159265358979f)
+#define ONE_PI                       (3.14159265358979f)
+#endif
+
+
+#if !defined(TWO_PI)
+#define TWO_PI                       (2.0f * ONE_PI)
+#endif
+
+
+#if !defined(HALF_PI)
+#define HALF_PI                      (ONE_PI / 2.0f)
 #endif
 
 
 /// 将角度转换为弧度
 #if !defined(DEGREE_TO_RADIAN)
-#define DEGREE_TO_RADIAN(degrees)   (degrees * (ONE_PI / 180.0f))
+#define DEGREE_TO_RADIAN(degrees)    (degrees * (ONE_PI / 180.0f))
 #endif
 
 
 /// 将弧度转换为角度
 #if !defined(RADIAN_TO_DEGREE)
-#define RADIAN_TO_DEGREE(radians)   (radians * (180.0f / ONE_PI))
+#define RADIAN_TO_DEGREE(radians)    (radians * (180.0f / ONE_PI))
 #endif
 
 
@@ -55,18 +65,18 @@
 /// 数值1的间隙16倍大
 #if !defined(MINIMUM_POSITIVE_FLOAT)
 // 0x00800000
-#define MINIMUM_POSITIVE_FLOAT      1.175494351e-38f
+#define MINIMUM_POSITIVE_FLOAT       1.175494351e-38f
 #endif
 
 
 /// 32位浮点数1的Bit Pattern
 #if !defined(FLOAT_ONE_PATTERN)
-#define FLOAT_ONE_PATTERN           0x3F800000
+#define FLOAT_ONE_PATTERN            0x3F800000
 #endif
 
 
 /// 32位最大的的浮点数
 #if !defined(MAXIMAL_FLOAT)
 /// 0x7F7FFFFF
-#define MAXIMAL_FLOAT               3.402823466e+38f
+#define MAXIMAL_FLOAT                3.402823466e+38f
 #endif

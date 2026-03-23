@@ -27,6 +27,58 @@ MathUtility::fast_acos (
 }
 
 
+void
+MathUtility::sincos (
+    const float degs,
+    float &     sin,
+    float &     cos)
+{
+    /// COPYED: DirectX::XMScalarSinCos()
+    ///
+    const float rads = DEGREE_TO_RADIAN(degs);
+
+    /// 将指定角度Rads映射到在[-π, +π]之间的Y值 to y in [-pi,pi]
+    /// 
+    /// rads = 2 * pi * quotient + remainder
+    float quotient = rads / TWO_PI;
+    if (rads >= 0.0f)
+    {
+        quotient = (float)(int32_t)(quotient + 0.5f);
+    }
+    else
+    {
+        quotient = (float)(int32_t)(quotient - 0.5f);
+    }
+
+    float y = rads - TWO_PI * quotient;
+
+    /// 使用sin(Y) = sin(rads), 将Y映射到[-π/2, +πi/2]
+    float sign;
+    if (y > HALF_PI)
+    {
+        y = ONE_PI - y;
+        sign = -1.0f;
+    }
+    else if (y < -HALF_PI)
+    {
+        y = -ONE_PI - y;
+        sign = -1.0f;
+    }
+    else
+    {
+        sign = +1.0f;
+    }
+
+    float y2 = y * y;
+
+    /// 使用11-degree minimax逼近
+    sin = (((((-2.3889859e-08f * y2 + 2.7525562e-06f) * y2 - 0.00019840874f) * y2 + 0.0083333310f) * y2 - 0.16666667f) * y2 + 1.0f) * y;
+
+    /// 使用10-degree minimax逼近
+    cos = sign * (((((-2.6051615e-07f * y2 + 2.4760495e-05f) * y2 - 0.0013888378f) * y2 + 0.041666638f) * y2 - 0.5f) * y2 + 1.0f);
+}
+
+
 bool
 MathUtility::equal (
     const float a,

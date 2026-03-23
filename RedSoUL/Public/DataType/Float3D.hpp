@@ -202,6 +202,10 @@ struct alignas(16) float_3
     float_3
     unified_vec () const;
 
+    /// 计算与当前向量垂直的任意向量
+    float_3
+    perpendicular_vec ()const;
+
     /// 归一化当前向量
     void
     normalize ();
