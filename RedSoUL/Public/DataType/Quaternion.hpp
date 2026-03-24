@@ -102,25 +102,25 @@ struct alignas(16) quaternion
     ///
     /// @param[in]  rot_axis
     ///      旋转轴
-    /// @param[in]  rot_degs
-    ///      旋转角度(以度衡量)
+    /// @param[in]  rot_rads
+    ///      旋转角度(以弧度衡量)
     static
     quaternion
     make (
         const RotationAxis rot_axis,
-        const float        rot_degs);
+        const float        rot_rads);
 
     /// 创建一个绕指定轴旋转的四元数
     ///
     /// @param[in]   rot_axis
     ///      旋转轴
-    /// @param[in]   rot_degs
-    ///      旋转角度(以度衡量)
+    /// @param[in]   rot_rads
+    ///      旋转角度(以弧度衡量)
     static
     quaternion
     make (
         const float_3 rot_axis,
-        const float   rot_degs);
+        const float   rot_rads);
 
     /// 创建一个描述从向量v1到向量v2的旋转的四元数
     ///
@@ -173,12 +173,12 @@ struct alignas(16) quaternion
         const quaternion quat1,
         const float      time);
 
-    /// 检测当前四元数是否与另一个四元数quat相同(即: 表示相同的旋转)
+    /// 检测当前四元数是否与另一个四元数Q相同(即: 表示相同的旋转)
     bool
     operator== (
         const quaternion quat) const;
 
-    /// 检测当前四元数是否与另一个四元数quat不同
+    /// 检测当前四元数是否与另一个四元数Q不同
     bool
     operator!= (
         const quaternion quat) const;
@@ -201,31 +201,31 @@ struct alignas(16) quaternion
     operator[] (
         const uint8_t idx);
 
-    /// 计算当前四元数与另一个四元数quat的乘积(复合旋转)
-    /// C ：= THIS * Q
+    /// 计算当前四元数与另一个四元数R的乘积(复合旋转)
+    /// C ：= THIS * R
     ///
     /// NOTE:
-    /// 复合旋转为: 先使用Q进行旋转, 再使用THIS旋转
-    /// 因为: 对于合成旋转C := THIS * Q, 如果作用在点P上:
-    /// P' := (THIS * Q) * P * (THIS * Q)^-1
-    ///    := THIS *  Q * P * Q^-1  * THIS^-1
-    ///    := THIS * (Q * P * Q^-1) * THIS^-1
+    /// 复合旋转为: 先使用R进行旋转, 再使用THIS旋转
+    /// 因为: 对于合成旋转C := THIS * R, 如果作用在点P上:
+    /// P' := (THIS * R) * P * (THIS * R)^-1
+    ///    := THIS *  R * P * R^-1  * THIS^-1
+    ///    := THIS * (R * P * R^-1) * THIS^-1
     quaternion
     operator* (
-        const quaternion quat) const;
+        const quaternion rot) const;
 
-    /// 旋转指定点P
+    /// 旋转指定向量/点
     float_3
     operator* (
-        const float_3 pnt) const;
+        const float_3 vec) const;
 
     /// 获取旋转轴向量
     float_3
     rot_axis () const;
 
-    /// 获取旋转角(以角度表示)
+    /// 获取旋转角(以弧度衡量)
     float
-    rot_degs () const;
+    rot_rads () const;
 
     /// 创建当前四元数的反四元数(即: 反旋转)
     quaternion

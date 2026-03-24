@@ -82,13 +82,13 @@ struct alignas(16) float_4
         const float z,
         const float w);
 
-    /// 创建三维点对应的Homogenous向量: [x, y, z, 1]
+    /// 创建三维点对应的齐次坐标: [x, y, z, 1]
     static
     float_4
     make_from_point (
         const float_3 pnt);
 
-    /// 创建三维向量对应的Homogenous向量: [x, y, z, 0]
+    /// 创建三维向量对应的齐次坐标: [x, y, z, 0]
     static
     float_4
     make_from_vector (

@@ -14,7 +14,7 @@ const float_4 float_4::ONE { 1, 1, 1, 1 };
 float_4
 float_4::make ()
 {
-    return float_4{ 0, 0, 0, 0 };
+    return ZERO;
 }
 
 
@@ -121,10 +121,10 @@ float_4::normalize ()
 
     /// 1/length
     /// NOTE: 如果向量长度为零, 1/length为零
-    const float inversed_length =
+    const float inv_length =
         MathUtility::equal(vec_length, 0) ? 0.0f : 1.0f / vec_length;
-    x *= inversed_length;
-    y *= inversed_length;
-    z *= inversed_length;
-    w *= inversed_length;
+    x *= inv_length;
+    y *= inv_length;
+    z *= inv_length;
+    w *= inv_length;
 }

@@ -6,6 +6,7 @@
 /// Library headers
 #include "DataType/Float3D.hpp"
 #include "DataType/Float4D.hpp"
+#include "DataType/Quaternion.hpp"
 
 
 /// 三行四列矩阵
@@ -54,12 +55,21 @@ struct alignas(16) matrix_3x4
 
     /// 创建移动矩阵
     ///
-    /// @param[in]  trans
+    /// @param[in]  vec
     ///     移动向量
     static
     matrix_3x4
     make (
-        const float_3 trans);
+        const float_3 vec);
+
+    /// 创建旋转矩阵
+    ///
+    /// @param[in]  quat
+    ///     旋转单位四元数
+    static
+    matrix_3x4
+    make (
+        const quaternion quat);
 
     /// 检测当前矩阵是否与另一个矩阵matx相同
     bool
@@ -88,4 +98,16 @@ struct alignas(16) matrix_3x4
     float_4 &
     operator[] (
         const uint8_t idx);
+
+    /// 计算当前矩阵与另一个矩阵M的乘机：
+    /// THIS * M
+    matrix_3x4
+    operator* (
+        const matrix_3x4 & matx) const;
+
+    /// 使用当前矩阵对指定点P进行变换
+    /// P' = M * P
+    float_3
+    transform_point (
+        const float_3 pnt) const;
 };

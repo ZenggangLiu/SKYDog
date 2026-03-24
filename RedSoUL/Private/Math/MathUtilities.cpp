@@ -4,18 +4,22 @@
 #include "Math/MathUtilities.hpp"
 
 
+/// 要使用快速近似, 将此宏设置为1
+#define USE_FAST_APPROXIMATION  1
+
+
 float
 MathUtility::fast_acos (
-    const float num)
+    const float cos_num)
 {
     /// 保证指定Cosine值在[-1, +1]之间
-    const float clamped_cos = clamp(num, -1.f, +1.f);
+    const float clamped_num = clamp(cos_num, -1.f, +1.f);
 
     /// 获取Cosine值的符号。负数表示角度在[π/2, π]度之间
-    const bool is_neg = clamped_cos < 0;
+    const bool is_neg = clamped_num < 0;
 
     /// 在第一象限中计算角度[0, π/2]
-    const float positive_cos = std::fabsf(clamped_cos);
+    const float positive_cos = std::fabsf(clamped_num);
     float angle_rads = -0.0187293f;
     angle_rads = angle_rads * positive_cos + 0.0742610f;
     angle_rads = angle_rads * positive_cos - 0.2121144f;
@@ -27,17 +31,14 @@ MathUtility::fast_acos (
 }
 
 
-void
-MathUtility::sincos (
-    const float degs,
-    float &     sin,
-    float &     cos)
+float
+MathUtility::fast_cosine (
+    const float rads)
 {
-    /// COPYED: DirectX::XMScalarSinCos()
+    /// COPYED: DirectX::XMScalarCos() in DirectXMath.h
     ///
-    const float rads = DEGREE_TO_RADIAN(degs);
 
-    /// 将指定角度Rads映射到在[-π, +π]之间的Y值 to y in [-pi,pi]
+    /// 将指定角度Rads映射到在[-π, +π]之间的Y值
     /// 
     /// rads = 2 * pi * quotient + remainder
     float quotient = rads / TWO_PI;
@@ -71,11 +72,125 @@ MathUtility::sincos (
 
     float y2 = y * y;
 
-    /// 使用11-degree minimax逼近
+#if (USE_FAST_APPROXIMATION == 1)
+    /// 使用6次Minimax逼近
+    return sign * (((-0.0012712436f * y2 + 0.041493919f) * y2 - 0.49992746f) * y2 + 1.0f);
+#else
+    /// 使用10次Minimax逼近
+    return sign * (((((-2.6051615e-07f * y2 + 2.4760495e-05f) * y2 - 0.0013888378f) *
+                     y2 + 0.041666638f) * y2 - 0.5f) * y2 + 1.0f);
+#endif
+}
+
+
+float
+MathUtility::fast_sine (
+    const float rads)
+{
+    /// COPYED: DirectX::XMScalarSin() in DirectXMath.h
+    ///
+
+    /// 将指定角度Rads映射到在[-π, +π]之间的Y值
+    /// 
+    /// rads = 2 * pi * quotient + remainder
+    float quotient = rads / TWO_PI;
+    if (rads >= 0.0f)
+    {
+        quotient = (float)(int32_t)(quotient + 0.5f);
+    }
+    else
+    {
+        quotient = (float)(int32_t)(quotient - 0.5f);
+    }
+
+    float y = rads - TWO_PI * quotient;
+
+    /// 使用sin(Y) = sin(rads), 将Y映射到[-π/2, +πi/2]
+    float sign;
+    if (y > HALF_PI)
+    {
+        y = ONE_PI - y;
+        sign = -1.0f;
+    }
+    else if (y < -HALF_PI)
+    {
+        y = -ONE_PI - y;
+        sign = -1.0f;
+    }
+    else
+    {
+        sign = +1.0f;
+    }
+
+    float y2 = y * y;
+
+#if (USE_FAST_APPROXIMATION == 1)
+    /// 使用7次Minimax逼近
+    return (((-0.00018524670f * y2 + 0.0083139502f) * y2 - 0.16665852f) * y2 + 1.0f) * y;
+#else
+    /// 使用11次Minimax逼近
+    return (((((-2.3889859e-08f * y2 + 2.7525562e-06f) * y2 - 0.00019840874f) *
+              y2 + 0.0083333310f) * y2 - 0.16666667f) * y2 + 1.0f) * y;
+#endif
+}
+
+
+void
+MathUtility::fast_sincos (
+    const float rads,
+    float &     sin,
+    float &     cos)
+{
+    /// COPYED: DirectX::XMScalarSinCos() in DirectXMath.h
+    ///
+
+    /// 将指定角度Rads映射到在[-π, +π]之间的Y值
+    /// 
+    /// rads = 2 * pi * quotient + remainder
+    float quotient = rads / TWO_PI;
+    if (rads >= 0.0f)
+    {
+        quotient = (float)(int32_t)(quotient + 0.5f);
+    }
+    else
+    {
+        quotient = (float)(int32_t)(quotient - 0.5f);
+    }
+
+    float y = rads - TWO_PI * quotient;
+
+    /// 使用sin(Y) = sin(rads), 将Y映射到[-π/2, +πi/2]
+    float sign;
+    if (y > HALF_PI)
+    {
+        y = ONE_PI - y;
+        sign = -1.0f;
+    }
+    else if (y < -HALF_PI)
+    {
+        y = -ONE_PI - y;
+        sign = -1.0f;
+    }
+    else
+    {
+        sign = +1.0f;
+    }
+
+    float y2 = y * y;
+
+#if (USE_FAST_APPROXIMATION == 1)
+    /// 使用7次Minimax逼近
+    sin = (((-0.00018524670f * y2 + 0.0083139502f) * y2 - 0.16665852f) * y2 + 1.0f) * y;
+
+    /// 使用6次Minimax逼近
+    cos = sign * (((-0.0012712436f * y2 + 0.041493919f) * y2 - 0.49992746f) * y2 + 1.0f);
+#else
+    /// 使用11次Minimax逼近
     sin = (((((-2.3889859e-08f * y2 + 2.7525562e-06f) * y2 - 0.00019840874f) * y2 + 0.0083333310f) * y2 - 0.16666667f) * y2 + 1.0f) * y;
 
-    /// 使用10-degree minimax逼近
+    /// 使用10次Minimax逼近
     cos = sign * (((((-2.6051615e-07f * y2 + 2.4760495e-05f) * y2 - 0.0013888378f) * y2 + 0.041666638f) * y2 - 0.5f) * y2 + 1.0f);
+#endif
 }
 
 

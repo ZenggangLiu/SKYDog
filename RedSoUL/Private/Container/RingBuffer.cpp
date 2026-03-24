@@ -9,15 +9,6 @@
 #include "Container/RingBuffer.hpp"
 
 
-static
-bool
-is_power_of_two (
-    const uint64_t size)
-{
-    return size && (size & (size - 1)) == 0;
-}
-
-
 /// 将指定Size，RoundUp到下一个2的N此幂
 static
 uint64_t
@@ -83,7 +74,8 @@ RingBuffer::RingBuffer (
     m_data_read_pos(0),
     m_data_save_pos(0)
 {
-    RUNTIME_ASSERT(is_power_of_two(m_buffer_size), "Buffer size must be of power of 2!!");
+    RUNTIME_ASSERT(IS_POWER_OF_TWO(m_buffer_size),
+                   "Buffer size must be of power of 2!!");
 
     /// 没有Memory Order要求
     m_saved_data_head.store(0, std::memory_order_relaxed);

@@ -35,6 +35,13 @@
 #include "Common/PlatformDefines.hpp" /// OS_TYPE
 
 
+/// 判断指定size是否为2的N次幂
+#if !defined(IS_POWER_OF_TWO)
+#define IS_POWER_OF_TWO(size) \
+    ((uint64_t)size && ((uint64_t)size & ((uint64_t)size - 1)) == 0)
+#endif /// !defined(IS_POWER_OF_TWO)
+
+
 /// 获得类型 T 中给定成员变量的64位偏移
 /// 使用方式:
 /// class T

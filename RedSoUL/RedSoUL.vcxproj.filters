@@ -70,6 +70,12 @@
     <Filter Include="Private\Hashing">
       <UniqueIdentifier>{88f2a30e-04e6-4eda-93cb-4a7bc6ba6ad9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Private\DataType">
+      <UniqueIdentifier>{8c00a9e7-794c-46c9-9bfd-3c811ac8ee64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Private\Math">
+      <UniqueIdentifier>{ac5470b8-0e98-42e5-8bc8-643436752030}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Public\Assert\RuntimeAssert.hpp">
@@ -86,9 +92,6 @@
     </ClInclude>
     <ClInclude Include="Public\Container\RingBuffer.hpp">
       <Filter>Public\Container</Filter>
-    </ClInclude>
-    <ClInclude Include="Public\DataType\BuiltInTypes.hpp">
-      <Filter>Public\DataType</Filter>
     </ClInclude>
     <ClInclude Include="Public\Encoder\X2TeaEncoder.hpp">
       <Filter>Public\Encoder</Filter>
@@ -144,6 +147,24 @@
     <ClInclude Include="Public\Hashing\StaticXXHash64.hpp">
       <Filter>Public\Hashing</Filter>
     </ClInclude>
+    <ClInclude Include="Public\DataType\Float4D.hpp">
+      <Filter>Public\DataType</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\Math\MathDefines.hpp">
+      <Filter>Public\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\DataType\Float3D.hpp">
+      <Filter>Public\DataType</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\DataType\Matrix3x4.hpp">
+      <Filter>Public\DataType</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\DataType\Matrix4x4.hpp">
+      <Filter>Public\DataType</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\DataType\Quaternion.hpp">
+      <Filter>Public\DataType</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Private\Assert\RuntimeAssert.cpp">
@@ -178,6 +199,24 @@
     </ClCompile>
     <ClCompile Include="Private\Hashing\RuntimeHash.cpp">
       <Filter>Private\Hashing</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\DataType\Float4D.cpp">
+      <Filter>Private\DataType</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\Math\MathUtilities.cpp">
+      <Filter>Private\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\DataType\Float3D.cpp">
+      <Filter>Private\DataType</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\DataType\Matrix3x4.cpp">
+      <Filter>Private\DataType</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\DataType\Matrix4x4.cpp">
+      <Filter>Private\DataType</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\DataType\Quaternion.cpp">
+      <Filter>Private\DataType</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

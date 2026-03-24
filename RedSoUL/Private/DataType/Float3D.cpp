@@ -20,7 +20,7 @@ const float_3 float_3::BACKWARD{  0,  0, -1 };
 float_3
 float_3::make ()
 {
-    return float_3{ 0, 0, 0 };
+    return ZERO;
 }
 
 

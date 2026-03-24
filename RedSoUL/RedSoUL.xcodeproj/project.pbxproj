@@ -97,6 +97,8 @@
 		BDA8961E2F6FE89900B0683B /* Matrix4x4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDA8961C2F6FE89900B0683B /* Matrix4x4.cpp */; };
 		BDA896202F714B9400B0683B /* Quaternion.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA8961F2F714B9400B0683B /* Quaternion.hpp */; };
 		BDA896212F714B9400B0683B /* Quaternion.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA8961F2F714B9400B0683B /* Quaternion.hpp */; };
+		BDA896232F72A05D00B0683B /* Quaternion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDA896222F72A05D00B0683B /* Quaternion.cpp */; };
+		BDA896242F72A05D00B0683B /* Quaternion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDA896222F72A05D00B0683B /* Quaternion.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -159,6 +161,7 @@
 		BDA896192F6FE7E900B0683B /* Matrix4x4.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = Matrix4x4.hpp; path = Public/DataType/Matrix4x4.hpp; sourceTree = "<group>"; };
 		BDA8961C2F6FE89900B0683B /* Matrix4x4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = Matrix4x4.cpp; path = Private/DataType/Matrix4x4.cpp; sourceTree = "<group>"; };
 		BDA8961F2F714B9400B0683B /* Quaternion.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = Quaternion.hpp; path = Public/DataType/Quaternion.hpp; sourceTree = "<group>"; };
+		BDA896222F72A05D00B0683B /* Quaternion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = Quaternion.cpp; path = Private/DataType/Quaternion.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -436,6 +439,7 @@
 				BD9FAFBC2F6E756B000B085D /* Float4D.cpp */,
 				BDA896162F6F9C8300B0683B /* Matrix3x4.cpp */,
 				BDA8961C2F6FE89900B0683B /* Matrix4x4.cpp */,
+				BDA896222F72A05D00B0683B /* Quaternion.cpp */,
 			);
 			name = DataType;
 			sourceTree = "<group>";
@@ -594,6 +598,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BDA896242F72A05D00B0683B /* Quaternion.cpp in Sources */,
 				BD326EE32F3C7F9A007EE8EC /* RuntimeAssert.cpp in Sources */,
 				BD326F3A2F4958CE007EE8EC /* RingBuffer.cpp in Sources */,
 				BD58B0A62F582F480024C670 /* GameMainLoop.cpp in Sources */,
@@ -617,6 +622,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BDA896232F72A05D00B0683B /* Quaternion.cpp in Sources */,
 				BD326EE22F3C7F9A007EE8EC /* RuntimeAssert.cpp in Sources */,
 				BD326F392F4958CE007EE8EC /* RingBuffer.cpp in Sources */,
 				BD58B0A52F582F480024C670 /* GameMainLoop.cpp in Sources */,

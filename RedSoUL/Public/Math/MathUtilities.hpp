@@ -40,7 +40,7 @@ struct MathUtility
 {
     /// 近似计算Arc-Cosine
     ///
-    /// @param[in]  num
+    /// @param[in]  cos_num
     ///     Cosine的数值
     /// @return
     ///     对应的角度(以弧度衡量), 角度值在[0, π]之间
@@ -48,16 +48,41 @@ struct MathUtility
     static
     float
     fast_acos (
-        const float num);
+        const float cos_num);
 
-    /// 同时计算Sine与Cosine
+    /// 近似计算Cosine
     ///
-    /// @param[in]  degs
-    ///     输入角度(以度数衡量)
+    /// @param[in]  rads
+    ///     计算的角度(以弧度衡量)
+    /// NOTE: 误差小于0.00001
+    static
+    float
+    fast_cosine (
+        const float rads);
+
+    /// 近似计算Sine
+    ///
+    /// @param[in]  rads
+    ///     计算的角度(以弧度衡量)
+    /// NOTE: 误差小于0.00001
+    static
+    float
+    fast_sine (
+        const float rads);
+
+    /// 同时近似计算Sine与Cosine
+    ///
+    /// @param[in]  rads
+    ///     输入角度(以弧度衡量)
+    /// @param[out] sin
+    ///     角度对应的Sine值
+    /// @param[out] cos
+    ///     角度对应的Cosine值
+    /// NOTE: 误差小于0.00001
     static
     void
-    sincos (
-        const float degs,
+    fast_sincos (
+        const float rads,
         float &     sin,
         float &     cos);
 
