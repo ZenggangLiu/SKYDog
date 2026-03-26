@@ -19,9 +19,6 @@
     <Filter Include="Public\DataType">
       <UniqueIdentifier>{10e8cda8-3910-4366-955e-65ca6bce204f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Public\Encoder">
-      <UniqueIdentifier>{31056bb9-5552-46cb-8451-c167ad46b73a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Public\Math">
       <UniqueIdentifier>{72f2b5bb-f141-48f7-92dd-f3775322a498}</UniqueIdentifier>
     </Filter>
@@ -42,9 +39,6 @@
     </Filter>
     <Filter Include="Private\Container">
       <UniqueIdentifier>{4b875034-2bb7-4237-8c49-1a416b279fae}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Private\Encoder">
-      <UniqueIdentifier>{9f423a1f-ee4f-4a6c-b1c9-c24efbe5e130}</UniqueIdentifier>
     </Filter>
     <Filter Include="Private\Memory">
       <UniqueIdentifier>{b4554d0c-e6e1-4cc6-9f2b-07efc3681f3f}</UniqueIdentifier>
@@ -76,6 +70,12 @@
     <Filter Include="Private\Math">
       <UniqueIdentifier>{ac5470b8-0e98-42e5-8bc8-643436752030}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Public\Codec">
+      <UniqueIdentifier>{31056bb9-5552-46cb-8451-c167ad46b73a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Private\Codec">
+      <UniqueIdentifier>{9f423a1f-ee4f-4a6c-b1c9-c24efbe5e130}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Public\Assert\RuntimeAssert.hpp">
@@ -92,9 +92,6 @@
     </ClInclude>
     <ClInclude Include="Public\Container\RingBuffer.hpp">
       <Filter>Public\Container</Filter>
-    </ClInclude>
-    <ClInclude Include="Public\Encoder\X2TeaEncoder.hpp">
-      <Filter>Public\Encoder</Filter>
     </ClInclude>
     <ClInclude Include="Public\Math\MathUtilities.hpp">
       <Filter>Public\Math</Filter>
@@ -165,6 +162,9 @@
     <ClInclude Include="Public\DataType\Quaternion.hpp">
       <Filter>Public\DataType</Filter>
     </ClInclude>
+    <ClInclude Include="Public\Codec\X2TeaCodec.hpp">
+      <Filter>Public\Codec</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Private\Assert\RuntimeAssert.cpp">
@@ -172,9 +172,6 @@
     </ClCompile>
     <ClCompile Include="Private\Container\RingBuffer.cpp">
       <Filter>Private\Container</Filter>
-    </ClCompile>
-    <ClCompile Include="Private\Encoder\X2TeaEncoder.cpp">
-      <Filter>Private\Encoder</Filter>
     </ClCompile>
     <ClCompile Include="Private\Memory\ArenaAllocator.cpp">
       <Filter>Private\Memory</Filter>
@@ -217,6 +214,9 @@
     </ClCompile>
     <ClCompile Include="Private\DataType\Quaternion.cpp">
       <Filter>Private\DataType</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\Codec\X2TeaCodec.cpp">
+      <Filter>Private\Codec</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

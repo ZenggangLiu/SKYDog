@@ -9,10 +9,6 @@
 /* Begin PBXBuildFile section */
 		BD326EC72F3B32F0007EE8EC /* CommonDefines.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD326EC42F3B32F0007EE8EC /* CommonDefines.hpp */; };
 		BD326ECC2F3BFC80007EE8EC /* CommonDefines.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD326EC42F3B32F0007EE8EC /* CommonDefines.hpp */; };
-		BD326ED02F3C19E6007EE8EC /* X2TeaEncoder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD326ECF2F3C19E6007EE8EC /* X2TeaEncoder.hpp */; };
-		BD326ED12F3C19E6007EE8EC /* X2TeaEncoder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD326ECF2F3C19E6007EE8EC /* X2TeaEncoder.hpp */; };
-		BD326ED42F3C1B9E007EE8EC /* X2TeaEncoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD326ED32F3C1B9E007EE8EC /* X2TeaEncoder.cpp */; };
-		BD326ED52F3C1B9E007EE8EC /* X2TeaEncoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD326ED32F3C1B9E007EE8EC /* X2TeaEncoder.cpp */; };
 		BD326ED82F3C24A5007EE8EC /* RuntimeAssert.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD326ED72F3C24A5007EE8EC /* RuntimeAssert.hpp */; };
 		BD326ED92F3C24A5007EE8EC /* RuntimeAssert.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD326ED72F3C24A5007EE8EC /* RuntimeAssert.hpp */; };
 		BD326EDB2F3C2625007EE8EC /* CompilerDefines.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD326EDA2F3C2625007EE8EC /* CompilerDefines.hpp */; };
@@ -99,6 +95,10 @@
 		BDA896212F714B9400B0683B /* Quaternion.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA8961F2F714B9400B0683B /* Quaternion.hpp */; };
 		BDA896232F72A05D00B0683B /* Quaternion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDA896222F72A05D00B0683B /* Quaternion.cpp */; };
 		BDA896242F72A05D00B0683B /* Quaternion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDA896222F72A05D00B0683B /* Quaternion.cpp */; };
+		BDA896292F74F48400B0683B /* X2TeaCodec.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDA896282F74F48400B0683B /* X2TeaCodec.cpp */; };
+		BDA8962A2F74F48400B0683B /* X2TeaCodec.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDA896282F74F48400B0683B /* X2TeaCodec.cpp */; };
+		BDA8962D2F74F4C100B0683B /* X2TeaCodec.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA8962C2F74F4C100B0683B /* X2TeaCodec.hpp */; };
+		BDA8962E2F74F4C100B0683B /* X2TeaCodec.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA8962C2F74F4C100B0683B /* X2TeaCodec.hpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -115,8 +115,6 @@
 
 /* Begin PBXFileReference section */
 		BD326EC42F3B32F0007EE8EC /* CommonDefines.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = CommonDefines.hpp; path = Public/Common/CommonDefines.hpp; sourceTree = "<group>"; };
-		BD326ECF2F3C19E6007EE8EC /* X2TeaEncoder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = X2TeaEncoder.hpp; path = Public/Encoder/X2TeaEncoder.hpp; sourceTree = "<group>"; };
-		BD326ED32F3C1B9E007EE8EC /* X2TeaEncoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = X2TeaEncoder.cpp; path = Private/Encoder/X2TeaEncoder.cpp; sourceTree = "<group>"; };
 		BD326ED72F3C24A5007EE8EC /* RuntimeAssert.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = RuntimeAssert.hpp; path = Public/Assert/RuntimeAssert.hpp; sourceTree = "<group>"; };
 		BD326EDA2F3C2625007EE8EC /* CompilerDefines.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = CompilerDefines.hpp; path = Public/Common/CompilerDefines.hpp; sourceTree = "<group>"; };
 		BD326EDD2F3C40A5007EE8EC /* PlatformDefines.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = PlatformDefines.hpp; path = Public/Common/PlatformDefines.hpp; sourceTree = "<group>"; };
@@ -162,6 +160,9 @@
 		BDA8961C2F6FE89900B0683B /* Matrix4x4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = Matrix4x4.cpp; path = Private/DataType/Matrix4x4.cpp; sourceTree = "<group>"; };
 		BDA8961F2F714B9400B0683B /* Quaternion.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = Quaternion.hpp; path = Public/DataType/Quaternion.hpp; sourceTree = "<group>"; };
 		BDA896222F72A05D00B0683B /* Quaternion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = Quaternion.cpp; path = Private/DataType/Quaternion.cpp; sourceTree = "<group>"; };
+		BDA896282F74F48400B0683B /* X2TeaCodec.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = X2TeaCodec.cpp; path = Private/Codec/X2TeaCodec.cpp; sourceTree = "<group>"; };
+		BDA8962C2F74F4C100B0683B /* X2TeaCodec.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = X2TeaCodec.hpp; path = Public/Codec/X2TeaCodec.hpp; sourceTree = "<group>"; };
+		BDA896322F74F6E900B0683B /* Quaternion_derivation.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; lineEnding = 0; name = Quaternion_derivation.txt; path = ../Document/Quaternion_derivation.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,22 +193,6 @@
 				BDA8961F2F714B9400B0683B /* Quaternion.hpp */,
 			);
 			name = DataType;
-			sourceTree = "<group>";
-		};
-		BD326ECE2F3C1930007EE8EC /* Encoder */ = {
-			isa = PBXGroup;
-			children = (
-				BD326ECF2F3C19E6007EE8EC /* X2TeaEncoder.hpp */,
-			);
-			name = Encoder;
-			sourceTree = "<group>";
-		};
-		BD326ED22F3C1B50007EE8EC /* Encoder */ = {
-			isa = PBXGroup;
-			children = (
-				BD326ED32F3C1B9E007EE8EC /* X2TeaEncoder.cpp */,
-			);
-			name = Encoder;
 			sourceTree = "<group>";
 		};
 		BD326ED62F3C246F007EE8EC /* Assert */ = {
@@ -381,10 +366,10 @@
 			isa = PBXGroup;
 			children = (
 				BD326ED62F3C246F007EE8EC /* Assert */,
+				BDA8962B2F74F4B200B0683B /* Codec */,
 				BD86B6192F3B316800DD8D2E /* Common */,
 				BD326F302F495402007EE8EC /* Container */,
 				BD326EC82F3BEF2B007EE8EC /* DataType */,
-				BD326ECE2F3C1930007EE8EC /* Encoder */,
 				BD58B0B92F5973B00024C670 /* Hashing */,
 				BD326EE42F4176F2007EE8EC /* Math */,
 				BD326F282F431C8A007EE8EC /* Memory */,
@@ -400,9 +385,9 @@
 			isa = PBXGroup;
 			children = (
 				BD326EE02F3C7DF7007EE8EC /* Assert */,
+				BDA896272F74F46E00B0683B /* Codec */,
 				BD326F372F4958BC007EE8EC /* Container */,
 				BD9FAFBB2F6E753F000B085D /* DataType */,
-				BD326ED22F3C1B50007EE8EC /* Encoder */,
 				BD58B0B82F5973A10024C670 /* Hashing */,
 				BD9FAFB12F6E526F000B085D /* Math */,
 				BD326F2C2F431F23007EE8EC /* Memory */,
@@ -435,6 +420,7 @@
 		BD9FAFBB2F6E753F000B085D /* DataType */ = {
 			isa = PBXGroup;
 			children = (
+				BDA896312F74F6D600B0683B /* Document */,
 				BDA896102F6F70FA00B0683B /* Float3D.cpp */,
 				BD9FAFBC2F6E756B000B085D /* Float4D.cpp */,
 				BDA896162F6F9C8300B0683B /* Matrix3x4.cpp */,
@@ -442,6 +428,30 @@
 				BDA896222F72A05D00B0683B /* Quaternion.cpp */,
 			);
 			name = DataType;
+			sourceTree = "<group>";
+		};
+		BDA896272F74F46E00B0683B /* Codec */ = {
+			isa = PBXGroup;
+			children = (
+				BDA896282F74F48400B0683B /* X2TeaCodec.cpp */,
+			);
+			name = Codec;
+			sourceTree = "<group>";
+		};
+		BDA8962B2F74F4B200B0683B /* Codec */ = {
+			isa = PBXGroup;
+			children = (
+				BDA8962C2F74F4C100B0683B /* X2TeaCodec.hpp */,
+			);
+			name = Codec;
+			sourceTree = "<group>";
+		};
+		BDA896312F74F6D600B0683B /* Document */ = {
+			isa = PBXGroup;
+			children = (
+				BDA896322F74F6E900B0683B /* Quaternion_derivation.txt */,
+			);
+			name = Document;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -456,8 +466,8 @@
 				BD58B0D02F5B93B90024C670 /* StaticXXHash32.hpp in Headers */,
 				BD58B0CE2F5B93B90024C670 /* StaticXXHash64.hpp in Headers */,
 				BD58B0D72F5B97750024C670 /* RuntimeXXHash32.hpp in Headers */,
-				BD326ED02F3C19E6007EE8EC /* X2TeaEncoder.hpp in Headers */,
 				BD326EE62F41773A007EE8EC /* MathUtilities.hpp in Headers */,
+				BDA8962D2F74F4C100B0683B /* X2TeaCodec.hpp in Headers */,
 				BD58B0EB2F5BA1790024C670 /* StaticStringDepot.hpp in Headers */,
 				BDA896202F714B9400B0683B /* Quaternion.hpp in Headers */,
 				BD326ED82F3C24A5007EE8EC /* RuntimeAssert.hpp in Headers */,
@@ -492,8 +502,8 @@
 				BD58B0D12F5B93B90024C670 /* StaticXXHash32.hpp in Headers */,
 				BD58B0CF2F5B93B90024C670 /* StaticXXHash64.hpp in Headers */,
 				BD58B0D82F5B97750024C670 /* RuntimeXXHash32.hpp in Headers */,
-				BD326ED12F3C19E6007EE8EC /* X2TeaEncoder.hpp in Headers */,
 				BD326EE72F41773B007EE8EC /* MathUtilities.hpp in Headers */,
+				BDA8962E2F74F4C100B0683B /* X2TeaCodec.hpp in Headers */,
 				BD58B0EC2F5BA1790024C670 /* StaticStringDepot.hpp in Headers */,
 				BDA896212F714B9400B0683B /* Quaternion.hpp in Headers */,
 				BD326ED92F3C24A5007EE8EC /* RuntimeAssert.hpp in Headers */,
@@ -602,9 +612,9 @@
 				BD326EE32F3C7F9A007EE8EC /* RuntimeAssert.cpp in Sources */,
 				BD326F3A2F4958CE007EE8EC /* RingBuffer.cpp in Sources */,
 				BD58B0A62F582F480024C670 /* GameMainLoop.cpp in Sources */,
+				BDA8962A2F74F48400B0683B /* X2TeaCodec.cpp in Sources */,
 				BDA8961E2F6FE89900B0683B /* Matrix4x4.cpp in Sources */,
 				BD58B0DD2F5B97BA0024C670 /* RuntimeHash.cpp in Sources */,
-				BD326ED52F3C1B9E007EE8EC /* X2TeaEncoder.cpp in Sources */,
 				BDA896182F6F9C8300B0683B /* Matrix3x4.cpp in Sources */,
 				BD58B08E2F519D890024C670 /* ArenaAllocator.cpp in Sources */,
 				BD9FAFBE2F6E756B000B085D /* Float4D.cpp in Sources */,
@@ -626,9 +636,9 @@
 				BD326EE22F3C7F9A007EE8EC /* RuntimeAssert.cpp in Sources */,
 				BD326F392F4958CE007EE8EC /* RingBuffer.cpp in Sources */,
 				BD58B0A52F582F480024C670 /* GameMainLoop.cpp in Sources */,
+				BDA896292F74F48400B0683B /* X2TeaCodec.cpp in Sources */,
 				BDA8961D2F6FE89900B0683B /* Matrix4x4.cpp in Sources */,
 				BD58B0DC2F5B97BA0024C670 /* RuntimeHash.cpp in Sources */,
-				BD326ED42F3C1B9E007EE8EC /* X2TeaEncoder.cpp in Sources */,
 				BDA896172F6F9C8300B0683B /* Matrix3x4.cpp in Sources */,
 				BD58B08D2F519D890024C670 /* ArenaAllocator.cpp in Sources */,
 				BD9FAFBD2F6E756B000B085D /* Float4D.cpp in Sources */,

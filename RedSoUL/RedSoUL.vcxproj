@@ -15,6 +15,7 @@
     <ClInclude Include="Private\Hashing\RuntimeXXHash64.hpp" />
     <ClInclude Include="Private\Text\StaticStringDepot.hpp" />
     <ClInclude Include="Public\Assert\RuntimeAssert.hpp" />
+    <ClInclude Include="Public\Codec\X2TeaCodec.hpp" />
     <ClInclude Include="Public\Common\CommonDefines.hpp" />
     <ClInclude Include="Public\Common\CompilerDefines.hpp" />
     <ClInclude Include="Public\Common\PlatformDefines.hpp" />
@@ -24,7 +25,6 @@
     <ClInclude Include="Public\DataType\Matrix3x4.hpp" />
     <ClInclude Include="Public\DataType\Matrix4x4.hpp" />
     <ClInclude Include="Public\DataType\Quaternion.hpp" />
-    <ClInclude Include="Public\Encoder\X2TeaEncoder.hpp" />
     <ClInclude Include="Public\Hashing\RuntimeHash.hpp" />
     <ClInclude Include="Public\Hashing\StaticHash.hpp" />
     <ClInclude Include="Public\Hashing\StaticXXHash32.hpp" />
@@ -43,13 +43,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Private\Assert\RuntimeAssert.cpp" />
+    <ClCompile Include="Private\Codec\X2TeaCodec.cpp" />
     <ClCompile Include="Private\Container\RingBuffer.cpp" />
     <ClCompile Include="Private\DataType\Float3D.cpp" />
     <ClCompile Include="Private\DataType\Float4D.cpp" />
     <ClCompile Include="Private\DataType\Matrix3x4.cpp" />
     <ClCompile Include="Private\DataType\Matrix4x4.cpp" />
     <ClCompile Include="Private\DataType\Quaternion.cpp" />
-    <ClCompile Include="Private\Encoder\X2TeaEncoder.cpp" />
     <ClCompile Include="Private\Hashing\RuntimeHash.cpp" />
     <ClCompile Include="Private\Math\MathUtilities.cpp" />
     <ClCompile Include="Private\Memory\ArenaAllocator.cpp" />
