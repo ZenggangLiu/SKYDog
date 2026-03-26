@@ -1,0 +1,196 @@
+
+=== Q.v cross R.v ===
+
+<Q.x, Q.y, Q.z> cross <R.x, R.y, R.z>
+
+i    j    k
+Q.x, Q.y, Q.z
+R.x, R.y, R.z
+
+
+i: Q.y*R.z - Q.z*R.y
+j: Q.z*R.x - Q.x*R.z
+k: Q.x*R.y - Q.y*R.x
+
+R.w*Q.v
+i: Q.x*R.w
+j: Q.y*R.w
+k: Q.z*R.w
+
+Q.w*R.v
+i: Q.w*R.x
+j: Q.w*R.y
+k: Q.w*R.z
+
+
+Q.v cross R.v + R.w*Q.v + Q.w*R.v
+i: Q.y*R.z - Q.z*R.y + Q.x*R.w + Q.w*R.x
+j: Q.z*R.x - Q.x*R.z + Q.y*R.w + Q.w*R.y
+k: Q.x*R.y - Q.y*R.x + Q.z*R.w + Q.w*R.z
+
+dot(Q.v, R.v)
+Q.x*R.x + Q.y*R.y + Q.z*R.z
+Q.w*R.w - (Q.x*R.x + Q.y*R.y + Q.z*R.z)
+Q.w*R.w - Q.x*R.x - Q.y*R.y - Q.z*R.z
+
+=== 四元数变换点P ===
+
+Q * P * Q* := (Q * P) * Q* := C * Q*
+
+<Q.x, Q.y, Q.z, Q.w> * <P.x, P.y, P.z, 1> * <-Q.x, -Q.y, -Q.z, Q.w>
+注意:
+- 点P表示为四元数为: <P.x, P.y, P.z, 1>
+- 向量V表示为四元数为: <V.x, V.y, V.z, 0>
+
+
+C := Q * P
+- V := (Q.v cross P.v) + P.w*Q.v + Q.w*P.v
+       I(Q.y*P.z - Q.z*P.y + Q.x*P.w + Q.w*P.x) +
+     = J(Q.z*P.x - Q.x*P.z + Q.y*P.w + Q.w*P.y) +
+       K(Q.x*P.y - Q.y*P.x + Q.z*P.w + Q.w*P.z)
+
+- W := Q.w*P.w - (Q.v dot P.v)
+     = (Q.w*P.w - Q.x*P.x - Q.y*P.y - Q.z*P.z)
+
+
+Q * P * Q* := C * Q*
+
+- V := (C.v cross -Q.v) + Q.w*C.v + -C.w*Q.v
+       I(-C.y*Q.z + C.z*Q.y + C.x*Q.w - C.w*Q.x) +
+     = J(-C.z*Q.x + C.x*Q.z + C.y*Q.w - C.w*Q.y) +
+       K(-C.x*Q.y + C.y*Q.x + C.z*Q.w - C.w*Q.z)
+
+- W := C.w*.w + (C.v dot Q.v)
+     = C.w*Q.w + C.x*Q.x + C.y*Q.y + C.z*Q.z
+
+I: -C.y*Q.z + C.z*Q.y + C.x*Q.w - C.w*Q.x
+=  -(Q.z*P.x - Q.x*P.z + Q.y*P.w + Q.w*P.y)*Q.z
+   +(Q.x*P.y - Q.y*P.x + Q.z*P.w + Q.w*P.z)*Q.y
+   +(Q.y*P.z - Q.z*P.y + Q.x*P.w + Q.w*P.x)*Q.w
+   -(Q.w*P.w - Q.x*P.x - Q.y*P.y - Q.z*P.z)*Q.x
+
+= -Q.z*Q.z*P.x + Q.x*Q.z*P.z - Q.y*Q.z*P.w - Q.z*Q.w*P.y +
+   Q.x*Q.y*P.y - Q.y*Q.y*P.x + Q.y*Q.z*P.w + Q.y*Q.w*P.z +
+   Q.y*Q.w*P.z - Q.z*Q.w*P.y + Q.x*Q.w*P.w + Q.w*Q.w*P.x +
+  -Q.x*Q.w*P.w + Q.x*Q.x*P.x + Q.x*Q.y*P.y + Q.x*Q.z*P.z
+
+= -Q.z*Q.z*P.x + Q.x*Q.z*P.z - Q.z*Q.w*P.y +
+   Q.x*Q.y*P.y - Q.y*Q.y*P.x + Q.y*Q.w*P.z +
+   Q.y*Q.w*P.z - Q.z*Q.w*P.y + Q.w*Q.w*P.x +
+   Q.x*Q.x*P.x + Q.x*Q.y*P.y + Q.x*Q.z*P.z
+
+= -Q.z*Q.z*P.x - Q.y*Q.y*P.x + Q.w*Q.w*P.x + Q.x*Q.x*P.x +
+   Q.x*Q.z*P.z - Q.z*Q.w*P.y +
+   Q.x*Q.y*P.y + Q.y*Q.w*P.z +
+   Q.y*Q.w*P.z - Q.z*Q.w*P.y +
+   Q.x*Q.y*P.y + Q.x*Q.z*P.z
+
+= (Q.x*Q.x - Q.y*Q.y -Q.z*Q.z + Q.w*Q.w)*P.x +
+   2*Q.x*Q.y*P.y - 2*Q.z*Q.w*P.y +
+   2*Q.x*Q.z*P.z + 2*Q.y*Q.w*P.z
+
+= (1 - 2*Q.y*Q.y - 2*Q.z*Q.z)*P.x +
+  2*Q.x*Q.y*P.y - 2*Q.z*Q.w*P.y +
+  2*Q.x*Q.z*P.z + 2*Q.y*Q.w*P.z
+
+
+J: (-C.z*Q.x + C.x*Q.z + C.y*Q.w - C.w*Q.y)
+= -(Q.x*P.y - Q.y*P.x + Q.z*P.w + Q.w*P.z)*Q.x +
+   (Q.y*P.z - Q.z*P.y + Q.x*P.w + Q.w*P.x)*Q.z +
+   (Q.z*P.x - Q.x*P.z + Q.y*P.w + Q.w*P.y)*Q.w +
+  -(Q.w*P.w - Q.x*P.x - Q.y*P.y - Q.z*P.z)*Q.y
+
+= -Q.x*Q.x*P.y + Q.x*Q.y*P.x - Q.x*Q.z*P.w - Q.x*Q.w*P.z +
+   Q.y*Q.z*P.z - Q.z*Q.z*P.y + Q.x*Q.z*P.w + Q.z*Q.w*P.x +
+   Q.z*Q.w*P.x - Q.x*Q.w*P.z + Q.y*Q.w*P.w + Q.w*Q.w*P.y +
+  -Q.y*Q.w*P.w + Q.x*Q.y*P.x + Q.y*Q.y*P.y + Q.y*Q.z*P.z
+
+=   Q.x*Q.y*P.x + Q.z*Q.w*P.x + Q.z*Q.w*P.x + Q.x*Q.y*P.x +
+   -Q.x*Q.x*P.y - Q.z*Q.z*P.y + Q.w*Q.w*P.y + Q.y*Q.y*P.y +
+   -Q.x*Q.w*P.z + Q.y*Q.z*P.z - Q.x*Q.w*P.z + Q.y*Q.z*P.z +
+   -Q.x*Q.z*P.w + Q.x*Q.z*P.w + Q.y*Q.w*P.w - Q.y*Q.w*P.w
+
+=   ( Q.x*Q.y + Q.z*Q.w + Q.z*Q.w + Q.x*Q.y)*P.x +
+    (-Q.x*Q.x - Q.z*Q.z + Q.w*Q.w + Q.y*Q.y)*P.y +
+    (-Q.x*Q.w + Q.y*Q.z - Q.x*Q.w + Q.y*Q.z)*P.z +
+    (-Q.x*Q.z + Q.x*Q.z + Q.y*Q.w - Q.y*Q.w)*P.w
+
+=   ( 2*Q.x*Q.y + 2*Q.z*Q.w)*P.x +
+    (-Q.x*Q.x - Q.z*Q.z + Q.w*Q.w + Q.y*Q.y)*P.y +
+    (2*Q.y*Q.z - 2*Q.x*Q.w)*P.z    
+
+=   ( 2*Q.x*Q.y + 2*Q.z*Q.w)*P.x +
+    (1 - 2*Q.x*Q.x - 2*Q.z*Q.z)*P.y +
+    (2*Q.y*Q.z - 2*Q.x*Q.w)*P.z
+
+
+K: -C.x*Q.y + C.y*Q.x + C.z*Q.w - C.w*Q.z
+= -(Q.y*P.z - Q.z*P.y + Q.x*P.w + Q.w*P.x)*Q.y +
+   (Q.z*P.x - Q.x*P.z + Q.y*P.w + Q.w*P.y)*Q.x +
+   (Q.x*P.y - Q.y*P.x + Q.z*P.w + Q.w*P.z)*Q.w
+  -(Q.w*P.w - Q.x*P.x - Q.y*P.y - Q.z*P.z)*Q.z
+
+= -Q.y*Q.y*P.z + Q.y*Q.z*P.y - Q.x*Q.y*P.w - Q.y*Q.w*P.x +
+   Q.x*Q.z*P.x - Q.x*Q.x*P.z + Q.x*Q.y*P.w + Q.x*Q.w*P.y +
+   Q.x*Q.w*P.y - Q.y*Q.w*P.x + Q.z*Q.w*P.w + Q.w*Q.w*P.z +
+  -Q.z*Q.w*P.w + Q.x*Q.z*P.x + Q.y*Q.z*P.y + Q.z*Q.z*P.z
+
+= Q.x*Q.z*P.x - Q.y*Q.w*P.x - Q.y*Q.w*P.x + Q.x*Q.z*P.x +
+  Q.y*Q.z*P.y + Q.x*Q.w*P.y + Q.x*Q.w*P.y + Q.y*Q.z*P.y +
+ -Q.y*Q.y*P.z - Q.x*Q.x*P.z + Q.z*Q.z*P.z + Q.w*Q.w*P.z +
+  Q.x*Q.y*P.w + Q.z*Q.w*P.w - Q.x*Q.y*P.w - Q.z*Q.w*P.w
+
+= (Q.x*Q.z - Q.y*Q.w - Q.y*Q.w + Q.x*Q.z)*P.x +
+  (Q.y*Q.z + Q.x*Q.w + Q.x*Q.w + Q.y*Q.z)*P.y +
+  (-Q.y*Q.y - Q.x*Q.x + Q.z*Q.z + Q.w*Q.w)*P.z +
+  (Q.x*Q.y + Q.z*Q.w - Q.x*Q.y - Q.z*Q.w)*P.w
+
+= (2*Q.x*Q.z - 2*Q.y*Q.w)*P.x +
+  (2*Q.y*Q.z + 2*Q.x*Q.w)*P.y +
+  (-Q.y*Q.y - Q.x*Q.x + Q.z*Q.z + Q.w*Q.w)*P.z
+
+= (2*Q.x*Q.z - 2*Q.y*Q.w)*P.x +
+  (2*Q.y*Q.z + 2*Q.x*Q.w)*P.y +
+  (1 - 2*Q.x*Q.x - 2*Q.y*Q.y)*P.z
+
+
+W: C.w*Q.w + C.x*Q.x + C.y*Q.y + C.z*Q.z
+
+= (Q.w*P.w - Q.x*P.x - Q.y*P.y - Q.z*P.z)*Q.w +
+  (Q.y*P.z - Q.z*P.y + Q.x*P.w + Q.w*P.x)*Q.x +
+  (Q.z*P.x - Q.x*P.z + Q.y*P.w + Q.w*P.y)*Q.y +
+  (Q.x*P.y - Q.y*P.x + Q.z*P.w + Q.w*P.z)*Q.Z
+
+= Q.w*Q.w*P.w - Q.x*Q.w*P.x - Q.y*Q.w*P.y - Q.z*Q.w*P.z +
+  Q.x*Q.y*P.z - Q.x*Q.z*P.y + Q.x*Q.x*P.w + Q.x*Q.w*P.x +
+  Q.y*Q.z*P.x - Q.x*Q.y*P.z + Q.y*Q.y*P.w + Q.y*Q.w*P.y +
+  Q.x*Q.Z*P.y - Q.y*Q.Z*P.x + Q.Z*Q.z*P.w + Q.Z*Q.w*P.z
+
+= Q.y*Q.z*P.x - Q.y*Q.z*P.x + Q.x*Q.w*P.x - Q.x*Q.w*P.x
+  Q.y*Q.w*P.y - Q.y*Q.w*P.y + Q.x*Q.z*P.y - Q.x*Q.z*P.y
+  Q.x*Q.y*P.z - Q.x*Q.y*P.z + Q.z*Q.w*P.z - Q.z*Q.w*P.z
+  Q.w*Q.w*P.w + Q.x*Q.x*P.w + Q.y*Q.y*P.w + Q.Z*Q.z*P.w 
+
+= 0*P.x +
+  0*P.y +
+  0*P.z +
+  (Q.w*Q.w + Q.x*Q.x + Q.y*Q.y + Q.Z*Q.z)*P.w
+
+= 0 + 0 + 0 + 1
+= 1
+
+结果：
+I: -C.y*Q.z + C.z*Q.y + C.x*Q.w - C.w*Q.x
+= (1 - 2*Q.y*Q.y - 2*Q.z*Q.z)*P.x +
+  2*Q.x*Q.y*P.y - 2*Q.z*Q.w*P.y +
+  2*Q.x*Q.z*P.z + 2*Q.y*Q.w*P.z
+J: (-C.z*Q.x + C.x*Q.z + C.y*Q.w - C.w*Q.y)
+=  ( 2*Q.x*Q.y + 2*Q.z*Q.w)*P.x +
+   (1 - 2*Q.x*Q.x - 2*Q.z*Q.z)*P.y +
+   (2*Q.y*Q.z - 2*Q.x*Q.w)*P.z  
+K: -C.x*Q.y + C.y*Q.x + C.z*Q.w - C.w*Q.z
+= (2*Q.x*Q.z - 2*Q.y*Q.w)*P.x +
+  (2*Q.y*Q.z + 2*Q.x*Q.w)*P.y +
+  (1 - 2*Q.x*Q.x - 2*Q.y*Q.y)*P.z
+W: C.w*Q.w + C.x*Q.x + C.y*Q.y + C.z*Q.z
+= 1
