@@ -13,6 +13,8 @@
 		BD58B07D2F4ABB780024C670 /* UT_Config.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B07B2F4ABB780024C670 /* UT_Config.hpp */; };
 		BD58B0AA2F582F5E0024C670 /* UT_GameLoop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD58B0A92F582F5E0024C670 /* UT_GameLoop.cpp */; };
 		BD58B0DF2F5B991F0024C670 /* UT_Hashing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD58B0DE2F5B991F0024C670 /* UT_Hashing.cpp */; };
+		BDA896262F72A07400B0683B /* UT_MathUtility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDA896252F72A07400B0683B /* UT_MathUtility.cpp */; };
+		BDA896302F74F61200B0683B /* UT_XXTEA.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDA8962F2F74F61200B0683B /* UT_XXTEA.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -35,6 +37,8 @@
 		BD58B07B2F4ABB780024C670 /* UT_Config.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = UT_Config.hpp; path = Case/UT_Config.hpp; sourceTree = "<group>"; };
 		BD58B0A92F582F5E0024C670 /* UT_GameLoop.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = UT_GameLoop.cpp; path = Case/UT_GameLoop.cpp; sourceTree = "<group>"; };
 		BD58B0DE2F5B991F0024C670 /* UT_Hashing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = UT_Hashing.cpp; path = Case/UT_Hashing.cpp; sourceTree = "<group>"; };
+		BDA896252F72A07400B0683B /* UT_MathUtility.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = UT_MathUtility.cpp; path = Case/UT_MathUtility.cpp; sourceTree = "<group>"; };
+		BDA8962F2F74F61200B0683B /* UT_XXTEA.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = UT_XXTEA.cpp; path = Case/UT_XXTEA.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,7 +92,9 @@
 				BD58B07B2F4ABB780024C670 /* UT_Config.hpp */,
 				BD58B0A92F582F5E0024C670 /* UT_GameLoop.cpp */,
 				BD58B0DE2F5B991F0024C670 /* UT_Hashing.cpp */,
+				BDA896252F72A07400B0683B /* UT_MathUtility.cpp */,
 				BD58B07A2F4ABB780024C670 /* UT_RingBuffer.cpp */,
+				BDA8962F2F74F61200B0683B /* UT_XXTEA.cpp */,
 			);
 			name = Case;
 			sourceTree = "<group>";
@@ -164,7 +170,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				BD58B07C2F4ABB780024C670 /* UT_RingBuffer.cpp in Sources */,
+				BDA896262F72A07400B0683B /* UT_MathUtility.cpp in Sources */,
 				BD58B0DF2F5B991F0024C670 /* UT_Hashing.cpp in Sources */,
+				BDA896302F74F61200B0683B /* UT_XXTEA.cpp in Sources */,
 				BD58B0AA2F582F5E0024C670 /* UT_GameLoop.cpp in Sources */,
 				BD58B0782F49C7860024C670 /* UnitTestMain.cpp in Sources */,
 			);

@@ -27,5 +27,11 @@
     <ClCompile Include="Case\UT_Hashing.cpp">
       <Filter>Case</Filter>
     </ClCompile>
+    <ClCompile Include="Case\UT_MathUtility.cpp">
+      <Filter>Case</Filter>
+    </ClCompile>
+    <ClCompile Include="Case\UT_XXTEA.cpp">
+      <Filter>Case</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -17,7 +17,9 @@
   <ItemGroup>
     <ClCompile Include="Case\UT_GameLoop.cpp" />
     <ClCompile Include="Case\UT_Hashing.cpp" />
+    <ClCompile Include="Case\UT_MathUtility.cpp" />
     <ClCompile Include="Case\UT_RingBuffer.cpp" />
+    <ClCompile Include="Case\UT_XXTEA.cpp" />
     <ClCompile Include="UnitTestMain.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
