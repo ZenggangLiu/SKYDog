@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BD0E410A2F778DF600CFA766 /* Float2D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD0E41092F778DF600CFA766 /* Float2D.hpp */; };
+		BD0E410B2F778DF600CFA766 /* Float2D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD0E41092F778DF600CFA766 /* Float2D.hpp */; };
+		BD0E410D2F778E4A00CFA766 /* Float2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD0E410C2F778E4A00CFA766 /* Float2D.cpp */; };
+		BD0E410E2F778E4A00CFA766 /* Float2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD0E410C2F778E4A00CFA766 /* Float2D.cpp */; };
 		BD326EC72F3B32F0007EE8EC /* CommonDefines.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD326EC42F3B32F0007EE8EC /* CommonDefines.hpp */; };
 		BD326ECC2F3BFC80007EE8EC /* CommonDefines.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD326EC42F3B32F0007EE8EC /* CommonDefines.hpp */; };
 		BD326ED82F3C24A5007EE8EC /* RuntimeAssert.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD326ED72F3C24A5007EE8EC /* RuntimeAssert.hpp */; };
@@ -114,6 +118,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		BD0E41092F778DF600CFA766 /* Float2D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = Float2D.hpp; path = Public/DataType/Float2D.hpp; sourceTree = "<group>"; };
+		BD0E410C2F778E4A00CFA766 /* Float2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = Float2D.cpp; path = Private/DataType/Float2D.cpp; sourceTree = "<group>"; };
 		BD326EC42F3B32F0007EE8EC /* CommonDefines.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = CommonDefines.hpp; path = Public/Common/CommonDefines.hpp; sourceTree = "<group>"; };
 		BD326ED72F3C24A5007EE8EC /* RuntimeAssert.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = RuntimeAssert.hpp; path = Public/Assert/RuntimeAssert.hpp; sourceTree = "<group>"; };
 		BD326EDA2F3C2625007EE8EC /* CompilerDefines.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = CompilerDefines.hpp; path = Public/Common/CompilerDefines.hpp; sourceTree = "<group>"; };
@@ -186,6 +192,7 @@
 		BD326EC82F3BEF2B007EE8EC /* DataType */ = {
 			isa = PBXGroup;
 			children = (
+				BD0E41092F778DF600CFA766 /* Float2D.hpp */,
 				BDA8960D2F6F6F0300B0683B /* Float3D.hpp */,
 				BD9FAFB82F6E7430000B085D /* Float4D.hpp */,
 				BDA896132F6F9B9600B0683B /* Matrix3x4.hpp */,
@@ -421,6 +428,7 @@
 			isa = PBXGroup;
 			children = (
 				BDA896312F74F6D600B0683B /* Document */,
+				BD0E410C2F778E4A00CFA766 /* Float2D.cpp */,
 				BDA896102F6F70FA00B0683B /* Float3D.cpp */,
 				BD9FAFBC2F6E756B000B085D /* Float4D.cpp */,
 				BDA896162F6F9C8300B0683B /* Matrix3x4.cpp */,
@@ -478,6 +486,7 @@
 				BD58B0982F56DCDC0024C670 /* ClockTime.hpp in Headers */,
 				BD9FAFAF2F6D5DE9000B085D /* MathDefines.hpp in Headers */,
 				BD58B0D92F5B97750024C670 /* RuntimeXXHash64.hpp in Headers */,
+				BD0E410A2F778DF600CFA766 /* Float2D.hpp in Headers */,
 				BD58B0D32F5B93F30024C670 /* StaticHash.hpp in Headers */,
 				BD326F322F495429007EE8EC /* RingBuffer.hpp in Headers */,
 				BD326F2A2F431CD5007EE8EC /* MemoryUtilities.hpp in Headers */,
@@ -514,6 +523,7 @@
 				BD58B0992F56DCDC0024C670 /* ClockTime.hpp in Headers */,
 				BD9FAFB02F6D5DE9000B085D /* MathDefines.hpp in Headers */,
 				BD58B0DA2F5B97750024C670 /* RuntimeXXHash64.hpp in Headers */,
+				BD0E410B2F778DF600CFA766 /* Float2D.hpp in Headers */,
 				BD58B0D42F5B93F30024C670 /* StaticHash.hpp in Headers */,
 				BD326F332F495429007EE8EC /* RingBuffer.hpp in Headers */,
 				BD326F2B2F431CD5007EE8EC /* MemoryUtilities.hpp in Headers */,
@@ -610,6 +620,7 @@
 			files = (
 				BDA896242F72A05D00B0683B /* Quaternion.cpp in Sources */,
 				BD326EE32F3C7F9A007EE8EC /* RuntimeAssert.cpp in Sources */,
+				BD0E410E2F778E4A00CFA766 /* Float2D.cpp in Sources */,
 				BD326F3A2F4958CE007EE8EC /* RingBuffer.cpp in Sources */,
 				BD58B0A62F582F480024C670 /* GameMainLoop.cpp in Sources */,
 				BDA8962A2F74F48400B0683B /* X2TeaCodec.cpp in Sources */,
@@ -634,6 +645,7 @@
 			files = (
 				BDA896232F72A05D00B0683B /* Quaternion.cpp in Sources */,
 				BD326EE22F3C7F9A007EE8EC /* RuntimeAssert.cpp in Sources */,
+				BD0E410D2F778E4A00CFA766 /* Float2D.cpp in Sources */,
 				BD326F392F4958CE007EE8EC /* RingBuffer.cpp in Sources */,
 				BD58B0A52F582F480024C670 /* GameMainLoop.cpp in Sources */,
 				BDA896292F74F48400B0683B /* X2TeaCodec.cpp in Sources */,
