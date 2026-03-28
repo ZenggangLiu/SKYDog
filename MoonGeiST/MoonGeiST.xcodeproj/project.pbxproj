@@ -11,6 +11,10 @@
 		BD0E41052F77846900CFA766 /* GeiSTRenderLoop.mm in Sources */ = {isa = PBXBuildFile; fileRef = BD0E41032F77846900CFA766 /* GeiSTRenderLoop.mm */; };
 		BD0E41072F7787C100CFA766 /* GeiSTRenderLoop.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD0E41062F7787C100CFA766 /* GeiSTRenderLoop.hpp */; };
 		BD0E41082F7787C100CFA766 /* GeiSTRenderLoop.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD0E41062F7787C100CFA766 /* GeiSTRenderLoop.hpp */; };
+		BD0E41122F77904B00CFA766 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = BD0E41102F77904A00CFA766 /* Shaders.metal */; };
+		BD0E41132F77904B00CFA766 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = BD0E41102F77904A00CFA766 /* Shaders.metal */; };
+		BD0E41142F77904B00CFA766 /* ShaderTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = BD0E41112F77904B00CFA766 /* ShaderTypes.h */; };
+		BD0E41152F77904B00CFA766 /* ShaderTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = BD0E41112F77904B00CFA766 /* ShaderTypes.h */; };
 		BD14F7792F77539E00D83113 /* GeiSTGameView+MouseMsg.mm in Sources */ = {isa = PBXBuildFile; fileRef = BD14F7692F77539D00D83113 /* GeiSTGameView+MouseMsg.mm */; };
 		BD14F77A2F77539E00D83113 /* GeiSTGameView+MouseMsg.mm in Sources */ = {isa = PBXBuildFile; fileRef = BD14F7692F77539D00D83113 /* GeiSTGameView+MouseMsg.mm */; };
 		BD14F77B2F77539E00D83113 /* GeiSTGameView+TouchMsg.mm in Sources */ = {isa = PBXBuildFile; fileRef = BD14F76A2F77539D00D83113 /* GeiSTGameView+TouchMsg.mm */; };
@@ -46,8 +50,6 @@
 		BD326F022F41CA6E007EE8EC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD326F002F41CA6E007EE8EC /* Main.storyboard */; };
 		BD326F052F41CA6E007EE8EC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD326F032F41CA6E007EE8EC /* LaunchScreen.storyboard */; };
 		BD326F162F41CA6E007EE8EC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD326F142F41CA6E007EE8EC /* Main.storyboard */; };
-		BD326F1C2F41CA6E007EE8EC /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = BD326EF12F41CA6B007EE8EC /* Shaders.metal */; };
-		BD326F1D2F41CA6E007EE8EC /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = BD326EF12F41CA6B007EE8EC /* Shaders.metal */; };
 		BD326F1E2F41CA6E007EE8EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD326EF22F41CA6E007EE8EC /* Assets.xcassets */; };
 		BD326F1F2F41CA6E007EE8EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD326EF22F41CA6E007EE8EC /* Assets.xcassets */; };
 		BD58B0FC2F6283220024C670 /* GeiSTMain.m in Sources */ = {isa = PBXBuildFile; fileRef = BD58B0FB2F6283220024C670 /* GeiSTMain.m */; };
@@ -57,6 +59,8 @@
 /* Begin PBXFileReference section */
 		BD0E41032F77846900CFA766 /* GeiSTRenderLoop.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = GeiSTRenderLoop.mm; path = Apple/RenderDevice/GeiSTRenderLoop.mm; sourceTree = "<group>"; };
 		BD0E41062F7787C100CFA766 /* GeiSTRenderLoop.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = GeiSTRenderLoop.hpp; path = Apple/RenderDevice/GeiSTRenderLoop.hpp; sourceTree = "<group>"; };
+		BD0E41102F77904A00CFA766 /* Shaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; lineEnding = 0; name = Shaders.metal; path = Apple/RenderDevice/Shader/Shaders.metal; sourceTree = "<group>"; };
+		BD0E41112F77904B00CFA766 /* ShaderTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = ShaderTypes.h; path = Apple/RenderDevice/Shader/ShaderTypes.h; sourceTree = "<group>"; };
 		BD14F7692F77539D00D83113 /* GeiSTGameView+MouseMsg.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = "GeiSTGameView+MouseMsg.mm"; path = "Apple/Platform/GeiSTGameView+MouseMsg.mm"; sourceTree = "<group>"; };
 		BD14F76A2F77539D00D83113 /* GeiSTGameView+TouchMsg.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = "GeiSTGameView+TouchMsg.mm"; path = "Apple/Platform/GeiSTGameView+TouchMsg.mm"; sourceTree = "<group>"; };
 		BD14F76B2F77539D00D83113 /* GeiSTViewController.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = GeiSTViewController.hpp; path = Apple/Platform/GeiSTViewController.hpp; sourceTree = "<group>"; };
@@ -73,8 +77,6 @@
 		BD14F7762F77539E00D83113 /* GeiSTGameView+MouseMsg.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = "GeiSTGameView+MouseMsg.hpp"; path = "Apple/Platform/GeiSTGameView+MouseMsg.hpp"; sourceTree = "<group>"; };
 		BD14F7772F77539E00D83113 /* GeiSTViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = GeiSTViewController.mm; path = Apple/Platform/GeiSTViewController.mm; sourceTree = "<group>"; };
 		BD14F7782F77539E00D83113 /* GeiSTGameView+KeyboardMsg.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = "GeiSTGameView+KeyboardMsg.hpp"; path = "Apple/Platform/GeiSTGameView+KeyboardMsg.hpp"; sourceTree = "<group>"; };
-		BD326EF02F41CA6B007EE8EC /* ShaderTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShaderTypes.h; sourceTree = "<group>"; };
-		BD326EF12F41CA6B007EE8EC /* Shaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
 		BD326EF22F41CA6E007EE8EC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BD326EF72F41CA6E007EE8EC /* SKYDog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SKYDog.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD326F012F41CA6E007EE8EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -106,10 +108,20 @@
 		BD0E40EA2F77557100CFA766 /* RenderDevice */ = {
 			isa = PBXGroup;
 			children = (
+				BD0E410F2F77900E00CFA766 /* Shader */,
 				BD0E41062F7787C100CFA766 /* GeiSTRenderLoop.hpp */,
 				BD0E41032F77846900CFA766 /* GeiSTRenderLoop.mm */,
 			);
 			name = RenderDevice;
+			sourceTree = "<group>";
+		};
+		BD0E410F2F77900E00CFA766 /* Shader */ = {
+			isa = PBXGroup;
+			children = (
+				BD0E41112F77904B00CFA766 /* ShaderTypes.h */,
+				BD0E41102F77904A00CFA766 /* Shaders.metal */,
+			);
+			name = Shader;
 			sourceTree = "<group>";
 		};
 		BD326EE82F41CA6A007EE8EC = {
@@ -128,8 +140,6 @@
 		BD326EED2F41CA6B007EE8EC /* MoonGeiST Shared */ = {
 			isa = PBXGroup;
 			children = (
-				BD326EF02F41CA6B007EE8EC /* ShaderTypes.h */,
-				BD326EF12F41CA6B007EE8EC /* Shaders.metal */,
 				BD326EF22F41CA6E007EE8EC /* Assets.xcassets */,
 			);
 			path = "MoonGeiST Shared";
@@ -195,6 +205,7 @@
 				BD14F7932F77539E00D83113 /* GeiSTGameView+MouseMsg.hpp in Headers */,
 				BD14F78D2F77539E00D83113 /* GeiSTGameView.hpp in Headers */,
 				BD14F77F2F77539E00D83113 /* GeiSTAppDelegate+iOS.hpp in Headers */,
+				BD0E41142F77904B00CFA766 /* ShaderTypes.h in Headers */,
 				BD14F77D2F77539E00D83113 /* GeiSTViewController.hpp in Headers */,
 				BD14F7892F77539E00D83113 /* GeiSTGameView+TouchMsg.hpp in Headers */,
 				BD14F7912F77539E00D83113 /* GeiSTAppDelegate+macOS.hpp in Headers */,
@@ -211,6 +222,7 @@
 				BD14F7942F77539E00D83113 /* GeiSTGameView+MouseMsg.hpp in Headers */,
 				BD14F78E2F77539E00D83113 /* GeiSTGameView.hpp in Headers */,
 				BD14F7802F77539E00D83113 /* GeiSTAppDelegate+iOS.hpp in Headers */,
+				BD0E41152F77904B00CFA766 /* ShaderTypes.h in Headers */,
 				BD14F77E2F77539E00D83113 /* GeiSTViewController.hpp in Headers */,
 				BD14F78A2F77539E00D83113 /* GeiSTGameView+TouchMsg.hpp in Headers */,
 				BD14F7922F77539E00D83113 /* GeiSTAppDelegate+macOS.hpp in Headers */,
@@ -322,11 +334,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD0E41122F77904B00CFA766 /* Shaders.metal in Sources */,
 				BD0E41042F77846900CFA766 /* GeiSTRenderLoop.mm in Sources */,
 				BD14F7872F77539E00D83113 /* GeiSTGameView+KeyboardMsg.mm in Sources */,
 				BD14F7792F77539E00D83113 /* GeiSTGameView+MouseMsg.mm in Sources */,
 				BD14F7952F77539E00D83113 /* GeiSTViewController.mm in Sources */,
-				BD326F1C2F41CA6E007EE8EC /* Shaders.metal in Sources */,
 				BD14F7812F77539E00D83113 /* GeiSTAppDelegate+iOS.mm in Sources */,
 				BD14F78F2F77539E00D83113 /* GeiSTGameView.mm in Sources */,
 				BD14F78B2F77539E00D83113 /* GeiSTAppDelegate+macOS.mm in Sources */,
@@ -340,11 +352,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD0E41132F77904B00CFA766 /* Shaders.metal in Sources */,
 				BD14F7882F77539E00D83113 /* GeiSTGameView+KeyboardMsg.mm in Sources */,
 				BD14F77A2F77539E00D83113 /* GeiSTGameView+MouseMsg.mm in Sources */,
 				BD0E41052F77846900CFA766 /* GeiSTRenderLoop.mm in Sources */,
 				BD14F7962F77539E00D83113 /* GeiSTViewController.mm in Sources */,
-				BD326F1D2F41CA6E007EE8EC /* Shaders.metal in Sources */,
 				BD14F7822F77539E00D83113 /* GeiSTAppDelegate+iOS.mm in Sources */,
 				BD14F7902F77539E00D83113 /* GeiSTGameView.mm in Sources */,
 				BD14F78C2F77539E00D83113 /* GeiSTAppDelegate+macOS.mm in Sources */,

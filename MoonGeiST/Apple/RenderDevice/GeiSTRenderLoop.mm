@@ -2,7 +2,7 @@
 #import <ModelIO/ModelIO.h>
 
 #import "RenderDevice/GeiSTRenderLoop.hpp"
-#import "MoonGeiST Shared/ShaderTypes.h" /// Shader Types(在Metal, C++代码间共享)
+#import "Shader/ShaderTypes.h" /// Shader Types(在Metal, C++代码间共享)
 
 
 static const NSUInteger MaxBuffersInFlight = 3;
