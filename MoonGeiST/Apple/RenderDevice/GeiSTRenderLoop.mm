@@ -1,10 +1,9 @@
 #import <simd/simd.h>
 #import <ModelIO/ModelIO.h>
 
-#import "Renderer.h"
+#import "RenderDevice/GeiSTRenderLoop.hpp"
+#import "MoonGeiST Shared/ShaderTypes.h" /// Shader Types(在Metal, C++代码间共享)
 
-// Include header shared between C code here, which executes Metal API commands, and .metal files
-#import "ShaderTypes.h"
 
 static const NSUInteger MaxBuffersInFlight = 3;
 

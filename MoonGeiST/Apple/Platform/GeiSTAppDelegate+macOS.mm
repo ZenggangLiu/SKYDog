@@ -1,5 +1,5 @@
 /// Self header
-#import "GeiSTAppDelegate+macOS.hpp"
+#import "Platform/GeiSTAppDelegate+macOS.hpp"
 
 
 #if (OS_TYPE == OS_TYPE_MAC)

@@ -1,5 +1,5 @@
 /// Self header
-#import "GeiSTAppDelegate+iOS.hpp"
+#import "Platform/GeiSTAppDelegate+iOS.hpp"
 
 
 #if (OS_TYPE == OS_TYPE_IOS)

@@ -1,5 +1,5 @@
 /// Self header
-#import "GeiSTAppDelegate.hpp"
+#import "Platform/GeiSTAppDelegate.hpp"
 
 
 @implementation GeiSTAppDelegate
