@@ -3,12 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.36602.28
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RedSoUL", "RedSoUL\RedSoUL.vcxproj", "{0B5BB046-1BD8-4669-854F-72E8DD1D1478}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MoonGeiST", "MoonGeiST\MoonGeiST.vcxproj", "{9B836A6C-5BFD-4196-B7CD-EE931E442CAC}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0B5BB046-1BD8-4669-854F-72E8DD1D1478} = {0B5BB046-1BD8-4669-854F-72E8DD1D1478}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TEST", "TEST\TEST.vcxproj", "{0CED7623-A1B1-40FF-9DBB-391FF59DFF11}"
 	ProjectSection(ProjectDependencies) = postProject
 		{0B5BB046-1BD8-4669-854F-72E8DD1D1478} = {0B5BB046-1BD8-4669-854F-72E8DD1D1478}
 	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RedSoUL", "RedSoUL\RedSoUL.vcxproj", "{0B5BB046-1BD8-4669-854F-72E8DD1D1478}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -16,14 +21,18 @@ Global
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0B5BB046-1BD8-4669-854F-72E8DD1D1478}.Debug|x64.ActiveCfg = Debug|x64
-		{0B5BB046-1BD8-4669-854F-72E8DD1D1478}.Debug|x64.Build.0 = Debug|x64
-		{0B5BB046-1BD8-4669-854F-72E8DD1D1478}.Release|x64.ActiveCfg = Release|x64
-		{0B5BB046-1BD8-4669-854F-72E8DD1D1478}.Release|x64.Build.0 = Release|x64
+		{9B836A6C-5BFD-4196-B7CD-EE931E442CAC}.Debug|x64.ActiveCfg = Debug|x64
+		{9B836A6C-5BFD-4196-B7CD-EE931E442CAC}.Debug|x64.Build.0 = Debug|x64
+		{9B836A6C-5BFD-4196-B7CD-EE931E442CAC}.Release|x64.ActiveCfg = Release|x64
+		{9B836A6C-5BFD-4196-B7CD-EE931E442CAC}.Release|x64.Build.0 = Release|x64
 		{0CED7623-A1B1-40FF-9DBB-391FF59DFF11}.Debug|x64.ActiveCfg = Debug|x64
 		{0CED7623-A1B1-40FF-9DBB-391FF59DFF11}.Debug|x64.Build.0 = Debug|x64
 		{0CED7623-A1B1-40FF-9DBB-391FF59DFF11}.Release|x64.ActiveCfg = Release|x64
 		{0CED7623-A1B1-40FF-9DBB-391FF59DFF11}.Release|x64.Build.0 = Release|x64
+		{0B5BB046-1BD8-4669-854F-72E8DD1D1478}.Debug|x64.ActiveCfg = Debug|x64
+		{0B5BB046-1BD8-4669-854F-72E8DD1D1478}.Debug|x64.Build.0 = Debug|x64
+		{0B5BB046-1BD8-4669-854F-72E8DD1D1478}.Release|x64.ActiveCfg = Release|x64
+		{0B5BB046-1BD8-4669-854F-72E8DD1D1478}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
