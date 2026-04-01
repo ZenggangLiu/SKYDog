@@ -13,6 +13,8 @@
 #define HASHING_CHECKING                    1
 /// 检查Mathematic Utility
 #define MATH_UTILITY_CHECKING               1
+/// 检查随机数
+#define RANDOM_NUMBER_CHECKING              1
 /// 检查Ring Buffer
 #define RING_BUFFER_CHECKING                1
 /// 检查XXTEA编码/解码
