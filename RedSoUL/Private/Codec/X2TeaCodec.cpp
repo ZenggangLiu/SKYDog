@@ -20,9 +20,9 @@
 void
 XXTEA::encode (
     const uint8_t *  const key,
-    const uint32_t   key_length,
-    uint32_t * const data_ptr,
-    const uint32_t   data_size)
+    const uint32_t         key_length,
+    uint32_t * const       data_ptr,
+    const uint32_t         data_size)
 {
     RUNTIME_ASSERT(data_size >= 2, "Data is too short. It is at least a data of two 32bits integers!!");
 
@@ -52,9 +52,9 @@ XXTEA::encode (
 void
 XXTEA::decode (
     const uint8_t *  const key,
-    const uint32_t   key_length,
-    uint32_t * const data_ptr,
-    const uint32_t   data_size)
+    const uint32_t         key_length,
+    uint32_t * const       data_ptr,
+    const uint32_t         data_size)
 {
     RUNTIME_ASSERT(data_size >= 2, "Data is too short. At least, it is a two 32bits integers!!");
 
