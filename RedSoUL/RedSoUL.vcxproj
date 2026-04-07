@@ -13,13 +13,24 @@
   <ItemGroup>
     <ClInclude Include="Private\Hashing\RuntimeXXHash32.hpp" />
     <ClInclude Include="Private\Hashing\RuntimeXXHash64.hpp" />
+    <ClInclude Include="Private\Render\IndexedTriangle.hpp" />
+    <ClInclude Include="Private\Render\RenderMesh.hpp" />
+    <ClInclude Include="Private\Render\RenderMeshDepot.hpp" />
+    <ClInclude Include="Private\Render\VertexDataType.hpp" />
+    <ClInclude Include="Private\Render\VertexLayout\Layout_Pos.hpp" />
+    <ClInclude Include="Private\Render\VertexLayout\Layout_Pos_Colr.hpp" />
+    <ClInclude Include="Private\Render\VertexLayout\Layout_Pos_Uv.hpp" />
     <ClInclude Include="Private\Text\StaticStringDepot.hpp" />
     <ClInclude Include="Public\Assert\RuntimeAssert.hpp" />
     <ClInclude Include="Public\Codec\X2TeaCodec.hpp" />
+    <ClInclude Include="Public\Collision\AABB.hpp" />
+    <ClInclude Include="Public\Collision\Ray3D.hpp" />
+    <ClInclude Include="Public\Collision\Triangle3D.hpp" />
     <ClInclude Include="Public\Common\CommonDefines.hpp" />
     <ClInclude Include="Public\Common\CompilerDefines.hpp" />
     <ClInclude Include="Public\Common\PlatformDefines.hpp" />
     <ClInclude Include="Public\Container\RingBuffer.hpp" />
+    <ClInclude Include="Public\DataType\AxisType.hpp" />
     <ClInclude Include="Public\DataType\Float2D.hpp" />
     <ClInclude Include="Public\DataType\Float3D.hpp" />
     <ClInclude Include="Public\DataType\Float4D.hpp" />
@@ -27,16 +38,19 @@
     <ClInclude Include="Public\DataType\Matrix4x4.hpp" />
     <ClInclude Include="Public\DataType\Quaternion.hpp" />
     <ClInclude Include="Public\Hashing\RuntimeHash.hpp" />
-    <ClInclude Include="Public\Hashing\StaticHash.hpp" />
+    <ClInclude Include="Public\Hashing\StaticStringHash.hpp" />
     <ClInclude Include="Public\Hashing\StaticXXHash32.hpp" />
     <ClInclude Include="Public\Hashing\StaticXXHash64.hpp" />
     <ClInclude Include="Public\Math\MathDefines.hpp" />
     <ClInclude Include="Public\Math\MathUtilities.hpp" />
+    <ClInclude Include="Public\Math\RandomNumber.hpp" />
     <ClInclude Include="Public\Memory\ArenaAllocator.hpp" />
     <ClInclude Include="Public\Memory\MemoryUtilities.hpp" />
+    <ClInclude Include="Public\Render\RenderMeshId.hpp" />
     <ClInclude Include="Public\Runtime\GameLogic.hpp" />
     <ClInclude Include="Public\Text\StaticString.hpp" />
     <ClInclude Include="Public\Text\StaticStringId.hpp" />
+    <ClInclude Include="Public\Text\TextEncoding.hpp" />
     <ClInclude Include="Public\Thread\ThreadDefines.hpp" />
     <ClInclude Include="Public\Thread\WorkerThread.hpp" />
     <ClInclude Include="Public\Time\ClockTime.hpp" />
@@ -45,6 +59,8 @@
   <ItemGroup>
     <ClCompile Include="Private\Assert\RuntimeAssert.cpp" />
     <ClCompile Include="Private\Codec\X2TeaCodec.cpp" />
+    <ClCompile Include="Private\Collision\AABB.cpp" />
+    <ClCompile Include="Private\Collision\Triangle3D.cpp" />
     <ClCompile Include="Private\Container\RingBuffer.cpp" />
     <ClCompile Include="Private\DataType\Float2D.cpp" />
     <ClCompile Include="Private\DataType\Float3D.cpp" />
@@ -54,8 +70,11 @@
     <ClCompile Include="Private\DataType\Quaternion.cpp" />
     <ClCompile Include="Private\Hashing\RuntimeHash.cpp" />
     <ClCompile Include="Private\Math\MathUtilities.cpp" />
+    <ClCompile Include="Private\Math\RandomNumber.cpp" />
     <ClCompile Include="Private\Memory\ArenaAllocator.cpp" />
     <ClCompile Include="Private\Memory\MemoryUtilities.cpp" />
+    <ClCompile Include="Private\Render\RenderMesh.cpp" />
+    <ClCompile Include="Private\Render\RenderMeshDepot.cpp" />
     <ClCompile Include="Private\Runtime\GameMainLoop.cpp" />
     <ClCompile Include="Private\Text\StaticString.cpp" />
     <ClCompile Include="Private\Text\StaticStringDepot.cpp" />

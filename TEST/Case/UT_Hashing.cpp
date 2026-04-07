@@ -1,10 +1,10 @@
-/// Third party headers
 #include "External/Catch/catch_v2.hpp"
-/// Library headers
 #include "UT_Config.hpp"
+
 #if (HASHING_CHECKING == 1)
+/// Library headers
 #include "Common/CommonDefines.hpp"
-#include "Hashing/StaticHash.hpp"
+#include "Hashing/StaticStringHash.hpp"
 #include "Hashing/RuntimeHash.hpp"
 
 

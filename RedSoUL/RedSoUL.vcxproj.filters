@@ -76,6 +76,24 @@
     <Filter Include="Private\Codec">
       <UniqueIdentifier>{9f423a1f-ee4f-4a6c-b1c9-c24efbe5e130}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Public\Collision">
+      <UniqueIdentifier>{91aabdd1-fdeb-4ccf-9891-b1932f033e17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Private\Collision">
+      <UniqueIdentifier>{d0280790-2e07-43ac-84dc-eafb7c8f699b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Public\IO">
+      <UniqueIdentifier>{b204959f-3f83-40b7-aea2-1c4ede634a01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Public\Render">
+      <UniqueIdentifier>{02cf7142-7ecd-412f-887e-b6de96834682}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Private\Render">
+      <UniqueIdentifier>{8bd6e7ed-aa60-48bd-9f12-5b32245c88b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Private\Render\VertexLayout">
+      <UniqueIdentifier>{a61dab69-b8d5-4aa0-8649-9566a73cbbd6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Public\Assert\RuntimeAssert.hpp">
@@ -126,9 +144,6 @@
     <ClInclude Include="Private\Text\StaticStringDepot.hpp">
       <Filter>Private\Text</Filter>
     </ClInclude>
-    <ClInclude Include="Public\Hashing\StaticHash.hpp">
-      <Filter>Public\Hashing</Filter>
-    </ClInclude>
     <ClInclude Include="Public\Hashing\RuntimeHash.hpp">
       <Filter>Public\Hashing</Filter>
     </ClInclude>
@@ -167,6 +182,51 @@
     </ClInclude>
     <ClInclude Include="Public\DataType\Float2D.hpp">
       <Filter>Public\DataType</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\Collision\Ray3D.hpp">
+      <Filter>Public\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\Collision\Triangle3D.hpp">
+      <Filter>Public\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\Collision\AABB.hpp">
+      <Filter>Public\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\DataType\AxisType.hpp">
+      <Filter>Public\DataType</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\Hashing\StaticStringHash.hpp">
+      <Filter>Public\Hashing</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\Math\RandomNumber.hpp">
+      <Filter>Public\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\Render\RenderMeshId.hpp">
+      <Filter>Public\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Private\Render\RenderMesh.hpp">
+      <Filter>Private\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Private\Render\RenderMeshDepot.hpp">
+      <Filter>Private\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Private\Render\VertexDataType.hpp">
+      <Filter>Private\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Private\Render\VertexLayout\Layout_Pos.hpp">
+      <Filter>Private\Render\VertexLayout</Filter>
+    </ClInclude>
+    <ClInclude Include="Private\Render\VertexLayout\Layout_Pos_Colr.hpp">
+      <Filter>Private\Render\VertexLayout</Filter>
+    </ClInclude>
+    <ClInclude Include="Private\Render\VertexLayout\Layout_Pos_Uv.hpp">
+      <Filter>Private\Render\VertexLayout</Filter>
+    </ClInclude>
+    <ClInclude Include="Private\Render\IndexedTriangle.hpp">
+      <Filter>Private\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\Text\TextEncoding.hpp">
+      <Filter>Public\Text</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -223,6 +283,21 @@
     </ClCompile>
     <ClCompile Include="Private\DataType\Float2D.cpp">
       <Filter>Private\DataType</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\Collision\Triangle3D.cpp">
+      <Filter>Private\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\Collision\AABB.cpp">
+      <Filter>Private\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\Math\RandomNumber.cpp">
+      <Filter>Private\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\Render\RenderMesh.cpp">
+      <Filter>Private\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\Render\RenderMeshDepot.cpp">
+      <Filter>Private\Render</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
