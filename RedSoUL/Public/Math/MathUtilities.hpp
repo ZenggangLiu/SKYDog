@@ -141,7 +141,7 @@ MathUtility::multiple_of (
     return (a - (T)1)/b + (T)1;
 }
 
-/// multiple_of()不可用于浮点数
+/// multiple_of不可用于浮点数
 template <>
 INLINE_FUNCTION float MathUtility::multiple_of(const float, const float);
 template <>

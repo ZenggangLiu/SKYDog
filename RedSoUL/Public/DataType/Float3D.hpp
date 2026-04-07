@@ -53,6 +53,19 @@ struct alignas(16) float_3
     static const float_3 ONE;       /// [  1,  1,  1 ]
     /// 全零向量
     static const float_3 ZERO;      /// [  0,  0,  0 ]
+
+    /// 方向向量定义根据如下的左手系
+    ///  ^ Y
+    ///  |     Z
+    ///  |    /
+    ///  |   /
+    ///  |  /
+    ///  | /          X
+    ///  +------------>
+    /// 前向量
+    static const float_3 FORWARD;   /// [  0,  0,  1 ]
+    /// 后向量
+    static const float_3 BACKWARD;  /// [  0,  0, -1 ]
     /// 左向量
     static const float_3 LEFT;      /// [ -1,  0,  0 ]
     /// 右向量
@@ -61,10 +74,6 @@ struct alignas(16) float_3
     static const float_3 UP;        /// [  0,  1,  0 ]
     /// 下向量
     static const float_3 DOWN;      /// [  0, -1,  0 ]
-    /// 前向量
-    static const float_3 FORWARD;   /// [  0,  0,  1 ]
-    /// 后向量
-    static const float_3 BACKWARD;  /// [  0,  0, -1 ]
 
     union
     {
@@ -91,6 +100,11 @@ struct alignas(16) float_3
         const float x,
         const float y,
         const float z);
+
+    /// 创建一个随机单位向量
+    static
+    float_3
+    make_random_unit_vec ();
 
     /// 检测当前向量是否与另一个向量vec相同
     bool

@@ -32,20 +32,9 @@
 #include <type_traits>
 #include <stdint.h> /// uint32_t
 /// Library headers
+#include "DataType/AxisType.hpp"
 #include "DataType/Float3D.hpp"
 #include "DataType/Float4D.hpp"
-
-
-/// 旋转轴定义
-///
-enum class RotationAxis
-{
-    AXIS_X_ROT,
-    AXIS_Y_ROT,
-    AXIS_Z_ROT,
-
-    LAST_ROTATION_AXIS
-};
 
 
 /// 单位四元数: 描述任意围绕轴U的三维旋转
@@ -107,8 +96,8 @@ struct alignas(16) quaternion
     static
     quaternion
     make (
-        const RotationAxis rot_axis,
-        const float        rot_rads);
+        const AxisType rot_axis,
+        const float    rot_rads);
 
     /// 创建一个绕指定轴旋转的四元数
     ///

@@ -17,10 +17,10 @@
     Author:   (___()'`; Zee...  \_/|_)     )                                            
               /,    /`             \  __  /                                             
               \\"--\\              (_/ (_/                                              
-    Created:  27/02/26  @  10:51 PM
-    FileName: StaticStringId.hpp @ RedSoUL Project
+    Created:  7/03/26  @  12:00 PM
+    FileName: StaticStringHash.hpp @ RedSoUL Project
     History:
-             - created by: 27/02/26: Zenggang LIU
+             - created by: 7/03/26: Zenggang LIU
                                                                                         
 ***************************************************************************************/
 
@@ -30,36 +30,31 @@
 
 /// System headers
 #include <stdint.h> /// uint32_t,...
+/// Library headers
+#include "Hashing/StaticXXHash32.hpp"
+#include "Hashing/StaticXXHash64.hpp"
 
 
-#if !defined(STRING_HASH)
+namespace StaticStringHash_Impl
+{
 
-    /// 计算Hash时使用的Seed
-    #define STATIC_STRING_HASH_SEED (FOUR_CC('S', 'T', 'X', 'T'))
+    /// 在编译时获得UTF8编码字符串的长度
+    constexpr uint32_t
+    static_text_length (
+        const char * const data,
+        const uint32_t     idx = 0)
+    {
+        return (data[idx] == 0) ? idx : static_text_length(data, idx + 1);
+    }
 
-    #if defined(USE_64BITS_ID) /// 使用64位Id类型
-        /// 计算Hash值的函数
-        #define RUNTIME_STRING_HASH(string) \
-            RUNTIME_STRING_HASH_64(STATIC_STRING_HASH_SEED, string)
-        #define STATIC_STRING_HASH(string)  \
-            STATIC_STRING_HASH_64(STATIC_STRING_HASH_SEED, string)
+}
 
-        /// Static String Id类型
-        typedef uint64_t StaticStringIdT;
 
-    #else
-        /// 计算Hash值的函数
-        #define RUNTIME_STRING_HASH(string) \
-            RUNTIME_STRING_HASH_32(STATIC_STRING_HASH_SEED, string)
-        #define STATIC_STRING_HASH(string)  \
-            STATIC_STRING_HASH_32(STATIC_STRING_HASH_SEED, string)
-
-        /// Static String Id类型
-        typedef uint32_t StaticStringIdT;
-    #endif /// defined(USE_64BITS_ID)
-
-    /// 非法Static String Id
-    #define INVALID_STATIC_STRING_ID ((StaticStringIdT)(-1))
-
-#endif /// !defined(STRING_HASH)
-
+#if !defined(STATIC_STRING_HASH)
+    /// 可以用在Message Id
+    #define STATIC_STRING_HASH_32(seed, string) \
+        XXHash32::hash(seed, string, StaticStringHash_Impl::static_text_length(string))
+    /// 可以用在String Id
+    #define STATIC_STRING_HASH_64(seed, string) \
+        XXHash64::hash(seed, string, StaticStringHash_Impl::static_text_length(string))
+#endif /// !defined(STATIC_STRING_HASH)

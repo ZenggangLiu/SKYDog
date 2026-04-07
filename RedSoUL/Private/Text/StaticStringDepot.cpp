@@ -2,22 +2,18 @@
 #include <cstdio>  /// std::printf
 #include <cstring> /// std::memcpy, std::strlen
 /// Library headers
-#include "Assert/RuntimeAssert.hpp"   /// RUNTIME_ASSERT
-#include "Common/CommonDefines.hpp"   /// FOUR_CC
-#include "Hashing/RuntimeHash.hpp"    /// RUNTIME_STRING_HASH
-#include "Hashing/StaticHash.hpp"     /// STATIC_STRING_HASH
-#include "Math/MathUtilities.hpp"     /// multiple_of()
-#include "Memory/MemoryUtilities.hpp" /// page_size()
+#include "Assert/RuntimeAssert.hpp"     /// RUNTIME_ASSERT
+#include "Common/CommonDefines.hpp"     /// FOUR_CC
+#include "Hashing/RuntimeHash.hpp"      /// RUNTIME_STRING_HASH
+#include "Hashing/StaticStringHash.hpp" /// STATIC_STRING_HASH
+#include "Math/MathUtilities.hpp"       /// multiple_of
+#include "Memory/MemoryUtilities.hpp"   /// page_size
 /// Self header
 #include "Text/StaticStringDepot.hpp"
 
 
-/// 所有Static String Hash时候使用的SEED
-#define STATIC_STRING_SEED FOUR_CC('S', 'T', 'X', 'T')
-
-
 /// 空字符的Id
-static StaticStringIdT EMPTY_STRING_ID = StaticStringIdT{ STATIC_STRING_HASH(STATIC_STRING_SEED, "") };
+static StaticStringIdT EMPTY_STRING_ID = StaticStringIdT{ STATIC_STRING_HASH("") };
 
 
 StaticStringDepot &
@@ -90,7 +86,7 @@ StaticStringIdT
 StaticStringDepot::cache_string (
     const uint8_t * const utf8_string)
 {
-    const StaticStringIdT string_id = RUNTIME_STRING_HASH(STATIC_STRING_SEED, utf8_string);
+    const StaticStringIdT string_id = RUNTIME_STRING_HASH(utf8_string);
 
     /// 如果Depot中没有数据
     if (m_info_table.find(string_id) == m_info_table.end())

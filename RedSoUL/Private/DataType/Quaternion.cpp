@@ -19,24 +19,24 @@ quaternion::make ()
 
 quaternion
 quaternion::make (
-    const RotationAxis rot_axis,
-    const float        rot_rads)
+    const AxisType rot_axis,
+    const float    rot_rads)
 {
     switch (rot_axis)
     {
-        case RotationAxis::AXIS_X_ROT:
+        case AxisType::X_AXIS_TYPE:
         {
             /// U轴为<1, 0, 0>
             return make(float_3::RIGHT, rot_rads);
         }
 
-        case RotationAxis::AXIS_Y_ROT:
+        case AxisType::Y_AXIS_TYPE:
         {
             /// U轴为<0, 1, 0>
             return make(float_3::UP, rot_rads);
         }
 
-        case RotationAxis::AXIS_Z_ROT:
+        case AxisType::Z_AXIS_TYPE:
         {
             /// U轴为<0, 0, 1>
             return make(float_3::FORWARD, rot_rads);
