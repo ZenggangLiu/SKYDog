@@ -73,7 +73,7 @@ struct alignas(16) float_4
     float_4
     make ();
 
-    /// 使用给定的数值创建向量: [x, y, z, w]
+    /// 使用指定的数值创建向量: [x, y, z, w]
     static
     float_4
     make (

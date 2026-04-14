@@ -42,7 +42,7 @@
 #endif /// !defined(IS_POWER_OF_TWO)
 
 
-/// 获得类型 T 中给定成员变量的64位偏移
+/// 获得类型 T 中指定成员变量的64位偏移
 /// 使用方式:
 /// class T
 /// {
@@ -83,7 +83,7 @@
     template < typename T, uint32_t N > char(&__GetArraySize__(const T(&)[N]))[N];
 /// 我们使用 sizeof 操作符来获得静态数组的成员个数
 /// NOTE:
-/// sizeof 不会真正计算（evaluate）给定的表达式：此处不会真正调用 _GetArrayItemCount 函数
+/// sizeof 不会真正计算（evaluate）指定的表达式：此处不会真正调用 _GetArrayItemCount 函数
     #define ARRAY_SIZE(T) (sizeof(__GetArraySize__(T)))
     /// #define ARRAY_ITEM_COUNT(array) (sizeof(array) / sizeof(array[0]))
 #endif  /// !defined(ARRAY_SIZE)
@@ -117,7 +117,7 @@
 #endif /// !defined(FOUR_CC)
 
 
-/// 将给定的数值调整到给定的Alignment的倍数
+/// 将指定的数值调整到指定的Alignment的倍数
 ///
 /// 例如：
 /// ALIGN_UP(1, 4)          --> 4

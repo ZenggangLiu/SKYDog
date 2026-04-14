@@ -68,12 +68,12 @@ public:
     data (
         const StaticStringIdT string_id) const;
 
-    /// 缓存给定的ASCII编码的字符串
+    /// 缓存指定的ASCII编码的字符串
     StaticStringIdT
     cache_string (
         const char * const ascii_string);
 
-    /// 缓存给定的UTF8编码的字符串
+    /// 缓存指定的UTF8编码的字符串
     StaticStringIdT
     cache_string (
         const uint8_t * const utf8_string);

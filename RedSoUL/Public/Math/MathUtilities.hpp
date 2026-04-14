@@ -86,7 +86,7 @@ struct MathUtility
         float &     sin,
         float &     cos);
 
-    /// Clamps给定的数值到给定的区间: [min, max]
+    /// Clamp指定的数值到指定的区间: [min, max]
     template < typename T >
     INLINE_FUNCTION
     static

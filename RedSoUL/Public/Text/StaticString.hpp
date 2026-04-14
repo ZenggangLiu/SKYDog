@@ -50,11 +50,11 @@ public:
     StaticString (
         const StaticStringIdT string_id);
 
-     /// 使用给定的ASCII字符串来构建一个字符串
+     /// 使用指定的ASCII字符串来构建一个字符串
     StaticString (
         const char * const ascii_text);
 
-    /// 使用给定的UTF8编码的字符串构建一个字符串
+    /// 使用指定的UTF8编码的字符串构建一个字符串
     StaticString (
         const uint8_t * const utf8_text);
 

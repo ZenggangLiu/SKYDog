@@ -41,7 +41,7 @@ public:
     /// 使用当前时间作为Seed来构建一个随机数发生器
     RandomNumber ();
 
-    /// 使用给定Seed来构建一个随机数发生器
+    /// 使用指定的Seed来构建一个随机数发生器
     RandomNumber (
         const uint64_t seed);
 

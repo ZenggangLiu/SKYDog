@@ -64,7 +64,7 @@ struct alignas(8) float_2
     float_2
     make ();
 
-    /// 使用给定的数值创建向量: [x, y]
+    /// 使用指定的数值创建向量: [x, y]
     static
     float_2
     make (

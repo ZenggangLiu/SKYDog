@@ -36,7 +36,7 @@
 
 struct XXTEA
 {
-    /// 编码给定数据中的内容
+    /// 编码指定数据中的内容
     ///
     /// @param[in] key
     ///      编码时使用的Key
@@ -57,7 +57,7 @@ struct XXTEA
         uint32_t * const      data_ptr,
         const uint32_t        data_size);
 
-    /// 解码给定数据中的内容
+    /// 解码指定数据中的内容
     ///
     /// @param[in] key
     ///      解码时使用的Key
