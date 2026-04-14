@@ -15,10 +15,11 @@
 static
 uint32_t
 calc_vertex_list_size (
-    const uint32_t vertex_layout,
+    const uint16_t vertex_layout,
     const uint32_t vertex_count)
 {
-    RUNTIME_ASSERT(vertex_layout & VertexDataType::POSITION_DATA, "Position data is ALWAYS required!!");
+    RUNTIME_ASSERT(vertex_layout & VertexDataType::POSITION_DATA,
+                   "Position data is ALWAYS required!!");
 
     switch (vertex_layout)
     {
@@ -35,7 +36,7 @@ calc_vertex_list_size (
         }
 
         /// Pos数据 + UV数据
-        case (VertexDataType::POSITION_DATA | VertexDataType::TEXCOORD0_DATA):
+        case (VertexDataType::POSITION_DATA | VertexDataType::TEXCOORD_DATA):
         {
             return (uint32_t)(sizeof(Layout_Pos_Uv) * vertex_count);
         }
@@ -52,7 +53,7 @@ calc_vertex_list_size (
 
 RenderMesh::RenderMesh (
     const AABB &            _bound_box,
-    const uint32_t          _vertex_layout,
+    const uint16_t          _vertex_layout,
     const uint32_t          _vertex_count,
     const uint32_t          _triangle_count,
     const bool              _is_dyn_allocated,

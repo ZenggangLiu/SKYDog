@@ -42,7 +42,7 @@
 struct Layout_Pos_Uv
 {
     static constexpr uint16_t LAYOUT_DECL = VertexDataType::POSITION_DATA
-                                          | VertexDataType::TEXCOORD0_DATA;
+                                          | VertexDataType::TEXCOORD_DATA;
 
     float_3 position;
     float_2 texcoord;

@@ -57,7 +57,7 @@ struct RenderMesh
 
     RenderMesh (
         const AABB &            bound_box,
-        const uint32_t          vertex_layout,
+        const uint16_t          vertex_layout,
         const uint32_t          vertex_count,
         const uint32_t          triangle_count,
         const bool              is_dyn_allocated,
