@@ -22,6 +22,8 @@
 #define GENERATE_BUILTIN_MESH_NAME(unique_name) "__/::@" unique_name "@::\__"
 
 
+#define USE_ALIGNED_ALLOC_FUNC 0
+#if (USE_ALIGNED_ALLOC_FUNC == 1)
 static
 uint8_t *
 aligned_alloc (
@@ -43,6 +45,7 @@ aligned_alloc (
     }
 #endif
 }
+#endif /// (USE_ALIGNED_ALLOC_FUNC == 1)
 
 
 static

@@ -1,4 +1,4 @@
-#include "Common/PlatformDefines.hpp"
+#include "Common/PlatformDefines.hpp" /// OS_TYPE
 /// System headers
 #include <stdint.h> /// uint32_t,...
 #if (OS_TYPE == OS_TYPE_WIN)
