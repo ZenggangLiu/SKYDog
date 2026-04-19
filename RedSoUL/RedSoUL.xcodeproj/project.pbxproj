@@ -65,8 +65,6 @@
 		BD58B09D2F56DE1D0024C670 /* ClockTime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD58B09B2F56DE1D0024C670 /* ClockTime.cpp */; };
 		BD58B0A52F582F480024C670 /* GameMainLoop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD58B0A32F582F480024C670 /* GameMainLoop.cpp */; };
 		BD58B0A62F582F480024C670 /* GameMainLoop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD58B0A32F582F480024C670 /* GameMainLoop.cpp */; };
-		BD58B0A72F582F480024C670 /* GameMainLoop.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B0A42F582F480024C670 /* GameMainLoop.hpp */; };
-		BD58B0A82F582F480024C670 /* GameMainLoop.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B0A42F582F480024C670 /* GameMainLoop.hpp */; };
 		BD58B0BE2F5974630024C670 /* RuntimeHash.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B0BD2F5974630024C670 /* RuntimeHash.hpp */; };
 		BD58B0BF2F5974630024C670 /* RuntimeHash.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B0BD2F5974630024C670 /* RuntimeHash.hpp */; };
 		BD58B0CA2F5AD4BF0024C670 /* StaticStringId.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B0C92F5AD4BF0024C670 /* StaticStringId.hpp */; };
@@ -143,6 +141,20 @@
 		BDA8962A2F74F48400B0683B /* X2TeaCodec.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDA896282F74F48400B0683B /* X2TeaCodec.cpp */; };
 		BDA8962D2F74F4C100B0683B /* X2TeaCodec.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA8962C2F74F4C100B0683B /* X2TeaCodec.hpp */; };
 		BDA8962E2F74F4C100B0683B /* X2TeaCodec.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA8962C2F74F4C100B0683B /* X2TeaCodec.hpp */; };
+		BDD4034D2F9300F70019BE16 /* NativeDirectory.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDD4034C2F9300F70019BE16 /* NativeDirectory.hpp */; };
+		BDD4034E2F9300F70019BE16 /* NativeDirectory.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDD4034C2F9300F70019BE16 /* NativeDirectory.hpp */; };
+		BDD403502F9301BD0019BE16 /* GameMainLoop.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDD4034F2F9301BD0019BE16 /* GameMainLoop.hpp */; };
+		BDD403512F9301BD0019BE16 /* GameMainLoop.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDD4034F2F9301BD0019BE16 /* GameMainLoop.hpp */; };
+		BDD403542F93519C0019BE16 /* ApplNativeDirectory.mm in Sources */ = {isa = PBXBuildFile; fileRef = BDD403532F93519C0019BE16 /* ApplNativeDirectory.mm */; };
+		BDD403552F93519C0019BE16 /* ApplNativeDirectory.mm in Sources */ = {isa = PBXBuildFile; fileRef = BDD403532F93519C0019BE16 /* ApplNativeDirectory.mm */; };
+		BDD403572F9385090019BE16 /* NativeFile.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDD403562F9385090019BE16 /* NativeFile.hpp */; };
+		BDD403582F9385090019BE16 /* NativeFile.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDD403562F9385090019BE16 /* NativeFile.hpp */; };
+		BDD4035D2F9387AD0019BE16 /* ApplNativeFile.mm in Sources */ = {isa = PBXBuildFile; fileRef = BDD4035C2F9387AC0019BE16 /* ApplNativeFile.mm */; };
+		BDD4035E2F9387AD0019BE16 /* ApplNativeFile.mm in Sources */ = {isa = PBXBuildFile; fileRef = BDD4035C2F9387AC0019BE16 /* ApplNativeFile.mm */; };
+		BDD403602F947EB80019BE16 /* FileName.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDD4035F2F947EB80019BE16 /* FileName.hpp */; };
+		BDD403612F947EB80019BE16 /* FileName.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDD4035F2F947EB80019BE16 /* FileName.hpp */; };
+		BDD403632F947F2F0019BE16 /* FileName.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDD403622F947F2F0019BE16 /* FileName.cpp */; };
+		BDD403642F947F2F0019BE16 /* FileName.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDD403622F947F2F0019BE16 /* FileName.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -187,7 +199,6 @@
 		BD58B0972F56DCDC0024C670 /* ClockTime.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = ClockTime.hpp; path = Public/Time/ClockTime.hpp; sourceTree = "<group>"; };
 		BD58B09B2F56DE1D0024C670 /* ClockTime.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = ClockTime.cpp; path = Private/Time/ClockTime.cpp; sourceTree = "<group>"; };
 		BD58B0A32F582F480024C670 /* GameMainLoop.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = GameMainLoop.cpp; path = Private/Runtime/GameMainLoop.cpp; sourceTree = "<group>"; };
-		BD58B0A42F582F480024C670 /* GameMainLoop.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = GameMainLoop.hpp; path = Private/Runtime/GameMainLoop.hpp; sourceTree = "<group>"; };
 		BD58B0BD2F5974630024C670 /* RuntimeHash.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = RuntimeHash.hpp; path = Public/Hashing/RuntimeHash.hpp; sourceTree = "<group>"; };
 		BD58B0C92F5AD4BF0024C670 /* StaticStringId.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = StaticStringId.hpp; path = Public/Text/StaticStringId.hpp; sourceTree = "<group>"; };
 		BD58B0CC2F5B93B90024C670 /* StaticXXHash64.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = StaticXXHash64.hpp; path = Public/Hashing/StaticXXHash64.hpp; sourceTree = "<group>"; };
@@ -230,6 +241,13 @@
 		BDA896282F74F48400B0683B /* X2TeaCodec.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = X2TeaCodec.cpp; path = Private/Codec/X2TeaCodec.cpp; sourceTree = "<group>"; };
 		BDA8962C2F74F4C100B0683B /* X2TeaCodec.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = X2TeaCodec.hpp; path = Public/Codec/X2TeaCodec.hpp; sourceTree = "<group>"; };
 		BDA896322F74F6E900B0683B /* Quaternion_derivation.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; lineEnding = 0; name = Quaternion_derivation.txt; path = ../Document/Quaternion_derivation.txt; sourceTree = "<group>"; };
+		BDD4034C2F9300F70019BE16 /* NativeDirectory.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = NativeDirectory.hpp; path = Public/FileSystem/NativeDirectory.hpp; sourceTree = "<group>"; };
+		BDD4034F2F9301BD0019BE16 /* GameMainLoop.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = GameMainLoop.hpp; path = Private/Runtime/GameMainLoop.hpp; sourceTree = "<group>"; };
+		BDD403532F93519C0019BE16 /* ApplNativeDirectory.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = ApplNativeDirectory.mm; path = Private/FileSystem/Apple/ApplNativeDirectory.mm; sourceTree = "<group>"; };
+		BDD403562F9385090019BE16 /* NativeFile.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = NativeFile.hpp; path = Public/FileSystem/NativeFile.hpp; sourceTree = "<group>"; };
+		BDD4035C2F9387AC0019BE16 /* ApplNativeFile.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = ApplNativeFile.mm; path = Private/FileSystem/Apple/ApplNativeFile.mm; sourceTree = "<group>"; };
+		BDD4035F2F947EB80019BE16 /* FileName.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = FileName.hpp; path = Public/FileSystem/FileName.hpp; sourceTree = "<group>"; };
+		BDD403622F947F2F0019BE16 /* FileName.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = FileName.cpp; path = Private/FileSystem/FileName.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -390,7 +408,7 @@
 		BD58B09E2F582F0F0024C670 /* Runtime */ = {
 			isa = PBXGroup;
 			children = (
-				BD58B0A42F582F480024C670 /* GameMainLoop.hpp */,
+				BDD4034F2F9301BD0019BE16 /* GameMainLoop.hpp */,
 				BD58B0A32F582F480024C670 /* GameMainLoop.cpp */,
 			);
 			name = Runtime;
@@ -462,7 +480,9 @@
 				BD86B6192F3B316800DD8D2E /* Common */,
 				BD326F302F495402007EE8EC /* Container */,
 				BD326EC82F3BEF2B007EE8EC /* DataType */,
+				BDD4034B2F9300E00019BE16 /* FileSystem */,
 				BD58B0B92F5973B00024C670 /* Hashing */,
+				BDD403372F8E55000019BE16 /* IO */,
 				BD326EE42F4176F2007EE8EC /* Math */,
 				BD326F282F431C8A007EE8EC /* Memory */,
 				BD8FB8062F7F6D7700EE67B4 /* Render */,
@@ -482,7 +502,9 @@
 				BD0E41162F78A05200CFA766 /* Collision */,
 				BD326F372F4958BC007EE8EC /* Container */,
 				BD9FAFBB2F6E753F000B085D /* DataType */,
+				BDD403522F9351660019BE16 /* FileSystem */,
 				BD58B0B82F5973A10024C670 /* Hashing */,
+				BDD403462F90EA120019BE16 /* IO */,
 				BD9FAFB12F6E526F000B085D /* Math */,
 				BD326F2C2F431F23007EE8EC /* Memory */,
 				BD8FB80D2F7F6FF800EE67B4 /* Render */,
@@ -592,6 +614,40 @@
 			name = Document;
 			sourceTree = "<group>";
 		};
+		BDD403372F8E55000019BE16 /* IO */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = IO;
+			sourceTree = "<group>";
+		};
+		BDD403462F90EA120019BE16 /* IO */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = IO;
+			sourceTree = "<group>";
+		};
+		BDD4034B2F9300E00019BE16 /* FileSystem */ = {
+			isa = PBXGroup;
+			children = (
+				BDD4035F2F947EB80019BE16 /* FileName.hpp */,
+				BDD4034C2F9300F70019BE16 /* NativeDirectory.hpp */,
+				BDD403562F9385090019BE16 /* NativeFile.hpp */,
+			);
+			name = FileSystem;
+			sourceTree = "<group>";
+		};
+		BDD403522F9351660019BE16 /* FileSystem */ = {
+			isa = PBXGroup;
+			children = (
+				BDD403622F947F2F0019BE16 /* FileName.cpp */,
+				BDD403532F93519C0019BE16 /* ApplNativeDirectory.mm */,
+				BDD4035C2F9387AC0019BE16 /* ApplNativeFile.mm */,
+			);
+			name = FileSystem;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -599,6 +655,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BDD403502F9301BD0019BE16 /* GameMainLoop.hpp in Headers */,
 				BD326EDE2F3C40A5007EE8EC /* PlatformDefines.hpp in Headers */,
 				BD0E41282F7BC83D00CFA766 /* Matrix4x4.hpp in Headers */,
 				BD0E411C2F78A1AC00CFA766 /* Ray3D.hpp in Headers */,
@@ -619,14 +676,17 @@
 				BD0E41252F7BC7F400CFA766 /* Matrix3x4.hpp in Headers */,
 				BD8FB8442F8512B100EE67B4 /* Layout_Pos.hpp in Headers */,
 				BD0E412E2F7BC8EF00CFA766 /* GameLogic.hpp in Headers */,
+				BDD403572F9385090019BE16 /* NativeFile.hpp in Headers */,
 				BD0E41312F7BC95900CFA766 /* RandomNumber.hpp in Headers */,
 				BD8FB8272F822DC900EE67B4 /* RenderMesh.hpp in Headers */,
 				BD58B0832F4EECE10024C670 /* ThreadDefines.hpp in Headers */,
 				BD58B0982F56DCDC0024C670 /* ClockTime.hpp in Headers */,
 				BD8FB8222F81047F00EE67B4 /* IndexedTriangle.hpp in Headers */,
+				BDD403602F947EB80019BE16 /* FileName.hpp in Headers */,
 				BD0E41222F79281800CFA766 /* Triangle3D.hpp in Headers */,
 				BD58B0D92F5B97750024C670 /* RuntimeXXHash64.hpp in Headers */,
 				BD0E410A2F778DF600CFA766 /* Float2D.hpp in Headers */,
+				BDD4034D2F9300F70019BE16 /* NativeDirectory.hpp in Headers */,
 				BD58B0D32F5B93F30024C670 /* StaticStringHash.hpp in Headers */,
 				BD326F322F495429007EE8EC /* RingBuffer.hpp in Headers */,
 				BD326F2A2F431CD5007EE8EC /* MemoryUtilities.hpp in Headers */,
@@ -639,7 +699,6 @@
 				BDA8960E2F6F6F0300B0683B /* Float3D.hpp in Headers */,
 				BD8FB80F2F7F701800EE67B4 /* RenderMeshDepot.hpp in Headers */,
 				BD326ECC2F3BFC80007EE8EC /* CommonDefines.hpp in Headers */,
-				BD58B0A72F582F480024C670 /* GameMainLoop.hpp in Headers */,
 				BD8FB8362F850FFD00EE67B4 /* AxisType.hpp in Headers */,
 				BD8FB84B2F8512EE00EE67B4 /* VertexDataType.hpp in Headers */,
 				BD58B0E12F5B9C930024C670 /* StaticString.hpp in Headers */,
@@ -650,6 +709,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BDD403512F9301BD0019BE16 /* GameMainLoop.hpp in Headers */,
 				BD326EDF2F3C40A5007EE8EC /* PlatformDefines.hpp in Headers */,
 				BD0E41292F7BC83D00CFA766 /* Matrix4x4.hpp in Headers */,
 				BD0E411D2F78A1AC00CFA766 /* Ray3D.hpp in Headers */,
@@ -670,14 +730,17 @@
 				BD0E41262F7BC7F400CFA766 /* Matrix3x4.hpp in Headers */,
 				BD8FB8452F8512B100EE67B4 /* Layout_Pos.hpp in Headers */,
 				BD0E412F2F7BC8EF00CFA766 /* GameLogic.hpp in Headers */,
+				BDD403582F9385090019BE16 /* NativeFile.hpp in Headers */,
 				BD0E41322F7BC95900CFA766 /* RandomNumber.hpp in Headers */,
 				BD8FB8282F822DC900EE67B4 /* RenderMesh.hpp in Headers */,
 				BD58B0842F4EECE10024C670 /* ThreadDefines.hpp in Headers */,
 				BD58B0992F56DCDC0024C670 /* ClockTime.hpp in Headers */,
 				BD8FB8232F81047F00EE67B4 /* IndexedTriangle.hpp in Headers */,
+				BDD403612F947EB80019BE16 /* FileName.hpp in Headers */,
 				BD0E41232F79281800CFA766 /* Triangle3D.hpp in Headers */,
 				BD58B0DA2F5B97750024C670 /* RuntimeXXHash64.hpp in Headers */,
 				BD0E410B2F778DF600CFA766 /* Float2D.hpp in Headers */,
+				BDD4034E2F9300F70019BE16 /* NativeDirectory.hpp in Headers */,
 				BD58B0D42F5B93F30024C670 /* StaticStringHash.hpp in Headers */,
 				BD326F332F495429007EE8EC /* RingBuffer.hpp in Headers */,
 				BD326F2B2F431CD5007EE8EC /* MemoryUtilities.hpp in Headers */,
@@ -690,7 +753,6 @@
 				BDA8960F2F6F6F0300B0683B /* Float3D.hpp in Headers */,
 				BD8FB8102F7F701800EE67B4 /* RenderMeshDepot.hpp in Headers */,
 				BD326EC72F3B32F0007EE8EC /* CommonDefines.hpp in Headers */,
-				BD58B0A82F582F480024C670 /* GameMainLoop.hpp in Headers */,
 				BD8FB8372F850FFD00EE67B4 /* AxisType.hpp in Headers */,
 				BD8FB84C2F8512EE00EE67B4 /* VertexDataType.hpp in Headers */,
 				BD58B0E22F5B9C930024C670 /* StaticString.hpp in Headers */,
@@ -778,6 +840,7 @@
 			files = (
 				BDA896242F72A05D00B0683B /* Quaternion.cpp in Sources */,
 				BD326EE32F3C7F9A007EE8EC /* RuntimeAssert.cpp in Sources */,
+				BDD403552F93519C0019BE16 /* ApplNativeDirectory.mm in Sources */,
 				BD0E410E2F778E4A00CFA766 /* Float2D.cpp in Sources */,
 				BD326F3A2F4958CE007EE8EC /* RingBuffer.cpp in Sources */,
 				BD58B0A62F582F480024C670 /* GameMainLoop.cpp in Sources */,
@@ -788,6 +851,7 @@
 				BDA896182F6F9C8300B0683B /* Matrix3x4.cpp in Sources */,
 				BD58B08E2F519D890024C670 /* ArenaAllocator.cpp in Sources */,
 				BD9FAFBE2F6E756B000B085D /* Float4D.cpp in Sources */,
+				BDD403642F947F2F0019BE16 /* FileName.cpp in Sources */,
 				BD58B09D2F56DE1D0024C670 /* ClockTime.cpp in Sources */,
 				BD58B0882F4EF27D0024C670 /* WorkerThread.cpp in Sources */,
 				BD9FAFB42F6E528C000B085D /* MathUtilities.cpp in Sources */,
@@ -798,6 +862,7 @@
 				BD58B0EE2F5BA1790024C670 /* StaticStringDepot.cpp in Sources */,
 				BD8FB8402F85112900EE67B4 /* Triangle3D.cpp in Sources */,
 				BD58B0F12F5BB84C0024C670 /* StaticString.cpp in Sources */,
+				BDD4035E2F9387AD0019BE16 /* ApplNativeFile.mm in Sources */,
 				BDA896122F6F70FA00B0683B /* Float3D.cpp in Sources */,
 				BD0E41352F7BD6B600CFA766 /* RandomNumber.cpp in Sources */,
 			);
@@ -809,6 +874,7 @@
 			files = (
 				BDA896232F72A05D00B0683B /* Quaternion.cpp in Sources */,
 				BD326EE22F3C7F9A007EE8EC /* RuntimeAssert.cpp in Sources */,
+				BDD403542F93519C0019BE16 /* ApplNativeDirectory.mm in Sources */,
 				BD0E410D2F778E4A00CFA766 /* Float2D.cpp in Sources */,
 				BD326F392F4958CE007EE8EC /* RingBuffer.cpp in Sources */,
 				BD58B0A52F582F480024C670 /* GameMainLoop.cpp in Sources */,
@@ -819,6 +885,7 @@
 				BDA896172F6F9C8300B0683B /* Matrix3x4.cpp in Sources */,
 				BD58B08D2F519D890024C670 /* ArenaAllocator.cpp in Sources */,
 				BD9FAFBD2F6E756B000B085D /* Float4D.cpp in Sources */,
+				BDD403632F947F2F0019BE16 /* FileName.cpp in Sources */,
 				BD58B09C2F56DE1D0024C670 /* ClockTime.cpp in Sources */,
 				BD58B0872F4EF27D0024C670 /* WorkerThread.cpp in Sources */,
 				BD9FAFB32F6E528C000B085D /* MathUtilities.cpp in Sources */,
@@ -829,6 +896,7 @@
 				BD58B0ED2F5BA1790024C670 /* StaticStringDepot.cpp in Sources */,
 				BD8FB83F2F85112900EE67B4 /* Triangle3D.cpp in Sources */,
 				BD58B0F02F5BB84C0024C670 /* StaticString.cpp in Sources */,
+				BDD4035D2F9387AD0019BE16 /* ApplNativeFile.mm in Sources */,
 				BDA896112F6F70FA00B0683B /* Float3D.cpp in Sources */,
 				BD0E41342F7BD6B600CFA766 /* RandomNumber.cpp in Sources */,
 			);
