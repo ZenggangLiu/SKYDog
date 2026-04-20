@@ -7,9 +7,14 @@
 #import  <Foundation/NSString.h>
 /// Library headers
 #include "Assert/RuntimeAssert.hpp"
+#include "FileSystem/Apple/ApplFileHandle.hpp"
 #include "FileSystem/NativeDirectory.hpp"
 /// Self header
 #include "FileSystem/NativeFile.hpp"
+
+
+/// 获取真正的文件句柄
+#define REAL_FILE_HANDLE (((ApplFileHandle*)m_file_handle)->real_handle)
 
 
 uint32_t
@@ -23,10 +28,10 @@ NativeFile::file_length (
     file_io.open(absolute_file_name, AccessMode::READ_ONLY_ACCESS_MODE);
     if (file_io.is_opened())
     {
-        const uint32_t file_length = file_io.file_length();
+        const uint32_t io_length = file_io.file_length();
         file_io.close();
 
-        return file_length;
+        return io_length;
     }
     else
     {
@@ -95,10 +100,10 @@ NativeFile::delete_file (
 
 NativeFile::NativeFile ()
 :
-    m_file_handle(nil),
+    m_file_handle(nullptr),
     m_file_length(0),
     m_cursor_pos(0),
-    m_is_opened(false)
+    m_is_file_opened(false)
 {
 
 }
@@ -140,7 +145,7 @@ NativeFile::open (
             }
 
             /// 尝试打开指定文件
-            FileHandleT exp_file_handle = nil;
+            NSFileHandle * exp_file_handle = nil;
             switch (access_mode)
             {
                 case AccessMode::READ_ONLY_ACCESS_MODE:
@@ -180,13 +185,14 @@ NativeFile::open (
                 /// 关闭当前打开的文件
                 close();
 
-                m_file_handle = exp_file_handle;
+                m_file_handle    = new ApplFileHandle;
+                REAL_FILE_HANDLE = exp_file_handle;
                 /// 获取文件长度: seekToEndOfFile()返回文件的长度
-                m_file_length = (uint32_t)[m_file_handle seekToEndOfFile];
+                m_file_length    = (uint32_t)[REAL_FILE_HANDLE seekToEndOfFile];
                 /// 将读写头重新设置回文件头
-                [m_file_handle seekToFileOffset:0];
-                m_cursor_pos  = 0;
-                m_is_opened   = true;
+                [REAL_FILE_HANDLE seekToFileOffset:0];
+                m_cursor_pos     = 0;
+                m_is_file_opened = true;
                 return true;
             }
             /// 无法打开指定文件
@@ -207,7 +213,7 @@ NativeFile::open (
 bool
 NativeFile::is_opened () const
 {
-    return m_is_opened;
+    return m_is_file_opened;
 }
 
 
@@ -230,9 +236,9 @@ NativeFile::seek (
     const int32_t  cursor_pos,
     const SeekMode seek_mode)
 {
-    RUNTIME_ASSERT(m_is_opened, "The file is not opened!!");
+    RUNTIME_ASSERT(m_is_file_opened, "The file is not opened!!");
 
-    if (m_is_opened)
+    if (m_is_file_opened)
     {
         /// 用来保存Cursor相对于文件头的位置
         uint32_t absolute_cursor_pos;
@@ -287,7 +293,7 @@ NativeFile::seek (
                        "Cursor position is out of range!!");
 
         /// 移动读写头
-        [m_file_handle seekToFileOffset:absolute_cursor_pos];
+        [REAL_FILE_HANDLE seekToFileOffset:absolute_cursor_pos];
         return true;
     }
     else
@@ -307,17 +313,17 @@ NativeFile::read (
     RUNTIME_ASSERT(buffer_start, "Output buffer can not be NULL!!");
     RUNTIME_ASSERT(buffer_offset + read_count <= buffer_size,
                    "No place to store all read bytes!!");
-    RUNTIME_ASSERT(m_is_opened, "The file is not opened!!");
+    RUNTIME_ASSERT(m_is_file_opened, "The file is not opened!!");
 
     /// 可以保存足够的数据, 并且文件够大
-    if (buffer_start && (buffer_offset + read_count <= buffer_size) &&
-        m_is_opened  && (m_cursor_pos  + read_count <= m_file_length))
+    if (buffer_start      && (buffer_offset + read_count <= buffer_size) &&
+        m_is_file_opened  && (m_cursor_pos  + read_count <= m_file_length))
     {
         /// 同步读人数据
         @autoreleasepool
         {
             NSData * const input_data_array =
-                [m_file_handle readDataOfLength:read_count];
+                [REAL_FILE_HANDLE readDataOfLength:read_count];
 
             /// 检测是否失败
             if (input_data_array == nil)
@@ -353,10 +359,10 @@ NativeFile::write (
     RUNTIME_ASSERT(buffer_start, "Input buffer can not be NULL!!");
     RUNTIME_ASSERT(buffer_offset + write_count <= buffer_size,
                    "No enough data in the input buffer!!");
-    RUNTIME_ASSERT(m_is_opened, "The file is not opened!!");
+    RUNTIME_ASSERT(m_is_file_opened, "The file is not opened!!");
 
     /// 可以写出足够的数据
-    if (buffer_start && (buffer_offset + write_count <= buffer_size) && m_is_opened)
+    if (buffer_start && (buffer_offset + write_count <= buffer_size) && m_is_file_opened)
     {
         @autoreleasepool
         {
@@ -372,7 +378,7 @@ NativeFile::write (
             }
 
             /// 同步写出数据
-            [m_file_handle writeData:out_data_array];
+            [REAL_FILE_HANDLE writeData:out_data_array];
 
             /// 更新读写头位置
             m_cursor_pos  += write_count;
@@ -392,14 +398,17 @@ void
 NativeFile::close ()
 {
     /// 检查是否当前文件仍然打开
-    if (m_is_opened)
+    if (m_is_file_opened)
     {
         /// 关闭文件并清除Handle
-        [m_file_handle closeFile];
-        m_file_handle = nil;
-        m_file_length = 0;
-        m_cursor_pos  = 0;
-        m_is_opened   = false;
+        [REAL_FILE_HANDLE closeFile];
+        REAL_FILE_HANDLE = nil;
+        delete m_file_handle;
+
+        m_file_handle    = nullptr;
+        m_file_length    = 0;
+        m_cursor_pos     = 0;
+        m_is_file_opened = false;
     }
 }
 

@@ -28,16 +28,11 @@
 #pragma once
 
 
-#include "Common/PlatformDefines.hpp" /// OS_TYPE
 /// System headers
 #include <stdint.h>  /// uint32_t,...
-#if (OS_TYPE == OS_TYPE_WIN)
-#include <Windows.h> /// HANDLE
-#elif defined(__APPLE__)
-#import  <Foundation/NSFileHandle.h>
-#else
-#error TODO: No implementation
-#endif
+
+
+struct FileHandle;
 
 
 /// 访问模式
@@ -139,7 +134,7 @@ public:
 
     /// 获得当前文件的长度
     uint32_t
-    file_length() const;
+    file_length () const;
 
     /// 设定当前文件的读写头的位置
     ///
@@ -208,20 +203,12 @@ public:
 private:
 #endif
 
-#if (OS_TYPE == OS_TYPE_WIN)
-    typedef HANDLE          FileHandleT;
-#elif defined(__APPLE__)
-    typedef NSFileHandle *  FileHandleT;
-#else
-#error TODO: No implementation
-#endif /// (OS_TYPE == OS_TYPE_WIN)
-
     /// 文件句柄
-    FileHandleT m_file_handle;
+    FileHandle * m_file_handle;
     /// 文件长度
-    uint32_t    m_file_length;
+    uint32_t     m_file_length;
     /// 读写头位置
-    uint32_t    m_cursor_pos;
+    uint32_t     m_cursor_pos;
     /// 文件是否成功打开
-    bool        m_is_opened;
+    bool         m_is_file_opened;
 };
