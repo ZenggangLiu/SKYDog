@@ -11,14 +11,22 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Private\FileSystem\MiSoft\WCharHelper.hpp" />
+    <ClInclude Include="Private\FileSystem\MiSoft\WinFileHandle.hpp" />
     <ClInclude Include="Private\Hashing\RuntimeXXHash32.hpp" />
     <ClInclude Include="Private\Hashing\RuntimeXXHash64.hpp" />
+    <ClInclude Include="Private\IO\ImageFile\PpmFile.hpp" />
+    <ClInclude Include="Private\IO\MeshFile\PlyFile.hpp" />
     <ClInclude Include="Private\Render\IndexedTriangle.hpp" />
     <ClInclude Include="Private\Render\RenderMesh.hpp" />
     <ClInclude Include="Private\Render\RenderMeshDepot.hpp" />
     <ClInclude Include="Private\Render\VertexDataType.hpp" />
     <ClInclude Include="Private\Render\VertexLayout\Layout_Pos.hpp" />
     <ClInclude Include="Private\Render\VertexLayout\Layout_Pos_Colr.hpp" />
+    <ClInclude Include="Private\Render\VertexLayout\Layout_Pos_Colr_Norm.hpp" />
+    <ClInclude Include="Private\Render\VertexLayout\Layout_Pos_Colr_Norm_Uv.hpp" />
+    <ClInclude Include="Private\Render\VertexLayout\Layout_Pos_Colr_Uv.hpp" />
+    <ClInclude Include="Private\Render\VertexLayout\Layout_Pos_Norm.hpp" />
     <ClInclude Include="Private\Render\VertexLayout\Layout_Pos_Uv.hpp" />
     <ClInclude Include="Private\Text\StaticStringDepot.hpp" />
     <ClInclude Include="Public\Assert\RuntimeAssert.hpp" />
@@ -37,6 +45,12 @@
     <ClInclude Include="Public\DataType\Matrix3x4.hpp" />
     <ClInclude Include="Public\DataType\Matrix4x4.hpp" />
     <ClInclude Include="Public\DataType\Quaternion.hpp" />
+    <ClInclude Include="Public\FileSystem\FileHandle.hpp" />
+    <ClInclude Include="Public\FileSystem\FileName.hpp" />
+    <ClInclude Include="Public\FileSystem\NativeDirectory.hpp" />
+    <ClInclude Include="Public\FileSystem\NativeFile.hpp" />
+    <ClInclude Include="Public\FileSystem\NativeReadStream.hpp" />
+    <ClInclude Include="Public\FileSystem\NativeWriteStream.hpp" />
     <ClInclude Include="Public\Hashing\RuntimeHash.hpp" />
     <ClInclude Include="Public\Hashing\StaticStringHash.hpp" />
     <ClInclude Include="Public\Hashing\StaticXXHash32.hpp" />
@@ -68,7 +82,15 @@
     <ClCompile Include="Private\DataType\Matrix3x4.cpp" />
     <ClCompile Include="Private\DataType\Matrix4x4.cpp" />
     <ClCompile Include="Private\DataType\Quaternion.cpp" />
+    <ClCompile Include="Private\FileSystem\FileName.cpp" />
+    <ClCompile Include="Private\FileSystem\MiSoft\WCharHelper.cpp" />
+    <ClCompile Include="Private\FileSystem\MiSoft\WinNativeDirectory.cpp" />
+    <ClCompile Include="Private\FileSystem\MiSoft\WinNativeFile.cpp" />
+    <ClCompile Include="Private\FileSystem\NativeReadStream.cpp" />
+    <ClCompile Include="Private\FileSystem\NativeWriteStream.cpp" />
     <ClCompile Include="Private\Hashing\RuntimeHash.cpp" />
+    <ClCompile Include="Private\IO\ImageFile\PpmFile.cpp" />
+    <ClCompile Include="Private\IO\MeshFile\PlyFile.cpp" />
     <ClCompile Include="Private\Math\MathUtilities.cpp" />
     <ClCompile Include="Private\Math\RandomNumber.cpp" />
     <ClCompile Include="Private\Memory\ArenaAllocator.cpp" />

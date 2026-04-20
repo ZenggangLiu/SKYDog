@@ -82,8 +82,20 @@
     <Filter Include="Private\Collision">
       <UniqueIdentifier>{d0280790-2e07-43ac-84dc-eafb7c8f699b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Public\IO">
-      <UniqueIdentifier>{b204959f-3f83-40b7-aea2-1c4ede634a01}</UniqueIdentifier>
+    <Filter Include="Public\FileSystem">
+      <UniqueIdentifier>{53cf59b1-7951-4559-b4a6-aa388c213ea1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Private\FileSysterm">
+      <UniqueIdentifier>{5aeeb08c-ebe6-4f68-b5e4-5ec06702ccaf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Private\IO">
+      <UniqueIdentifier>{c2d1a462-c5b4-48ea-b6f4-9cff1b2c7e01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Private\IO\ImageFile">
+      <UniqueIdentifier>{4cca0c60-1c04-46a5-bdb4-47bbb69bc141}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Private\IO\MeshFile">
+      <UniqueIdentifier>{976dec17-f7e4-49e3-84fe-0181833ce285}</UniqueIdentifier>
     </Filter>
     <Filter Include="Public\Render">
       <UniqueIdentifier>{02cf7142-7ecd-412f-887e-b6de96834682}</UniqueIdentifier>
@@ -195,8 +207,38 @@
     <ClInclude Include="Public\DataType\AxisType.hpp">
       <Filter>Public\DataType</Filter>
     </ClInclude>
+    <ClInclude Include="Public\FileSystem\FileHandle.hpp">
+      <Filter>Public\FileSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\FileSystem\FileName.hpp">
+      <Filter>Public\FileSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Private\FileSystem\MiSoft\WCharHelper.hpp">
+      <Filter>Private\FileSysterm</Filter>
+    </ClInclude>
+    <ClInclude Include="Private\FileSystem\MiSoft\WinFileHandle.hpp">
+      <Filter>Private\FileSysterm</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\FileSystem\NativeDirectory.hpp">
+      <Filter>Public\FileSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\FileSystem\NativeFile.hpp">
+      <Filter>Public\FileSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\FileSystem\NativeReadStream.hpp">
+      <Filter>Public\FileSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\FileSystem\NativeWriteStream.hpp">
+      <Filter>Public\FileSystem</Filter>
+    </ClInclude>
     <ClInclude Include="Public\Hashing\StaticStringHash.hpp">
       <Filter>Public\Hashing</Filter>
+    </ClInclude>
+    <ClInclude Include="Private\IO\ImageFile\PpmFile.hpp">
+      <Filter>Private\IO\ImageFile</Filter>
+    </ClInclude>
+    <ClInclude Include="Private\IO\MeshFile\PlyFile.hpp">
+      <Filter>Private\IO\MeshFile</Filter>
     </ClInclude>
     <ClInclude Include="Public\Math\RandomNumber.hpp">
       <Filter>Public\Math</Filter>
@@ -219,6 +261,15 @@
     <ClInclude Include="Private\Render\VertexLayout\Layout_Pos_Colr.hpp">
       <Filter>Private\Render\VertexLayout</Filter>
     </ClInclude>
+    <ClInclude Include="Private\Render\VertexLayout\Layout_Pos_Colr_Norm.hpp">
+      <Filter>Private\Render\VertexLayout</Filter>
+    </ClInclude>
+    <ClInclude Include="Private\Render\VertexLayout\Layout_Pos_Colr_Uv.hpp">
+      <Filter>Private\Render\VertexLayout</Filter>
+    </ClInclude>
+    <ClInclude Include="Private\Render\VertexLayout\Layout_Pos_Norm.hpp">
+      <Filter>Private\Render\VertexLayout</Filter>
+    </ClInclude>
     <ClInclude Include="Private\Render\VertexLayout\Layout_Pos_Uv.hpp">
       <Filter>Private\Render\VertexLayout</Filter>
     </ClInclude>
@@ -228,19 +279,88 @@
     <ClInclude Include="Public\Text\TextEncoding.hpp">
       <Filter>Public\Text</Filter>
     </ClInclude>
+    <ClInclude Include="Private\Render\VertexLayout\Layout_Pos_Colr_Norm_Uv.hpp">
+      <Filter>Private\Render\VertexLayout</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Private\Assert\RuntimeAssert.cpp">
       <Filter>Private\Assert</Filter>
     </ClCompile>
+    <ClCompile Include="Private\Codec\X2TeaCodec.cpp">
+      <Filter>Private\Codec</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\Collision\AABB.cpp">
+      <Filter>Private\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\Collision\Triangle3D.cpp">
+      <Filter>Private\Collision</Filter>
+    </ClCompile>
     <ClCompile Include="Private\Container\RingBuffer.cpp">
       <Filter>Private\Container</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\DataType\Float2D.cpp">
+      <Filter>Private\DataType</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\DataType\Float3D.cpp">
+      <Filter>Private\DataType</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\DataType\Float4D.cpp">
+      <Filter>Private\DataType</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\DataType\Matrix3x4.cpp">
+      <Filter>Private\DataType</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\DataType\Matrix4x4.cpp">
+      <Filter>Private\DataType</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\DataType\Quaternion.cpp">
+      <Filter>Private\DataType</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\FileSystem\FileName.cpp">
+      <Filter>Private\FileSysterm</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\FileSystem\MiSoft\WCharHelper.cpp">
+      <Filter>Private\FileSysterm</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\FileSystem\MiSoft\WinNativeDirectory.cpp">
+      <Filter>Private\FileSysterm</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\FileSystem\MiSoft\WinNativeFile.cpp">
+      <Filter>Private\FileSysterm</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\FileSystem\NativeReadStream.cpp">
+      <Filter>Private\FileSysterm</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\FileSystem\NativeWriteStream.cpp">
+      <Filter>Private\FileSysterm</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\Hashing\RuntimeHash.cpp">
+      <Filter>Private\Hashing</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\IO\ImageFile\PpmFile.cpp">
+      <Filter>Private\IO\ImageFile</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\IO\MeshFile\PlyFile.cpp">
+      <Filter>Private\IO\MeshFile</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\Math\MathUtilities.cpp">
+      <Filter>Private\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\Math\RandomNumber.cpp">
+      <Filter>Private\Math</Filter>
     </ClCompile>
     <ClCompile Include="Private\Memory\ArenaAllocator.cpp">
       <Filter>Private\Memory</Filter>
     </ClCompile>
     <ClCompile Include="Private\Memory\MemoryUtilities.cpp">
       <Filter>Private\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\Render\RenderMesh.cpp">
+      <Filter>Private\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\Render\RenderMeshDepot.cpp">
+      <Filter>Private\Render</Filter>
     </ClCompile>
     <ClCompile Include="Private\Runtime\GameMainLoop.cpp">
       <Filter>Private\Runtime</Filter>
@@ -256,48 +376,6 @@
     </ClCompile>
     <ClCompile Include="Private\Text\StaticStringDepot.cpp">
       <Filter>Private\Text</Filter>
-    </ClCompile>
-    <ClCompile Include="Private\Hashing\RuntimeHash.cpp">
-      <Filter>Private\Hashing</Filter>
-    </ClCompile>
-    <ClCompile Include="Private\DataType\Float4D.cpp">
-      <Filter>Private\DataType</Filter>
-    </ClCompile>
-    <ClCompile Include="Private\Math\MathUtilities.cpp">
-      <Filter>Private\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="Private\DataType\Float3D.cpp">
-      <Filter>Private\DataType</Filter>
-    </ClCompile>
-    <ClCompile Include="Private\DataType\Matrix3x4.cpp">
-      <Filter>Private\DataType</Filter>
-    </ClCompile>
-    <ClCompile Include="Private\DataType\Matrix4x4.cpp">
-      <Filter>Private\DataType</Filter>
-    </ClCompile>
-    <ClCompile Include="Private\DataType\Quaternion.cpp">
-      <Filter>Private\DataType</Filter>
-    </ClCompile>
-    <ClCompile Include="Private\Codec\X2TeaCodec.cpp">
-      <Filter>Private\Codec</Filter>
-    </ClCompile>
-    <ClCompile Include="Private\DataType\Float2D.cpp">
-      <Filter>Private\DataType</Filter>
-    </ClCompile>
-    <ClCompile Include="Private\Collision\Triangle3D.cpp">
-      <Filter>Private\Collision</Filter>
-    </ClCompile>
-    <ClCompile Include="Private\Collision\AABB.cpp">
-      <Filter>Private\Collision</Filter>
-    </ClCompile>
-    <ClCompile Include="Private\Math\RandomNumber.cpp">
-      <Filter>Private\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="Private\Render\RenderMesh.cpp">
-      <Filter>Private\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="Private\Render\RenderMeshDepot.cpp">
-      <Filter>Private\Render</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
