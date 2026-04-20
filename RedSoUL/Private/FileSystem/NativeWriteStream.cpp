@@ -1,7 +1,5 @@
-﻿/// System headers
-#include <cstring>  /// std::strlen
-/// Library headers
-#include "Assert/RuntimeAssert.hpp"
+/// System headers
+#include <cstring> /// std::strlen
 /// Self header
 #include "FileSystem/NativeWriteStream.hpp"
 
