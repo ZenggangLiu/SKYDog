@@ -17,10 +17,10 @@
     Author:   (___()'`; Zee...  \_/|_)     )                                            
               /,    /`             \  __  /                                             
               \\"--\\              (_/ (_/                                              
-    Created:  4/04/26  @  12:01 AM
-    FileName: Layout_Pos_Fab.hpp @ RedSoUL Project
+    Created:  21/04/26  @  10:38 PM
+    FileName: Layout_Pos_Norm.hpp @ RedSoUL Project
     History:
-             - created by: 4/04/26: Zenggang LIU
+             - created by: 21/04/26: Zenggang LIU
                                                                                         
 ***************************************************************************************/
 
@@ -36,15 +36,15 @@
 
 
 /// 带有如下数据的顶点:
-/// +------------+---------+
-/// | (POSITION) | (COLOR) |
-/// +------------+---------+
+/// +------------+----------+
+/// | (POSITION) | (NORMAL) |
+/// +------------+----------+
 ///
-struct Layout_Pos_Colr
+struct Layout_Pos_Norm
 {
-    static constexpr uint16_t LAYOUT_DECL = VertexDataType::COLOR_DATA
+    static constexpr uint16_t LAYOUT_DECL = VertexDataType::NORMAL_DATA
                                           | VertexDataType::POSITION_DATA;
 
     float_3 position;
-    float_3 color;
+    float_3 normal;
 };

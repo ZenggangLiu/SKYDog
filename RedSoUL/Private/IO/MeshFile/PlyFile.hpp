@@ -17,10 +17,10 @@
     Author:   (___()'`; Zee...  \_/|_)     )                                            
               /,    /`             \  __  /                                             
               \\"--\\              (_/ (_/                                              
-    Created:  4/04/26  @  12:01 AM
-    FileName: Layout_Pos_Fab.hpp @ RedSoUL Project
+    Created:  21/04/26  @  10:42 PM
+    FileName: PlyFile.hpp @ RedSoUL Project
     History:
-             - created by: 4/04/26: Zenggang LIU
+             - created by: 21/04/26: Zenggang LIU
                                                                                         
 ***************************************************************************************/
 
@@ -28,23 +28,26 @@
 #pragma once
 
 
-/// System headers
-#include <stdint.h> /// uint16_t
-/// Library headers
-#include "DataType/Float3D.hpp"
-#include "Render/VertexDataType.hpp"
+struct RenderMesh;
 
 
-/// 带有如下数据的顶点:
-/// +------------+---------+
-/// | (POSITION) | (COLOR) |
-/// +------------+---------+
+/// PLY(Standford Polygon Format)文件
 ///
-struct Layout_Pos_Colr
+struct PlyFile
 {
-    static constexpr uint16_t LAYOUT_DECL = VertexDataType::COLOR_DATA
-                                          | VertexDataType::POSITION_DATA;
-
-    float_3 position;
-    float_3 color;
+    /// 创建一个PLY文件
+    ///
+    /// @param[in]  abs_file_name
+    ///     绝对文件路径
+    ///     NOTE: .ply文件扩展符将添加到给定的路径名上
+    /// @param[in]  mesh_data
+    ///     Mesh数据
+    /// @return
+    ///     True:   PLY文件输出成功
+    ///     False:  PLY文件输出失败
+    static
+    bool
+    write_to (
+        const char * const abs_file_name,
+        const RenderMesh & mesh_data);
 };

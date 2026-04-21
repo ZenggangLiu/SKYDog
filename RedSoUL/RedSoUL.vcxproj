@@ -103,6 +103,10 @@
     <ClCompile Include="Private\Thread\WorkerThread.cpp" />
     <ClCompile Include="Private\Time\ClockTime.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="Private\Render\Cube_face_layout.png" />
+    <Image Include="Private\Render\Cube_vertex_layout.png" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>

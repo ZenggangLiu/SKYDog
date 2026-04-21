@@ -37,8 +37,10 @@
 
 
 /// 带有如下数据的顶点:
-/// - 位置数据
-/// - 纹理数据
+/// +------------+------+
+/// | (POSITION) | (UV) |
+/// +------------+------+
+///
 struct Layout_Pos_Uv
 {
     static constexpr uint16_t LAYOUT_DECL = VertexDataType::POSITION_DATA

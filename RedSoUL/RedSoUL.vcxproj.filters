@@ -106,6 +106,9 @@
     <Filter Include="Private\Render\VertexLayout">
       <UniqueIdentifier>{a61dab69-b8d5-4aa0-8649-9566a73cbbd6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Private\Render\Document">
+      <UniqueIdentifier>{0a413813-6e6a-4546-ab34-6e25063d8c58}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Public\Assert\RuntimeAssert.hpp">
@@ -377,5 +380,13 @@
     <ClCompile Include="Private\Text\StaticStringDepot.cpp">
       <Filter>Private\Text</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Private\Render\Cube_face_layout.png">
+      <Filter>Private\Render\Document</Filter>
+    </Image>
+    <Image Include="Private\Render\Cube_vertex_layout.png">
+      <Filter>Private\Render\Document</Filter>
+    </Image>
   </ItemGroup>
 </Project>

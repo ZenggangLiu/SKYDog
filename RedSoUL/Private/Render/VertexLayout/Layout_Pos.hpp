@@ -36,7 +36,10 @@
 
 
 /// 带有如下数据的顶点:
-/// - 位置数据
+/// +------------+
+/// | (POSITION) |
+/// +------------+
+///
 struct Layout_Pos
 {
     static constexpr uint16_t LAYOUT_DECL = VertexDataType::POSITION_DATA;

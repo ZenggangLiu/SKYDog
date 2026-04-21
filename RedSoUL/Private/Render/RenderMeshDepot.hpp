@@ -35,6 +35,7 @@
 #include "Render/RenderMeshId.hpp"
 
 
+struct AABB;
 struct IndexedTriangle;
 struct RenderMesh;
 
@@ -55,7 +56,30 @@ public:
     RenderMeshDepot &
     ref ();
 
-    /// 创建一个单位Cube
+    /// 创建一个边长为1的正方形(无纹理坐标)
+    ///
+    ///             ^ Y
+    ///             |
+    ///             |
+    ///     1-------+-------3 (+0.5, +0.5, 0)
+    ///     | *     |       |
+    ///     |   *   |  II   |
+    ///     |     * |       |
+    ///     |       o-------+-------> X
+    ///     |         *     |
+    ///     |    I      *   |
+    ///     |             * |
+    ///     0---------------2
+    /// (+0.5, -0.5, 0)
+    ///
+    RenderMeshIdT
+    create_unit_square ();
+
+    /// 创建一个边长为1的正方形(带纹理坐标)
+    RenderMeshIdT
+    create_unit_square_uv ();
+
+    /// 创建一个单位Cube(无纹理坐标)
     ///
     ///              ^ Y
     ///              |     / Z
@@ -74,6 +98,14 @@ public:
     RenderMeshIdT
     create_unit_cube ();
 
+    RenderMeshIdT
+    create_unit_cube_uv ();
+
+    /// 将指定Id的RenderMesh的数据保存在指定的PLY文件中
+    void
+    write_to_ply_file (
+        const char * const  abs_file_name,
+        const RenderMeshIdT mesh_id) const;
 
 private:
     typedef const uint8_t *         ConstVertexPtrT;
@@ -104,6 +136,7 @@ private:
 private:
     typedef std::unordered_map < RenderMeshIdT,
                                  RenderMesh >   RenderMeshTableT;
+    typedef RenderMeshTableT::const_iterator    ConstRenderMeshIteratorT;
     typedef RenderMeshTableT::iterator          RenderMeshIteratorT;
 
     RenderMeshTableT m_mesh_table;
