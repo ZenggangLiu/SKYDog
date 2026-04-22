@@ -89,7 +89,6 @@ RenderMeshDepot::write_to_ply_file (
     const char * const  abs_file_name,
     const RenderMeshIdT mesh_id) const
 {
-    /// 没有Cube
     const ConstRenderMeshIteratorT render_mesh = m_mesh_table.find(mesh_id);
     if (render_mesh != m_mesh_table.end())
     {
@@ -164,15 +163,10 @@ RenderMeshDepot::create_unit_square ()
     /// #triangle
     static constexpr uint16_t TRIANGLE_COUNT = ARRAY_SIZE(TRIANGLE_LIST);
 
-    /// 没有Cube
-    if (m_mesh_table.find(MESH_ID) == m_mesh_table.end())
-    {
-        cache_mesh(
-            MESH_ID, MESH_BOUND_BOX,
-            VertexLayoutT::LAYOUT_DECL, VERTEX_COUNT, TRIANGLE_COUNT,
-            false, (ConstVertexPtrT)VERTEX_LIST, TRIANGLE_LIST);
-    }
-
+    cache_mesh(
+        MESH_ID, MESH_BOUND_BOX,
+        VertexLayoutT::LAYOUT_DECL, VERTEX_COUNT, TRIANGLE_COUNT,
+        false, (ConstVertexPtrT)VERTEX_LIST, TRIANGLE_LIST);
     return MESH_ID;
 }
 
@@ -247,15 +241,10 @@ RenderMeshDepot::create_unit_square_uv ()
     /// #triangle
     static constexpr uint16_t TRIANGLE_COUNT = ARRAY_SIZE(TRIANGLE_LIST);
 
-    /// 没有Cube
-    if (m_mesh_table.find(MESH_ID) == m_mesh_table.end())
-    {
-        cache_mesh(
-            MESH_ID, MESH_BOUND_BOX,
-            VertexLayoutT::LAYOUT_DECL, VERTEX_COUNT, TRIANGLE_COUNT,
-            false, (ConstVertexPtrT)VERTEX_LIST, TRIANGLE_LIST);
-    }
-
+    cache_mesh(
+        MESH_ID, MESH_BOUND_BOX,
+        VertexLayoutT::LAYOUT_DECL, VERTEX_COUNT, TRIANGLE_COUNT,
+        false, (ConstVertexPtrT)VERTEX_LIST, TRIANGLE_LIST);
     return MESH_ID;
 }
 
@@ -421,15 +410,10 @@ RenderMeshDepot::create_unit_cube ()
     /// #triangle
     static constexpr uint16_t TRIANGLE_COUNT = ARRAY_SIZE(TRIANGLE_LIST);
 
-    /// 没有Cube
-    if (m_mesh_table.find(MESH_ID) == m_mesh_table.end())
-    {
-        cache_mesh(
-            MESH_ID, MESH_BOUND_BOX,
-            VertexLayoutT::LAYOUT_DECL, VERTEX_COUNT, TRIANGLE_COUNT,
-            false, (ConstVertexPtrT)VERTEX_LIST, TRIANGLE_LIST);
-    }
-
+    cache_mesh(
+        MESH_ID, MESH_BOUND_BOX,
+        VertexLayoutT::LAYOUT_DECL, VERTEX_COUNT, TRIANGLE_COUNT,
+        false, (ConstVertexPtrT)VERTEX_LIST, TRIANGLE_LIST);
     return MESH_ID;
 }
 
@@ -669,15 +653,10 @@ RenderMeshDepot::create_unit_cube_uv ()
     /// #triangle
     static constexpr uint16_t TRIANGLE_COUNT = ARRAY_SIZE(TRIANGLE_LIST);
 
-    /// 没有Cube
-    if (m_mesh_table.find(MESH_ID) == m_mesh_table.end())
-    {
-        cache_mesh(
-            MESH_ID, MESH_BOUND_BOX,
-            VertexLayoutT::LAYOUT_DECL, VERTEX_COUNT, TRIANGLE_COUNT,
-            false, (ConstVertexPtrT)VERTEX_LIST, TRIANGLE_LIST);
-    }
-
+    cache_mesh(
+        MESH_ID, MESH_BOUND_BOX,
+        VertexLayoutT::LAYOUT_DECL, VERTEX_COUNT, TRIANGLE_COUNT,
+        false, (ConstVertexPtrT)VERTEX_LIST, TRIANGLE_LIST);
     return MESH_ID;
 }
 
@@ -853,15 +832,10 @@ RenderMeshDepot::create_unit_icosphere ()
     /// #triangle
     static constexpr uint16_t TRIANGLE_COUNT = ARRAY_SIZE(TRIANGLE_LIST);
 
-    /// 没有Cube
-    if (m_mesh_table.find(MESH_ID) == m_mesh_table.end())
-    {
-        cache_mesh(
-            MESH_ID, MESH_BOUND_BOX,
-            VertexLayoutT::LAYOUT_DECL, VERTEX_COUNT, TRIANGLE_COUNT,
-            false, (ConstVertexPtrT)VERTEX_LIST, TRIANGLE_LIST);
-    }
-
+    cache_mesh(
+        MESH_ID, MESH_BOUND_BOX,
+        VertexLayoutT::LAYOUT_DECL, VERTEX_COUNT, TRIANGLE_COUNT,
+        false, (ConstVertexPtrT)VERTEX_LIST, TRIANGLE_LIST);
     return MESH_ID;
 }
 
@@ -898,10 +872,14 @@ RenderMeshDepot::cache_mesh (
     ConstVertexPtrT const   vertex_list,
     ConstTrianglePtrT const triangle_list)
 {
-    m_mesh_table.insert(
+    /// 无此Mesh
+    if (m_mesh_table.find(mesh_id) == m_mesh_table.end())
     {
-        mesh_id,
-        RenderMesh(bound_box, vertex_layout, vertex_count, triangle_count,
-                   is_dyn_allocated, vertex_list, triangle_list)
-    });
+        m_mesh_table.insert(
+        {
+            mesh_id,
+            RenderMesh(bound_box, vertex_layout, vertex_count, triangle_count,
+                       is_dyn_allocated, vertex_list, triangle_list)
+        });
+    }
 }
