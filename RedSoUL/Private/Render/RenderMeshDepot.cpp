@@ -682,6 +682,190 @@ RenderMeshDepot::create_unit_cube_uv ()
 }
 
 
+RenderMeshIdT
+RenderMeshDepot::create_unit_icosphere ()
+{
+/// 如果需要创建顶点颜色数据, 将此宏定义为1
+#define USE_VERTEX_COLOR 0
+
+#if (USE_VERTEX_COLOR == 1)
+    typedef struct Layout_Pos_Colr VertexLayoutT;
+#else
+    typedef struct Layout_Pos VertexLayoutT;
+#endif
+
+    /// 计算 Mesh Id
+    static constexpr RenderMeshIdT MESH_ID =
+        STATIC_RENDER_MESH_HASH(GENERATE_BUILTIN_MESH_NAME("UNIT_ICOSPHERE"));
+
+    /// 参考:
+    ///  http://blog.andreaskahler.com/2009/06/creating-icosphere-mesh-in-code.html#comment-2736314361
+    ///
+    /// Golden Ratio(为了将顶点放置在球体上)
+    /// 顶点使用{0, +/-S, +/-T}的排列组合来生成
+    /// 这里:
+    ///             5 - sqrt(5)
+    /// - S = sqrt(─────────────) * 球半径
+    ///                 10
+    ///             5 + sqrt(5)
+    /// - T = sqrt(─────────────) * 球半径
+    ///                 10
+    static constexpr float S_VALUE = 0.2628655561f;
+    static constexpr float T_VALUE = 0.4253254042f;
+
+    /// 包围盒
+    static constexpr AABB MESH_BOUND_BOX
+    {
+        { -(T_VALUE + 0.01f), -(T_VALUE + 0.01f), -(T_VALUE + 0.01f) },
+        { +(T_VALUE + 0.01f), +(T_VALUE + 0.01f), +(T_VALUE + 0.01f) }
+    };
+
+    /// 顶点列表
+    static constexpr VertexLayoutT VERTEX_LIST[] =
+    {
+        /// YZ平面(蓝色平面): {0, +/-T, -/+S}: Y值比Z值大
+        /// P0: <0, +T, -S>: 红
+        {
+            { 0.0f, +T_VALUE, -S_VALUE },
+#if (USE_VERTEX_COLOR == 1)
+            { 1.0f, +0.0f,    +0.0f    },
+#endif
+        },
+        /// P1: <0, +T, +S>: 绿
+        {
+            { 0.0f, +T_VALUE, +S_VALUE },
+#if (USE_VERTEX_COLOR == 1)
+            { 0.0f, +1.0f,    +0.0f    },
+#endif
+        },
+        /// P2: <0, -T, -S>: 蓝
+        {
+            { 0.0f, -T_VALUE, -S_VALUE },
+#if (USE_VERTEX_COLOR == 1)
+            { 0.0f, +0.0f,    +1.0f    },
+#endif
+        },
+        /// P3: <0, -T, +S>: 黄
+        {
+            { 0.0f, -T_VALUE, +S_VALUE },
+#if (USE_VERTEX_COLOR == 1)
+            { 1.0f, +1.0f,    +0.0f    },
+#endif
+        },
+
+        //// XY平面(绿色平面): {+/-T, -/+S, 0}: X值大于Y值
+        /// P4: <+T, -S, 0>: 青
+        {
+            { +T_VALUE, -S_VALUE, 0.0f },
+#if (USE_VERTEX_COLOR == 1)
+            { +0.0f,    +1.0f,    1.0f },
+#endif
+        },
+        /// P5: <+T, +S, 0>: 品红
+        {
+            { +T_VALUE, +S_VALUE, 0.0f },
+#if (USE_VERTEX_COLOR == 1)
+            { +1.0f,    +0.0f,    1.0f },
+#endif
+        },
+        /// P6: <-T, -S, 0>: 橙
+        {
+            { -T_VALUE, -S_VALUE, 0.0f },
+#if (USE_VERTEX_COLOR == 1)
+            { +1.0f,    +0.5f,    0.0f },
+#endif
+        },
+        /// P7: <-T, +S, 0>: 紫
+        {
+            { -T_VALUE, +S_VALUE, 0.0f },
+#if (USE_VERTEX_COLOR == 1)
+            { +0.5f,    +0.0f,    1.0f },
+#endif
+        },
+
+        //// XZ平面(红色平面): {-/+S, 0, +/-T}: Z值大于Y值
+        /// P8:  <-S, 0, +T>: 黄绿
+        {
+            { -S_VALUE, 0.0f, +T_VALUE },
+#if (USE_VERTEX_COLOR == 1)
+            { +0.5f,    1.0f, +0.0f    },
+#endif
+        },
+        /// P9:  <+S, 0, +T>: 天蓝
+        {
+            { +S_VALUE, 0.0f, +T_VALUE },
+#if (USE_VERTEX_COLOR == 1)
+            { +0.0f,    0.5f, +1.0f    },
+#endif
+        },
+        /// P10: <-S, 0, -T>: 粉红
+        {
+            { -S_VALUE, 0.0f, -T_VALUE },
+#if (USE_VERTEX_COLOR == 1)
+            { +1.0f,    0.5f, +0.75f   },
+#endif
+        },
+        /// P11: <+S, 0, -T>: 灰
+        {
+            { +S_VALUE, 0.0f, -T_VALUE },
+#if (USE_VERTEX_COLOR == 1)
+            { +0.6f,    0.6f, +0.6f    }
+#endif
+        }
+    };
+
+    /// 三角面列表
+    static const IndexedTriangle TRIANGLE_LIST[] =
+    {
+        /// - <0, 1, 2> --> <0, 2, 1>
+        /// 
+        /// P0处的5个三角面
+        { 0, 5,  11 },
+        { 0, 1,  5  },
+        { 0, 7,  1  },
+        { 0, 10, 7  },
+        { 0, 11, 10 },
+
+        /// 5个相邻的三角面
+        { 1,  9, 5  },
+        { 5,  4, 11 },
+        { 11, 2, 10 },
+        { 10, 6, 7  },
+        { 7,  8, 1  },
+
+        /// P3处的5个三角面
+        { 3, 4, 9 },
+        { 3, 2, 4 },
+        { 3, 6, 2 },
+        { 3, 8, 6 },
+        { 3, 9, 8 },
+
+        /// 5个相邻的三角面
+        { 4, 5,  9 },
+        { 2, 11, 4 },
+        { 6, 10, 2 },
+        { 8, 7,  6 },
+        { 9, 1,  8 }
+    };
+
+    /// #vertex
+    static constexpr uint16_t VERTEX_COUNT   = ARRAY_SIZE(VERTEX_LIST);
+    /// #triangle
+    static constexpr uint16_t TRIANGLE_COUNT = ARRAY_SIZE(TRIANGLE_LIST);
+
+    /// 没有Cube
+    if (m_mesh_table.find(MESH_ID) == m_mesh_table.end())
+    {
+        cache_mesh(
+            MESH_ID, MESH_BOUND_BOX,
+            VertexLayoutT::LAYOUT_DECL, VERTEX_COUNT, TRIANGLE_COUNT,
+            false, (ConstVertexPtrT)VERTEX_LIST, TRIANGLE_LIST);
+    }
+
+    return MESH_ID;
+}
+
+
 RenderMeshDepot::RenderMeshDepot ()
 {
 

@@ -101,6 +101,10 @@ public:
     RenderMeshIdT
     create_unit_cube_uv ();
 
+    /// 创建一个半径为0.5, 直径为1的十二面IcoSphere(无纹理坐标)
+    RenderMeshIdT
+    create_unit_icosphere ();
+
     /// 将指定Id的RenderMesh的数据保存在指定的PLY文件中
     void
     write_to_ply_file (

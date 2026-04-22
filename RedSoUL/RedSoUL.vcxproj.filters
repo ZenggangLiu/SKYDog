@@ -388,5 +388,8 @@
     <Image Include="Private\Render\Cube_vertex_layout.png">
       <Filter>Private\Render\Document</Filter>
     </Image>
+    <Image Include="Private\Render\IcoSphere_vertex_layout.png">
+      <Filter>Private\Render\Document</Filter>
+    </Image>
   </ItemGroup>
 </Project>

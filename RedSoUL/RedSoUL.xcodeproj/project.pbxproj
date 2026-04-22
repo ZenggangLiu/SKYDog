@@ -284,6 +284,7 @@
 		BDC9CB2F2F978BC80042BF24 /* PpmFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = PpmFile.cpp; path = Private/IO/ImageFile/PpmFile.cpp; sourceTree = "<group>"; };
 		BDC9CB332F978C0E0042BF24 /* PlyFile.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = PlyFile.hpp; path = Private/IO/MeshFile/PlyFile.hpp; sourceTree = "<group>"; };
 		BDC9CB362F978C2F0042BF24 /* PlyFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = PlyFile.cpp; path = Private/IO/MeshFile/PlyFile.cpp; sourceTree = "<group>"; };
+		BDC9CB392F98D65F0042BF24 /* IcoSphere_vertex_layout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = IcoSphere_vertex_layout.png; path = Private/Render/IcoSphere_vertex_layout.png; sourceTree = "<group>"; };
 		BDD4034C2F9300F70019BE16 /* NativeDirectory.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = NativeDirectory.hpp; path = Public/FileSystem/NativeDirectory.hpp; sourceTree = "<group>"; };
 		BDD4034F2F9301BD0019BE16 /* GameMainLoop.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = GameMainLoop.hpp; path = Private/Runtime/GameMainLoop.hpp; sourceTree = "<group>"; };
 		BDD403532F93519C0019BE16 /* ApplNativeDirectory.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = ApplNativeDirectory.mm; path = Private/FileSystem/Apple/ApplNativeDirectory.mm; sourceTree = "<group>"; };
@@ -610,6 +611,7 @@
 			children = (
 				BD8FB8252F8127D600EE67B4 /* Cube_face_layout.png */,
 				BDC9CB212F978A7A0042BF24 /* Cube_vertex_layout.png */,
+				BDC9CB392F98D65F0042BF24 /* IcoSphere_vertex_layout.png */,
 			);
 			name = Document;
 			sourceTree = "<group>";
