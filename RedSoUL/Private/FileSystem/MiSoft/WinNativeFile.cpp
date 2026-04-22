@@ -1,4 +1,4 @@
-﻿#include "Common/PlatformDefines.hpp" /// OS_TYPE
+#include "Common/PlatformDefines.hpp" /// OS_TYPE
 #if (OS_TYPE == OS_TYPE_WIN)
 
 /// System headers
@@ -123,42 +123,6 @@ NativeFile::open (
     RUNTIME_ASSERT( absolute_file_name, "File name can not be NULL!!");
     RUNTIME_ASSERT(*absolute_file_name, "File name can not be empty!!");
 
-    /// 对于只写/读写方式, 我们必须确保其父目录存在
-    if (access_mode != AccessMode::READ_ONLY_ACCESS_MODE)
-    {
-        char folder_name[MAX_PATH + 1] = { 0 };
-
-        const uint32_t file_name_length = (uint32_t)std::strlen(absolute_file_name);
-        uint32_t last_slash_pos = 0;
-        /// 从后向前查找分割符：'/' OR '\'
-        for (int32_t c = file_name_length - 1; c >= 0; --c)
-        {
-            if (absolute_file_name[c] == '/' || absolute_file_name[c] == '\\')
-            {
-                last_slash_pos = c;
-                break;
-            }
-        }
-
-        /// 并非绝对路径名
-        if (last_slash_pos == 0)
-        {
-            return false;
-        }
-        else
-        {
-            std::memcpy(folder_name, absolute_file_name, last_slash_pos);
-            folder_name[last_slash_pos] = 0;
-            if (NativeDirectory::create_folder(folder_name) == false)
-            {
-                return false;
-            }
-        }
-    }
-
-    /// 尝试打开指定文件
-    HANDLE exp_file_handle = INVALID_HANDLE_VALUE;
-
 #if defined(UNICODE)
     std::wstring wchar_file_name;
     if (WCharHelper::utf8_to_wchar(absolute_file_name, wchar_file_name) == false)
@@ -171,11 +135,13 @@ NativeFile::open (
     const char * const absolute_file_name_used = absolute_file_name;
 #endif /// defined(UNICODE)
 
+    HANDLE exp_file_handle = INVALID_HANDLE_VALUE;
     switch (access_mode)
     {
         case AccessMode::READ_ONLY_ACCESS_MODE:
         {
-            /// 如果文件不存在返回INVALID_HANDLE_VALUE
+            /// 尝试打开指定文件
+            /// NOTE: 如果文件不存在返回INVALID_HANDLE_VALUE
             exp_file_handle = CreateFile(
                 absolute_file_name_used, GENERIC_READ,
                 FILE_SHARE_READ | FILE_SHARE_WRITE,
@@ -185,6 +151,36 @@ NativeFile::open (
 
         case AccessMode::WRITE_ONLY_ACCESS_MODE:
         {
+            /// 确保其父目录存在
+            char folder_name[MAX_PATH + 1] = { 0 };
+
+            const uint32_t file_name_length = (uint32_t)std::strlen(absolute_file_name);
+            uint32_t last_slash_pos = 0;
+            /// 从后向前查找分割符：'/' OR '\'
+            for (int32_t c = file_name_length - 1; c >= 0; --c)
+            {
+                if (absolute_file_name[c] == '/' || absolute_file_name[c] == '\\')
+                {
+                    last_slash_pos = c;
+                    break;
+                }
+            }
+
+            /// 并非绝对路径名
+            if (last_slash_pos == 0)
+            {
+                break;
+            }
+            else
+            {
+                std::memcpy(folder_name, absolute_file_name, last_slash_pos);
+                folder_name[last_slash_pos] = 0;
+                if (NativeDirectory::create_folder(folder_name) == false)
+                {
+                    break;
+                }
+            }
+
             /// 如果文件不存, 创建它
             exp_file_handle = CreateFile(
                 absolute_file_name_used, GENERIC_WRITE,
@@ -195,7 +191,8 @@ NativeFile::open (
 
         case AccessMode::READ_WRITE_ACCESS_MODE:
         {
-            /// 如果文件不存在返回INVALID_HANDLE_VALUE
+            /// 尝试打开指定文件
+            /// NOTE: 如果文件不存在返回INVALID_HANDLE_VALUE
             exp_file_handle = CreateFile(
                 absolute_file_name_used, GENERIC_READ | GENERIC_WRITE,
                 FILE_SHARE_READ,

@@ -129,28 +129,13 @@ NativeFile::open (
             [NSString stringWithUTF8String:absolute_file_name];
         if (file_name)
         {
-            /// 对于只写/读写方式, 我们必须确保其父目录存在
-            if (access_mode != AccessMode::READ_ONLY_ACCESS_MODE)
-            {
-                NSString * const folder_name =
-                    [file_name stringByDeletingLastPathComponent];
-                /// 尝试创建父目录
-                const bool op_code =
-                    NativeDirectory::create_folder(
-                        [folder_name cStringUsingEncoding:NSUTF8StringEncoding]);
-                if (op_code == false)
-                {
-                    return false;
-                }
-            }
-
-            /// 尝试打开指定文件
             NSFileHandle * exp_file_handle = nil;
             switch (access_mode)
             {
                 case AccessMode::READ_ONLY_ACCESS_MODE:
                 {
-                    /// 如果文件不存在返回nil
+                    /// 尝试打开指定文件
+                    /// NOTE: 如果文件不存在返回nil
                     exp_file_handle =
                         [NSFileHandle fileHandleForReadingAtPath:file_name];
                     break;
@@ -158,7 +143,32 @@ NativeFile::open (
 
                 case AccessMode::WRITE_ONLY_ACCESS_MODE:
                 {
-                    /// 如果文件不存在返回nil
+                    /// 确保其父目录存在
+                    NSString * const folder_name =
+                        [file_name stringByDeletingLastPathComponent];
+                    /// 尝试创建父目录
+                    const bool op_code =
+                        NativeDirectory::create_folder(
+                            [folder_name cStringUsingEncoding:NSUTF8StringEncoding]);
+                    if (op_code == false)
+                    {
+                        break;
+                    }
+
+                    /// 如果文件不存在, 创建它
+                    if (does_file_exist(absolute_file_name) == false)
+                    {
+                        NSFileManager * const file_mgr = [NSFileManager defaultManager];
+                        const BOOL op_code = [file_mgr createFileAtPath:file_name
+                                                               contents:nil
+                                                             attributes:nil];
+                        if (op_code == NO)
+                        {
+                            break;
+                        }
+                    }
+
+                    /// 尝试打开指定文件
                     exp_file_handle =
                         [NSFileHandle fileHandleForWritingAtPath:file_name];
                     break;
@@ -166,7 +176,8 @@ NativeFile::open (
 
                 case AccessMode::READ_WRITE_ACCESS_MODE:
                 {
-                    /// 如果文件不存在返回nil
+                    /// 尝试打开指定文件
+                    /// NOTE: 如果文件不存在返回nil
                     exp_file_handle =
                         [NSFileHandle fileHandleForUpdatingAtPath:file_name];
                     break;
