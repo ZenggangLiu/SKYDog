@@ -172,7 +172,7 @@ write_position_data (
     char buffer[128];
     std::snprintf(
         buffer, sizeof(buffer), "%+.6f  %+.6f  %+.6f",
-        position.x, position.y, -position.z); /// 左手系--> 右手系: Z --> -Z
+        position.x, position.y, -position.z); /// 左手系--> 右手系: Z值取负, Z --> -Z
     ply_file << buffer << separator;
 }
 
@@ -206,7 +206,7 @@ write_normal_data (
 {
     char buffer[128];
 
-    /// 左手系--> 右手系: Z --> -Z
+    /// 左手系--> 右手系: Z值取负, Z --> -Z
     float_3 norm_rhs = float_3::make(normal.x, normal.y, -normal.z);
     norm_rhs.normalize();
 
@@ -236,9 +236,10 @@ write_vertices_data (
     const RenderMesh &  mesh_data,
     NativeWriteStream & ply_file)
 {
-    /// 为了迎合Maya, Blender
-    /// - 我们将导出的几何数据以右手系表示: Z --> -Z
-    /// - UV坐标使用Bottom-Up方式
+    /// 为了迎合Maya
+    /// - 我们将导出的几何数据以右手系表示(将顶点的Z值取负: Z --> -Z)
+    /// - Y轴为竖直向上
+    /// - UV坐标使用Bottom-Left方式(即, 原点在左下角)
     ///   TOP
     ///   ^ V
     ///   |
@@ -253,7 +254,7 @@ write_vertices_data (
     /// | (POSITION) | (NORMAL) |   (UV)  | (COLOR) |
     /// +------------+----------+---------+---------+
 
-    /// 当前数据的偏移: Z --> -Z
+    /// 当前数据的偏移
     uint32_t data_offset = 0;
     switch (mesh_data.vertex_layout)
     {

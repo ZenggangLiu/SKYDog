@@ -56,7 +56,7 @@ public:
     ~RingBuffer();
 
 
-    // MARK: --- CONSUMER THREAD ACCESS ONLY ---
+    // MARK: == CONSUMER THREAD ACCESS ONLY ==
     // +----------------------------------+ //
     // |   CONSUMER THREAD ACCESS ONLY    | //
     // +----------------------------------+ //
@@ -84,7 +84,7 @@ public:
     reset_read ();
 
 
-    // MARK: --- PRODUCER THREAD ACCESS ONLY ---
+    // MARK: == PRODUCER THREAD ACCESS ONLY ==
     // +----------------------------------+ //
     // |   PRODUCER THREAD ACCESS ONLY    | //
     // +----------------------------------+ //
@@ -172,7 +172,7 @@ private:
 
 
 
-// MARK: --- TEMPLATED FUNCTION IMPLEMENTATION ---
+// MARK: == TEMPLATED FUNCTION IMPLEMENTATION ==
 //------------------------------------------------------------------------------- //
 // TEMPLATED FUNCTION IMPLEMENTATION                                              //
 //------------------------------------------------------------------------------- //

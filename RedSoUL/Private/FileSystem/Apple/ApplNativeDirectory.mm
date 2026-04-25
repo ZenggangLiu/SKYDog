@@ -14,7 +14,7 @@
 #include "FileSystem/NativeDirectory.hpp"
 
 
-// MARK: - == Helpers ==
+// MARK: == Helpers ==
 static
 std::string
 fetch_cache_folder_name ()
@@ -86,7 +86,7 @@ fetch_working_folder_name ()
 
 
 
-// MARK: - == NativeDirectory ==
+// MARK: == NativeDirectory ==
 const char *
 NativeDirectory::cache_folder ()
 {
@@ -161,9 +161,9 @@ NativeDirectory::set_working_folder (
         if (folder_name)
         {
             NSFileManager * const file_manager = [NSFileManager defaultManager];
-            const BOOL op_code =
+            const BOOL opcode =
                 [file_manager changeCurrentDirectoryPath:folder_name];
-            return op_code == YES;
+            return opcode == YES;
         }
         else
         {
@@ -194,12 +194,12 @@ NativeDirectory::create_folder (
         {
             /// 递归创建目录
             NSFileManager * const file_manager = [NSFileManager defaultManager];
-            const BOOL op_code =
+            const BOOL opcode =
                 [file_manager createDirectoryAtPath:folder_name
                         withIntermediateDirectories:YES
                                          attributes:nil
                                               error:nil];
-            return op_code == YES;
+            return opcode == YES;
         }
         else
         {
@@ -230,9 +230,9 @@ NativeDirectory::delete_folder (
         {
             /// 递归删除这个目录
             NSFileManager * const file_manager = [NSFileManager defaultManager];
-            const BOOL op_code =
+            const BOOL opcode =
                 [file_manager removeItemAtPath:folder_name error:nil];
-            return op_code == YES;
+            return opcode == YES;
         }
         else
         {

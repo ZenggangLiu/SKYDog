@@ -35,7 +35,7 @@
 #include "Math/MathDefines.hpp"     /// EPSILON
 
 
-/// MARK: - 函数定义
+// MARK: == 函数定义 ==
 struct MathUtility
 {
     /// 近似计算Arc-Cosine
@@ -116,7 +116,7 @@ struct MathUtility
 };
 
 
-/// MARK: - 函数实现
+// MARK: == 函数实现 ==
 template < typename T >
 INLINE_FUNCTION
 T

@@ -149,7 +149,7 @@ delete_named_folder_recur (
     }
     else
     {
-        bool op_code = true;
+        bool opcode = true;
         do
         {
             /// 为'.'或者'..'子目录
@@ -167,20 +167,20 @@ delete_named_folder_recur (
             /// 子目录
             if (file_info.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
             {
-                op_code = op_code && delete_named_folder_recur(search_pattern);
+                opcode = opcode && delete_named_folder_recur(search_pattern);
             }
             /// 文件
             else
             {
                 /// 返回非零, 如果成功
-                op_code = op_code && DeleteFile(search_pattern);
+                opcode = opcode && DeleteFile(search_pattern);
             }
         } while (FindNextFile(file_handle, &file_info));
 
         FindClose(file_handle);
 
         /// 返回非零, 如果成功
-        return op_code && RemoveDirectory(absolute_folder_name);
+        return opcode && RemoveDirectory(absolute_folder_name);
     }
 }
 

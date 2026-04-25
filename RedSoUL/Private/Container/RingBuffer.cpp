@@ -90,7 +90,7 @@ RingBuffer::~RingBuffer()
 
 
 
-// MARK: --- CONSUMER THREAD ACCESS ONLY ---
+// MARK: == CONSUMER THREAD ACCESS ONLY ==
 // +----------------------------------+ //
 // |   CONSUMER THREAD ACCESS ONLY    | //
 // +----------------------------------+ //
@@ -120,7 +120,7 @@ RingBuffer::reset_read ()
 
 
 
-// MARK: --- PRODUCER THREAD ACCESS ONLY ---
+// MARK: == PRODUCER THREAD ACCESS ONLY ==
 // +----------------------------------+ //
 // |   PRODUCER THREAD ACCESS ONLY    | //
 // +----------------------------------+ //

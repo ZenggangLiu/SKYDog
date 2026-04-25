@@ -87,8 +87,8 @@ NativeFile::delete_file (
         if (file_name)
         {
             NSFileManager * const file_manager = [NSFileManager defaultManager];
-            const BOOL op_code = [file_manager removeItemAtPath:file_name error:nil];
-            return op_code == YES;
+            const BOOL opcode = [file_manager removeItemAtPath:file_name error:nil];
+            return opcode == YES;
         }
         else
         {
@@ -147,10 +147,10 @@ NativeFile::open (
                     NSString * const folder_name =
                         [file_name stringByDeletingLastPathComponent];
                     /// 尝试创建父目录
-                    const bool op_code =
+                    const bool opcode =
                         NativeDirectory::create_folder(
                             [folder_name cStringUsingEncoding:NSUTF8StringEncoding]);
-                    if (op_code == false)
+                    if (opcode == false)
                     {
                         break;
                     }
@@ -159,10 +159,10 @@ NativeFile::open (
                     if (does_file_exist(absolute_file_name) == false)
                     {
                         NSFileManager * const file_mgr = [NSFileManager defaultManager];
-                        const BOOL op_code = [file_mgr createFileAtPath:file_name
-                                                               contents:nil
-                                                             attributes:nil];
-                        if (op_code == NO)
+                        const BOOL opcode = [file_mgr createFileAtPath:file_name
+                                                              contents:nil
+                                                            attributes:nil];
+                        if (opcode == NO)
                         {
                             break;
                         }

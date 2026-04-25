@@ -19,10 +19,10 @@ WCharHelper::utf8_to_wchar (
     conved_name.resize(wchar_count);
 
     /// 返回非零, 如果成功
-    const bool op_code = MultiByteToWideChar(
+    const bool opcode = MultiByteToWideChar(
         CP_UTF8, 0, utf8_name, -1, (wchar_t*)conved_name.data(), wchar_count);
 
-    return op_code;
+    return opcode;
 }
 
 
@@ -39,11 +39,11 @@ WCharHelper::wchar_to_utf8 (
     conved_name.resize(utf8_count);
 
     /// 返回非零, 如果成功
-    const bool op_code = WideCharToMultiByte(
+    const bool opcode = WideCharToMultiByte(
         CP_UTF8, 0, wchar_name, -1, (char*)conved_name.data(), utf8_count,
         nullptr, nullptr);
 
-    return op_code;
+    return opcode;
 }
 
 #endif /// (OS_TYPE == OS_TYPE_WIN) && defined(UNICODE)
