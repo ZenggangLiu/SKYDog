@@ -34,8 +34,8 @@
 
 #if !defined(RENDER_MESH_HASH)
 
-    /// 计算Hash时使用的Seed
-    #define RENDER_MESH_HASH_SEED (FOUR_CC('R', 'N', 'D', 'M'))
+    /// 计算Hash时使用的32位Seed
+    #define RENDER_MESH_HASH_SEED (FOUR_CC_32('R', 'N', 'D', 'M'))
 
     #if defined(USE_64BITS_ID) /// 使用64位Id类型
         /// 计算Hash值的函数

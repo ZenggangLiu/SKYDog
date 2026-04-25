@@ -34,8 +34,8 @@
 
 #if !defined(STRING_HASH)
 
-    /// 计算Hash时使用的Seed
-    #define STATIC_STRING_HASH_SEED (FOUR_CC('S', 'T', 'X', 'T'))
+    /// 计算Hash时使用的32位Seed
+    #define STATIC_STRING_HASH_SEED (FOUR_CC_32('S', 'T', 'X', 'T'))
 
     #if defined(USE_64BITS_ID) /// 使用64位Id类型
         /// 计算Hash值的函数

@@ -48,28 +48,16 @@
 /// {
 /// public:
 ///     T() : iVal(0xC00DDEC0) {}
-///     int32_t  iVal; /// 4bytes
-///     uint8_t  cVal; /// 4bytes: 1byte + 3bytes padding
-///     float fVal;    /// 4bytes
-///     uint8_t  var;
+///     int32_t  iVal; /// 4字节
+///     uint8_t  cVal; /// 4字节: 1字节 + 3字节Padding
+///     float    fVal; /// 4字节
+///     uint8_t  var;  /// 4字节: 1字节 + 3字节Padding
 /// };
 ///
 /// MEMBER_OFFSET(T, var) 返回 12(即: var的偏移)
 #if !defined(MEMBER_OFFSET)
-/// NOTE:
-/// 由于对C++11标准的支持问题
-/// C++11 standard(clang follows and msvc doesn't) forbids using reinterpret_cast<> in constant
-/// expressions.
-/// MSVC uses reinterpret_cast<> in offsetof macro, while clang uses compiler intrinsic.
-/// 例如调用：
-/// static_assert(STRUCT_OFFSET(x, y) == SomeValue)
-/// 在Windows系统上，Clang将产出错误
-/// SO, we always using intrinsic, if the code is not being compiled using visual studio
-    #if (OS_TYPE == OS_TYPE_WIN && defined(_MSC_VER))
-        #define MEMBER_OFFSET(T, member) ((uint64_t)&(((T*)0)->member))
-    #else
-        #define MEMBER_OFFSET(T, member) ((uint64_t)(__builtin_offsetof(T, member)))
-    #endif /// (OS_TYPE == OS_TYPE_WIN && defined(_MSC_VER))
+    /// NOTE: 删除使用__builtin_offsetof(T, member), 由于此时T无法使用继承
+    #define MEMBER_OFFSET(T, member) ((uint64_t)&(((T*)0)->member))
 #endif /// !defined(MEMBER_OFFSET)
 
 
@@ -106,14 +94,26 @@
 #endif /// !defined(STRINGIFY)
 
 
-/// 产生一个FourCC数字：描述C0, C1, C2, C3一个32位整数(整数描述顺序C3,C2,C1,C0)
-/// NOTE：
-/// * 产生的数值为： 0xC3_C2_C1_C0
-/// 如果将此FourCC存入文件(如果使用Littel Endianess)，
-/// * 存储的字符序列：C0 C1 C2 C3
 #if !defined(FOUR_CC)
-    #define FOUR_CC(c0, c1, c2, c3) \
-        (((uint32_t)(c3) << 24 ) | ((uint32_t)(c2) << 16) | ((uint32_t)(c1) << 8) | ((uint32_t)(c0)))
+/// 产生一个32位FourCC数值:
+/// 描述C0, C1, C2, C3一个32位整数(整数描述顺序C3,C2,C1,C0)
+/// NOTE:
+/// - 产生的数值为: 0xC3_C2_C1_C0
+/// - 存储的字符序列: C0 C1 C2 C3: 如果使用Littel Endianess存入文件
+    #define FOUR_CC_32(c0, c1, c2, c3) \
+        (((uint32_t)(c3) << 24) | ((uint32_t)(c2) << 16) | \
+         ((uint32_t)(c1) << 8 ) | ((uint32_t)(c0) << 0 ))
+
+/// 产生一个64位FourCC数值:
+/// 描述C0, C1, C2, C3, C4, C5, C6, C7一个64位整数(整数描述顺序C7,C6,C5,C4,C3,C2,C1,C0)
+/// NOTE:
+/// - 产生的数值为: 0xC7_C6_C5_C4_C3_C2_C1_C0
+/// - 存储的字符序列: C0 C1 C2 C3 C4 C5 C6 C7 : 如果使用Littel Endianess存入文件
+    #define FOUR_CC_64(c0, c1, c2, c3, c4, c5, c6, c7) \
+        (((uint64_t)(c7) << 56) | ((uint64_t)(c6) << 48) | \
+         ((uint64_t)(c5) << 40) | ((uint64_t)(c4) << 32) | \
+         ((uint64_t)(c3) << 24) | ((uint64_t)(c2) << 16) | \
+         ((uint64_t)(c1) << 8 ) | ((uint64_t)(c0) << 0 ))
 #endif /// !defined(FOUR_CC)
 
 
@@ -149,3 +149,15 @@
         #endif /// (OS_TYPE == OS_TYPE_WIN && defined(_MSC_VER))
     #endif /// (BUILD_MODE == DEBUG_BUILD_MODE)
 #endif /// !defined(INLINE_FUNCTION)
+
+
+/// Packed struct
+#if !defined(PACKED_STRUCT)
+    #if (OS_TYPE == OS_TYPE_WIN && defined(_MSC_VER))
+        #define PACKED_STRUCT(name, ...) \
+            __pragma(pack(push, 1)) struct name { __VA_ARGS__ }; __pragma(pack(pop))
+    #else
+        #define PACKED_STRUCT(name, ...) \
+            struct __attribute__((packed)) name { __VA_ARGS__ };
+    #endif /// (OS_TYPE == OS_TYPE_WIN && defined(_MSC_VER))
+#endif /// !defined(PACKED_STRUCT)
