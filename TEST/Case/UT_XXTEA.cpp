@@ -2,6 +2,8 @@
 #include "UT_Config.hpp"
 
 #if (XXTEA_CODEC_CHECKING == 1)
+/// System headers
+#include <stdint.h> /// uint32_t,...
 /// Library headers
 #include "Codec/X2TeaCodec.hpp"
 

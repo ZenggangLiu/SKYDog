@@ -2,6 +2,8 @@
 #include "UT_Config.hpp"
 
 #if (HASHING_CHECKING == 1)
+/// System headers
+#include <stdint.h> /// uint32_t,...
 /// Library headers
 #include "Common/CommonDefines.hpp"
 #include "Hashing/StaticStringHash.hpp"
@@ -31,8 +33,8 @@
 TEST_CASE("Checking Compiletime/Runtime XXH3 Hash", "[Compiletime/Runtime XXH3 Hash]")
 {
 
-    /// Hash的Seed
-    const uint32_t seed = FOUR_CC('S', 'e', 'e', 'D');
+    /// Hash的32位Seed
+    const uint32_t seed = FOUR_CC_32('S', 'e', 'e', 'D');
 
 
     SECTION("Checking Hash:")
@@ -319,6 +321,6 @@ TEST_CASE("Checking Compiletime/Runtime XXH3 Hash", "[Compiletime/Runtime XXH3 H
         std::printf("--- Checking Static/Runtime XXH3 64Bits Hash of UTF8 strings: OK!\n");
     }
 
-} // TEST_CASE("Checking Compile/Runtime XXH3 Hash", "[XXH3 Hash]")
+} /// TEST_CASE("Checking Compile/Runtime XXH3 Hash", "[XXH3 Hash]")
 
 #endif /// (HASHING_CHECKING == 1)

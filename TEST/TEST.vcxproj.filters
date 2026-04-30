@@ -36,5 +36,20 @@
     <ClCompile Include="Case\UT_RandomNumber.cpp">
       <Filter>Case</Filter>
     </ClCompile>
+    <ClCompile Include="Case\UT_NativeDirectory.cpp">
+      <Filter>Case</Filter>
+    </ClCompile>
+    <ClCompile Include="Case\UT_NativeReadWriteStream.cpp">
+      <Filter>Case</Filter>
+    </ClCompile>
+    <ClCompile Include="Case\UT_PpmFile.cpp">
+      <Filter>Case</Filter>
+    </ClCompile>
+    <ClCompile Include="Case\UT_PlyFile.cpp">
+      <Filter>Case</Filter>
+    </ClCompile>
+    <ClCompile Include="Case\UT_RMeshFile.cpp">
+      <Filter>Case</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

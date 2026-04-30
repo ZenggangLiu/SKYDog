@@ -3,7 +3,8 @@
 
 #if (RANDOM_NUMBER_CHECKING == 1)
 /// System headers
-#include <cstdlib> /// std::rand
+#include <cstdlib>  /// std::rand
+#include <stdint.h> /// uint32_t,...
 /// Libary headers
 #include "Math/RandomNumber.hpp"
 #include "Time/ClockTime.hpp"

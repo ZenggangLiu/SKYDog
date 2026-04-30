@@ -2,7 +2,10 @@
 #include "UT_Config.hpp"
 
 #if (RING_BUFFER_CHECKING == 1)
+/// System headers
 #include <cstdio> /// std::printf
+#include <stdint.h> /// uint32_t,...
+/// Libray headers
 #include "Container/RingBuffer.hpp"
 
 
@@ -154,7 +157,7 @@ TEST_CASE("Checking RingBuffer", "[RingBuffer]")
         REQUIRE((isSuccess));
 
         std::printf("--- Checking RingBuffer: OK!\n");
-    } // SECTION("Checking RingBuffer")
+    } /// SECTION("Checking RingBuffer")
 
 } /// TEST_CASE("Checking RingBuffer", "[RingBuffer]")
 

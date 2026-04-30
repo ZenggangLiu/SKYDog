@@ -58,7 +58,7 @@ TEST_CASE("Checking GameLoop", "[GameLoop]")
 
         //REQUIRE((isSuccess));
         std::printf("--- Checking GameLoop: OK!\n");
-    } // SECTION("Checking GameLoop")
+    } /// SECTION("Checking GameLoop")
 
 } /// TEST_CASE("Checking GameLoop", "[GameLoop]")
 

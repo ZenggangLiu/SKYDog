@@ -3,8 +3,9 @@
 
 #if (MATH_UTILITY_CHECKING == 1)
 /// System headers
-#include <cmath>  /// std::acos
-#include <cstdio> /// std::printf
+#include <cmath>    /// std::acos
+#include <cstdio>   /// std::printf
+#include <stdint.h> /// uint32_t,...
 /// Library headers
 #include "Math/MathUtilities.hpp"
 #include "Time/ClockTime.hpp"
@@ -323,7 +324,7 @@ TEST_CASE("Checking MathUtility", "[MathUtility]")
             }
         }
         std::printf("--- Checking Combined Sine Cosine: OK!\n");
-    } // SECTION("Checking Combined Sine Cosine")
+    } /// SECTION("Checking Combined Sine Cosine")
 #endif /// (CHECK_SINE_COSINE == 1)
 
 
