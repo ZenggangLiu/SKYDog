@@ -1,6 +1,6 @@
 /// System headers
 #include <cstdio>   /// std::snprintf
-#include <cstdlib>  /// std::malloc
+#include <cstdlib>  /// std::malloc, std::free
 /// Library headers
 #include "Assert/RuntimeAssert.hpp"
 #include "Common/CommonDefines.hpp" /// MAKE_FILE_VERSION
@@ -246,7 +246,7 @@ deserialize_from_rmesh_file_v1_0 (
                             else
                             {
                                 MemoryUtility::aligned_free(vertex_list);
-                                MemoryUtility::aligned_free(triangle_list);
+                                std::free(triangle_list);
                                 std::snprintf(
                                     buffer, buffer_size, "can not load the triangle data list!!\n");
                                 return false;

@@ -1,4 +1,5 @@
 /// System headers
+#include <cstdlib>  /// std::free
 #include <cstdio>   /// std::snprintf
 /// Library headers
 #include "Collision/AABB.hpp"
@@ -860,8 +861,8 @@ RenderMeshDepot::clear ()
     {
         if (mesh->second.is_dyn_allocated)
         {
-            MemoryUtility::aligned_free((void*)mesh->second.vertex_list  );
-            MemoryUtility::aligned_free((void*)mesh->second.triangle_list);
+            MemoryUtility::aligned_free((void*)mesh->second.vertex_list);
+            std::free((void*)mesh->second.triangle_list);
         }
     }
     m_mesh_table.clear();
