@@ -17,6 +17,9 @@
     <ClInclude Include="Private\Hashing\RuntimeXXHash64.hpp" />
     <ClInclude Include="Private\IO\ImageFile\PpmFile.hpp" />
     <ClInclude Include="Private\IO\MeshFile\PlyFile.hpp" />
+    <ClInclude Include="Private\IO\MeshFile\RMeshFile.hpp" />
+    <ClInclude Include="Private\IO\MeshFile\RMeshHead_v1.0.hpp" />
+    <ClInclude Include="Private\IO\SoULFileHead.hpp" />
     <ClInclude Include="Private\Render\IndexedTriangle.hpp" />
     <ClInclude Include="Private\Render\RenderMesh.hpp" />
     <ClInclude Include="Private\Render\RenderMeshDepot.hpp" />
@@ -91,6 +94,7 @@
     <ClCompile Include="Private\Hashing\RuntimeHash.cpp" />
     <ClCompile Include="Private\IO\ImageFile\PpmFile.cpp" />
     <ClCompile Include="Private\IO\MeshFile\PlyFile.cpp" />
+    <ClCompile Include="Private\IO\MeshFile\RMeshFile.cpp" />
     <ClCompile Include="Private\Math\MathUtilities.cpp" />
     <ClCompile Include="Private\Math\RandomNumber.cpp" />
     <ClCompile Include="Private\Memory\ArenaAllocator.cpp" />

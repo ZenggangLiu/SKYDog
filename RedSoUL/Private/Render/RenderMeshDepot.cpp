@@ -1,18 +1,15 @@
-#include "Common/PlatformDefines.hpp"
 /// System headers
 #include <cstdio>   /// std::snprintf
-#if (OS_TYPE == OS_TYPE_WIN)
-#include <cstdlib>  /// _aligned_malloc, _aligned_free
-#else
-#include <stdlib.h> /// posix_memalign
-#endif
 /// Library headers
 #include "Collision/AABB.hpp"
+#include "Assert/RuntimeAssert.hpp"
 #include "Common/CommonDefines.hpp" /// FOUR_CC
 #include "Hashing/RuntimeHash.hpp"
 #include "Hashing/StaticStringHash.hpp"
 #include "IO/MeshFile/PlyFile.hpp"
+#include "IO/MeshFile/RMeshFile.hpp"
 #include "Math/MathUtilities.hpp"   /// multiple_of
+#include "Memory/MemoryUtilities.hpp"
 #include "Render/IndexedTriangle.hpp"
 #include "Render/RenderMesh.hpp"
 #include "Render/VertexLayout/Layout_Pos.hpp"
@@ -28,54 +25,6 @@
 #define GENERATE_BUILTIN_MESH_NAME(unique_name) "__/::@" unique_name "@::\\__"
 
 
-#define USE_ALIGNED_ALLOC_FUNC 0
-#if (USE_ALIGNED_ALLOC_FUNC == 1)
-static
-uint8_t *
-aligned_alloc (
-    const uint32_t alloc_size,
-    const uint32_t alignment)
-{
-#if (OS_TYPE == OS_TYPE_WIN)
-    return (uint8_t*)_aligned_malloc(alloc_size, alignment);
-#else /// macOS, iOS, Linux
-    void * alloc_addr = nullptr;
-    const int op_code = posix_memalign(&alloc_addr, alignment, alloc_size);
-    if (op_code == 0)
-    {
-        return (uint8_t*)alloc_addr;
-    }
-    else
-    {
-        return nullptr;
-    }
-#endif
-}
-#endif /// (USE_ALIGNED_ALLOC_FUNC == 1)
-
-
-static
-void
-aligned_free (
-    const void * const alloc_addr)
-{
-#if (OS_TYPE == OS_TYPE_WIN)
-    _aligned_free((void*)alloc_addr);
-#else /// macOS, iOS, Linux
-    free((void*)alloc_addr);
-#endif
-}
-
-
-static
-void
-unaligned_free (
-    const void * const alloc_addr)
-{
-    free((void*)alloc_addr);
-}
-
-
 RenderMeshDepot &
 RenderMeshDepot::ref ()
 {
@@ -84,15 +33,20 @@ RenderMeshDepot::ref ()
 }
 
 
-void
-RenderMeshDepot::write_to_ply_file (
-    const char * const  abs_file_name,
+const RenderMesh *
+RenderMeshDepot::mesh_data (
     const RenderMeshIdT mesh_id) const
 {
-    const ConstRenderMeshIteratorT render_mesh = m_mesh_table.find(mesh_id);
-    if (render_mesh != m_mesh_table.end())
+    RUNTIME_ASSERT(mesh_id != INVALID_RENDER_MESH_ID, "Mesh Id is invalid!!");
+
+    ConstRenderMeshIteratorT cached_data = m_mesh_table.find(mesh_id);
+    if (cached_data == m_mesh_table.end())
     {
-        PlyFile::write_to(abs_file_name, render_mesh->second);
+        return nullptr;
+    }
+    else
+    {
+        return &cached_data->second;
     }
 }
 
@@ -166,7 +120,7 @@ RenderMeshDepot::create_unit_square ()
     cache_mesh(
         MESH_ID, MESH_BOUND_BOX,
         VertexLayoutT::LAYOUT_DECL, VERTEX_COUNT, TRIANGLE_COUNT,
-        false, (ConstVertexPtrT)VERTEX_LIST, TRIANGLE_LIST);
+        false, (const uint8_t*)VERTEX_LIST, TRIANGLE_LIST);
     return MESH_ID;
 }
 
@@ -244,7 +198,7 @@ RenderMeshDepot::create_unit_square_uv ()
     cache_mesh(
         MESH_ID, MESH_BOUND_BOX,
         VertexLayoutT::LAYOUT_DECL, VERTEX_COUNT, TRIANGLE_COUNT,
-        false, (ConstVertexPtrT)VERTEX_LIST, TRIANGLE_LIST);
+        false, (const uint8_t*)VERTEX_LIST, TRIANGLE_LIST);
     return MESH_ID;
 }
 
@@ -413,7 +367,7 @@ RenderMeshDepot::create_unit_cube ()
     cache_mesh(
         MESH_ID, MESH_BOUND_BOX,
         VertexLayoutT::LAYOUT_DECL, VERTEX_COUNT, TRIANGLE_COUNT,
-        false, (ConstVertexPtrT)VERTEX_LIST, TRIANGLE_LIST);
+        false, (const uint8_t*)VERTEX_LIST, TRIANGLE_LIST);
     return MESH_ID;
 }
 
@@ -656,13 +610,13 @@ RenderMeshDepot::create_unit_cube_uv ()
     cache_mesh(
         MESH_ID, MESH_BOUND_BOX,
         VertexLayoutT::LAYOUT_DECL, VERTEX_COUNT, TRIANGLE_COUNT,
-        false, (ConstVertexPtrT)VERTEX_LIST, TRIANGLE_LIST);
+        false, (const uint8_t*)VERTEX_LIST, TRIANGLE_LIST);
     return MESH_ID;
 }
 
 
 RenderMeshIdT
-RenderMeshDepot::create_unit_icosphere ()
+RenderMeshDepot::create_unit_icosahedron ()
 {
 /// 如果需要创建顶点颜色数据, 将此宏定义为1
 #define USE_VERTEX_COLOR 0
@@ -835,8 +789,82 @@ RenderMeshDepot::create_unit_icosphere ()
     cache_mesh(
         MESH_ID, MESH_BOUND_BOX,
         VertexLayoutT::LAYOUT_DECL, VERTEX_COUNT, TRIANGLE_COUNT,
-        false, (ConstVertexPtrT)VERTEX_LIST, TRIANGLE_LIST);
+        false, (const uint8_t*)VERTEX_LIST, TRIANGLE_LIST);
     return MESH_ID;
+}
+
+
+RenderMeshIdT
+RenderMeshDepot::create_from_mesh_file (
+    const char * const  abs_file_name,
+    const RenderMeshIdT exp_mesh_id)
+{
+    /// 无此Mesh
+    if (m_mesh_table.find(exp_mesh_id) == m_mesh_table.end())
+    {
+        AABB bound_box;
+        uint16_t vertex_layout;
+        uint32_t vertex_count;
+        uint32_t triangle_count;
+        uint8_t * vertex_list;
+        IndexedTriangle * triangle_list;
+        const bool opcode = RMeshFile::read_from(
+            abs_file_name, exp_mesh_id, bound_box,
+            vertex_layout, vertex_count, triangle_count,
+            vertex_list, triangle_list);
+        if (opcode == false)
+        {
+            return INVALID_RENDER_MESH_ID;
+        }
+
+        cache_mesh(exp_mesh_id, bound_box, vertex_layout,
+                   vertex_count, triangle_count,
+                   true, vertex_list, triangle_list);
+    }
+
+    return exp_mesh_id;
+}
+
+
+void
+RenderMeshDepot::write_to_ply_file (
+    const char * const  abs_file_name,
+    const RenderMeshIdT mesh_id) const
+{
+    const ConstRenderMeshIteratorT render_mesh = m_mesh_table.find(mesh_id);
+    if (render_mesh != m_mesh_table.end())
+    {
+        PlyFile::write_to(abs_file_name, render_mesh->second);
+    }
+}
+
+
+void
+RenderMeshDepot::write_to_mesh_file (
+    const char * const  abs_file_name,
+    const RenderMeshIdT mesh_id) const
+{
+    const ConstRenderMeshIteratorT render_mesh = m_mesh_table.find(mesh_id);
+    if (render_mesh != m_mesh_table.end())
+    {
+        RMeshFile::write_to(abs_file_name, render_mesh->second);
+    }
+}
+
+
+void
+RenderMeshDepot::clear ()
+{
+    for (RenderMeshIteratorT mesh = m_mesh_table.begin();
+         mesh != m_mesh_table.end(); ++mesh)
+    {
+        if (mesh->second.is_dyn_allocated)
+        {
+            MemoryUtility::aligned_free((void*)mesh->second.vertex_list  );
+            MemoryUtility::aligned_free((void*)mesh->second.triangle_list);
+        }
+    }
+    m_mesh_table.clear();
 }
 
 
@@ -848,29 +876,20 @@ RenderMeshDepot::RenderMeshDepot ()
 
 RenderMeshDepot::~RenderMeshDepot ()
 {
-    for(RenderMeshIteratorT mesh = m_mesh_table.begin();
-        mesh != m_mesh_table.end(); ++mesh)
-    {
-        if (mesh->second.is_dyn_allocated)
-        {
-            aligned_free(mesh->second.vertex_list);
-            unaligned_free(mesh->second.triangle_list);
-        }
-    }
-    m_mesh_table.clear();
+    clear();
 }
 
 
 void
 RenderMeshDepot::cache_mesh (
-    const RenderMeshIdT     mesh_id,
-    const AABB &            bound_box,
-    const uint32_t          vertex_layout,
-    const uint32_t          vertex_count,
-    const uint32_t          triangle_count,
-    const bool              is_dyn_allocated,
-    ConstVertexPtrT const   vertex_list,
-    ConstTrianglePtrT const triangle_list)
+    const RenderMeshIdT           mesh_id,
+    const AABB &                  bound_box,
+    const uint16_t                vertex_layout,
+    const uint32_t                vertex_count,
+    const uint32_t                triangle_count,
+    const bool                    is_dyn_allocated,
+    const uint8_t * const         vertex_list,
+    const IndexedTriangle * const triangle_list)
 {
     /// 无此Mesh
     if (m_mesh_table.find(mesh_id) == m_mesh_table.end())
@@ -878,7 +897,8 @@ RenderMeshDepot::cache_mesh (
         m_mesh_table.insert(
         {
             mesh_id,
-            RenderMesh(bound_box, vertex_layout, vertex_count, triangle_count,
+            RenderMesh(mesh_id, bound_box, vertex_layout,
+                       vertex_count, triangle_count,
                        is_dyn_allocated, vertex_list, triangle_list)
         });
     }

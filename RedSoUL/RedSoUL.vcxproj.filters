@@ -243,6 +243,15 @@
     <ClInclude Include="Private\IO\MeshFile\PlyFile.hpp">
       <Filter>Private\IO\MeshFile</Filter>
     </ClInclude>
+    <ClInclude Include="Private\IO\MeshFile\RMeshFile.hpp">
+      <Filter>Private\IO\MeshFile</Filter>
+    </ClInclude>
+    <ClInclude Include="Private\IO\MeshFile\RMeshHead_v1.0.hpp">
+      <Filter>Private\IO\MeshFile</Filter>
+    </ClInclude>
+    <ClInclude Include="Private\IO\SoULFileHead.hpp">
+      <Filter>Private\IO</Filter>
+    </ClInclude>
     <ClInclude Include="Public\Math\RandomNumber.hpp">
       <Filter>Public\Math</Filter>
     </ClInclude>
@@ -345,6 +354,9 @@
       <Filter>Private\IO\ImageFile</Filter>
     </ClCompile>
     <ClCompile Include="Private\IO\MeshFile\PlyFile.cpp">
+      <Filter>Private\IO\MeshFile</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\IO\MeshFile\RMeshFile.cpp">
       <Filter>Private\IO\MeshFile</Filter>
     </ClCompile>
     <ClCompile Include="Private\Math\MathUtilities.cpp">

@@ -169,6 +169,14 @@
 		BDC9CB352F978C0E0042BF24 /* PlyFile.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDC9CB332F978C0E0042BF24 /* PlyFile.hpp */; };
 		BDC9CB372F978C2F0042BF24 /* PlyFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDC9CB362F978C2F0042BF24 /* PlyFile.cpp */; };
 		BDC9CB382F978C2F0042BF24 /* PlyFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDC9CB362F978C2F0042BF24 /* PlyFile.cpp */; };
+		BDC9CB462F9C7E7E0042BF24 /* RMeshHead_v1.0.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDC9CB452F9C7E7E0042BF24 /* RMeshHead_v1.0.hpp */; };
+		BDC9CB472F9C7E7E0042BF24 /* RMeshHead_v1.0.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDC9CB452F9C7E7E0042BF24 /* RMeshHead_v1.0.hpp */; };
+		BDC9CB492F9C7F410042BF24 /* RMeshFile.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDC9CB482F9C7F410042BF24 /* RMeshFile.hpp */; };
+		BDC9CB4A2F9C7F410042BF24 /* RMeshFile.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDC9CB482F9C7F410042BF24 /* RMeshFile.hpp */; };
+		BDC9CB4C2F9C7F7D0042BF24 /* RMeshFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDC9CB4B2F9C7F7C0042BF24 /* RMeshFile.cpp */; };
+		BDC9CB4D2F9C7F7D0042BF24 /* RMeshFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDC9CB4B2F9C7F7C0042BF24 /* RMeshFile.cpp */; };
+		BDC9CB552FA0CD620042BF24 /* SoULFileHead.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDC9CB542FA0CD620042BF24 /* SoULFileHead.hpp */; };
+		BDC9CB562FA0CD620042BF24 /* SoULFileHead.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDC9CB542FA0CD620042BF24 /* SoULFileHead.hpp */; };
 		BDD4034D2F9300F70019BE16 /* NativeDirectory.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDD4034C2F9300F70019BE16 /* NativeDirectory.hpp */; };
 		BDD4034E2F9300F70019BE16 /* NativeDirectory.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDD4034C2F9300F70019BE16 /* NativeDirectory.hpp */; };
 		BDD403502F9301BD0019BE16 /* GameMainLoop.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDD4034F2F9301BD0019BE16 /* GameMainLoop.hpp */; };
@@ -285,6 +293,10 @@
 		BDC9CB332F978C0E0042BF24 /* PlyFile.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = PlyFile.hpp; path = Private/IO/MeshFile/PlyFile.hpp; sourceTree = "<group>"; };
 		BDC9CB362F978C2F0042BF24 /* PlyFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = PlyFile.cpp; path = Private/IO/MeshFile/PlyFile.cpp; sourceTree = "<group>"; };
 		BDC9CB392F98D65F0042BF24 /* IcoSphere_vertex_layout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = IcoSphere_vertex_layout.png; path = Private/Render/IcoSphere_vertex_layout.png; sourceTree = "<group>"; };
+		BDC9CB452F9C7E7E0042BF24 /* RMeshHead_v1.0.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = RMeshHead_v1.0.hpp; path = Private/IO/MeshFile/RMeshHead_v1.0.hpp; sourceTree = "<group>"; };
+		BDC9CB482F9C7F410042BF24 /* RMeshFile.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = RMeshFile.hpp; path = Private/IO/MeshFile/RMeshFile.hpp; sourceTree = "<group>"; };
+		BDC9CB4B2F9C7F7C0042BF24 /* RMeshFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = RMeshFile.cpp; path = Private/IO/MeshFile/RMeshFile.cpp; sourceTree = "<group>"; };
+		BDC9CB542FA0CD620042BF24 /* SoULFileHead.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = SoULFileHead.hpp; path = Private/IO/SoULFileHead.hpp; sourceTree = "<group>"; };
 		BDD4034C2F9300F70019BE16 /* NativeDirectory.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = NativeDirectory.hpp; path = Public/FileSystem/NativeDirectory.hpp; sourceTree = "<group>"; };
 		BDD4034F2F9301BD0019BE16 /* GameMainLoop.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = GameMainLoop.hpp; path = Private/Runtime/GameMainLoop.hpp; sourceTree = "<group>"; };
 		BDD403532F93519C0019BE16 /* ApplNativeDirectory.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = ApplNativeDirectory.mm; path = Private/FileSystem/Apple/ApplNativeDirectory.mm; sourceTree = "<group>"; };
@@ -677,6 +689,9 @@
 			children = (
 				BDC9CB332F978C0E0042BF24 /* PlyFile.hpp */,
 				BDC9CB362F978C2F0042BF24 /* PlyFile.cpp */,
+				BDC9CB482F9C7F410042BF24 /* RMeshFile.hpp */,
+				BDC9CB4B2F9C7F7C0042BF24 /* RMeshFile.cpp */,
+				BDC9CB452F9C7E7E0042BF24 /* RMeshHead_v1.0.hpp */,
 			);
 			name = MeshFile;
 			sourceTree = "<group>";
@@ -686,6 +701,7 @@
 			children = (
 				BDC9CB2B2F978B8B0042BF24 /* ImageFile */,
 				BDC9CB322F978BF80042BF24 /* MeshFile */,
+				BDC9CB542FA0CD620042BF24 /* SoULFileHead.hpp */,
 			);
 			name = IO;
 			sourceTree = "<group>";
@@ -732,6 +748,7 @@
 				BD58B0CE2F5B93B90024C670 /* StaticXXHash64.hpp in Headers */,
 				BD58B0D72F5B97750024C670 /* RuntimeXXHash32.hpp in Headers */,
 				BD326EE62F41773A007EE8EC /* MathUtilities.hpp in Headers */,
+				BDC9CB552FA0CD620042BF24 /* SoULFileHead.hpp in Headers */,
 				BD0E412B2F7BC88E00CFA766 /* MathDefines.hpp in Headers */,
 				BD8FB8392F85109100EE67B4 /* TextEncoding.hpp in Headers */,
 				BDA8962D2F74F4C100B0683B /* X2TeaCodec.hpp in Headers */,
@@ -754,8 +771,10 @@
 				BDC9CB292F978B320042BF24 /* Layout_Pos_Norm.hpp in Headers */,
 				BD58B0832F4EECE10024C670 /* ThreadDefines.hpp in Headers */,
 				BDC9CB262F978AFF0042BF24 /* Layout_Pos_Colr_Uv.hpp in Headers */,
+				BDC9CB462F9C7E7E0042BF24 /* RMeshHead_v1.0.hpp in Headers */,
 				BDC9CB012F94DD580042BF24 /* NativeReadStream.hpp in Headers */,
 				BDC9CB232F978AB60042BF24 /* Layout_Pos_Colr_Norm_Uv.hpp in Headers */,
+				BDC9CB492F9C7F410042BF24 /* RMeshFile.hpp in Headers */,
 				BD58B0982F56DCDC0024C670 /* ClockTime.hpp in Headers */,
 				BD8FB8222F81047F00EE67B4 /* IndexedTriangle.hpp in Headers */,
 				BDD403602F947EB80019BE16 /* FileName.hpp in Headers */,
@@ -796,6 +815,7 @@
 				BD58B0CF2F5B93B90024C670 /* StaticXXHash64.hpp in Headers */,
 				BD58B0D82F5B97750024C670 /* RuntimeXXHash32.hpp in Headers */,
 				BD326EE72F41773B007EE8EC /* MathUtilities.hpp in Headers */,
+				BDC9CB562FA0CD620042BF24 /* SoULFileHead.hpp in Headers */,
 				BD0E412C2F7BC88E00CFA766 /* MathDefines.hpp in Headers */,
 				BD8FB83A2F85109100EE67B4 /* TextEncoding.hpp in Headers */,
 				BDA8962E2F74F4C100B0683B /* X2TeaCodec.hpp in Headers */,
@@ -818,8 +838,10 @@
 				BDC9CB2A2F978B320042BF24 /* Layout_Pos_Norm.hpp in Headers */,
 				BD58B0842F4EECE10024C670 /* ThreadDefines.hpp in Headers */,
 				BDC9CB272F978AFF0042BF24 /* Layout_Pos_Colr_Uv.hpp in Headers */,
+				BDC9CB472F9C7E7E0042BF24 /* RMeshHead_v1.0.hpp in Headers */,
 				BDC9CB022F94DD580042BF24 /* NativeReadStream.hpp in Headers */,
 				BDC9CB242F978AB60042BF24 /* Layout_Pos_Colr_Norm_Uv.hpp in Headers */,
+				BDC9CB4A2F9C7F410042BF24 /* RMeshFile.hpp in Headers */,
 				BD58B0992F56DCDC0024C670 /* ClockTime.hpp in Headers */,
 				BD8FB8232F81047F00EE67B4 /* IndexedTriangle.hpp in Headers */,
 				BDD403612F947EB80019BE16 /* FileName.hpp in Headers */,
@@ -955,6 +977,7 @@
 				BD58B0F12F5BB84C0024C670 /* StaticString.cpp in Sources */,
 				BDD4035E2F9387AD0019BE16 /* ApplNativeFile.mm in Sources */,
 				BDA896122F6F70FA00B0683B /* Float3D.cpp in Sources */,
+				BDC9CB4D2F9C7F7D0042BF24 /* RMeshFile.cpp in Sources */,
 				BDC9CB382F978C2F0042BF24 /* PlyFile.cpp in Sources */,
 				BD0E41352F7BD6B600CFA766 /* RandomNumber.cpp in Sources */,
 			);
@@ -993,6 +1016,7 @@
 				BD58B0F02F5BB84C0024C670 /* StaticString.cpp in Sources */,
 				BDD4035D2F9387AD0019BE16 /* ApplNativeFile.mm in Sources */,
 				BDA896112F6F70FA00B0683B /* Float3D.cpp in Sources */,
+				BDC9CB4C2F9C7F7D0042BF24 /* RMeshFile.cpp in Sources */,
 				BDC9CB372F978C2F0042BF24 /* PlyFile.cpp in Sources */,
 				BD0E41342F7BD6B600CFA766 /* RandomNumber.cpp in Sources */,
 			);

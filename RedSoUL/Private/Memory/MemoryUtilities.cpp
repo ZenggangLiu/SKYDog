@@ -1,10 +1,8 @@
 #include "Common/PlatformDefines.hpp" /// OS_TYPE 
 /// System headers
 #if (OS_TYPE == OS_TYPE_WIN)
-/// 禁止Windows.h包含winsock.h, 因为我们使用winsock2.h
-    #define _WINSOCKAPI_
+    #include <cstdlib>  /// _aligned_malloc, _aligned_free
     #include <Windows.h>
-    #undef _WINSOCKAPI_
     #include <psapi.h>  /// PROCESS_MEMORY_COUNTERS, GetProcessMemoryInfo
 #elif defined(__APPLE__)
     #include <mach/mach_init.h>
@@ -17,14 +15,17 @@
     #else
         #include <mach/vm_map.h>
     #endif
+    #include <stdlib.h>   /// posix_memalign
 #elif (OS_TYPE == OS_TYPE_LINUX)
     #include <fstream>    /// ifstream
+    #include <stdlib.h>   /// posix_memalign
     #include <string>
     #include <sys/mman.h> /// mmap, munmap
     #include <unistd.h>   /// sysconf
 #endif
 /// Library headers
 #include "Assert/RuntimeAssert.hpp"
+#include "Common/CommonDefines.hpp" /// IS_POWER_OF_TWO
 /// Self header
 #include "Memory/MemoryUtilities.hpp"
 
@@ -48,7 +49,7 @@
 ///
 static
 bool
-allocate_vm(
+allocate_vm (
     const uint32_t alloc_size,
     const uint32_t alloc_flag,
     void ** const  alloc_addr)
@@ -79,7 +80,7 @@ allocate_vm(
 /// 释放指定大小的内存
 static
 bool
-release_vm(
+release_vm (
     void * const   alloc_addr,
     const uint32_t alloc_size)
 {
@@ -106,7 +107,7 @@ release_vm(
 
 
 std::tuple<bool, uint64_t, uint64_t>
-MemoryUtility::memory_usage()
+MemoryUtility::memory_usage ()
 {
 #if (OS_TYPE == OS_TYPE_WIN)
     PROCESS_MEMORY_COUNTERS mem_info;
@@ -170,7 +171,7 @@ MemoryUtility::memory_usage()
 
 
 uint32_t
-MemoryUtility::page_size()
+MemoryUtility::page_size ()
 {
 #if (OS_TYPE == OS_TYPE_WIN)
     SYSTEM_INFO sys_info;
@@ -194,8 +195,46 @@ MemoryUtility::page_size()
 }
 
 
+void *
+MemoryUtility::aligned_alloc (
+    const uint32_t alloc_size,
+    const uint32_t alignment)
+{
+    /// posix_memalign()有如下要求
+    RUNTIME_ASSERT(alignment >= sizeof(void*) && IS_POWER_OF_TWO(alignment),
+                   "Wrong alignment(at least %u, and is power of 2!!", sizeof(void*));
+
+#if (OS_TYPE == OS_TYPE_WIN)
+    return _aligned_malloc(alloc_size, alignment);
+#else /// macOS, iOS, Linux
+    void * alloc_addr;
+    const int opcode = posix_memalign(&alloc_addr, alignment, alloc_size);
+    if (opcode == 0)
+    {
+        return alloc_addr;
+    }
+    else
+    {
+        return nullptr;
+    }
+#endif
+}
+
+
+void
+MemoryUtility::aligned_free (
+    const void * const alloc_addr)
+{
+#if (OS_TYPE == OS_TYPE_WIN)
+    _aligned_free((void*)alloc_addr);
+#else /// macOS, iOS, Linux
+    free((void*)alloc_addr);
+#endif
+}
+
+
 std::tuple<void*, uint32_t>
-MemoryUtility::allocate_vm_pages(
+MemoryUtility::allocate_vm_pages (
     const uint32_t page_count)
 {
     RUNTIME_ASSERT(page_count * page_size() <= 0xFFFFFFFF,
@@ -251,7 +290,7 @@ MemoryUtility::allocate_vm_pages(
 
 
 bool
-MemoryUtility::release_vm_pages(
+MemoryUtility::release_vm_pages (
     void * const   alloc_addr,
     const uint32_t page_count)
 {

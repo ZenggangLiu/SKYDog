@@ -56,6 +56,15 @@ public:
     RenderMeshDepot &
     ref ();
 
+    /// 获取指定Id对应的RenderMesh数据
+    ///
+    /// @return
+    ///     合法RenderMesh指针, 如果指定Id对应Cached的数据
+    ///     nullptr, 如果指定Id非法, 或者指定Id不在Cache中
+    const RenderMesh *
+    mesh_data (
+        const RenderMeshIdT mesh_id) const;
+
     /// 创建一个边长为1的正方形(无纹理坐标)
     ///
     ///             ^ Y
@@ -101,9 +110,23 @@ public:
     RenderMeshIdT
     create_unit_cube_uv ();
 
-    /// 创建一个半径为0.5, 直径为1的十二面IcoSphere(无纹理坐标)
+    /// 创建一个单位十二面体(无纹理坐标)
     RenderMeshIdT
-    create_unit_icosphere ();
+    create_unit_icosahedron ();
+
+    /// 创建指定RenderMesh文件中的几何体
+    ///
+    /// @param[in]  abs_file_name
+    ///     RenderMeshe文件的绝对路径
+    /// @param[in]  exp_mesh_id
+    ///     希望使用的Mesh Id
+    /// @return
+    ///     合法Id, 如果加载成功
+    ///     INVALID_RENDER_MESH_ID, 如果加载失败
+    RenderMeshIdT
+    create_from_mesh_file (
+        const char * const  abs_file_name,
+        const RenderMeshIdT exp_mesh_id);
 
     /// 将指定Id的RenderMesh的数据保存在指定的PLY文件中
     void
@@ -111,10 +134,18 @@ public:
         const char * const  abs_file_name,
         const RenderMeshIdT mesh_id) const;
 
-private:
-    typedef const uint8_t *         ConstVertexPtrT;
-    typedef const IndexedTriangle * ConstTrianglePtrT;
+    /// 将指定Id的RenderMesh的数据保存在指定的RenderMesh文件中
+    void
+    write_to_mesh_file (
+        const char * const  abs_file_name,
+        const RenderMeshIdT mesh_id) const;
 
+    /// 清空所有缓存的几何体
+    void
+    clear ();
+
+
+private:
      RenderMeshDepot ();
     ~RenderMeshDepot ();
 
@@ -128,14 +159,14 @@ private:
     ///     三角面数据列表
     void
     cache_mesh (
-        const RenderMeshIdT     mesh_id,
-        const AABB &            bound_box,
-        const uint32_t          vertex_layout,
-        const uint32_t          vertex_count,
-        const uint32_t          triangle_count,
-        const bool              is_dyn_allocated,
-        ConstVertexPtrT const   vertex_list,
-        ConstTrianglePtrT const triangle_list);
+        const RenderMeshIdT           mesh_id,
+        const AABB &                  bound_box,
+        const uint16_t                vertex_layout,
+        const uint32_t                vertex_count,
+        const uint32_t                triangle_count,
+        const bool                    is_dyn_allocated,
+        const uint8_t * const         vertex_list,
+        const IndexedTriangle * const triangle_list);
 
 private:
     typedef std::unordered_map < RenderMeshIdT,

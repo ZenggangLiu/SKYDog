@@ -17,10 +17,10 @@
     Author:   (___()'`; Zee...  \_/|_)     )                                            
               /,    /`             \  __  /                                             
               \\"--\\              (_/ (_/                                              
-    Created:  5/04/26  @  5:42 PM
-    FileName: RenderMesh.hpp @ RedSoUL Project
+    Created:  28/04/26  @  11:11 PM
+    FileName: SoULFileHead.hpp @ RedSoUL Project
     History:
-             - created by: 5/04/26: Zenggang LIU
+             - created by: 28/04/26: Zenggang LIU
                                                                                         
 ***************************************************************************************/
 
@@ -29,45 +29,64 @@
 
 
 /// System headers
-#include <stdint.h> /// uint32_t,...
+#include <stdint.h> /// uint8_t
 /// Library headers
-#include "Collision/AABB.hpp"
-#include "Render/RenderMeshId.hpp"
+#include "Common/CommonDefines.hpp" /// INLINE_FUNCTION, PACKED_STRUCT
+#include "FileSystem/NativeReadStream.hpp"
 
 
-struct IndexedTriangle;
+/// Red SoUL文件头
+///
+/// +-----------------------+
+/// |                       |
+/// | == SoUL File Head ==  |
+/// |                       |
+/// +-----------------------+
+/// | Magic Number          | <-- 四个字节(32位)
+/// +-----------------------+
+/// | Major Version         | <-- 一个字节(8位):主版本号
+/// |-----------------------+
+/// | Minor Version         | <-- 一个字节(8位):辅版本号
+/// |-----------------------+
+/// | File Flags            | <-- 二个字节(16位):文件标记
+/// +-----------------------+
+///
+PACKED_STRUCT(SoULFileHead,
+    const uint32_t magic_number;
+    const uint8_t  major_version;
+    const uint8_t  minor_version;
+    const uint16_t file_flags;
 
+    /// 从输入流创建实例
+    INLINE_FUNCTION
+    static
+    bool
+    create_from_stream (
+        NativeReadStream & input_stream,
+        SoULFileHead &     soul_file_head)
+    {
+        if (input_stream.is_opened())
+        {
+            return input_stream.read(
+                (uint8_t*)&soul_file_head, sizeof(SoULFileHead),
+                0, sizeof(SoULFileHead));
+        }
+        else
+        {
+            return false;
+        }
+    }
 
-struct RenderMesh
-{
-    /// 顶点数据列表: 要求16字节对齐
-    const uint8_t * const         vertex_list;
-    /// 三角面列表:   无对齐要求
-    const IndexedTriangle * const triangle_list;
-    /// Mesh Id
-    const RenderMeshIdT           mesh_id;
-    /// 包围盒
-    const AABB                    bound_box;
-    /// 顶点数据列表大小(字节数)
-    const uint32_t                vertex_list_size;
-    /// 三角面列表大小(字节数)
-    const uint32_t                triangle_list_size;
-    /// 顶点个数
-    const uint32_t                vertex_count;
-    /// 三角面个数
-    const uint32_t                triangle_count;
-    /// 顶点Layout(VertexDataType类型的合集)
-    const uint16_t                vertex_layout;
-    /// 标记顶点/三角面列表是否为动态分配(True)
-    const uint16_t                is_dyn_allocated;
-
-    RenderMesh (
-        const RenderMeshIdT           mesh_id,
-        const AABB &                  bound_box,
-        const uint16_t                vertex_layout,
-        const uint32_t                vertex_count,
-        const uint32_t                triangle_count,
-        const bool                    is_dyn_allocated,
-        const uint8_t * const         vertex_list,
-        const IndexedTriangle * const triangle_list);
-};
+    INLINE_FUNCTION
+    SoULFileHead (
+        const uint32_t _magic_number,
+        const uint8_t  _major_version,
+        const uint8_t  _minor_version,
+        const uint16_t _file_flags)
+    :
+        magic_number(_magic_number),
+        major_version(_major_version),
+        minor_version(_minor_version),
+        file_flags(_file_flags)
+    {}
+);

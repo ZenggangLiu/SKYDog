@@ -161,3 +161,10 @@
             struct __attribute__((packed)) name { __VA_ARGS__ };
     #endif /// (OS_TYPE == OS_TYPE_WIN && defined(_MSC_VER))
 #endif /// !defined(PACKED_STRUCT)
+
+
+/// 定义16位RedSoUL文件版本号
+#if !defined(MAKE_FILE_VERSION)
+#define MAKE_FILE_VERSION(major_version, minior_version) \
+    (((uint16_t)major_version << 8) | (uint16_t)minior_version)
+#endif /// !defined(MAKE_FILE_VERSION)

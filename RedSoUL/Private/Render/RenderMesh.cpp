@@ -3,6 +3,7 @@
 /// Library headers
 #include "Assert/RuntimeAssert.hpp"
 #include "Common/CommonDefines.hpp" /// ALIGN_UP
+#include "Render/IndexedTriangle.hpp"
 #include "Render/VertexDataType.hpp"
 #include "Render/VertexLayout/Layout_Pos.hpp"
 #include "Render/VertexLayout/Layout_Pos_Colr.hpp"
@@ -14,7 +15,8 @@
 #include "Render/RenderMesh.hpp"
 
 
-/// 计算顶点列表大小(字节数)
+// MARK: == Helpers ==
+/// 计算顶点数据列表大小(字节数)
 static
 uint32_t
 calc_vertex_list_size (
@@ -71,20 +73,35 @@ calc_vertex_list_size (
 }
 
 
+/// 计算三角面列表的大小(字节数)
+static
+uint32_t
+calc_triangle_list_size (
+    const uint32_t triangle_count)
+{
+    return sizeof(IndexedTriangle) * triangle_count;
+}
 
+
+
+// MARK: == RenderMesh ==
 RenderMesh::RenderMesh (
-    const AABB &            _bound_box,
-    const uint16_t          _vertex_layout,
-    const uint32_t          _vertex_count,
-    const uint32_t          _triangle_count,
-    const bool              _is_dyn_allocated,
-    ConstVertexPtrT const   _vertex_list,
-    ConstTrianglePtrT const _triangle_list)
+    const RenderMeshIdT           _mesh_id,
+    const AABB &                  _bound_box,
+    const uint16_t                _vertex_layout,
+    const uint32_t                _vertex_count,
+    const uint32_t                _triangle_count,
+    const bool                    _is_dyn_allocated,
+    const uint8_t * const         _vertex_list,
+    const IndexedTriangle * const _triangle_list)
 :
     vertex_list(_vertex_list),
     triangle_list(_triangle_list),
-    vertex_count(_vertex_count),
+    mesh_id(_mesh_id),
+    bound_box(_bound_box),
     vertex_list_size(calc_vertex_list_size(_vertex_layout, _vertex_count)),
+    triangle_list_size(calc_triangle_list_size(_triangle_count)),
+    vertex_count(_vertex_count),
     triangle_count(_triangle_count),
     vertex_layout(_vertex_layout),
     is_dyn_allocated(_is_dyn_allocated)

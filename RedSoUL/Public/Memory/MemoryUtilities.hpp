@@ -49,6 +49,24 @@ struct MemoryUtility
     uint32_t
     page_size ();
 
+    /// 申请对齐内存
+    ///
+    /// @param[in]  alloc_size
+    ///     申请的内存大小(字节数)
+    /// @param[in]  alignment
+    ///     对齐的字节数
+    static
+    void *
+    aligned_alloc (
+        const uint32_t alloc_size,
+        const uint32_t alignment);
+
+    /// 释放对齐分配的内存
+    static
+    void
+    aligned_free (
+        const void * const alloc_addr);
+
     /// 申请指定个数目的内存页(虚拟内存页)
     ///
     /// @param[in]  page_count
