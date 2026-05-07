@@ -1,0 +1,244 @@
+///////////////////////////////////////////////////////////////////////
+//                 Differences Between C++ AND C#                    //
+///////////////////////////////////////////////////////////////////////
+
+1. const just for CONSTANT, NOT for function parameters:
+   void someFunc(const int a_iValue) NO way in C#
+   
+2. string literal:    
+   in C++ we can use \0 to represent the hexadecimal 0,
+   in C#  we have to use \x0000 or \u0000. \u0000 used to represent a Unicode u+0000 in the string. 
+   string is a list of System.Char,
+   which is using UTF16 to represent character(but we can use System.Text.UTF8Encoding to convert its encoding into UTF8).
+   The char keyword is used to declare an instance of the System.Char structure that the .NET Framework uses to represent a Unicode character.
+   The value of a Char object is a 16-bit numeric (ordinal) value: U+0000 to U+FFFF.
+   
+3. Inheritance:
+   C++ multiple inheritance, inheritance can use public, protected and private during declaring of subclass.
+   class SubClass : public BaseClass
+   {
+   
+   };
+   
+   C# single inheritance, NO support on using public, protected and private during declaring of subclass   
+   class SubClass : BaseClass
+   {
+   
+   }
+
+4. #define
+   - C++ can use #define some constant:
+     #define MARCO 1
+     then use
+     #if MARCO == 1
+   - #define can be place anywhere, like below the #include
+   
+   C# just allow to use
+   - #define MARCO   
+     then MARCO will have true as its value
+     in 
+     #if MARCO
+     it will evaluate to true
+   - #define can JUST be place before any c# token: like before: using 
+   
+5. Function Callback
+   in C++
+   at first declare the Callback's signature:
+   private:
+     typedef void (*LoggingEventHandler)(void);
+   then declare the Callback Variable:
+   private:
+     LoggingEventHandler m_pOnLoggingEvent;   
+   
+   in C#
+   at first declare the Callback's signature:
+     private delegate void LoggingEventHandler(void);
+   then declare the Callback Variable:
+     private LoggingEventHandler m_pOnLoggingEvent;   
+   The delegate in C# is immutable, so += or -= will create a totally NEW delegate instance at runtime
+   
+6. Variadic Parameter List:
+   in C++
+   we can use:
+   void Func(int startParm, ...) and
+   at least one named parameter must appear before the ellipsis parameter
+   
+   in C# 
+   we can use params keyword
+   void Func(int startParm, params object[] RestParams) and
+   there is NO need for a named param at the first parameter
+   void Func(params object[] RestParams)
+   
+7. Unity uses .NET 3.5 Runtime and language version C# 3 by default, NO Default Function Parameters
+   
+8. Threading
+   - To wait for terminate of anther thread:
+     + in C++ 
+	   # pthread: pthread_join() - join with a terminated thread
+       # Windows: WaitForSingleObject()	   
+       
+	 + in C#: 
+	   # Thread.Join()
+   - default thread stack 1 megabyte
+   - Memory Barriers: https://en.wikipedia.org/wiki/Memory_ordering
+     + SMP(Symmetric Multiprocessing Processor) has the following Re-Ordering of Memory Access Operations(Load and Strore)
+	   # Loads can be reordered after loads (for better working of cache coherency, better scaling)
+	   # Loads can be reordered after stores
+	   # Stores can be reordered after stores
+	   # Stores can be reordered after loads
+	  + in C++: We can limit the type of Re-Ordering using different Memory Barriers/Fences(on SPARC)
+	   # __machine_r_barrier() — read barrier: ensures all the load operations before the barrier will be completed before all the load operations after the barrier.
+       # __machine_w_barrier() — write barrier: ensures that all the store operations before the barrier will be completed before all the store operations after the barrier.
+       # __machine_rw_barrier() — read—write barrier: ensures that all the load and store operations before the barrier will be completed before all the load and store operations after the barrier.
+       # __machine_acq_barrier() — acquire barrier: ensures that all the load operations before the barrier will be completed before all the load and store operations after the barrier.
+       # __machine_rel_barrier() — release barrier: ensures that all the load and store operations before the barrier will be completed before all the store operations after the barrier.
+       
+      + in C# 
+       # Thread.MemoryBarrier(): full fence, i.e. release and acquire semantics
+       # Thread.VolatileRead: acquire semantics
+       # Thread.VolatileWrite: release semantics
+         
+9. Namespace declaration
+  in C++
+  namespace A
+  {
+    namespace B
+	{
+	
+	}
+  }  
+  
+  in C#
+  namespace A.B
+  {
+  
+  }
+  
+10. operator overloading:
+  - in C++: except operator new(), operator delete(), operator new[]() and operator delete[]() MUST be static method, 
+    others will be instance methods
+    
+  - in C#: all operator functions MUST be static and the first parameter will be in the enclosing class type
+
+11. in C++ we can NOT call other constructor from within another constructor.
+    But in C#, we can do this using the initializer list:
+    public ObjectPool(int a_iVal, float a_fVal)
+     : this(a_fVal)   // call the default constructor: this will be executed before calling ObjectPool(int, float): same as Initializer list in C++
+    {
+    
+    }     
+    
+12. class, struct's members access modifiers:
+   in C++ the default is private. It also supports public and protected
+   in C#  the default is private. It also supports public, protected, internal(accessible within the same assembly and all friend assemblies)
+
+13. indexer: which allows access to individual element of an array-like object instance
+   in C++ we have to define Type& operator[](int) and const Type& operator[](int)const
+   public:
+     // for normal Type's object instance: Type* pInstance;
+     Type& operator[] (int a_iSlotIndex)
+     {
+     
+     }
+     
+     // for constant Type's object instance: const Type* pConstantInstance;
+     const Type& operator[] (int a_iSlotIndex) const
+     {
+     
+     }
+     
+   in C#  we can directly define indexer: 
+   public Type this [int a_iSlotIndex]
+   {
+     get
+     {
+     
+     }
+   }
+   
+14. referenced function parameter:
+   in C++ we have to use &
+     void someFunc(Type* & a_rReferenceToPointer){}  <-- in order to change the value of given argument
+     
+   in C#  we have to use out
+     void someFunc(out Type a_rReferenceToObject){}  <-- in order to change the value of given argument
+15. switch and case:
+   in C++ we can just use integer(or enum) in the case clause. NOT string literal
+   in C#  we can NOT only use integer(or enum) BUT ALSO string literal
+
+16. foreach
+   in C++ we can access AND modify the content of each element of an array: the iterated data
+   in C#  we can access BUT NOT modify the content of each element of an array(the iterated data): CONSTANT ACCESSOR
+
+17. call constructor of base class:
+   in C++ we call directly the constructor of base class in initializer list
+   class BaseClass
+   {
+   public:
+      BaseClass(int a_iVal){}
+   }
+   
+   class DerivedClass : public BaseClass
+   {
+   public:
+     DerivedClass(int a_iVal, float a_fVal)
+     :
+     BaseClass(a_iVal){}     
+   }
+   
+   in C# we have to call base(...) in the initializer list
+   public class BaseClass
+   {
+    public BaseClass(int a_iVal){}
+   }
+   
+   public class DerivedClass : BaseClass
+   {
+      public DerivedClass(int a_iVal, float a_fVal)
+      :
+      base(a_iVal){}
+   }
+   
+18. PURE Virtual Method:
+  in C++: 
+    - in Base Class: virtual void someFunc() = 0;
+    - in Sub  Class: virtual void someFunc() override;
+  
+  in C#:
+    - in Base Class: MUST have abstract keyword in class declaration
+      abstract class AbstractClass
+      {
+        abstract void someFunc();
+      }
+      
+    - in Sub  Class: override void someFunc();
+
+19. struct 
+   in C++: struct is like class BUT put public keyword to all members: data and method
+   
+   in C#:  
+   - struct is DIFFERENT from class using value type NOT reference
+   - new a struct, it will be put onto STACK instead of HEAP as in class case
+   - NO parameter-less constructor
+   - NO inheritance
+   - BUT can implement Interface
+
+20. array initializer:
+   in C++:
+   we can just use { } to initialize an array:
+   int integerarray[] = {1, 2, 3};
+   char* stringarray[] = {"stringA", "stringB", "stringC"};
+   
+   in C#, 
+   public string[] ShootAnimations = new string[]{"Shoot"};
+   or
+   public string[] ShootAnimations = {"Shoot"};
+   
+21 nested class:
+   in C++ and C# it behaviours in the same way: can access all member from outer type.
+   But in C#, we have to define the interface/member public in order to access them from outer type.
+
+22. interface
+   in C#, ALL methods of an interface will be PUBLIC and ABSTRACT in class which implementing this interface. 
+          And declared in interface WITHOUT modifiers: public, abstract
+   in C#, we can use abstract class to simulate interface
