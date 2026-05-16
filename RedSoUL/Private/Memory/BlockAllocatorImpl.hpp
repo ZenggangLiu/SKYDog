@@ -17,10 +17,10 @@
     Author:   (___()'`; Zee...  \_/|_)     )                                            
               /,    /`             \  __  /                                             
               \\"--\\              (_/ (_/                                              
-    Created:  16/02/26  @  10:37 PM
-    FileName: MemoryUtilities.hpp @ RedSoUL Project
+    Created:  16/05/26  @  3:47 PM
+    FileName: BlockAllocatorImpl.hpp @ RedSoUL Project
     History:
-             - created by: 16/02/26: Zenggang LIU
+             - created by: 16/05/26: Zenggang LIU
                                                                                         
 ***************************************************************************************/
 
@@ -29,75 +29,104 @@
 
 
 /// System headers
-#include <stdint.h> /// uint32_t,...
-#include <tuple>
+#include <stdint.h> /// uint8_t, uint32_t,...
+#include <vector>
+/// Library headers
+#include "Common/CompilerDefines.hpp" /// BUILD_MODE
 
 
-struct MemoryUtility
+/// 内存Block分配器的实现(以相同大小的Block的方式进行内存分配)
+class BlockAllocatorImpl
 {
-    /// 获得此进程/程序的内存使用情况
-    ///
-    /// @return
-    ///      如果申请成功：<- [ true,  使用的物理内存(字节), 使用的虚拟内存(字节) ]
-    ///      如果申请失败：<- [ false, 0,                 0                ]
-    static
-    std::tuple<bool, uint64_t, uint64_t>
-    memory_usage ();
+public:
+    explicit
+    BlockAllocatorImpl (
+        const uint8_t block_size);
 
-    /// 获得操作系统(OS)提供的内存页长度(字节数)
-    /// - iOS: 16384(16K)
-    /// - macOS: 4096(4K)
-    /// - Windows: 4096(4K)
-    static
-    uint32_t
-    page_size ();
+    ~BlockAllocatorImpl ();
 
-    /// 申请对齐内存
-    ///
-    /// @param[in]  alloc_size
-    ///     申请的内存大小(字节数)
-    /// @param[in]  alignment
-    ///     对齐的字节数
-    static
-    void *
-    aligned_alloc (
-        const uint32_t alloc_size,
-        const uint32_t alignment);
-
-    /// 释放对齐分配的内存
-    static
-    void
-    aligned_free (
-        const void * const alloc_addr);
-
-    /// 申请指定个数目的内存页(虚拟内存页)
-    ///
-    /// @param[in]  page_count
-    ///      内存页的数目
-    /// @return
-    ///      如果申请成功：<- [ 申请的内存地址, 申请的内存长度(字节长度) ]
-    ///      如果申请失败：<- [ nullptr,     0                    ]
-    /// @example:
-    ///     例如：申请16个虚拟内存页：
-    ///     const void * alloc_addr; uint32_t alloc_size;
-    ///     std::tie(alloc_addr, alloc_size) = MemoryUtility::allocate_vm_pages(16);
-    static
-    std::tuple<void*, uint32_t>
-    allocate_vm_pages (
-        const uint32_t page_count);
-
-    /// 释放指定的内存页(虚拟内存页)
-    ///
-    /// @param[in]  alloc_addr
-    ///      申请到的起始内存地址
-    /// @param[in]  page_count
-    ///      内存页的数目
-    /// @return
-    ///      TRUE:  如果内存释放成功
-    ///      FALSE: 如果失败
-    static
     bool
-    release_vm_pages (
-        void * const   alloc_addr,
-        const uint32_t page_count);
+    initialize (
+        const uint32_t logic_page_count,
+        const uint8_t  increment_rate);
+
+    uint8_t *
+    allocate ();
+
+    bool
+    deallocate (
+        void * const alloc_addr);
+
+    void
+    release ();
+
+    uint8_t
+    block_size () const;
+
+    uint32_t
+    block_count () const;
+
+    uint32_t
+    free_count () const;
+
+    uint32_t
+    used_count () const;
+
+    uint32_t
+    allocated_bytes () const;
+
+private:
+    /// 放置在每个Logic页尾部的INFO
+    struct LogicPageInfo
+    {
+        /// 使用BitMask标识Block是否空闲: 1表示Free, 0表示Used
+        uint64_t free_block_mask[4];
+#if (BUILD_MODE == DEBUG_BUILD_MODE)
+        uint32_t magic_id;
+        uint32_t page_index;
+#endif
+        /// 空闲Block的数目
+        uint8_t  free_count;
+    };
+
+    /// 虚拟Page信息
+    struct MemoryBlock
+    {
+        /// 虚拟页(OS申请的)起始地址
+        uint8_t * vm_page_addr;
+        /// 虚拟页(OS申请的)数目
+        uint32_t  vm_page_count;
+        /// 使用内存总量(字节数)
+        uint32_t  memory_usage;
+        /// 逻辑页数目
+        uint32_t  logic_page_count;
+    };
+    typedef std::vector<MemoryBlock> MemoryBlockListT;
+
+    bool
+    alloc_new_memory_block ();
+
+    /// 根据BlockSize来计算Block的数目
+    static
+    uint8_t
+    calc_block_count_per_page (
+        const uint8_t block_size);
+
+    /// 计算LogicPageInfo的位置
+    LogicPageInfo *
+    calc_page_info_addr (
+        const MemoryBlock & memory_block,
+        const uint32_t      page_idx) const;
+
+private:
+    /// 所有申请到的Memory Block
+    MemoryBlockListT m_memory_block_list;
+    /// 当前使用的Logic页数目
+    uint32_t         m_logic_page_count;
+    /// 每个Logic页中的Block数目
+    uint8_t          m_blocks_per_page;
+    /// 每个Block的大小(字节数)
+    uint8_t          m_block_size;
+    /// Memory Block增长率
+    uint8_t          m_increment_rate;
 };
