@@ -30,6 +30,7 @@
 
 /// System headers
 #include <stdint.h> /// uint8_t, uint32_t,...
+#include <unordered_map>
 #include <vector>
 /// Library headers
 #include "Common/CompilerDefines.hpp" /// BUILD_MODE
@@ -76,32 +77,45 @@ public:
     allocated_bytes () const;
 
 private:
-    /// 放置在每个Logic页尾部的INFO
-    struct LogicPageInfo
+    /// Logic页尾部的Block信息
+    struct BlockInfo
     {
-        /// 使用BitMask标识Block是否空闲: 1表示Free, 0表示Used
+        /// FreeBlock Mask(BitMask标识Block是否空闲): 1表示Free, 0表示Used
         uint64_t free_block_mask[4];
 #if (BUILD_MODE == DEBUG_BUILD_MODE)
+        /// Block信息Magic头
         uint32_t magic_id;
-        uint32_t page_index;
+        /// 当前Block所在的Logic页索引
+        uint32_t page_idx;
 #endif
         /// 空闲Block的数目
         uint8_t  free_count;
     };
 
-    /// 虚拟Page信息
-    struct MemoryBlock
+    /// VM页(OS申请的)信息
+    struct VMPageInfo
     {
-        /// 虚拟页(OS申请的)起始地址
+        /// VM页起始地址
         uint8_t * vm_page_addr;
-        /// 虚拟页(OS申请的)数目
+        /// VM页数目
         uint32_t  vm_page_count;
         /// 使用内存总量(字节数)
         uint32_t  memory_usage;
-        /// 逻辑页数目
+        /// Logic页数目
         uint32_t  logic_page_count;
     };
-    typedef std::vector<MemoryBlock> MemoryBlockListT;
+    typedef std::vector<VMPageInfo> VMPageInfoListT;
+
+    /// Logic页信息
+    struct LogicPageInfo
+    {
+        /// 所属VMPageInfo的索引
+        uint32_t vm_page_info_idx;
+        /// 所属LogicPage在VMPage中的索引
+        uint32_t logic_page_idx;
+    };
+    /// <Address, BlockLocationInfo>
+    typedef std::unordered_map<uintptr_t, LogicPageInfo> LogicPageInfoTableT;
 
     bool
     alloc_new_memory_block ();
@@ -112,21 +126,23 @@ private:
     calc_block_count_per_page (
         const uint8_t block_size);
 
-    /// 计算LogicPageInfo的位置
-    LogicPageInfo *
-    calc_page_info_addr (
-        const MemoryBlock & memory_block,
-        const uint32_t      page_idx) const;
+    /// 计算BlockInfo的位置
+    BlockInfo *
+    calc_block_info_addr (
+        const VMPageInfo & vm_page_info,
+        const uint32_t     logic_page_idx) const;
 
 private:
-    /// 所有申请到的Memory Block
-    MemoryBlockListT m_memory_block_list;
+    /// 所有申请到的VM页信息列表
+    VMPageInfoListT     m_vm_page_info_list;
+    /// 所有Logic页信息查询表
+    LogicPageInfoTableT m_logic_page_info_table;
     /// 当前使用的Logic页数目
-    uint32_t         m_logic_page_count;
+    uint32_t            m_logic_page_count;
     /// 每个Logic页中的Block数目
-    uint8_t          m_blocks_per_page;
+    uint8_t             m_blocks_per_page;
     /// 每个Block的大小(字节数)
-    uint8_t          m_block_size;
+    uint8_t             m_block_size;
     /// Memory Block增长率
-    uint8_t          m_increment_rate;
+    uint8_t             m_increment_rate;
 };

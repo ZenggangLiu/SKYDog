@@ -44,7 +44,7 @@ vm_pages_needed (
     const uint64_t exp_size)
 {
     const uint32_t needed_pages =
-        (uint32_t)MathUtility::multiple_of(
+        (uint32_t)MathUtility::round_up_multiple_count(
             round_up_to_power_of_two(exp_size), (uint64_t)MemoryUtility::page_size());
     return needed_pages;
 }
@@ -175,7 +175,7 @@ RingBuffer::read_data_in_bytes (
             const uint64_t read_bytes_to_buffer_end =
                 (uint64_t)std::min(exp_data_size_in_bytes, m_buffer_size - data_read_index);
             /// 复制随后的数据
-            uint8_t * const data_outout_buffer = static_cast<uint8_t*>(output_buffer_ptr);
+            uint8_t * const data_outout_buffer = (uint8_t*)output_buffer_ptr;
             std::memcpy(
                 data_outout_buffer,
                 &m_data_buffer[data_read_index],
@@ -229,7 +229,7 @@ RingBuffer::save_data_in_bytes (
         const uint64_t save_bytes_to_buffer_end =
             (uint64_t)std::min(exp_data_size_in_bytes, m_buffer_size - data_save_index);
         /// 依次写出数据
-        const uint8_t * const data_input_buffer = static_cast<const uint8_t*>(input_buffer_ptr);
+        const uint8_t * const data_input_buffer = (const uint8_t*)input_buffer_ptr;
         std::memcpy(
             &m_data_buffer[data_save_index],
             data_input_buffer,

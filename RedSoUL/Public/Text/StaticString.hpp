@@ -32,7 +32,7 @@
 #include <stdint.h> /// uint32_t,...
 /// Library headers
 #include "Common/CompilerDefines.hpp" /// BUILD_MODE
-#include "Text/StaticStringId.hpp"    /// StaticStringIdT
+#include "Text/StaticStringId.hpp"
 
 
 class StaticString

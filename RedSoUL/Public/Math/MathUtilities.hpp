@@ -96,13 +96,15 @@ struct MathUtility
        const T min,
        const T max);
 
-    /// 计算A相对于B四舍五入后的整数倍数(即：A/B)
-    /// 例如：Math::multiple_of(-3, 2) == -1
+    /// 计算最少多少个B可以容下A
+    /// 例如:
+    /// - Math::round_up_multiple_count( 3, 2) == 2
+    /// - Math::round_up_multiple_count(-3, 2) == -1
     template < typename T >
     INLINE_FUNCTION
     static
     T
-    multiple_of (
+    round_up_multiple_count (
         const T a,
         const T b);
 
@@ -133,7 +135,7 @@ MathUtility::clamp (
 template < typename T >
 INLINE_FUNCTION
 T
-MathUtility::multiple_of (
+MathUtility::round_up_multiple_count (
     const T a,
     const T b)
 {
@@ -141,8 +143,8 @@ MathUtility::multiple_of (
     return (a - (T)1)/b + (T)1;
 }
 
-/// multiple_of不可用于浮点数
+/// round_up_multiple_count不可用于浮点数
 template <>
-INLINE_FUNCTION float MathUtility::multiple_of(const float, const float);
+INLINE_FUNCTION float MathUtility::round_up_multiple_count(const float, const float);
 template <>
-INLINE_FUNCTION double MathUtility::multiple_of(const double, const double);
+INLINE_FUNCTION double MathUtility::round_up_multiple_count(const double, const double);

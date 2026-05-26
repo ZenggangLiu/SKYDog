@@ -2,12 +2,9 @@
 #include <cstdio>  /// std::printf
 #include <cstring> /// std::memcpy, std::strlen
 /// Library headers
-#include "Assert/RuntimeAssert.hpp"     /// RUNTIME_ASSERT
-#include "Common/CommonDefines.hpp"     /// FOUR_CC
-#include "Hashing/RuntimeHash.hpp"      /// RUNTIME_STRING_HASH
-#include "Hashing/StaticStringHash.hpp" /// STATIC_STRING_HASH
-#include "Math/MathUtilities.hpp"       /// multiple_of
-#include "Memory/MemoryUtilities.hpp"   /// page_size
+#include "Assert/RuntimeAssert.hpp"   /// RUNTIME_ASSERT
+#include "Math/MathUtilities.hpp"     /// round_up_multiple_count
+#include "Memory/MemoryUtilities.hpp" /// page_size
 /// Self header
 #include "Text/StaticStringDepot.hpp"
 
@@ -28,7 +25,8 @@ void
 StaticStringDepot::memory_usage () const
 {
 #if (PROFILING_MODE == 1)
-    std::printf("<<static string depot>>: used %.2fMB memory\n", std::get<0>(m_allocator.memory_stats()) / 1024);
+    std::printf("<<static string depot>>: used %.2fMB memory\n",
+                std::get<0>(m_allocator.memory_stats()) / 1024);
 #endif
 }
 
@@ -110,7 +108,7 @@ StaticStringDepot::StaticStringDepot ()
     static constexpr uint32_t DEPOT_BYTE_SIZE = 4 * 1024;
 
     m_allocator.initialize(
-        MathUtility::multiple_of(DEPOT_BYTE_SIZE, MemoryUtility::page_size()), 2);
+        MathUtility::round_up_multiple_count(DEPOT_BYTE_SIZE, MemoryUtility::page_size()), 2);
 
     uint8_t * const empty_string_address = m_allocator.allocate(1);
     empty_string_address[0] = 0;

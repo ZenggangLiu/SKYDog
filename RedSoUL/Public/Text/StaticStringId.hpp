@@ -30,6 +30,10 @@
 
 /// System headers
 #include <stdint.h> /// uint32_t,...
+/// Library headers
+#include "Common/CommonDefines.hpp" /// FOUR_CC
+#include "Hashing/RuntimeHash.hpp"
+#include "Hashing/StaticStringHash.hpp"
 
 
 #if !defined(STRING_HASH)

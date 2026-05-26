@@ -32,8 +32,8 @@
 #include <stdint.h> /// uint32_t,...
 #include <unordered_map>
 /// Library headers
-#include "Memory/ArenaAllocator.hpp" /// ArenaAllocator
-#include "Text/StaticStringId.hpp"   /// StaticStringIdT
+#include "Memory/ArenaAllocator.hpp"
+#include "Text/StaticStringId.hpp"
 
 
 class StaticStringDepot

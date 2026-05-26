@@ -520,10 +520,12 @@ quaternion::rot_rads () const
 quaternion
 quaternion::inverse () const
 {
-    /// 对于普通四元数Q以及它的ConjugateQ*: Q* := { -Q.v, w }, 从它们的乘积可知:
+    /// 对于普通四元数Q以及它的Conjugate Q*: Q* := { -Q.v, w }, 从它们的乘积可知:
     /// Q * Q* = { <0*I, 0*J, 0*K, >, |Q|*|Q| }
     ///
-    /// 如果我们将Q * Q*归一化, 即: { <0*I, 0*J, 0*K, >, |Q|*|Q| } / |Q|^2 == 1
+    /// 由于Q * Q^-1 == Identity四元数 = { <0*I, 0*J, 0*K, >, 1 }
+    /// 如果将四元数Q与Conjugate Q的乘机归一化:
+    /// 即: Q * Q* = { <0*I, 0*J, 0*K, >, |Q|*|Q| } / |Q|^2 = Identity四元数
     /// 所以: Q * Q^-1 == Q * Q* / |Q|^2
     /// 得到:
     /// Q^-1 := Q* / |Q|^2

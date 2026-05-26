@@ -151,6 +151,12 @@
 #endif /// !defined(INLINE_FUNCTION)
 
 
+/// Unused variable
+#if !defined(UNUSED_VARIABLE)
+    #define UNUSED_VARIABLE(v) ((void)v)
+#endif /// !define(UNUSED_VARIABLE)
+
+
 /// Packed struct
 #if !defined(PACKED_STRUCT)
     #if (OS_TYPE == OS_TYPE_WIN && defined(_MSC_VER))
