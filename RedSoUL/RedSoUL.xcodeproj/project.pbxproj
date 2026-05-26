@@ -49,6 +49,30 @@
 		BD326F332F495429007EE8EC /* RingBuffer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD326F312F495429007EE8EC /* RingBuffer.hpp */; };
 		BD326F392F4958CE007EE8EC /* RingBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD326F382F4958CE007EE8EC /* RingBuffer.cpp */; };
 		BD326F3A2F4958CE007EE8EC /* RingBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD326F382F4958CE007EE8EC /* RingBuffer.cpp */; };
+		BD44779B2FB731D7003DBF3C /* BitOperationUtilities.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD44779A2FB731D7003DBF3C /* BitOperationUtilities.hpp */; };
+		BD44779C2FB731D7003DBF3C /* BitOperationUtilities.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD44779A2FB731D7003DBF3C /* BitOperationUtilities.hpp */; };
+		BD44779E2FB732F1003DBF3C /* BlockAllocator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD44779D2FB732F1003DBF3C /* BlockAllocator.hpp */; };
+		BD44779F2FB732F1003DBF3C /* BlockAllocator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD44779D2FB732F1003DBF3C /* BlockAllocator.hpp */; };
+		BD4477A12FB82030003DBF3C /* BitOperationUtilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD4477A02FB82030003DBF3C /* BitOperationUtilities.cpp */; };
+		BD4477A22FB82030003DBF3C /* BitOperationUtilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD4477A02FB82030003DBF3C /* BitOperationUtilities.cpp */; };
+		BD4477A42FB8205B003DBF3C /* BlockAllocatorImpl.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD4477A32FB8205B003DBF3C /* BlockAllocatorImpl.hpp */; };
+		BD4477A52FB8205B003DBF3C /* BlockAllocatorImpl.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD4477A32FB8205B003DBF3C /* BlockAllocatorImpl.hpp */; };
+		BD4477A72FB83CE4003DBF3C /* BlockAllocatorImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD4477A62FB83CE4003DBF3C /* BlockAllocatorImpl.cpp */; };
+		BD4477A82FB83CE4003DBF3C /* BlockAllocatorImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD4477A62FB83CE4003DBF3C /* BlockAllocatorImpl.cpp */; };
+		BD54E2262FC07755009DBD8C /* MarkerTypeDepot.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD54E2252FC07755009DBD8C /* MarkerTypeDepot.hpp */; };
+		BD54E2272FC07755009DBD8C /* MarkerTypeDepot.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD54E2252FC07755009DBD8C /* MarkerTypeDepot.hpp */; };
+		BD54E2292FC1606B009DBD8C /* MarkerTypeDepot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD54E2282FC1606B009DBD8C /* MarkerTypeDepot.cpp */; };
+		BD54E22A2FC1606B009DBD8C /* MarkerTypeDepot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD54E2282FC1606B009DBD8C /* MarkerTypeDepot.cpp */; };
+		BD5510012FB91E0000110001 /* ObjectMarker.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD5510002FB91E0000110001 /* ObjectMarker.hpp */; };
+		BD5510022FB91E0000110001 /* ObjectMarker.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD5510002FB91E0000110001 /* ObjectMarker.hpp */; };
+		BD5510042FB91E0000110001 /* SceneObject.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD5510032FB91E0000110001 /* SceneObject.hpp */; };
+		BD5510052FB91E0000110001 /* SceneObject.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD5510032FB91E0000110001 /* SceneObject.hpp */; };
+		BD5510072FB91E0000110001 /* TransformMarker.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD5510062FB91E0000110001 /* TransformMarker.hpp */; };
+		BD5510082FB91E0000110001 /* TransformMarker.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD5510062FB91E0000110001 /* TransformMarker.hpp */; };
+		BD5510102FB91E0000110001 /* SceneObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD55100F2FB91E0000110001 /* SceneObject.cpp */; };
+		BD5510112FB91E0000110001 /* SceneObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD55100F2FB91E0000110001 /* SceneObject.cpp */; };
+		BD5510132FB91E0000110001 /* TransformMarker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD5510122FB91E0000110001 /* TransformMarker.cpp */; };
+		BD5510142FB91E0000110001 /* TransformMarker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD5510122FB91E0000110001 /* TransformMarker.cpp */; };
 		BD58B0802F4DA6D40024C670 /* WorkerThread.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B07F2F4DA6D40024C670 /* WorkerThread.hpp */; };
 		BD58B0812F4DA6D40024C670 /* WorkerThread.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B07F2F4DA6D40024C670 /* WorkerThread.hpp */; };
 		BD58B0832F4EECE10024C670 /* ThreadDefines.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B0822F4EECE10024C670 /* ThreadDefines.hpp */; };
@@ -141,6 +165,12 @@
 		BDA8962A2F74F48400B0683B /* X2TeaCodec.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDA896282F74F48400B0683B /* X2TeaCodec.cpp */; };
 		BDA8962D2F74F4C100B0683B /* X2TeaCodec.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA8962C2F74F4C100B0683B /* X2TeaCodec.hpp */; };
 		BDA8962E2F74F4C100B0683B /* X2TeaCodec.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA8962C2F74F4C100B0683B /* X2TeaCodec.hpp */; };
+		BDC05CAD2FC56EF4005CCA1C /* GameScene.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDC05CAC2FC56EF4005CCA1C /* GameScene.hpp */; };
+		BDC05CAE2FC56EF4005CCA1C /* GameScene.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDC05CAC2FC56EF4005CCA1C /* GameScene.hpp */; };
+		BDC05CB02FC59D5F005CCA1C /* GameScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDC05CAF2FC59D5F005CCA1C /* GameScene.cpp */; };
+		BDC05CB12FC59D5F005CCA1C /* GameScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDC05CAF2FC59D5F005CCA1C /* GameScene.cpp */; };
+		BDC05CB32FC59E16005CCA1C /* ObjectMarker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDC05CB22FC59E16005CCA1C /* ObjectMarker.cpp */; };
+		BDC05CB42FC59E16005CCA1C /* ObjectMarker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDC05CB22FC59E16005CCA1C /* ObjectMarker.cpp */; };
 		BDC9CB012F94DD580042BF24 /* NativeReadStream.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDC9CB002F94DD580042BF24 /* NativeReadStream.hpp */; };
 		BDC9CB022F94DD580042BF24 /* NativeReadStream.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDC9CB002F94DD580042BF24 /* NativeReadStream.hpp */; };
 		BDC9CB042F94DDB50042BF24 /* NativeWriteStream.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDC9CB032F94DDB50042BF24 /* NativeWriteStream.hpp */; };
@@ -227,6 +257,18 @@
 		BD326F2D2F431F39007EE8EC /* MemoryUtilities.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = MemoryUtilities.cpp; path = Private/Memory/MemoryUtilities.cpp; sourceTree = "<group>"; };
 		BD326F312F495429007EE8EC /* RingBuffer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = RingBuffer.hpp; path = Public/Container/RingBuffer.hpp; sourceTree = "<group>"; };
 		BD326F382F4958CE007EE8EC /* RingBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = RingBuffer.cpp; path = Private/Container/RingBuffer.cpp; sourceTree = "<group>"; };
+		BD44779A2FB731D7003DBF3C /* BitOperationUtilities.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = BitOperationUtilities.hpp; path = Public/Math/BitOperationUtilities.hpp; sourceTree = "<group>"; };
+		BD44779D2FB732F1003DBF3C /* BlockAllocator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = BlockAllocator.hpp; path = Public/Memory/BlockAllocator.hpp; sourceTree = "<group>"; };
+		BD4477A02FB82030003DBF3C /* BitOperationUtilities.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = BitOperationUtilities.cpp; path = Private/Math/BitOperationUtilities.cpp; sourceTree = "<group>"; };
+		BD4477A32FB8205B003DBF3C /* BlockAllocatorImpl.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = BlockAllocatorImpl.hpp; path = Private/Memory/BlockAllocatorImpl.hpp; sourceTree = "<group>"; };
+		BD4477A62FB83CE4003DBF3C /* BlockAllocatorImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = BlockAllocatorImpl.cpp; path = Private/Memory/BlockAllocatorImpl.cpp; sourceTree = "<group>"; };
+		BD54E2252FC07755009DBD8C /* MarkerTypeDepot.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = MarkerTypeDepot.hpp; path = Private/SceneGraph/MarkerTypeDepot.hpp; sourceTree = "<group>"; };
+		BD54E2282FC1606B009DBD8C /* MarkerTypeDepot.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = MarkerTypeDepot.cpp; path = Private/SceneGraph/MarkerTypeDepot.cpp; sourceTree = "<group>"; };
+		BD5510002FB91E0000110001 /* ObjectMarker.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = ObjectMarker.hpp; path = Public/SceneGraph/ObjectMarker.hpp; sourceTree = "<group>"; };
+		BD5510032FB91E0000110001 /* SceneObject.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = SceneObject.hpp; path = Public/SceneGraph/SceneObject.hpp; sourceTree = "<group>"; };
+		BD5510062FB91E0000110001 /* TransformMarker.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = TransformMarker.hpp; path = Public/SceneGraph/TransformMarker.hpp; sourceTree = "<group>"; };
+		BD55100F2FB91E0000110001 /* SceneObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = SceneObject.cpp; path = Private/SceneGraph/SceneObject.cpp; sourceTree = "<group>"; };
+		BD5510122FB91E0000110001 /* TransformMarker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = TransformMarker.cpp; path = Private/SceneGraph/TransformMarker.cpp; sourceTree = "<group>"; };
 		BD58B07F2F4DA6D40024C670 /* WorkerThread.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = WorkerThread.hpp; path = Public/Thread/WorkerThread.hpp; sourceTree = "<group>"; };
 		BD58B0822F4EECE10024C670 /* ThreadDefines.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = ThreadDefines.hpp; path = Public/Thread/ThreadDefines.hpp; sourceTree = "<group>"; };
 		BD58B0862F4EF27D0024C670 /* WorkerThread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = WorkerThread.cpp; path = Private/Thread/WorkerThread.cpp; sourceTree = "<group>"; };
@@ -236,7 +278,7 @@
 		BD58B09B2F56DE1D0024C670 /* ClockTime.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = ClockTime.cpp; path = Private/Time/ClockTime.cpp; sourceTree = "<group>"; };
 		BD58B0A32F582F480024C670 /* GameMainLoop.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = GameMainLoop.cpp; path = Private/Runtime/GameMainLoop.cpp; sourceTree = "<group>"; };
 		BD58B0BD2F5974630024C670 /* RuntimeHash.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = RuntimeHash.hpp; path = Public/Hashing/RuntimeHash.hpp; sourceTree = "<group>"; };
-		BD58B0C92F5AD4BF0024C670 /* StaticStringId.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = StaticStringId.hpp; path = Public/Text/StaticStringId.hpp; sourceTree = "<group>"; };
+		BD58B0C92F5AD4BF0024C670 /* StaticStringId.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = StaticStringId.hpp; path = Public/Text/StaticStringId.hpp; sourceTree = "<group>"; };
 		BD58B0CC2F5B93B90024C670 /* StaticXXHash64.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = StaticXXHash64.hpp; path = Public/Hashing/StaticXXHash64.hpp; sourceTree = "<group>"; };
 		BD58B0CD2F5B93B90024C670 /* StaticXXHash32.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = StaticXXHash32.hpp; path = Public/Hashing/StaticXXHash32.hpp; sourceTree = "<group>"; };
 		BD58B0D22F5B93F30024C670 /* StaticStringHash.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = StaticStringHash.hpp; path = Public/Hashing/StaticStringHash.hpp; sourceTree = "<group>"; };
@@ -277,6 +319,9 @@
 		BDA896282F74F48400B0683B /* X2TeaCodec.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = X2TeaCodec.cpp; path = Private/Codec/X2TeaCodec.cpp; sourceTree = "<group>"; };
 		BDA8962C2F74F4C100B0683B /* X2TeaCodec.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = X2TeaCodec.hpp; path = Public/Codec/X2TeaCodec.hpp; sourceTree = "<group>"; };
 		BDA896322F74F6E900B0683B /* Quaternion_derivation.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; lineEnding = 0; name = Quaternion_derivation.txt; path = ../Document/Quaternion_derivation.txt; sourceTree = "<group>"; };
+		BDC05CAC2FC56EF4005CCA1C /* GameScene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = GameScene.hpp; path = Public/SceneGraph/GameScene.hpp; sourceTree = "<group>"; };
+		BDC05CAF2FC59D5F005CCA1C /* GameScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = GameScene.cpp; path = Private/SceneGraph/GameScene.cpp; sourceTree = "<group>"; };
+		BDC05CB22FC59E16005CCA1C /* ObjectMarker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = ObjectMarker.cpp; path = Private/SceneGraph/ObjectMarker.cpp; sourceTree = "<group>"; };
 		BDC9CB002F94DD580042BF24 /* NativeReadStream.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = NativeReadStream.hpp; path = Public/FileSystem/NativeReadStream.hpp; sourceTree = "<group>"; };
 		BDC9CB032F94DDB50042BF24 /* NativeWriteStream.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = NativeWriteStream.hpp; path = Public/FileSystem/NativeWriteStream.hpp; sourceTree = "<group>"; };
 		BDC9CB062F94DE020042BF24 /* NativeWriteStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = NativeWriteStream.cpp; path = Private/FileSystem/NativeWriteStream.cpp; sourceTree = "<group>"; };
@@ -377,6 +422,7 @@
 		BD326EE42F4176F2007EE8EC /* Math */ = {
 			isa = PBXGroup;
 			children = (
+				BD44779A2FB731D7003DBF3C /* BitOperationUtilities.hpp */,
 				BD326EE52F41773A007EE8EC /* MathUtilities.hpp */,
 				BD0E412A2F7BC88E00CFA766 /* MathDefines.hpp */,
 				BD0E41302F7BC95900CFA766 /* RandomNumber.hpp */,
@@ -389,6 +435,7 @@
 			children = (
 				BD58B0892F519C4A0024C670 /* ArenaAllocator.hpp */,
 				BD326F292F431CD5007EE8EC /* MemoryUtilities.hpp */,
+				BD44779D2FB732F1003DBF3C /* BlockAllocator.hpp */,
 			);
 			name = Memory;
 			sourceTree = "<group>";
@@ -398,6 +445,8 @@
 			children = (
 				BD58B08C2F519D890024C670 /* ArenaAllocator.cpp */,
 				BD326F2D2F431F39007EE8EC /* MemoryUtilities.cpp */,
+				BD4477A32FB8205B003DBF3C /* BlockAllocatorImpl.hpp */,
+				BD4477A62FB83CE4003DBF3C /* BlockAllocatorImpl.cpp */,
 			);
 			name = Memory;
 			sourceTree = "<group>";
@@ -416,6 +465,30 @@
 				BD326F382F4958CE007EE8EC /* RingBuffer.cpp */,
 			);
 			name = Container;
+			sourceTree = "<group>";
+		};
+		BD4477962FB4845E003DBF3C /* SceneGraph */ = {
+			isa = PBXGroup;
+			children = (
+				BDC05CAC2FC56EF4005CCA1C /* GameScene.hpp */,
+				BD5510002FB91E0000110001 /* ObjectMarker.hpp */,
+				BD5510032FB91E0000110001 /* SceneObject.hpp */,
+				BD5510062FB91E0000110001 /* TransformMarker.hpp */,
+			);
+			name = SceneGraph;
+			sourceTree = "<group>";
+		};
+		BD55101B2FB91E0000110001 /* SceneGraph */ = {
+			isa = PBXGroup;
+			children = (
+				BDC05CAF2FC59D5F005CCA1C /* GameScene.cpp */,
+				BD54E2252FC07755009DBD8C /* MarkerTypeDepot.hpp */,
+				BD54E2282FC1606B009DBD8C /* MarkerTypeDepot.cpp */,
+				BDC05CB22FC59E16005CCA1C /* ObjectMarker.cpp */,
+				BD55100F2FB91E0000110001 /* SceneObject.cpp */,
+				BD5510122FB91E0000110001 /* TransformMarker.cpp */,
+			);
+			name = SceneGraph;
 			sourceTree = "<group>";
 		};
 		BD58B07E2F4DA6920024C670 /* Thread */ = {
@@ -542,6 +615,7 @@
 				BD326F282F431C8A007EE8EC /* Memory */,
 				BD8FB8062F7F6D7700EE67B4 /* Render */,
 				BD58B09F2F582F180024C670 /* Runtime */,
+				BD4477962FB4845E003DBF3C /* SceneGraph */,
 				BD58B08F2F51A03F0024C670 /* Text */,
 				BD58B0962F56DBA70024C670 /* Time */,
 				BD58B07E2F4DA6920024C670 /* Thread */,
@@ -564,6 +638,7 @@
 				BD326F2C2F431F23007EE8EC /* Memory */,
 				BD8FB80D2F7F6FF800EE67B4 /* Render */,
 				BD58B09E2F582F0F0024C670 /* Runtime */,
+				BD55101B2FB91E0000110001 /* SceneGraph */,
 				BD58B0AE2F58EF5C0024C670 /* Text */,
 				BD58B09A2F56DE0B0024C670 /* Time */,
 				BD58B0852F4EF2640024C670 /* Thread */,
@@ -631,6 +706,7 @@
 		BD9FAFB12F6E526F000B085D /* Math */ = {
 			isa = PBXGroup;
 			children = (
+				BD4477A02FB82030003DBF3C /* BitOperationUtilities.cpp */,
 				BD9FAFB22F6E528C000B085D /* MathUtilities.cpp */,
 				BD0E41332F7BD6B600CFA766 /* RandomNumber.cpp */,
 			);
@@ -754,13 +830,20 @@
 				BDA8962D2F74F4C100B0683B /* X2TeaCodec.hpp in Headers */,
 				BD58B0EB2F5BA1790024C670 /* StaticStringDepot.hpp in Headers */,
 				BD8FB80B2F7F6EF000EE67B4 /* RenderMeshId.hpp in Headers */,
+				BDC05CAD2FC56EF4005CCA1C /* GameScene.hpp in Headers */,
 				BDA896202F714B9400B0683B /* Quaternion.hpp in Headers */,
 				BDC9CB0D2F96324D0042BF24 /* FileHandle.hpp in Headers */,
 				BD326ED82F3C24A5007EE8EC /* RuntimeAssert.hpp in Headers */,
 				BD58B08A2F519C4A0024C670 /* ArenaAllocator.hpp in Headers */,
+				BD44779B2FB731D7003DBF3C /* BitOperationUtilities.hpp in Headers */,
+				BD5510012FB91E0000110001 /* ObjectMarker.hpp in Headers */,
+				BD5510042FB91E0000110001 /* SceneObject.hpp in Headers */,
+				BD5510072FB91E0000110001 /* TransformMarker.hpp in Headers */,
 				BD326EDB2F3C2625007EE8EC /* CompilerDefines.hpp in Headers */,
 				BD58B0CA2F5AD4BF0024C670 /* StaticStringId.hpp in Headers */,
+				BD4477A42FB8205B003DBF3C /* BlockAllocatorImpl.hpp in Headers */,
 				BD0E41252F7BC7F400CFA766 /* Matrix3x4.hpp in Headers */,
+				BD54E2262FC07755009DBD8C /* MarkerTypeDepot.hpp in Headers */,
 				BD8FB8442F8512B100EE67B4 /* Layout_Pos.hpp in Headers */,
 				BDC9CB2D2F978BA00042BF24 /* PpmFile.hpp in Headers */,
 				BD0E412E2F7BC8EF00CFA766 /* GameLogic.hpp in Headers */,
@@ -795,6 +878,7 @@
 				BD8FB8462F8512B100EE67B4 /* Layout_Pos_Colr.hpp in Headers */,
 				BDA8960E2F6F6F0300B0683B /* Float3D.hpp in Headers */,
 				BD8FB80F2F7F701800EE67B4 /* RenderMeshDepot.hpp in Headers */,
+				BD44779E2FB732F1003DBF3C /* BlockAllocator.hpp in Headers */,
 				BD326ECC2F3BFC80007EE8EC /* CommonDefines.hpp in Headers */,
 				BD8FB8362F850FFD00EE67B4 /* AxisType.hpp in Headers */,
 				BD8FB84B2F8512EE00EE67B4 /* VertexDataType.hpp in Headers */,
@@ -821,13 +905,20 @@
 				BDA8962E2F74F4C100B0683B /* X2TeaCodec.hpp in Headers */,
 				BD58B0EC2F5BA1790024C670 /* StaticStringDepot.hpp in Headers */,
 				BD8FB80C2F7F6EF000EE67B4 /* RenderMeshId.hpp in Headers */,
+				BDC05CAE2FC56EF4005CCA1C /* GameScene.hpp in Headers */,
 				BDA896212F714B9400B0683B /* Quaternion.hpp in Headers */,
 				BDC9CB0E2F96324D0042BF24 /* FileHandle.hpp in Headers */,
 				BD326ED92F3C24A5007EE8EC /* RuntimeAssert.hpp in Headers */,
 				BD58B08B2F519C4A0024C670 /* ArenaAllocator.hpp in Headers */,
+				BD44779C2FB731D7003DBF3C /* BitOperationUtilities.hpp in Headers */,
+				BD5510022FB91E0000110001 /* ObjectMarker.hpp in Headers */,
+				BD5510052FB91E0000110001 /* SceneObject.hpp in Headers */,
+				BD5510082FB91E0000110001 /* TransformMarker.hpp in Headers */,
 				BD326EDC2F3C2625007EE8EC /* CompilerDefines.hpp in Headers */,
 				BD58B0CB2F5AD4BF0024C670 /* StaticStringId.hpp in Headers */,
+				BD4477A52FB8205B003DBF3C /* BlockAllocatorImpl.hpp in Headers */,
 				BD0E41262F7BC7F400CFA766 /* Matrix3x4.hpp in Headers */,
+				BD54E2272FC07755009DBD8C /* MarkerTypeDepot.hpp in Headers */,
 				BD8FB8452F8512B100EE67B4 /* Layout_Pos.hpp in Headers */,
 				BDC9CB2E2F978BA00042BF24 /* PpmFile.hpp in Headers */,
 				BD0E412F2F7BC8EF00CFA766 /* GameLogic.hpp in Headers */,
@@ -862,6 +953,7 @@
 				BD8FB8472F8512B100EE67B4 /* Layout_Pos_Colr.hpp in Headers */,
 				BDA8960F2F6F6F0300B0683B /* Float3D.hpp in Headers */,
 				BD8FB8102F7F701800EE67B4 /* RenderMeshDepot.hpp in Headers */,
+				BD44779F2FB732F1003DBF3C /* BlockAllocator.hpp in Headers */,
 				BD326EC72F3B32F0007EE8EC /* CommonDefines.hpp in Headers */,
 				BD8FB8372F850FFD00EE67B4 /* AxisType.hpp in Headers */,
 				BD8FB84C2F8512EE00EE67B4 /* VertexDataType.hpp in Headers */,
@@ -950,6 +1042,9 @@
 			files = (
 				BDA896242F72A05D00B0683B /* Quaternion.cpp in Sources */,
 				BD326EE32F3C7F9A007EE8EC /* RuntimeAssert.cpp in Sources */,
+				BD4477A82FB83CE4003DBF3C /* BlockAllocatorImpl.cpp in Sources */,
+				BD5510112FB91E0000110001 /* SceneObject.cpp in Sources */,
+				BD5510142FB91E0000110001 /* TransformMarker.cpp in Sources */,
 				BDD403552F93519C0019BE16 /* ApplNativeDirectory.mm in Sources */,
 				BD0E410E2F778E4A00CFA766 /* Float2D.cpp in Sources */,
 				BDC9CB092F94DE020042BF24 /* NativeWriteStream.cpp in Sources */,
@@ -964,6 +1059,7 @@
 				BD58B08E2F519D890024C670 /* ArenaAllocator.cpp in Sources */,
 				BD9FAFBE2F6E756B000B085D /* Float4D.cpp in Sources */,
 				BDD403642F947F2F0019BE16 /* FileName.cpp in Sources */,
+				BDC05CB42FC59E16005CCA1C /* ObjectMarker.cpp in Sources */,
 				BD58B09D2F56DE1D0024C670 /* ClockTime.cpp in Sources */,
 				BD58B0882F4EF27D0024C670 /* WorkerThread.cpp in Sources */,
 				BD9FAFB42F6E528C000B085D /* MathUtilities.cpp in Sources */,
@@ -973,13 +1069,16 @@
 				BD0E41202F79245600CFA766 /* Ray3D.cpp in Sources */,
 				BDC9CB0B2F94DE020042BF24 /* NativeReadStream.cpp in Sources */,
 				BD58B0EE2F5BA1790024C670 /* StaticStringDepot.cpp in Sources */,
+				BDC05CB12FC59D5F005CCA1C /* GameScene.cpp in Sources */,
 				BD8FB8402F85112900EE67B4 /* Triangle3D.cpp in Sources */,
 				BD58B0F12F5BB84C0024C670 /* StaticString.cpp in Sources */,
 				BDD4035E2F9387AD0019BE16 /* ApplNativeFile.mm in Sources */,
 				BDA896122F6F70FA00B0683B /* Float3D.cpp in Sources */,
 				BDC9CB4D2F9C7F7D0042BF24 /* RMeshFile.cpp in Sources */,
 				BDC9CB382F978C2F0042BF24 /* PlyFile.cpp in Sources */,
+				BD54E22A2FC1606B009DBD8C /* MarkerTypeDepot.cpp in Sources */,
 				BD0E41352F7BD6B600CFA766 /* RandomNumber.cpp in Sources */,
+				BD4477A22FB82030003DBF3C /* BitOperationUtilities.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -989,6 +1088,9 @@
 			files = (
 				BDA896232F72A05D00B0683B /* Quaternion.cpp in Sources */,
 				BD326EE22F3C7F9A007EE8EC /* RuntimeAssert.cpp in Sources */,
+				BD4477A72FB83CE4003DBF3C /* BlockAllocatorImpl.cpp in Sources */,
+				BD5510102FB91E0000110001 /* SceneObject.cpp in Sources */,
+				BD5510132FB91E0000110001 /* TransformMarker.cpp in Sources */,
 				BDD403542F93519C0019BE16 /* ApplNativeDirectory.mm in Sources */,
 				BD0E410D2F778E4A00CFA766 /* Float2D.cpp in Sources */,
 				BDC9CB082F94DE020042BF24 /* NativeWriteStream.cpp in Sources */,
@@ -1003,6 +1105,7 @@
 				BD58B08D2F519D890024C670 /* ArenaAllocator.cpp in Sources */,
 				BD9FAFBD2F6E756B000B085D /* Float4D.cpp in Sources */,
 				BDD403632F947F2F0019BE16 /* FileName.cpp in Sources */,
+				BDC05CB32FC59E16005CCA1C /* ObjectMarker.cpp in Sources */,
 				BD58B09C2F56DE1D0024C670 /* ClockTime.cpp in Sources */,
 				BD58B0872F4EF27D0024C670 /* WorkerThread.cpp in Sources */,
 				BD9FAFB32F6E528C000B085D /* MathUtilities.cpp in Sources */,
@@ -1012,13 +1115,16 @@
 				BD0E411F2F79245600CFA766 /* Ray3D.cpp in Sources */,
 				BDC9CB0A2F94DE020042BF24 /* NativeReadStream.cpp in Sources */,
 				BD58B0ED2F5BA1790024C670 /* StaticStringDepot.cpp in Sources */,
+				BDC05CB02FC59D5F005CCA1C /* GameScene.cpp in Sources */,
 				BD8FB83F2F85112900EE67B4 /* Triangle3D.cpp in Sources */,
 				BD58B0F02F5BB84C0024C670 /* StaticString.cpp in Sources */,
 				BDD4035D2F9387AD0019BE16 /* ApplNativeFile.mm in Sources */,
 				BDA896112F6F70FA00B0683B /* Float3D.cpp in Sources */,
 				BDC9CB4C2F9C7F7D0042BF24 /* RMeshFile.cpp in Sources */,
 				BDC9CB372F978C2F0042BF24 /* PlyFile.cpp in Sources */,
+				BD54E2292FC1606B009DBD8C /* MarkerTypeDepot.cpp in Sources */,
 				BD0E41342F7BD6B600CFA766 /* RandomNumber.cpp in Sources */,
+				BD4477A12FB82030003DBF3C /* BitOperationUtilities.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

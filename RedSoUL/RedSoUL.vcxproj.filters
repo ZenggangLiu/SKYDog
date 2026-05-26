@@ -109,6 +109,12 @@
     <Filter Include="Private\Render\Document">
       <UniqueIdentifier>{0a413813-6e6a-4546-ab34-6e25063d8c58}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Public\SceneGraph">
+      <UniqueIdentifier>{59214a37-7702-43f0-812b-cfbe946b6423}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Private\SceneGraph">
+      <UniqueIdentifier>{7bfaa0a5-fc3c-4a00-b24e-bb933459aaa4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Public\Assert\RuntimeAssert.hpp">
@@ -252,8 +258,17 @@
     <ClInclude Include="Private\IO\SoULFileHead.hpp">
       <Filter>Private\IO</Filter>
     </ClInclude>
+    <ClInclude Include="Public\Math\BitOperationUtilities.hpp">
+      <Filter>Public\Math</Filter>
+    </ClInclude>
     <ClInclude Include="Public\Math\RandomNumber.hpp">
       <Filter>Public\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Private\Memory\BlockAllocatorImpl.hpp">
+      <Filter>Private\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\Memory\BlockAllocator.hpp">
+      <Filter>Public\Memory</Filter>
     </ClInclude>
     <ClInclude Include="Public\Render\RenderMeshId.hpp">
       <Filter>Public\Render</Filter>
@@ -293,6 +308,21 @@
     </ClInclude>
     <ClInclude Include="Private\Render\VertexLayout\Layout_Pos_Colr_Norm_Uv.hpp">
       <Filter>Private\Render\VertexLayout</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\SceneGraph\GameScene.hpp">
+      <Filter>Public\SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="Private\SceneGraph\MarkerTypeDepot.hpp">
+      <Filter>Private\SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\SceneGraph\ObjectMarker.hpp">
+      <Filter>Public\SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\SceneGraph\SceneObject.hpp">
+      <Filter>Public\SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\SceneGraph\TransformMarker.hpp">
+      <Filter>Public\SceneGraph</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -350,14 +380,8 @@
     <ClCompile Include="Private\Hashing\RuntimeHash.cpp">
       <Filter>Private\Hashing</Filter>
     </ClCompile>
-    <ClCompile Include="Private\IO\ImageFile\PpmFile.cpp">
-      <Filter>Private\IO\ImageFile</Filter>
-    </ClCompile>
-    <ClCompile Include="Private\IO\MeshFile\PlyFile.cpp">
-      <Filter>Private\IO\MeshFile</Filter>
-    </ClCompile>
-    <ClCompile Include="Private\IO\MeshFile\RMeshFile.cpp">
-      <Filter>Private\IO\MeshFile</Filter>
+    <ClCompile Include="Private\Math\BitOperationUtilities.cpp">
+      <Filter>Private\Math</Filter>
     </ClCompile>
     <ClCompile Include="Private\Math\MathUtilities.cpp">
       <Filter>Private\Math</Filter>
@@ -368,8 +392,20 @@
     <ClCompile Include="Private\Memory\ArenaAllocator.cpp">
       <Filter>Private\Memory</Filter>
     </ClCompile>
+    <ClCompile Include="Private\Memory\BlockAllocatorImpl.cpp">
+      <Filter>Private\Memory</Filter>
+    </ClCompile>
     <ClCompile Include="Private\Memory\MemoryUtilities.cpp">
       <Filter>Private\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\IO\ImageFile\PpmFile.cpp">
+      <Filter>Private\IO\ImageFile</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\IO\MeshFile\PlyFile.cpp">
+      <Filter>Private\IO\MeshFile</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\IO\MeshFile\RMeshFile.cpp">
+      <Filter>Private\IO\MeshFile</Filter>
     </ClCompile>
     <ClCompile Include="Private\Render\RenderMesh.cpp">
       <Filter>Private\Render</Filter>
@@ -379,6 +415,21 @@
     </ClCompile>
     <ClCompile Include="Private\Runtime\GameMainLoop.cpp">
       <Filter>Private\Runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\SceneGraph\GameScene.cpp">
+      <Filter>Private\SceneGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\SceneGraph\MarkerTypeDepot.cpp">
+      <Filter>Private\SceneGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\SceneGraph\ObjectMarker.cpp">
+      <Filter>Private\SceneGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\SceneGraph\SceneObject.cpp">
+      <Filter>Private\SceneGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\SceneGraph\TransformMarker.cpp">
+      <Filter>Private\SceneGraph</Filter>
     </ClCompile>
     <ClCompile Include="Private\Thread\WorkerThread.cpp">
       <Filter>Private\Thread</Filter>
