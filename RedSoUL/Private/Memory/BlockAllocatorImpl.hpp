@@ -42,7 +42,7 @@ class BlockAllocatorImpl
 public:
     explicit
     BlockAllocatorImpl (
-        const uint8_t block_size);
+        const uint16_t block_size);
 
     ~BlockAllocatorImpl ();
 
@@ -61,7 +61,7 @@ public:
     void
     release ();
 
-    uint8_t
+    uint16_t
     block_size () const;
 
     uint32_t
@@ -124,7 +124,7 @@ private:
     static
     uint8_t
     calc_block_count_per_page (
-        const uint8_t block_size);
+        const uint16_t block_size);
 
     /// 计算BlockInfo的位置
     BlockInfo *
@@ -142,7 +142,7 @@ private:
     /// 每个Logic页中的Block数目
     uint8_t             m_blocks_per_page;
     /// 每个Block的大小(字节数)
-    uint8_t             m_block_size;
+    uint16_t            m_block_size;
     /// Memory Block增长率
     uint8_t             m_increment_rate;
 };

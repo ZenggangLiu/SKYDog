@@ -43,8 +43,8 @@ static constexpr uint32_t BLOCK_ALLOCATOR_PAGE_SIZE = 4096u;
 
 /// 内存Block分配器(以相同大小的Block的方式进行内存分配)
 /// NOTE:
-/// - Block大小范围为[16字节，128字节], 之间的任意8字节的倍数:
-///   [16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, 128]
+/// - Block大小范围为[16字节，256字节], 之间的任意8字节的倍数:
+///   [16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, 128, ..., 256]
 ///
 template <typename ClassType>
 class BlockAllocator
@@ -53,17 +53,17 @@ class BlockAllocator
     /// round up到的下一个8的倍数
     static constexpr uint32_t CLASS_SIZE_ROUNDED_UP = (uint32_t)sizeof(ClassType) + 7;
     /// 使用的Block大小(字节数)
-    static constexpr uint8_t BLOCK_SIZE_USED =
+    static constexpr uint16_t BLOCK_SIZE_USED =
         (CLASS_SIZE_ROUNDED_UP & BITS_MASK) < 16 ?
         16                                       :
-        (uint8_t)(CLASS_SIZE_ROUNDED_UP & BITS_MASK);
+        (uint16_t)(CLASS_SIZE_ROUNDED_UP & BITS_MASK);
 
-    static_assert(sizeof(ClassType) <= 128,
+    static_assert(sizeof(ClassType) <= 256,
                   "The given class is too large, "
-                  "BlockAllocator can at most allocate 128 bytes!!");
-    static_assert(BLOCK_SIZE_USED <= 128,
+                  "BlockAllocator can at most allocate 256 bytes!!");
+    static_assert(BLOCK_SIZE_USED <= 256,
                   "The block size is too large, "
-                  "BlockAllocator can at most allocate 128 bytes!!");
+                  "BlockAllocator can at most allocate 256 bytes!!");
 
 public:
     INLINE_FUNCTION
@@ -104,7 +104,7 @@ public:
 
     /// 获取Block大小(字节数)
     INLINE_FUNCTION
-    uint8_t
+    uint16_t
     block_size () const;
 
     /// 获取Block的总数
@@ -148,7 +148,7 @@ struct BlockAllocatorBridge
     static
     BlockAllocatorImpl *
     create (
-        const uint8_t block_size);
+        const uint16_t block_size);
 
     static
     void
@@ -181,7 +181,7 @@ struct BlockAllocatorBridge
         BlockAllocatorImpl * const allocator);
 
     static
-    uint8_t
+    uint16_t
     block_size (
         const BlockAllocatorImpl * const allocator);
 
@@ -268,7 +268,7 @@ BlockAllocator<ClassType>::release ()
 
 template <typename ClassType>
 INLINE_FUNCTION
-uint8_t
+uint16_t
 BlockAllocator<ClassType>::block_size () const
 {
     return BlockAllocatorBridge::block_size(m_allocator);

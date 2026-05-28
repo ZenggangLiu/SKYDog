@@ -21,15 +21,15 @@ static constexpr uint32_t PAGE_INFO_MAGIC_ID = FOUR_CC_32('B', 'A', 'L', 'C');
 
 
 BlockAllocatorImpl::BlockAllocatorImpl (
-    const uint8_t block_size)
+    const uint16_t block_size)
 :
     m_logic_page_count(0),
     m_blocks_per_page(calc_block_count_per_page(block_size)),
     m_block_size(block_size),
     m_increment_rate(0)
 {
-    RUNTIME_ASSERT(block_size >= 16 && block_size <= 128 && (block_size & 7) == 0,
-                   "Block size must be a multiple of 8 in [16, 128]!!");
+    RUNTIME_ASSERT(block_size >= 16 && block_size <= 256 && (block_size & 7) == 0,
+                   "Block size must be a multiple of 8 in [16, 256]!!");
 }
 
 
@@ -242,7 +242,7 @@ BlockAllocatorImpl::release ()
 }
 
 
-uint8_t
+uint16_t
 BlockAllocatorImpl::block_size () const
 {
     return m_block_size;
@@ -384,7 +384,7 @@ BlockAllocatorImpl::alloc_new_memory_block ()
 
 uint8_t
 BlockAllocatorImpl::calc_block_count_per_page (
-    const uint8_t block_size)
+    const uint16_t block_size)
 {
     /// LogicPage布局图:
     /// [ block1, block2, ..., blockn ][ PageInfo: free bitmask + ... ]
@@ -420,7 +420,7 @@ BlockAllocatorImpl::calc_block_info_addr (
 // +----------------------------------+ //
 BlockAllocatorImpl *
 BlockAllocatorBridge::create (
-    const uint8_t block_size)
+    const uint16_t block_size)
 {
     return new (std::nothrow) BlockAllocatorImpl(block_size);
 }
@@ -473,7 +473,7 @@ BlockAllocatorBridge::release (
 }
 
 
-uint8_t
+uint16_t
 BlockAllocatorBridge::block_size (
     const BlockAllocatorImpl * const allocator)
 {
