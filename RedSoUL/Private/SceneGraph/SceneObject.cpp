@@ -17,7 +17,7 @@ SceneObject::owner_scene () const
 GameScene &
 SceneObject::owner_scene ()
 {
-    return m_owner_scene;
+    return const_cast<GameScene&>(((const SceneObject*)this)->owner_scene());
 }
 
 

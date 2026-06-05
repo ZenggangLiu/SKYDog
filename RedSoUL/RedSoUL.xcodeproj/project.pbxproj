@@ -113,6 +113,12 @@
 		BD58B0EE2F5BA1790024C670 /* StaticStringDepot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD58B0EA2F5BA1790024C670 /* StaticStringDepot.cpp */; };
 		BD58B0F02F5BB84C0024C670 /* StaticString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD58B0EF2F5BB84C0024C670 /* StaticString.cpp */; };
 		BD58B0F12F5BB84C0024C670 /* StaticString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD58B0EF2F5BB84C0024C670 /* StaticString.cpp */; };
+		BD72C0C52FCADA6A00491766 /* TransformData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD72C0C32FCADA6A00491766 /* TransformData.cpp */; };
+		BD72C0C62FCADA6A00491766 /* TransformData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD72C0C32FCADA6A00491766 /* TransformData.cpp */; };
+		BD72C0C72FCADA6A00491766 /* TransformData.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD72C0C42FCADA6A00491766 /* TransformData.hpp */; };
+		BD72C0C82FCADA6A00491766 /* TransformData.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD72C0C42FCADA6A00491766 /* TransformData.hpp */; };
+		BD72C0CA2FCFEFBA00491766 /* TransformType.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD72C0C92FCFEFBA00491766 /* TransformType.hpp */; };
+		BD72C0CB2FCFEFBA00491766 /* TransformType.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD72C0C92FCFEFBA00491766 /* TransformType.hpp */; };
 		BD8FB80B2F7F6EF000EE67B4 /* RenderMeshId.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD8FB80A2F7F6EF000EE67B4 /* RenderMeshId.hpp */; };
 		BD8FB80C2F7F6EF000EE67B4 /* RenderMeshId.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD8FB80A2F7F6EF000EE67B4 /* RenderMeshId.hpp */; };
 		BD8FB80F2F7F701800EE67B4 /* RenderMeshDepot.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD8FB80E2F7F701800EE67B4 /* RenderMeshDepot.hpp */; };
@@ -289,6 +295,9 @@
 		BD58B0E92F5BA1790024C670 /* StaticStringDepot.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = StaticStringDepot.hpp; path = Private/Text/StaticStringDepot.hpp; sourceTree = "<group>"; };
 		BD58B0EA2F5BA1790024C670 /* StaticStringDepot.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = StaticStringDepot.cpp; path = Private/Text/StaticStringDepot.cpp; sourceTree = "<group>"; };
 		BD58B0EF2F5BB84C0024C670 /* StaticString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = StaticString.cpp; path = Private/Text/StaticString.cpp; sourceTree = "<group>"; };
+		BD72C0C32FCADA6A00491766 /* TransformData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = TransformData.cpp; path = Private/SceneGraph/TransformData.cpp; sourceTree = "<group>"; };
+		BD72C0C42FCADA6A00491766 /* TransformData.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = TransformData.hpp; path = Private/SceneGraph/TransformData.hpp; sourceTree = "<group>"; };
+		BD72C0C92FCFEFBA00491766 /* TransformType.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = TransformType.hpp; path = Public/SceneGraph/TransformType.hpp; sourceTree = "<group>"; };
 		BD86B5FA2F388E1600DD8D2E /* libRedSoUL-macOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libRedSoUL-macOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD86B60E2F39E1FC00DD8D2E /* libRedSoUL-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libRedSoUL-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD8FB80A2F7F6EF000EE67B4 /* RenderMeshId.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = RenderMeshId.hpp; path = Public/Render/RenderMeshId.hpp; sourceTree = "<group>"; };
@@ -474,6 +483,7 @@
 				BD5510002FB91E0000110001 /* ObjectMarker.hpp */,
 				BD5510032FB91E0000110001 /* SceneObject.hpp */,
 				BD5510062FB91E0000110001 /* TransformMarker.hpp */,
+				BD72C0C92FCFEFBA00491766 /* TransformType.hpp */,
 			);
 			name = SceneGraph;
 			sourceTree = "<group>";
@@ -486,6 +496,8 @@
 				BD54E2282FC1606B009DBD8C /* MarkerTypeDepot.cpp */,
 				BDC05CB22FC59E16005CCA1C /* ObjectMarker.cpp */,
 				BD55100F2FB91E0000110001 /* SceneObject.cpp */,
+				BD72C0C42FCADA6A00491766 /* TransformData.hpp */,
+				BD72C0C32FCADA6A00491766 /* TransformData.cpp */,
 				BD5510122FB91E0000110001 /* TransformMarker.cpp */,
 			);
 			name = SceneGraph;
@@ -838,6 +850,7 @@
 				BD44779B2FB731D7003DBF3C /* BitOperationUtilities.hpp in Headers */,
 				BD5510012FB91E0000110001 /* ObjectMarker.hpp in Headers */,
 				BD5510042FB91E0000110001 /* SceneObject.hpp in Headers */,
+				BD72C0CA2FCFEFBA00491766 /* TransformType.hpp in Headers */,
 				BD5510072FB91E0000110001 /* TransformMarker.hpp in Headers */,
 				BD326EDB2F3C2625007EE8EC /* CompilerDefines.hpp in Headers */,
 				BD58B0CA2F5AD4BF0024C670 /* StaticStringId.hpp in Headers */,
@@ -851,6 +864,7 @@
 				BD0E41312F7BC95900CFA766 /* RandomNumber.hpp in Headers */,
 				BDC9CB042F94DDB50042BF24 /* NativeWriteStream.hpp in Headers */,
 				BD8FB8272F822DC900EE67B4 /* RenderMesh.hpp in Headers */,
+				BD72C0C72FCADA6A00491766 /* TransformData.hpp in Headers */,
 				BDC9CB292F978B320042BF24 /* Layout_Pos_Norm.hpp in Headers */,
 				BD58B0832F4EECE10024C670 /* ThreadDefines.hpp in Headers */,
 				BDC9CB262F978AFF0042BF24 /* Layout_Pos_Colr_Uv.hpp in Headers */,
@@ -913,6 +927,7 @@
 				BD44779C2FB731D7003DBF3C /* BitOperationUtilities.hpp in Headers */,
 				BD5510022FB91E0000110001 /* ObjectMarker.hpp in Headers */,
 				BD5510052FB91E0000110001 /* SceneObject.hpp in Headers */,
+				BD72C0CB2FCFEFBA00491766 /* TransformType.hpp in Headers */,
 				BD5510082FB91E0000110001 /* TransformMarker.hpp in Headers */,
 				BD326EDC2F3C2625007EE8EC /* CompilerDefines.hpp in Headers */,
 				BD58B0CB2F5AD4BF0024C670 /* StaticStringId.hpp in Headers */,
@@ -926,6 +941,7 @@
 				BD0E41322F7BC95900CFA766 /* RandomNumber.hpp in Headers */,
 				BDC9CB052F94DDB50042BF24 /* NativeWriteStream.hpp in Headers */,
 				BD8FB8282F822DC900EE67B4 /* RenderMesh.hpp in Headers */,
+				BD72C0C82FCADA6A00491766 /* TransformData.hpp in Headers */,
 				BDC9CB2A2F978B320042BF24 /* Layout_Pos_Norm.hpp in Headers */,
 				BD58B0842F4EECE10024C670 /* ThreadDefines.hpp in Headers */,
 				BDC9CB272F978AFF0042BF24 /* Layout_Pos_Colr_Uv.hpp in Headers */,
@@ -1072,6 +1088,7 @@
 				BDC05CB12FC59D5F005CCA1C /* GameScene.cpp in Sources */,
 				BD8FB8402F85112900EE67B4 /* Triangle3D.cpp in Sources */,
 				BD58B0F12F5BB84C0024C670 /* StaticString.cpp in Sources */,
+				BD72C0C62FCADA6A00491766 /* TransformData.cpp in Sources */,
 				BDD4035E2F9387AD0019BE16 /* ApplNativeFile.mm in Sources */,
 				BDA896122F6F70FA00B0683B /* Float3D.cpp in Sources */,
 				BDC9CB4D2F9C7F7D0042BF24 /* RMeshFile.cpp in Sources */,
@@ -1118,6 +1135,7 @@
 				BDC05CB02FC59D5F005CCA1C /* GameScene.cpp in Sources */,
 				BD8FB83F2F85112900EE67B4 /* Triangle3D.cpp in Sources */,
 				BD58B0F02F5BB84C0024C670 /* StaticString.cpp in Sources */,
+				BD72C0C52FCADA6A00491766 /* TransformData.cpp in Sources */,
 				BDD4035D2F9387AD0019BE16 /* ApplNativeFile.mm in Sources */,
 				BDA896112F6F70FA00B0683B /* Float3D.cpp in Sources */,
 				BDC9CB4C2F9C7F7D0042BF24 /* RMeshFile.cpp in Sources */,

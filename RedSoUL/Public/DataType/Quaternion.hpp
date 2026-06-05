@@ -82,11 +82,6 @@ struct alignas(16) quaternion
         float   e[DIMENSION];
     };
 
-    /// 创建一个无旋转四元数: { Sin(0)*U, Cos(0) }
-    static
-    quaternion
-    make ();
-
     /// 创建一个绕指定轴旋转的四元数
     ///
     /// @param[in]  rot_axis
@@ -215,6 +210,14 @@ struct alignas(16) quaternion
     /// 获取旋转角(以弧度衡量)
     float
     rot_rads () const;
+
+    /// 计算Euler角(以弧度衡量)
+    /// NOTE: 角度的排列顺序:
+    /// - x轴: 俯仰/Pitch角
+    /// - y轴: 偏航/Yaw  角
+    /// - z轴: 翻滚/Roll 角
+    float_3
+    euler_angles ()const;
 
     /// 创建当前四元数的反四元数(即: 反旋转)
     quaternion

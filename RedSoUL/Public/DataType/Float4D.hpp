@@ -68,11 +68,6 @@ struct alignas(16) float_4
         float e[DIMENSION];
     };
 
-    /// 创建一个全零向量: [0, 0, 0, 0]
-    static
-    float_4
-    make ();
-
     /// 使用指定的数值创建向量: [x, y, z, w]
     static
     float_4

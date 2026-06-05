@@ -28,10 +28,17 @@
 #pragma once
 
 
+/// System headers
+#include <vector>
 /// Library headers
+#include "DataType/Float3D.hpp"
+#include "DataType/Quaternion.hpp"
+#include "DataType/Matrix3x4.hpp"
 #include "SceneGraph/ObjectMarker.hpp"
+#include "SceneGraph/TransformType.hpp"
 
 
+class TransformData;
 class TransformMarker;
 
 
@@ -54,6 +61,98 @@ struct TransformCreateParam : CreateParameter
 class TransformMarker : public ObjectMarker
 {
 public:
+    // --- HIERARCHY --- //
+    /// 获取父节点变换属性
+    /// NOTE: COULD BE NULL!!
+    const TransformMarker *
+    father () const;
+
+    TransformMarker *
+    father ();
+
+    /// 设置父节点
+    ///
+    /// @param[in]  father
+    ///      父节点的空间变换(如果没有设置为nullptr)
+    void
+    set_father (
+        TransformMarker * const father = nullptr);
+
+    /// 获取子节点的个数
+    uint32_t
+    kinder_count () const;
+
+    /// 获取指定索引的子节点的变换属性
+    ///
+    /// @param[in]  index
+    ///      零开始的子节点索引
+    ///      NOTE: COULD BE NULL!!
+    const TransformMarker *
+    kinder_at (
+        const uint32_t index) const;
+
+    TransformMarker *
+    kinder_at (
+        const uint32_t index);
+
+
+    // --- TRANSFORM --- //
+    /// 获取当前本地位移
+    float_3
+    local_position () const;
+
+    /// 获取当前本地Pitch(X轴)/俯仰角度(以度来衡量)
+    float
+    local_pitch () const;
+
+    /// 获取当前本地Yaw(Y轴)/偏航角度(以度来衡量)
+    float
+    local_yaw () const;
+
+    /// 获取当前本地Roll(Z轴)/翻滚角度(以度来衡量)
+    float
+    local_roll () const;
+
+    /// 获取当前本地旋转
+    /// NOTE:
+    /// - 旋转顺序: Roll(Z轴), Pitch(X轴), Yaw(Y轴)
+    quaternion
+    local_rotation () const;
+
+    float_3
+    local_scaling () const;
+
+    /// 获取当前物体的世界变换矩阵
+    const matrix_3x4 &
+    local_to_world_transform () const;
+
+    /// 设置本地位移
+    void
+    set_local_position (
+        const float_3 position);
+
+    /// 设置本地俯仰/Pitch(X轴)角度(以度来衡量)
+    void
+    set_local_pitch (
+        const float angle_degs);
+
+    /// 设置本地偏航/Yaw(Y轴)角度(以度来衡量)
+    void
+    set_local_yaw (
+        const float angle_degs);
+
+    /// 设置本地翻滚/Roll(Z轴)角度(以度来衡量)
+    void
+    set_local_roll (
+        const float angle_degs);
+
+    void
+    set_local_rotation (
+        const quaternion rotation);
+
+    void
+    set_local_scaling (
+        const float_3 scaling);
 
 
 private:
@@ -90,7 +189,49 @@ private:
     TransformMarker & operator = (
         const TransformMarker &) = delete;
 
+    /// 添加/Attach指定的子节点
+    ///
+    /// @param[in]  new_kinder
+    ///     子节点的参考
+    void
+    attach (
+        TransformMarker & new_kinder);
+
+    /// 移除/Detach指定的子节点
+    ///
+    /// @param[in]  old_kinder
+    ///     子节点的参考
+    void
+    detach (
+        TransformMarker & old_kinder);
+
+    /// 设置Cached世界转换矩阵Dirty
+    void
+    set_cache_dirty ();
+
+    /// 设置旋转类型(根据当前Euler角的数值)
+    void
+    set_rotation_type ();
+
 private:
+    typedef std::vector<TransformMarker*> KinderListT;
+
     /// 属性类型信息
     static const MarkerTypeInfo ms_type_info;
+
+    // --- CACHED WORLD TRANSFORM --- //
+    /// 世界转换矩阵: 本地 --> 世界
+    mutable matrix_3x4    m_world_transform;
+
+    // --- HIERARCHY --- //
+    TransformMarker *     m_father_transform;
+    KinderListT           m_kinder_list;
+
+    // --- LOCAL TRANSFORM --- //
+    TransformData * const m_transform_data;
+    TransformType         m_transform_type;
+
+    // --- DIRTY FLAG --- //
+    /// 标记是否Cache的变换矩阵失效
+    mutable bool          m_is_cache_dirty;
 };

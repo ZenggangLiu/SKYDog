@@ -3,8 +3,9 @@
 #include <new>
 /// Library headers
 #include "Assert/RuntimeAssert.hpp"
-#include "Common/CommonDefines.hpp" /// INLINE_FUNCTION, UNUSED_VARIABLE
-#include "Math/MathUtilities.hpp"   /// round_up_multiple_count
+#include "Common/CommonDefines.hpp"   /// INLINE_FUNCTION, UNUSED_VARIABLE
+#include "Common/CompilerDefines.hpp" /// BUILD_MODE
+#include "Math/MathUtilities.hpp"     /// round_up_count
 #include "Memory/BlockAllocator.hpp"
 #include "SceneGraph/SceneObject.hpp"
 #include "SceneGraph/TransformMarker.hpp"
@@ -37,7 +38,7 @@ public:
     }
 
     bool
-    destroy(
+    deallocate (
         void * const alloc_addr)
     {
         return m_allocator.deallocate(alloc_addr);
@@ -54,7 +55,7 @@ private:
         static constexpr uint32_t EXPECT_BYTE_SIZE  = OBJECT_BYTE_SIZE * SCENEOBJECT_COUNT;
 
         const bool is_initialized = m_allocator.initialize(
-            MathUtility::round_up_multiple_count(EXPECT_BYTE_SIZE, BLOCK_ALLOCATOR_PAGE_SIZE), 2);
+            MathUtility::round_up_count(EXPECT_BYTE_SIZE, BLOCK_ALLOCATOR_PAGE_SIZE), 2);
         UNUSED_VARIABLE(is_initialized);
         RUNTIME_ASSERT(is_initialized, "Can not initialize the allocator!!");
     }
@@ -112,10 +113,6 @@ GameScene::create_object (
         new(scene_object) SceneObject(this, father);
         /// 加入列表
         m_object_list.push_back(scene_object);
-        if (father == nullptr)
-        {
-            m_toplevel_object_list.push_back(scene_object);
-        }
     }
 
     return scene_object;
@@ -128,25 +125,57 @@ GameScene::destroy_object (
 {
     if (scene_object)
     {
-        SceneObjectListT::iterator object_it =
+        const SceneObjectListT::iterator object_it =
             std::find(m_object_list.begin(), m_object_list.end(), scene_object);
         /// 有效实例
         if (object_it != m_object_list.end())
         {
             /// 移除列表
             m_object_list.erase(object_it);
-            /// 如果是TopLevel节点, 从TopLevel表中移除
-            //if (scene_object->find_marker(TransformMarker)->)
-            //{
-            //    m_toplevel_object_list.erase(root_object_it);
-            //}
             /// 调用析构函数
             scene_object->~SceneObject();
             /// 释放内存
-            SceneObjectAllocator::ref().destroy(scene_object);
+            SceneObjectAllocator::ref().deallocate(scene_object);
             /// 清除参考
             scene_object = nullptr;
         }
+    }
+}
+
+
+void
+GameScene::register_toplevel_object (
+    SceneObject & scene_object)
+{
+#if (BUILD_MODE == DEBUG_BUILD_MODE)
+    const SceneObjectListT::iterator toplevel_object_it =
+        std::find(m_toplevel_object_list.begin(),
+            m_toplevel_object_list.end(),
+            &scene_object);
+    RUNTIME_ASSERT(toplevel_object_it == m_toplevel_object_list.end(),
+                   "Same scene object can not be inserted to "
+                   "the toplevel list more than once!!");
+#endif
+    m_toplevel_object_list.push_back(&scene_object);
+}
+
+
+void
+GameScene::unregister_toplevel_object (
+    SceneObject & scene_object)
+{
+    const SceneObjectListT::iterator toplevel_object_it =
+        std::find(m_toplevel_object_list.begin(),
+                  m_toplevel_object_list.end(),
+                  &scene_object);
+#if (BUILD_MODE == DEBUG_BUILD_MODE)
+    RUNTIME_ASSERT(toplevel_object_it != m_toplevel_object_list.end(),
+                   "The given scene object is not a toplevel object!!");
+#endif
+
+    if (toplevel_object_it != m_toplevel_object_list.end())
+    {
+        m_toplevel_object_list.erase(toplevel_object_it);
     }
 }
 

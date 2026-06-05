@@ -321,7 +321,13 @@
     <ClInclude Include="Public\SceneGraph\SceneObject.hpp">
       <Filter>Public\SceneGraph</Filter>
     </ClInclude>
+    <ClInclude Include="Private\SceneGraph\TransformData.hpp">
+      <Filter>Private\SceneGraph</Filter>
+    </ClInclude>
     <ClInclude Include="Public\SceneGraph\TransformMarker.hpp">
+      <Filter>Public\SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\SceneGraph\TransformType.hpp">
       <Filter>Public\SceneGraph</Filter>
     </ClInclude>
   </ItemGroup>
@@ -380,6 +386,15 @@
     <ClCompile Include="Private\Hashing\RuntimeHash.cpp">
       <Filter>Private\Hashing</Filter>
     </ClCompile>
+    <ClCompile Include="Private\IO\ImageFile\PpmFile.cpp">
+      <Filter>Private\IO\ImageFile</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\IO\MeshFile\PlyFile.cpp">
+      <Filter>Private\IO\MeshFile</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\IO\MeshFile\RMeshFile.cpp">
+      <Filter>Private\IO\MeshFile</Filter>
+    </ClCompile>
     <ClCompile Include="Private\Math\BitOperationUtilities.cpp">
       <Filter>Private\Math</Filter>
     </ClCompile>
@@ -397,15 +412,6 @@
     </ClCompile>
     <ClCompile Include="Private\Memory\MemoryUtilities.cpp">
       <Filter>Private\Memory</Filter>
-    </ClCompile>
-    <ClCompile Include="Private\IO\ImageFile\PpmFile.cpp">
-      <Filter>Private\IO\ImageFile</Filter>
-    </ClCompile>
-    <ClCompile Include="Private\IO\MeshFile\PlyFile.cpp">
-      <Filter>Private\IO\MeshFile</Filter>
-    </ClCompile>
-    <ClCompile Include="Private\IO\MeshFile\RMeshFile.cpp">
-      <Filter>Private\IO\MeshFile</Filter>
     </ClCompile>
     <ClCompile Include="Private\Render\RenderMesh.cpp">
       <Filter>Private\Render</Filter>
@@ -426,6 +432,9 @@
       <Filter>Private\SceneGraph</Filter>
     </ClCompile>
     <ClCompile Include="Private\SceneGraph\SceneObject.cpp">
+      <Filter>Private\SceneGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\SceneGraph\TransformData.cpp">
       <Filter>Private\SceneGraph</Filter>
     </ClCompile>
     <ClCompile Include="Private\SceneGraph\TransformMarker.cpp">

@@ -44,7 +44,7 @@ vm_pages_needed (
     const uint64_t exp_size)
 {
     const uint32_t needed_pages =
-        (uint32_t)MathUtility::round_up_multiple_count(
+        (uint32_t)MathUtility::round_up_count(
             round_up_to_power_of_two(exp_size), (uint64_t)MemoryUtility::page_size());
     return needed_pages;
 }

@@ -11,13 +11,6 @@ const quaternion quaternion::IDENTITY{ 0, 0, 0, 1 };
 
 
 quaternion
-quaternion::make ()
-{
-    return IDENTITY;
-}
-
-
-quaternion
 quaternion::make (
     const AxisType rot_axis,
     const float    rot_rads)
@@ -514,6 +507,125 @@ quaternion::rot_rads () const
     /// 可得到ϕ ϵ [0, 2π]
     const float half_rot_rads = MathUtility::fast_acos(w);
     return 2.0f * half_rot_rads;
+}
+
+
+float_3
+quaternion::euler_angles ()const
+{
+    /// 参考:
+    /// - Documents/Matrix_to_euler_derivation.txt
+    ///
+    /// NOTE: 计算的角度的范围:
+    /// - Pitch: [-0.5π, +0.5π]
+    /// - Yaw:   [   -π,    +π]
+    /// - Roll:  [   -π,    +π]
+    /// 例如：对于Pitch 180°的旋转，我们可以通过先180° Yaw，再180° Roll来得到
+    ///
+    /// 我们内部的旋转角合成顺序： 偏航 * 俯仰 * 翻滚： Ry * Rx * Rz
+    /// Ry * Rx * Rz的结果为：
+    /// | e00   e01   e02 |       | cycr + syspsr    -cysr + syspcr   sycp |
+    /// | e10   e11   e12 |   =   | cpsr             cpcr             -sp  |
+    /// | e20   e21   e22 |       | -sycr + cyspsr   sysr + cyspcr    cycp |
+    /// 我们需要处理一个特殊情况就是如果Pitch角度为±0.5π，此时将会产生异常(Singularity)
+    ///
+    /// sin(89.9°)
+    static constexpr float SIN_89_9_DEGREES = 0.99999847691f;
+
+    /// 任何一个四元数Q := { <x, y, z>, w }可以表示为：
+    /// | e00   e01   e02 |       | 1 - 2*y*y - 2*z*z   2*x*y - 2*z*w       2*x*z + 2*y*w     |
+    /// | e10   e11   e12 |   =   | 2*x*y + 2*z*w       1 - 2*x*x - 2*z*z   2*y*z - 2*x*w     |
+    /// | e20   e21   e22 |       | 2*x*z - 2*y*w       2*y*z + 2*x*w       1 - 2*x*x - 2*y*y |
+    ///
+    /// e12 = 2*Q.y*Q.z - 2*Q.x*Q.w
+    const float e12 = 2.0f * (y*z - x*w);
+
+    /// Pitch: (-0.5π, +0.5π]
+    if (e12 < SIN_89_9_DEGREES)
+    {
+        /// Pitch: (-0.5π, +0.5π)
+        if (e12 > -SIN_89_9_DEGREES)
+        {
+            /// 如果Pitch ≠±0.5π:
+            /// | e00   e01   e02 |       | cycr + syspsr    -cysr + syspcr   sycp |
+            /// | e10   e11   e12 |   =   | cpsr             cpcr             -sp  |
+            /// | e20   e21   e22 |       | -sycr + cyspsr   sysr + cyspcr    cycp |
+            /// 
+            /// Pitch = asine(-e12)
+            /// Yaw   = actan2(e02, e22)
+            /// Roll  = actan2(e10, e11)
+            ///
+            const float xx = x * x;
+            const float yy = y * y;
+            const float zz = z * z;
+            // e02 = 2*Q.x*Q.z + 2*Q.y*Q.w
+            const float e02 = 2 * (x*z + y*w);
+            // e10 = 2*Q.x*Q.y + 2*Q.z*Q.w
+            const float e10 = 2 * (x*y + z*w);
+            // e11 = 1 - 2*Q.x*Q.x - 2*Q.z*Q.z
+            const float e11 = 1 - 2 * (xx + zz);
+            // e22 = 1 - 2*Q.x*Q.x - 2*Q.y*Q.y
+            const float e22 = 1 - 2 * (xx + yy);
+
+            /// NOTE: 角度的排列顺序:
+            /// - x轴: 俯仰/Pitch角
+            /// - y轴: 偏航/Yaw  角
+            /// - z轴: 翻滚/Roll 角
+            return float_3::make(std::asinf(-e12),
+                                 std::atan2f(e02, e22),
+                                 std::atan2f(e10, e11));
+        }
+        // Pitch ≈ +0.5π
+        else
+        {
+            /// 由于e12为-sin(pitch), 对于角度在[+89.9, +90]，e12的值为[-1, -0.999]
+            RUNTIME_ASSERT(e12 > -1 || MathUtility::equal(e12, -1.0f), "Invalid E12");
+
+            /// 如果Pitch = 0.5π: Sine(Pitch) = 1
+            /// | e00   e01   e02 |       | Cos(y-r)    Sin(y-r)   0  |
+            /// | e10   e11   e12 |   =   | 0           0          -1 |
+            /// | e20   e21   e22 |       | -Sin(y-r)   Cos(y-r)   0  |
+            ///
+            /// Yaw  = actan2(e01, e00)
+            /// Roll = 0
+            ///
+            /// e00 = 1 - 2*Q.y*Q.y - 2*Q.z*Q.z
+            const float e00 = 1 - 2 * (y*y + z*z);
+            /// e01 = 2*Q.x*Q.y - 2*Q.z*Q.w
+            const float e01 = 2 * (x*y - z*w);
+
+            /// NOTE: 角度的排列顺序:
+            /// - x轴: 俯仰/Pitch角
+            /// - y轴: 偏航/Yaw  角
+            /// - z轴: 翻滚/Roll 角
+            return float_3::make(HALF_PI, std::atan2f(e01, e00), 0.0f);
+        }
+    }
+    // Pitch ≈ -0.5π
+    else
+    {
+        /// 由于e12为-sin(pitch), 对于角度在[-89.9, -90]，e12的值为[0.999.., 1]
+        RUNTIME_ASSERT(e12 < 1 || MathUtility::equal(e12, 1.0f),"Invalid E12");
+
+        /// 如果Pitch = -0.5π:
+        /// | e00   e01   e02 |       | Cos(y+r)    -Sin(y+r)   0 |
+        /// | e10   e11   e12 |   =   | 0           0           1 |
+        /// | e20   e21   e22 |       | -Sin(y+r)   -Cos(y+r)   0 |
+        ///
+        /// Yaw  = actan2(-e01, e00)
+        /// Roll = 0
+        ///
+        /// e00 = 1 - 2*Q.y*Q.y - 2*Q.z*Q.z
+        const float e00 = 1 - 2 * (y*y + z*z);
+        /// e01 = 2*Q.x*Q.y - 2*Q.z*Q.w
+        const float e01 = 2 * (x*y - z*w);
+
+        /// NOTE: 角度的排列顺序:
+        /// - x轴: 俯仰/Pitch角
+        /// - y轴: 偏航/Yaw  角
+        /// - z轴: 翻滚/Roll 角
+        return float_3::make(-HALF_PI, std::atan2f(-e01, e00), 0.0f);
+    }
 }
 
 

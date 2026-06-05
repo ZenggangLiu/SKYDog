@@ -315,7 +315,7 @@ BlockAllocatorImpl::alloc_new_memory_block ()
     {
         const uint32_t request_bytes = m_logic_page_count * LOGIC_PAGE_SIZE;
         const uint32_t vm_page_count =
-            MathUtility::round_up_multiple_count(request_bytes, MemoryUtility::page_size());
+            MathUtility::round_up_count(request_bytes, MemoryUtility::page_size());
 
         void *   alloc_addr;
         uint32_t alloc_bytes;

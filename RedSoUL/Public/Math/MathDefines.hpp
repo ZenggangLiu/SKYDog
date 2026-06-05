@@ -70,13 +70,13 @@
 
 /// 将角度转换为弧度
 #if !defined(DEGREE_TO_RADIAN)
-#define DEGREE_TO_RADIAN(degrees)    (degrees * (ONE_PI / 180.0f))
+#define DEGREE_TO_RADIAN(degrees)    ((float)degrees * (ONE_PI / 180.0f))
 #endif
 
 
 /// 将弧度转换为角度
 #if !defined(RADIAN_TO_DEGREE)
-#define RADIAN_TO_DEGREE(radians)    (radians * (180.0f / ONE_PI))
+#define RADIAN_TO_DEGREE(radians)    ((float)radians * (180.0f / ONE_PI))
 #endif
 
 

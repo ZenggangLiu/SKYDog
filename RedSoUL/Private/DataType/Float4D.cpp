@@ -7,15 +7,8 @@
 #include "DataType/Float4D.hpp"
 
 
-const float_4 float_4::ZERO{ 0, 0, 0, 0 };
 const float_4 float_4::ONE { 1, 1, 1, 1 };
-
-
-float_4
-float_4::make ()
-{
-    return ZERO;
-}
+const float_4 float_4::ZERO{ 0, 0, 0, 0 };
 
 
 float_4

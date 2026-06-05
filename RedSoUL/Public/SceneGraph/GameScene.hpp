@@ -71,6 +71,16 @@ public:
     destroy_object (
         SceneObject *& scene_object);
 
+    /// 注册TOPLEVEL物体SceneObject
+    void
+    register_toplevel_object (
+        SceneObject & scene_object);
+
+    /// 注销TOPLEVEL物体SceneObject
+    void
+    unregister_toplevel_object (
+        SceneObject & scene_object);
+
 
 private:
     GameScene ();

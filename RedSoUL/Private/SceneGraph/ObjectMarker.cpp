@@ -1,4 +1,4 @@
-﻿/// Library headers
+/// Library headers
 #include "SceneGraph/MarkerTypeDepot.hpp"
 /// Self header
 #include "SceneGraph/ObjectMarker.hpp"

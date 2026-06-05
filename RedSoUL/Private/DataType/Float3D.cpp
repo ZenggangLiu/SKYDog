@@ -8,8 +8,8 @@
 #include "DataType/Float3D.hpp"
 
 
-const float_3 float_3::ZERO    {  0,  0,  0 };
 const float_3 float_3::ONE     {  1,  1,  1 };
+const float_3 float_3::ZERO    {  0,  0,  0 };
 
 const float_3 float_3::FORWARD {  0,  0,  1 };
 const float_3 float_3::BACKWARD{  0,  0, -1 };
@@ -17,13 +17,6 @@ const float_3 float_3::LEFT    { -1,  0,  0 };
 const float_3 float_3::RIGHT   {  1,  0,  0 };
 const float_3 float_3::UP      {  0,  1,  0 };
 const float_3 float_3::DOWN    {  0, -1,  0 };
-
-
-float_3
-float_3::make ()
-{
-    return ZERO;
-}
 
 
 float_3

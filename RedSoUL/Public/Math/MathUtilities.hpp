@@ -96,15 +96,16 @@ struct MathUtility
        const T min,
        const T max);
 
-    /// 计算最少多少个B可以容下A
+    /// 计算A最少是B的多少个整数倍
     /// 例如:
-    /// - Math::round_up_multiple_count( 3, 2) == 2
-    /// - Math::round_up_multiple_count(-3, 2) == -1
+    /// - Math::round_up_count( 3, 2) == 2
+    /// - Math::round_up_count( 5, 2) == 3
+    /// - Math::round_up_count(-3, 2) == -1
     template < typename T >
     INLINE_FUNCTION
     static
     T
-    round_up_multiple_count (
+    round_up_count (
         const T a,
         const T b);
 
@@ -135,7 +136,7 @@ MathUtility::clamp (
 template < typename T >
 INLINE_FUNCTION
 T
-MathUtility::round_up_multiple_count (
+MathUtility::round_up_count(
     const T a,
     const T b)
 {
@@ -143,8 +144,8 @@ MathUtility::round_up_multiple_count (
     return (a - (T)1)/b + (T)1;
 }
 
-/// round_up_multiple_count不可用于浮点数
+/// round_up_count不可用于浮点数
 template <>
-INLINE_FUNCTION float MathUtility::round_up_multiple_count(const float, const float);
+INLINE_FUNCTION float MathUtility::round_up_count(const float, const float);
 template <>
-INLINE_FUNCTION double MathUtility::round_up_multiple_count(const double, const double);
+INLINE_FUNCTION double MathUtility::round_up_count(const double, const double);

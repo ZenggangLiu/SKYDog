@@ -1,0 +1,398 @@
+/// System headers
+#include <cmath> /// std::fmodf
+/// Library headers
+#include "Assert/RuntimeAssert.hpp"
+#include "Common/CommonDefines.hpp" /// INLINE_FUNCTION, UNUSED_VARIABLE
+#include "Math/MathDefines.hpp"     /// DEGREE_TO_RADIAN, RADIAN_TO_DEGREE
+#include "Math/MathUtilities.hpp"   /// round_up_count
+#include "Memory/BlockAllocator.hpp"
+/// Self header
+#include "SceneGraph/TransformData.hpp"
+
+
+// MARK: == TransformData分配器 ==
+class TransformDataAllocator
+{
+public:
+    static
+    INLINE_FUNCTION
+    TransformDataAllocator &
+    ref ()
+    {
+        static TransformDataAllocator s_instance;
+        return s_instance;
+    }
+
+    INLINE_FUNCTION
+    void *
+    allocate ()
+    {
+        return m_allocator.allocate();
+    }
+
+    bool
+    deallocate (
+        void * const alloc_addr)
+    {
+        return m_allocator.deallocate(alloc_addr);
+    }
+
+
+private:
+    INLINE_FUNCTION
+    TransformDataAllocator ()
+    {
+        static constexpr uint32_t DATA_BYTE_SIZE = (uint32_t)sizeof(TransformData);
+        /// 起始的变换属性个数
+        static constexpr uint16_t TRANSFORM_COUNT  = 100;
+        static constexpr uint32_t EXPECT_BYTE_SIZE = DATA_BYTE_SIZE * TRANSFORM_COUNT;
+
+        const bool is_initialized = m_allocator.initialize(
+            MathUtility::round_up_count(EXPECT_BYTE_SIZE, BLOCK_ALLOCATOR_PAGE_SIZE), 2);
+        UNUSED_VARIABLE(is_initialized);
+        RUNTIME_ASSERT(is_initialized, "Can not initialize the allocator!!");
+    }
+
+    INLINE_FUNCTION
+    ~TransformDataAllocator ()
+    {
+        m_allocator.release();
+    }
+
+private:
+    typedef BlockAllocator<TransformData> AllocatorTypeT;
+
+    AllocatorTypeT m_allocator;
+};
+
+
+
+// MARK: == TransformData类 ==
+TransformData *
+TransformData::create ()
+{
+    /// 申请内存
+    void * const new_transform_data = TransformDataAllocator::ref().allocate();
+    if (new_transform_data)
+    {
+        /// 构建实例
+        new(new_transform_data)TransformData();
+    }
+    return (TransformData*)new_transform_data;
+}
+
+
+bool
+TransformData::destroy ()
+{
+    /// 调用析构函数
+    this->~TransformData();
+    /// 释放内存
+    const bool opcode = TransformDataAllocator::ref().deallocate(this);
+    return opcode;
+}
+
+
+quaternion
+TransformData::rotation () const
+{
+    /// 先更新
+    update_combined_rotation();
+    return m_combined_rotation;
+}
+
+
+const matrix_3x4 &
+TransformData::local_transform (
+    const TransformType transform_type) const
+{
+    /// 先更新
+    update_local_transform(transform_type);
+    return m_local_transform;
+}
+
+
+void
+TransformData::set_position (
+    const float_3 position)
+{
+    RUNTIME_ASSERT(m_local_position != position, "We can not set the same position!!");
+
+    /// 保存指定位移
+    m_local_position = position;
+    /// 设置Dirty标记
+    m_is_local_transform_dirty = true;
+}
+
+
+void
+TransformData::set_pitch (
+    const float angle_degs)
+{
+    set_euler_angle(angle_degs, m_local_rotation.x);
+}
+
+
+void
+TransformData::set_yaw (
+    const float angle_degs)
+{
+    set_euler_angle(angle_degs, m_local_rotation.y);
+}
+
+
+void
+TransformData::set_roll (
+    const float angle_degs)
+{
+    set_euler_angle(angle_degs, m_local_rotation.z);
+}
+
+
+void
+TransformData::set_rotation (
+    const quaternion rotation)
+{
+    RUNTIME_ASSERT(m_combined_rotation != rotation, "We can not set the same angles!!");
+
+    /// 保存新的角度
+    m_combined_rotation = rotation;
+    /// 计算Euler角, 并转换成角度
+    const float_3 euler_rads = m_combined_rotation.euler_angles();
+    m_local_rotation = float_3::make(
+        RADIAN_TO_DEGREE(euler_rads.x),
+        RADIAN_TO_DEGREE(euler_rads.y),
+        RADIAN_TO_DEGREE(euler_rads.z));
+    /// 设置Dirty标记
+    m_is_combined_rotation_dirty = false;
+    m_is_local_transform_dirty   = true;
+}
+
+
+void
+TransformData::set_scaling (
+    const float_3 scaling)
+{
+    RUNTIME_ASSERT(m_local_scaling != scaling, "We can not set the same scaling!!");
+
+    /// 保存指定缩放
+    m_local_scaling = scaling;
+    /// 设置Dirty标记
+    m_is_local_transform_dirty = true;
+}
+
+
+TransformData::TransformData ()
+:
+    m_local_position(float_3::ZERO),
+    m_local_rotation(float_3::ZERO),
+    m_local_scaling(float_3::ONE),
+    m_combined_rotation(quaternion::IDENTITY),
+    m_local_transform(matrix_3x4::IDENTITY),
+    m_is_combined_rotation_dirty(false),
+    m_is_local_transform_dirty(false)
+{
+
+}
+
+
+TransformData::~TransformData ()
+{
+
+}
+
+
+void
+TransformData::set_euler_angle (
+    const float angle_degs,
+    float &     stored_loc)
+{
+    RUNTIME_ASSERT(stored_loc != std::fmodf(angle_degs, 360.0f),
+                   "We can not set the same angle!!");
+
+    /// 保存新的角度：确保角度在[0, 360)之间
+    stored_loc = std::fmodf(angle_degs, 360.0f);
+    /// 设置Dirty标记
+    m_is_combined_rotation_dirty = true;
+    m_is_local_transform_dirty   = true;
+}
+
+
+void
+TransformData::update_combined_rotation () const
+{
+    if (m_is_combined_rotation_dirty)
+    {
+        /// 计算合成的旋转
+        /// - 合成顺序: Yaw(Y)* Pitch(X)* Roll(Z)
+        const quaternion pitch_rotation =
+        MathUtility::equal(m_local_rotation.x, 0.0f) ?
+        quaternion::IDENTITY                           :
+        quaternion::make(AxisType::X_AXIS_TYPE,
+                         DEGREE_TO_RADIAN(m_local_rotation.x));
+        const quaternion yaw_rotation =
+        MathUtility::equal(m_local_rotation.y, 0.0f) ?
+        quaternion::IDENTITY                           :
+        quaternion::make(AxisType::Y_AXIS_TYPE,
+                         DEGREE_TO_RADIAN(m_local_rotation.y));
+        const quaternion roll_rotation =
+        MathUtility::equal(m_local_rotation.z, 0.0f) ?
+        quaternion::IDENTITY                           :
+        quaternion::make(AxisType::Z_AXIS_TYPE,
+                         DEGREE_TO_RADIAN(m_local_rotation.z));
+
+        m_combined_rotation = yaw_rotation * pitch_rotation * roll_rotation;
+        m_is_combined_rotation_dirty = false;
+    }
+}
+
+
+void
+TransformData::update_local_transform (
+    const TransformType transform_type) const
+{
+    if (m_is_local_transform_dirty)
+    {
+        /// 各种变换组合的Matrix: '-'表示无, 'x'表示有
+        /// Position       Rotatation   Scaling
+        ///     -              -           -     <- ID
+        ///     x              -           -     <- T
+        ///     -              x           -     <- R
+        ///     -              -           x     <- S
+        ///     x              x           -     <- TR
+        ///     x              -           x     <- TS
+        ///     x              x           x     <- TRS
+        ///     -              x           x     <- RS
+
+        switch ((uint16_t)transform_type)
+        {
+            /// IDENTITY(ID)
+            case (uint16_t)TransformType::IDENTITY_TRANSFROM:
+            {
+                m_local_transform = matrix_3x4::IDENTITY;
+                break;
+            }
+
+            /// 只有位移(T)
+            case (uint16_t)TransformType::HAS_POSITION:
+            {
+                m_local_transform = matrix_3x4::make_translation(m_local_position);
+                break;
+            }
+
+            /// 只有旋转(R)
+            case (uint16_t)TransformType::HAS_ROTATION:
+            {
+                /// 获取合成的旋转(如果合成的旋转Dirty, 更新它)
+                const quaternion rot_quaternion = rotation();
+                m_local_transform = matrix_3x4::make_rotation(rot_quaternion);
+                break;
+            }
+
+            /// 只有放缩(S)
+            case (uint16_t)TransformType::HAS_SCALING:
+            {
+                m_local_transform = matrix_3x4::make_scaling(m_local_scaling);
+                break;
+            }
+
+            /// 只有Uniform放缩(S)
+            case (uint16_t)TransformType::HAS_SCALING |
+                 (uint16_t)TransformType::IS_UNIFORM_SCALING:
+            {
+                m_local_transform = matrix_3x4::make_scaling(m_local_scaling.x);
+                break;
+            }
+
+            /// 位移 + 旋转(TR)
+            case (uint16_t)TransformType::HAS_POSITION |
+                 (uint16_t)TransformType::HAS_ROTATION:
+            {
+                /// 获取合成的旋转(如果合成的旋转Dirty, 更新它)
+                const quaternion rot_quaternion = rotation();
+                m_local_transform = matrix_3x4::make_translation_rotation(
+                    m_local_position, rot_quaternion);
+                break;
+            }
+
+            /// 位移 + 放缩(TS)
+            case (uint16_t)TransformType::HAS_POSITION |
+                 (uint16_t)TransformType::HAS_SCALING:
+            {
+                m_local_transform = matrix_3x4::make_translation_scaling(
+                    m_local_position, m_local_scaling);
+                break;
+            }
+
+            /// 位移 + Uniform放缩(TS)
+            case (uint16_t)TransformType::HAS_POSITION |
+                 (uint16_t)TransformType::HAS_SCALING  |
+                 (uint16_t)TransformType::IS_UNIFORM_SCALING:
+            {
+                m_local_transform = matrix_3x4::make_translation_scaling(
+                    m_local_position, m_local_scaling.x);
+                break;
+            }
+
+            /// 位移 + 旋转 + 放缩(TRS)
+            case (uint16_t)TransformType::HAS_POSITION |
+                 (uint16_t)TransformType::HAS_ROTATION |
+                 (uint16_t)TransformType::HAS_SCALING:
+            {
+                /// 获取合成的旋转(如果合成的旋转Dirty, 更新它)
+                const quaternion rot_quaternion = rotation();
+                m_local_transform = matrix_3x4::make_translation_rotation_scaling(
+                    m_local_position, rot_quaternion, m_local_scaling);
+                break;
+            }
+
+            /// 位移 + 旋转 + Uniform放缩(TRS)
+            case (uint16_t)TransformType::HAS_POSITION |
+                 (uint16_t)TransformType::HAS_ROTATION |
+                 (uint16_t)TransformType::HAS_SCALING  |
+                 (uint16_t)TransformType::IS_UNIFORM_SCALING:
+            {
+                /// 获取合成的旋转(如果合成的旋转Dirty, 更新它)
+                const quaternion rot_quaternion = rotation();
+                m_local_transform = matrix_3x4::make_translation_rotation_scaling(
+                    m_local_position, rot_quaternion, m_local_scaling.x);
+                break;
+            }
+
+            /// 旋转 + 放缩(RS)
+            case (uint16_t)TransformType::HAS_ROTATION |
+                 (uint16_t)TransformType::HAS_SCALING:
+            {
+                /// 获取合成的旋转(如果合成的旋转Dirty, 更新它)
+                const quaternion rot_quaternion = rotation();
+                m_local_transform = matrix_3x4::make_rotation_scaling(
+                    rot_quaternion, m_local_scaling);
+                break;
+            }
+
+            /// 旋转 + Uniform放缩(RS)
+            case (uint16_t)TransformType::HAS_ROTATION |
+                 (uint16_t)TransformType::HAS_SCALING  |
+                 (uint16_t)TransformType::IS_UNIFORM_SCALING:
+            {
+                /// 获取合成的旋转(如果合成的旋转Dirty, 更新它)
+                const quaternion rot_quaternion = rotation();
+                m_local_transform = matrix_3x4::make_rotation_scaling(
+                    rot_quaternion, m_local_scaling.x);
+                break;
+            }
+
+            case (uint16_t)TransformType::IS_TRANSFORM_FROZEN:
+            {
+                break;
+            }
+
+            default:
+            {
+                RUNTIME_ASSERT(false, "Uknown Transform type!!");
+                break;
+            }
+        }
+        m_is_local_transform_dirty = false;
+    }
+}

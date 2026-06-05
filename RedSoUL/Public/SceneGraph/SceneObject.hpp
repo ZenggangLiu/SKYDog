@@ -109,6 +109,7 @@ public:
 
 private:
     /// 构造一个物体
+    /// NOTE: 只由GameScene::create_object()创建。可以确保owner始终有效。
     ///
     /// @param[in]   owner
     ///      所有者(关卡, 不可为nullptr)

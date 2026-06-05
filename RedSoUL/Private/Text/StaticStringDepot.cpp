@@ -3,7 +3,7 @@
 #include <cstring> /// std::memcpy, std::strlen
 /// Library headers
 #include "Assert/RuntimeAssert.hpp"   /// RUNTIME_ASSERT
-#include "Math/MathUtilities.hpp"     /// round_up_multiple_count
+#include "Math/MathUtilities.hpp"     /// round_up_count
 #include "Memory/MemoryUtilities.hpp" /// page_size
 /// Self header
 #include "Text/StaticStringDepot.hpp"
@@ -108,7 +108,7 @@ StaticStringDepot::StaticStringDepot ()
     static constexpr uint32_t DEPOT_BYTE_SIZE = 4 * 1024;
 
     m_allocator.initialize(
-        MathUtility::round_up_multiple_count(DEPOT_BYTE_SIZE, MemoryUtility::page_size()), 2);
+        MathUtility::round_up_count(DEPOT_BYTE_SIZE, MemoryUtility::page_size()), 2);
 
     uint8_t * const empty_string_address = m_allocator.allocate(1);
     empty_string_address[0] = 0;

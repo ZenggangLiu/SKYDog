@@ -52,6 +52,8 @@ struct alignas(16) matrix_3x4
     static constexpr uint8_t ROW_COUNT    = 3;
     static constexpr uint8_t COLUMN_COUNT = 4;
 
+    static const matrix_3x4 IDENTITY;
+
     union
     {
         struct
@@ -69,34 +71,81 @@ struct alignas(16) matrix_3x4
         float_4 rows[ROW_COUNT];
     };
 
-    /// 创建Identity矩阵
+    /// 创建移动矩阵
+    ///
+    /// @param[in]  translation
+    ///     移动向量
     static
     matrix_3x4
-    make ();
+    make_translation (
+        const float_3 translation);
+
+    /// 创建旋转矩阵
+    ///
+    /// @param[in]  rotation
+    ///     旋转单位四元数
+    static
+    matrix_3x4
+    make_rotation (
+        const quaternion rotation);
 
     /// 创建Uniform放缩矩阵
     static
     matrix_3x4
-    make (
-        const float scale);
-
-    /// 创建移动矩阵
+    make_scaling (
+        const float scaling);
+    /// 创建放缩矩阵
     ///
-    /// @param[in]  vec
-    ///     移动向量
+    /// @param[in]  scaling
+    ///     放缩向量
     static
     matrix_3x4
-    make (
-        const float_3 vec);
+    make_scaling (
+        const float_3 scaling);
 
-    /// 创建旋转矩阵
-    ///
-    /// @param[in]  quat
-    ///     旋转单位四元数
     static
     matrix_3x4
-    make (
-        const quaternion quat);
+    make_translation_rotation (
+        const float_3    translation,
+        const quaternion rotation);
+
+    static
+    matrix_3x4
+    make_translation_scaling (
+        const float_3 translation,
+        const float   scaling);
+
+    static
+    matrix_3x4
+    make_translation_scaling (
+        const float_3 translation,
+        const float_3 scaling);
+
+    static
+    matrix_3x4
+    make_rotation_scaling (
+        const quaternion rotation,
+        const float      scaling);
+
+    static
+    matrix_3x4
+    make_rotation_scaling (
+        const quaternion rotation,
+        const float_3    scaling);
+
+    static
+    matrix_3x4
+    make_translation_rotation_scaling (
+        const float_3    translation,
+        const quaternion rotation,
+        const float      scaling);
+
+    static
+    matrix_3x4
+    make_translation_rotation_scaling (
+        const float_3    translation,
+        const quaternion rotation,
+        const float_3    scaling);
 
     /// 检测当前矩阵是否与另一个矩阵matx相同
     bool

@@ -33,6 +33,7 @@
     <ClInclude Include="Private\Render\VertexLayout\Layout_Pos_Norm.hpp" />
     <ClInclude Include="Private\Render\VertexLayout\Layout_Pos_Uv.hpp" />
     <ClInclude Include="Private\SceneGraph\MarkerTypeDepot.hpp" />
+    <ClInclude Include="Private\SceneGraph\TransformData.hpp" />
     <ClInclude Include="Private\Text\StaticStringDepot.hpp" />
     <ClInclude Include="Public\Assert\RuntimeAssert.hpp" />
     <ClInclude Include="Public\Codec\X2TeaCodec.hpp" />
@@ -73,6 +74,7 @@
     <ClInclude Include="Public\SceneGraph\ObjectMarker.hpp" />
     <ClInclude Include="Public\SceneGraph\SceneObject.hpp" />
     <ClInclude Include="Public\SceneGraph\TransformMarker.hpp" />
+    <ClInclude Include="Public\SceneGraph\TransformType.hpp" />
     <ClInclude Include="Public\Text\StaticString.hpp" />
     <ClInclude Include="Public\Text\StaticStringId.hpp" />
     <ClInclude Include="Public\Text\TextEncoding.hpp" />
@@ -116,6 +118,7 @@
     <ClCompile Include="Private\SceneGraph\MarkerTypeDepot.cpp" />
     <ClCompile Include="Private\SceneGraph\ObjectMarker.cpp" />
     <ClCompile Include="Private\SceneGraph\SceneObject.cpp" />
+    <ClCompile Include="Private\SceneGraph\TransformData.cpp" />
     <ClCompile Include="Private\SceneGraph\TransformMarker.cpp" />
     <ClCompile Include="Private\Text\StaticString.cpp" />
     <ClCompile Include="Private\Text\StaticStringDepot.cpp" />

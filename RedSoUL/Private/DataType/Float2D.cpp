@@ -7,11 +7,8 @@
 #include "DataType/Float2D.hpp"
 
 
-float_2
-float_2::make ()
-{
-    return float_2{ 0,0 };
-}
+const float_2 float_2::ONE { 1,  1 };
+const float_2 float_2::ZERO{ 0,  0 };
 
 
 float_2

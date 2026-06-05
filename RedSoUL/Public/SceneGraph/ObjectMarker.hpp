@@ -111,7 +111,7 @@ protected:
     ObjectMarker & operator = (
         const ObjectMarker &) = delete;
 
-private:
+protected:
     friend class SceneObject;
 
     SceneObject &   m_owner;

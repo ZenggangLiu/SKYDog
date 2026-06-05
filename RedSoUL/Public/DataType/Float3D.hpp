@@ -87,12 +87,6 @@ struct alignas(16) float_3
         float e[DIMENSION];
     };
 
-
-    /// 创建一个全零向量: [0, 0, 0]
-    static
-    float_3
-    make ();
-
     /// 使用指定的数值创建向量: [x, y, z]
     static
     float_3
@@ -106,12 +100,12 @@ struct alignas(16) float_3
     float_3
     make_random_unit_vec ();
 
-    /// 检测当前向量是否与另一个向量vec相同
+    /// 检测当前向量是否与另一个向量vec相同(在容忍范围内是否相同)
     bool
     operator== (
         const float_3 vec) const;
 
-    /// 检测当前向量是否与另一个向量vec不同
+    /// 检测当前向量是否与另一个向量vec不同(在容忍范围内是否不同)
     bool
     operator!= (
         const float_3 vec) const;

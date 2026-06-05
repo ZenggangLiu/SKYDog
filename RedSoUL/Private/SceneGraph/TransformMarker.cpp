@@ -1,9 +1,16 @@
+/// System headers
+#include <algorithm> /// std::find
+#include <cmath>     /// std::fmodf
 /// Library headers
 #include "Assert/RuntimeAssert.hpp"
-#include "Common/CommonDefines.hpp" /// INLINE_FUNCTION, UNUSED_VARIABLE
-#include "Math/MathUtilities.hpp"   /// round_up_multiple_count
+#include "Common/CommonDefines.hpp"   /// INLINE_FUNCTION, UNUSED_VARIABLE
+#include "Common/CompilerDefines.hpp" /// BUILD_MODE
+#include "Math/MathUtilities.hpp"     /// round_up_count
 #include "Memory/BlockAllocator.hpp"
+#include "SceneGraph/GameScene.hpp"
 #include "SceneGraph/MarkerTypeDepot.hpp"
+#include "SceneGraph/SceneObject.hpp"
+#include "SceneGraph/TransformData.hpp"
 /// Self header
 #include "SceneGraph/TransformMarker.hpp"
 
@@ -21,7 +28,7 @@ TransformCreateParam::TransformCreateParam (
 
 
 
-// MARK: == 变换属性分配器 ==
+// MARK: == TransformMarker Allocator ==
 class TransformAllocator
 {
 public:
@@ -41,8 +48,9 @@ public:
         return m_allocator.allocate();
     }
 
+    INLINE_FUNCTION
     bool
-    destroy(
+    deallocate (
         void * const alloc_addr)
     {
         return m_allocator.deallocate(alloc_addr);
@@ -59,7 +67,7 @@ private:
         static constexpr uint32_t EXPECT_BYTE_SIZE = MARKER_BYTE_SIZE * TRANSFORM_COUNT;
 
         const bool is_initialized = m_allocator.initialize(
-            MathUtility::round_up_multiple_count(EXPECT_BYTE_SIZE, BLOCK_ALLOCATOR_PAGE_SIZE), 2);
+            MathUtility::round_up_count(EXPECT_BYTE_SIZE, BLOCK_ALLOCATOR_PAGE_SIZE), 2);
         UNUSED_VARIABLE(is_initialized);
         RUNTIME_ASSERT(is_initialized, "Can not initialize the allocator!!");
     }
@@ -78,9 +86,452 @@ private:
 
 
 
-// MARK: == 变换属性 ==
+// MARK: == TransformMarker ==
+/// const MarkerTypeInfo TransformMarker::ms_type_info(...);
 DEFINE_MARKER_TYPE_INFO(
     TransformMarker, TransformMarker::create, TransformMarker::destroy);
+
+
+const TransformMarker *
+TransformMarker::father () const
+{
+    return m_father_transform;
+}
+
+
+TransformMarker *
+TransformMarker::father ()
+{
+    return const_cast<TransformMarker*>(((const TransformMarker*)this)->father());
+}
+
+
+void
+TransformMarker::set_father (
+    TransformMarker * const father /* = nullptr */)
+{
+    RUNTIME_ASSERT(m_transform_type != TransformType::IS_TRANSFORM_FROZEN,
+                   "Transform is frozen, we can not change the translate!!");
+
+    /// 如果为静止物体
+    if (m_transform_type == TransformType::IS_TRANSFORM_FROZEN)
+    {
+        return;
+    }
+    else
+    {
+        // 检测是否企图设置相同的父节点
+        if (m_father_transform == father)
+        {
+            return;
+        }
+        else
+        {
+            /// 检查如下非法情况: 沿father节点上找当前节点(THIS)，能挡住“自己作为父节点”和“把自己的后代作为父节点”
+            /// - 将自己设置为父节点
+            /// - 将子节点置为父节点
+            const TransformMarker * ancestor = father;
+            while (ancestor)
+            {
+                if (ancestor == this)
+                {
+                    RUNTIME_ASSERT(false, "Father can not be itself or its kinder!!");
+                    return;
+                }
+                else
+                {
+                    ancestor = ancestor->m_father_transform;
+                }
+            }
+
+            /// 先将此节点从父节点中Detach
+            if (m_father_transform)
+            {
+                m_father_transform->detach(*this);
+            }
+
+            /// 如果有父节点, Attach到新的父节点中
+            if (father)
+            {
+                father->attach(*this);
+            }
+        }
+    }
+}
+
+
+uint32_t
+TransformMarker::kinder_count () const
+{
+    return (uint32_t)m_kinder_list.size();
+}
+
+
+const TransformMarker *
+TransformMarker::kinder_at (
+    const uint32_t index) const
+{
+    RUNTIME_ASSERT(index < kinder_count(), "Kinder index is out of range!!");
+
+    return m_kinder_list[index];
+}
+
+
+TransformMarker *
+TransformMarker::kinder_at (
+    const uint32_t index)
+{
+    return const_cast<TransformMarker*>(
+        ((const TransformMarker*)this)->kinder_at(index));
+}
+
+
+float_3
+TransformMarker::local_position () const
+{
+    const bool has_position =
+        ((uint32_t)m_transform_type & (uint32_t)TransformType::HAS_POSITION) != 0;
+    return has_position ? m_transform_data->position() : float_3::ZERO;
+}
+
+
+float
+TransformMarker::local_pitch () const
+{
+    const bool has_rotation =
+        ((uint32_t)m_transform_type & (uint32_t)TransformType::HAS_ROTATION) != 0;
+    return has_rotation ? m_transform_data->pitch() : 0.0f;
+}
+
+
+float
+TransformMarker::local_yaw () const
+{
+    const bool has_rotation =
+        ((uint32_t)m_transform_type & (uint32_t)TransformType::HAS_ROTATION) != 0;
+    return has_rotation ? m_transform_data->yaw() : 0.0f;
+}
+
+
+float
+TransformMarker::local_roll () const
+{
+    const bool has_rotation =
+        ((uint32_t)m_transform_type & (uint32_t)TransformType::HAS_ROTATION) != 0;
+    return has_rotation ? m_transform_data->roll() : 0.0f;
+}
+
+
+quaternion
+TransformMarker::local_rotation () const
+{
+    const bool has_rotation =
+        ((uint32_t)m_transform_type & (uint32_t)TransformType::HAS_ROTATION) != 0;
+    if (has_rotation)
+    {
+        return m_transform_data->rotation();
+    }
+    else
+    {
+        return quaternion::IDENTITY;
+    }
+}
+
+
+float_3
+TransformMarker::local_scaling () const
+{
+    const bool has_scaling =
+        ((uint32_t)m_transform_type & (uint32_t)TransformType::HAS_SCALING) != 0;
+    return has_scaling ? m_transform_data->scaling() : float_3::ONE;
+}
+
+
+/// 获取当前物体的世界变换矩阵
+const matrix_3x4 &
+TransformMarker::local_to_world_transform () const
+{
+    if (m_is_cache_dirty)
+    {
+        /// 有父节点
+        if (m_father_transform)
+        {
+            /// 先更新Parent的世界变换
+            const matrix_3x4 & father_to_world = m_father_transform->local_to_world_transform();
+            if (m_transform_type == TransformType::IDENTITY_TRANSFROM)
+            {
+                m_world_transform = father_to_world;
+            }
+            else
+            {
+                const matrix_3x4 & local_to_father = m_transform_data->local_transform(m_transform_type);
+                m_world_transform = father_to_world * local_to_father;
+            }
+        }
+        /// 无父节点
+        else
+        {
+            if (m_transform_type == TransformType::IDENTITY_TRANSFROM)
+            {
+                m_world_transform = matrix_3x4::IDENTITY;
+            }
+            else
+            {
+                const matrix_3x4 & local_to_father = m_transform_data->local_transform(m_transform_type);
+                m_world_transform = local_to_father;
+            }
+        }
+        m_is_cache_dirty = false;
+    }
+
+    return m_world_transform;
+}
+
+
+void
+TransformMarker::set_local_position (
+    const float_3 position)
+{
+    RUNTIME_ASSERT(m_transform_type != TransformType::IS_TRANSFORM_FROZEN,
+                   "Transform is frozen, we can not change the translate!!");
+
+    /// 如果为静止物体
+    if (m_transform_type == TransformType::IS_TRANSFORM_FROZEN)
+    {
+        return;
+    }
+    else
+    {
+        /// 检查是否企图设置相同的位移
+        if (m_transform_data->position() == position)
+        {
+            return;
+        }
+        else
+        {
+            /// 保存指定位移
+            m_transform_data->set_position(position);
+
+            /// 是否设置0位移
+            if (position == float_3::ZERO)
+            {
+                /// 清除位移标记
+                const uint32_t new_type =
+                    (uint32_t)m_transform_type & ~((uint32_t)TransformType::HAS_POSITION);
+                m_transform_type = (TransformType)new_type;
+            }
+            else
+            {
+                /// 添加位移标记
+                const uint32_t new_type =
+                    (uint32_t)m_transform_type | (uint32_t)TransformType::HAS_POSITION;
+                m_transform_type = (TransformType)new_type;
+            }
+
+            /// 设置缓冲矩阵Dirty标记
+            set_cache_dirty();
+        }
+    }
+}
+
+
+void
+TransformMarker::set_local_pitch (
+    const float angle_degs)
+{
+    RUNTIME_ASSERT(m_transform_type != TransformType::IS_TRANSFORM_FROZEN,
+                   "Transform is frozen, we can not change the translate!!");
+
+    /// 如果为静止物体
+    if (m_transform_type == TransformType::IS_TRANSFORM_FROZEN)
+    {
+        return;
+    }
+    else
+    {
+        /// 检查是否企图设置相同的角度
+        if (m_transform_data->pitch() == std::fmodf(angle_degs, 360.0f))
+        {
+            return;
+        }
+        else
+        {
+            /// 设置角度
+            m_transform_data->set_pitch(angle_degs);
+            /// 设置旋转类型
+            set_rotation_type();
+            /// 设置缓冲矩阵Dirty标记
+            set_cache_dirty();
+        }
+    }
+}
+
+
+void
+TransformMarker::set_local_yaw (
+    const float angle_degs)
+{
+    RUNTIME_ASSERT(m_transform_type != TransformType::IS_TRANSFORM_FROZEN,
+                   "Transform is frozen, we can not change the translate!!");
+
+    /// 如果为静止物体
+    if (m_transform_type == TransformType::IS_TRANSFORM_FROZEN)
+    {
+        return;
+    }
+    else
+    {
+        /// 检查是否企图设置相同的角度
+        if (m_transform_data->yaw() == std::fmodf(angle_degs, 360.0f))
+        {
+            return;
+        }
+        else
+        {
+            /// 设置角度
+            m_transform_data->set_yaw(angle_degs);
+            /// 设置旋转类型
+            set_rotation_type();
+            /// 设置缓冲矩阵Dirty标记
+            set_cache_dirty();
+        }
+    }
+}
+
+
+void
+TransformMarker::set_local_roll (
+    const float angle_degs)
+{
+    RUNTIME_ASSERT(m_transform_type != TransformType::IS_TRANSFORM_FROZEN,
+                   "Transform is frozen, we can not change the translate!!");
+
+    /// 如果为静止物体
+    if (m_transform_type == TransformType::IS_TRANSFORM_FROZEN)
+    {
+        return;
+    }
+    else
+    {
+        /// 检查是否企图设置相同的角度
+        if (m_transform_data->roll() == std::fmodf(angle_degs, 360.0f))
+        {
+            return;
+        }
+        else
+        {
+            /// 设置角度
+            m_transform_data->set_roll(angle_degs);
+            /// 设置旋转类型
+            set_rotation_type();
+            /// 设置缓冲矩阵Dirty标记
+            set_cache_dirty();
+        }
+    }
+}
+
+
+void
+TransformMarker::set_local_rotation (
+    const quaternion rotation)
+{
+    RUNTIME_ASSERT(m_transform_type != TransformType::IS_TRANSFORM_FROZEN,
+                   "Transform is frozen, we can not change the translate!!");
+
+    /// 如果为静止物体
+    if (m_transform_type == TransformType::IS_TRANSFORM_FROZEN)
+    {
+        return;
+    }
+    else
+    {
+        /// 检查是否企图设置相同的角度
+        if (m_transform_data->rotation() == rotation)
+        {
+            return;
+        }
+        else
+        {
+            /// 设置角度
+            m_transform_data->set_rotation(rotation);
+            /// 设置旋转类型
+            set_rotation_type();
+            /// 设置缓冲矩阵Dirty标记
+            set_cache_dirty();
+        }
+    }
+}
+
+
+void
+TransformMarker::set_local_scaling (
+    const float_3 scaling)
+{
+    RUNTIME_ASSERT(m_transform_type != TransformType::IS_TRANSFORM_FROZEN,
+                   "Transform is frozen, we can not change the translate!!");
+
+    /// 如果为静止物体
+    if (m_transform_type == TransformType::IS_TRANSFORM_FROZEN)
+    {
+        return;
+    }
+    else
+    {
+        /// 使用的缩放系数
+        const float_3 scaling_used = scaling == float_3::ZERO ? float_3::ONE : scaling;
+
+        /// 检查是否企图设置相同的缩放
+        if (m_transform_data->scaling() == scaling_used)
+        {
+            return;
+        }
+        else
+        {
+            /// 设置缩放
+            m_transform_data->set_scaling(scaling_used);
+
+            /// 将缩放系数ONE视为无缩放
+            if (scaling_used == float_3::ONE)
+            {
+                /// 清除放缩标记(以及可能的Uniform放缩标记)
+                const uint32_t new_type =
+                    (uint32_t)m_transform_type &
+                    ~((uint32_t)TransformType::HAS_SCALING |
+                     (uint32_t)TransformType::IS_UNIFORM_SCALING);
+                m_transform_type = (TransformType)new_type;
+            }
+            else
+            {
+                /// 添加放缩标记
+                const uint32_t new_type =
+                    (uint32_t)m_transform_type | (uint32_t)TransformType::HAS_SCALING;
+                m_transform_type = (TransformType)new_type;
+
+                /// 判断是否为Uniform放缩
+                if (MathUtility::equal(scaling_used.x, scaling_used.y) &&
+                    MathUtility::equal(scaling_used.x, scaling_used.z))
+                {
+                    /// 添加Uniform缩放标记
+                    const uint32_t new_type =
+                        (uint32_t)m_transform_type |
+                        (uint32_t)TransformType::IS_UNIFORM_SCALING;
+                    m_transform_type = (TransformType)new_type;
+                }
+                else
+                {
+                    /// 清除Uniform缩放标记
+                    const uint32_t new_type =
+                        (uint32_t)m_transform_type &
+                        ~((uint32_t)TransformType::IS_UNIFORM_SCALING);
+                    m_transform_type = (TransformType)new_type;
+                }
+            }
+
+            /// 设置缓冲矩阵Dirty标记
+            set_cache_dirty();
+        }
+    }
+}
 
 
 ObjectMarker *
@@ -111,7 +562,7 @@ TransformMarker::destroy (
     /// 调用析构函数
     transform_marker->~TransformMarker();
     /// 释放内存
-    const bool opcode = TransformAllocator::ref().destroy(transform_marker);
+    const bool opcode = TransformAllocator::ref().deallocate(marker);
     /// 清除参考
     marker = nullptr;
     return opcode;
@@ -122,13 +573,161 @@ TransformMarker::TransformMarker (
     SceneObject &           owner,
     TransformMarker * const father)
 :
-    SuperT(ms_type_info.name_id(), owner)
+    SuperT(ms_type_info.name_id(), owner),
+    m_world_transform(matrix_3x4::IDENTITY),
+    m_father_transform(father),
+    m_transform_data(TransformData::create()),
+    m_transform_type(TransformType::IDENTITY_TRANSFROM),
+    m_is_cache_dirty(father != nullptr)
 {
+    static constexpr uint8_t INITIAL_KINDER_COUNT = 8;
 
+    RUNTIME_ASSERT(m_transform_data, "Can not create transform data!!");
+
+    m_kinder_list.reserve(INITIAL_KINDER_COUNT);
+
+    /// 连接父节点
+    if (father)
+    {
+        father->attach(*this);
+    }
+    /// 无父节点变换
+    else
+    {
+        /// 在关卡中注册此TOPLEVEL物体
+        m_owner.owner_scene().register_toplevel_object(m_owner);
+    }
 }
 
 
 TransformMarker::~TransformMarker ()
 {
+    /// 先销毁子节点
+    while (m_kinder_list.size() > 0)
+    {
+        TransformMarker * const kinder = m_kinder_list.back();
+        /// 断开此子节点
+        detach(*kinder);
+        /// 销毁子物体
+        SceneObject * kinder_object = &(kinder->m_owner);
+        m_owner.owner_scene().destroy_object(kinder_object);
+    }
 
+    /// 断开父节点
+    if (m_father_transform)
+    {
+        m_father_transform->detach(*this);
+    }
+    /// 无父节点变换
+    else
+    {
+        /// 在关卡中注销此TOPLEVEL物体
+        m_owner.owner_scene().unregister_toplevel_object(m_owner);
+    }
+
+    /// 释放TransformData实例
+    m_transform_data->destroy();
+}
+
+
+void
+TransformMarker::attach (
+    TransformMarker & new_kinder)
+{
+    /// 检查如下非法情况:
+    /// - 将自己设置为子节点
+    /// - 将父节点置为子节点
+    const TransformMarker * ancestor = this;
+    while (ancestor)
+    {
+        if (ancestor == &new_kinder)
+        {
+            RUNTIME_ASSERT(false, "Can not attach itself or an ancestor as kinder!!");
+            return;
+        }
+        else
+        {
+            ancestor = ancestor->m_father_transform;
+        }
+    }
+
+    /// 测试指定子节点是否已经Attach
+    const KinderListT::iterator kinder_it =
+        std::find(m_kinder_list.begin(), m_kinder_list.end(), &new_kinder);
+    RUNTIME_ASSERT(kinder_it == m_kinder_list.end(),
+                   "Same kinder can not be attached more than once!!");
+
+    if (kinder_it == m_kinder_list.end())
+    {
+        /// 如果指定子节点为TOPLEVEL节点, 在关卡中TOPLEVEL列表中注销它
+        if (new_kinder.m_father_transform == nullptr)
+        {
+            m_owner.owner_scene().unregister_toplevel_object(new_kinder.m_owner);
+        }
+        /// 添加指定子节点
+        m_kinder_list.push_back(&new_kinder);
+        /// 设置指定子节点的父节点
+        new_kinder.m_father_transform = this;
+        /// 设置Dirty标记
+        new_kinder.set_cache_dirty();
+    }
+}
+
+
+void
+TransformMarker::detach (
+    TransformMarker & old_kinder)
+{
+    /// 测试指定子节点是否已经Attach
+    KinderListT::iterator kinder_it =
+        std::find(m_kinder_list.begin(), m_kinder_list.end(), &old_kinder);
+    RUNTIME_ASSERT(kinder_it != m_kinder_list.end(),
+                   "This kinder is not attached at all!!");
+
+    if (kinder_it != m_kinder_list.end())
+    {
+        /// 清楚指定子节点的父节点
+        old_kinder.m_father_transform = nullptr;
+        /// 设置Dirty标记
+        old_kinder.set_cache_dirty();
+        /// 移除指定子节点
+        m_kinder_list.erase(kinder_it);
+        /// 在关卡中TOPLEVEL列表中注册它
+        m_owner.owner_scene().register_toplevel_object(old_kinder.m_owner);
+    }
+}
+
+
+void
+TransformMarker::set_cache_dirty ()
+{
+    /// 设置Kinder的Dirty标记
+    for (auto kinder : m_kinder_list)
+    {
+        kinder->set_cache_dirty();
+    }
+
+    /// 设置自己的Dirty标记
+    m_is_cache_dirty = true;
+}
+
+
+void
+TransformMarker::set_rotation_type ()
+{
+    /// 判断是否还有旋转
+    if (m_transform_data->euler_angles() == float_3::ZERO)
+    {
+        /// 清除旋转标记
+        const uint32_t new_type =
+            (uint32_t)m_transform_type & ~(uint32_t)TransformType::HAS_ROTATION;
+        m_transform_type = (TransformType)new_type;
+    }
+    else
+    {
+        /// 添加旋转标记
+        const uint32_t new_type =
+            (uint32_t)m_transform_type | (uint32_t)TransformType::HAS_ROTATION;
+        m_transform_type = (TransformType)new_type;
+    }
 }
