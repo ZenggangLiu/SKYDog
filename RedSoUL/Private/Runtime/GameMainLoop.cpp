@@ -3,7 +3,7 @@
 /// Library headers
 #include "Time/ClockTime.hpp"
 #include "Runtime/GameLogic.hpp"
-// Self header
+/// Self header
 #include "Runtime/GameMainLoop.hpp"
 
 

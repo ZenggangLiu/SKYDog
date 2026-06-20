@@ -37,7 +37,7 @@
 struct matrix_3x4;
 
 
-/// 四行四列矩阵
+/// 四行四列矩阵(ROW Major)
 ///
 /// NOTE:
 /// matrix_4x4定义为POD/Aggregate类型：16位字节对齐
@@ -52,6 +52,8 @@ struct alignas(16) matrix_4x4
 {
     static constexpr uint8_t ROW_COUNT    = 4;
     static constexpr uint8_t COLUMN_COUNT = 4;
+
+    static const matrix_4x4 IDENTITY;
 
     union
     {

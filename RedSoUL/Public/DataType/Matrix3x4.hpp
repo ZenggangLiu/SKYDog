@@ -36,7 +36,7 @@
 #include "DataType/Quaternion.hpp"
 
 
-/// 三行四列矩阵
+/// 三行四列矩阵(ROW Major)
 ///
 /// NOTE:
 /// matrix_3x4定义为POD/Aggregate类型：16位字节对齐

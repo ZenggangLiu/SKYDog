@@ -90,6 +90,14 @@ float_4::length_squared () const
 }
 
 
+float_4
+float_4::operator* (
+    const float scale) const
+{
+    return float_4{ x * scale, y * scale, z * scale, w * scale };
+}
+
+
 float
 float_4::dot (
     const float_4 vec) const

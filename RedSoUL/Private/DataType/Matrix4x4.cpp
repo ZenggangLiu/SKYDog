@@ -7,6 +7,15 @@
 #include "DataType/Matrix4x4.hpp"
 
 
+const matrix_4x4 matrix_4x4::IDENTITY
+{
+        1, 0, 0, 0,
+        0, 1, 0, 0,
+        0, 0, 1, 0,
+        0, 0, 0, 1
+};
+
+
 matrix_4x4
 matrix_4x4::make (
     const matrix_3x4 & rts_matx)

@@ -115,7 +115,7 @@ private:
         uint32_t logic_page_idx;
     };
     /// <Address, BlockLocationInfo>
-    typedef std::unordered_map<uintptr_t, LogicPageInfo> LogicPageInfoTableT;
+    typedef std::unordered_map < uintptr_t, LogicPageInfo > LogicPageInfoTableT;
 
     bool
     alloc_new_memory_block ();

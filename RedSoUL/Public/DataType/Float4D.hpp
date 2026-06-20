@@ -125,6 +125,12 @@ struct alignas(16) float_4
     float
     length_squared () const;
 
+    /// 创建一个将当前向量均匀放大scale倍的向量
+    /// c = THIS * scale
+    float_4
+    operator* (
+        const float scale) const;
+
     /// 计算当前向量另一个向量vec的Dot/Inner Product
     /// - Dot(THIS, vec)
     float
