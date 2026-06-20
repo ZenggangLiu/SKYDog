@@ -6,7 +6,7 @@
 #define _WINSOCKAPI_
 #include <Windows.h>
 #undef _WINSOCKAPI_
-#elif defined(__APPLE__)
+#else
 #include <time.h> /// clock_gettime_nsec_np
 #endif
 /// Self header
@@ -31,7 +31,8 @@ ClockTime::mono_time_ms ()
     QueryPerformanceCounter(&counter_val);
 
     /// 计算当前时间(多少秒)
-    const float time_in_sec = (float)((double)counter_val.QuadPart / COUNTER_FREQUENCY.QuadPart);
+    const float time_in_sec =
+        (float)((double)counter_val.QuadPart / COUNTER_FREQUENCY.QuadPart);
 
     /// 讲秒转换为毫秒
     return time_in_sec * 1000;
@@ -45,6 +46,12 @@ ClockTime::mono_time_ms ()
     return time_in_ns * (1.0f/1000000);
 
 #else /// Linux
-    #error TODO: No implementation
+    timespec time;
+    clock_gettime(CLOCK_MONOTONIC_RAW, &time);
+    const uint64_t time_in_ns =
+        (uint64_t)time.tv_sec * 1000000000ULL + time.tv_nsec;
+
+    /// 将时间从纳秒转换到毫秒: 1ms = 1000000纳秒
+    return time_in_ns * (1.0f / 1000000);
 #endif /// (OS_TYPE == OS_TYPE_WIN)
 }
