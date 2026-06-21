@@ -1,10 +1,20 @@
 /// Library headers
 #include "Assert/RuntimeAssert.hpp"
+#include "Common/CompilerDefines.hpp" /// BUILD_MODE
 #include "SceneGraph/MarkerTypeDepot.hpp"
 #include "SceneGraph/TransformMarker.hpp"
 #include "Text/StaticString.hpp"
 /// Self header
 #include "SceneGraph/SceneObject.hpp"
+
+
+MessageId
+SceneObject::next_marker_message_id ()
+{
+    static MessageId current_message_id{ 1 };
+
+    return MessageId{ current_message_id.value++ };
+}
 
 
 const GameScene &
@@ -35,6 +45,56 @@ TransformMarker &
 SceneObject::transform ()
 {
     return const_cast<TransformMarker&>(((const SceneObject*)this)->transform());
+}
+
+
+void
+SceneObject::register_message_observer (
+    const MessageId       message_id,
+    ObjectMarker * const  marker_objc,
+    const MessageFunction mesasge_fuc)
+{
+    /// 创建Message Key
+    const MessageKey msg_key(this, message_id);
+    /// 查找是否有注册的监听器
+    const MessageTableT::iterator observer_list = ms_message_table.find(msg_key);
+    if (observer_list == ms_message_table.end())
+    {
+        MessageObserverInfoListT new_list;
+        new_list.push_back(MessageObserverInfo(marker_objc, mesasge_fuc));
+        ms_message_table.emplace(msg_key, new_list);
+    }
+    else
+    {
+        MessageObserverInfoListT & exist_list = observer_list->second;
+#if (BUILD_MODE == DEBUG_BUILD_MODE)
+        for (const auto observer : exist_list)
+        {
+            RUNTIME_ASSERT(observer.marker_objc  != marker_objc &&
+                           observer.message_func != mesasge_fuc,
+                           "Double messge observer registration!!");
+        }
+#endif
+        exist_list.push_back(MessageObserverInfo(marker_objc, mesasge_fuc));
+    }
+}
+
+
+void
+SceneObject::trigger_message (
+    const MessageId message_id)
+{
+    /// 创建Message Key
+    const MessageKey msg_key(this, message_id);
+    /// 查找是否有注册的监听器
+    const MessageTableT::const_iterator observer_list = ms_message_table.find(msg_key);
+    if (observer_list != ms_message_table.end())
+    {
+        for (auto & observer : observer_list->second)
+        {
+            observer.message_func(observer.marker_objc);
+        }
+    }
 }
 
 

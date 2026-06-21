@@ -30,9 +30,11 @@
 
 /// System headers
 #include <stdint.h> /// uint16_t,...
+#include <unordered_map>
 #include <vector>
 /// Library headers
 #include "Common/CommonDefines.hpp" /// INLINE_FUNCTION, STRINGIFY
+#include "Message/MessageDefines.hpp"
 #include "Text/StaticStringId.hpp"
 
 
@@ -65,6 +67,9 @@ class TransformMarker;
 class SceneObject
 {
 public:
+    /// Marker消息处理函数
+    typedef void (*MessageFunction)(ObjectMarker * const marker);
+
     /// 获取指定属性
     ///
     /// @param[in]  type_name
@@ -96,6 +101,11 @@ public:
         add_marker_with_nameid_and_cast<type_name>( \
             STATIC_STRING_HASH(STRINGIFY(type_name)))
 
+    /// 获取下一个可用的消息Id
+    static
+    MessageId
+    next_marker_message_id ();
+
     /// 获取所属关卡
     const GameScene &
     owner_scene () const;
@@ -109,6 +119,25 @@ public:
 
     TransformMarker &
     transform ();
+
+    /// 注册一个Marker消息监听器
+    ///
+    /// @param[in]  message_id
+    ///     希望监听的消息Id
+    /// @param[in]  marker_objc
+    ///     监听器(其它Marker)实例
+    /// @param[in]  mesasge_func
+    ///     消息处理函数
+    void
+    register_message_observer (
+        const MessageId       message_id,
+        ObjectMarker * const  marker_objc,
+        const MessageFunction mesasge_func);
+
+    /// 触发Marker消息
+    void
+    trigger_message (
+        const MessageId message_id);
 
 
 private:
@@ -178,7 +207,77 @@ private:
 private:
     friend class GameScene;
 
-    typedef std::vector<ObjectMarker*> MarkerListT;
+    struct MessageKey
+    {
+        SceneObject * const scene_objc;
+        const MessageId     message_id;
+
+        INLINE_FUNCTION
+        MessageKey (
+            SceneObject * const _scene_objc,
+            const MessageId     _message_id)
+        :
+            scene_objc(_scene_objc),
+            message_id(_message_id)
+        {
+
+        }
+    };
+
+    struct MessageKeyHasher
+    {
+        INLINE_FUNCTION
+        std::size_t
+        operator() (
+            const MessageKey message_key) const
+        {
+            /// 计算Hash时使用的32位Seed
+            static constexpr uint32_t ID_HASH_SEED = FOUR_CC_32('M', 'K', 'E', 'Y');
+
+            return RUNTIME_HASH_64(ID_HASH_SEED, &message_key, sizeof(message_key));
+        }
+    };
+
+    struct MessageKeyComparer
+    {
+        /// Compare: if A == B
+        INLINE_FUNCTION
+        bool
+        operator() (
+            const MessageKey key_a,
+            const MessageKey key_b) const
+        {
+            return (key_a.scene_objc == key_b.scene_objc) &&
+                   (key_a.message_id == key_b.message_id);
+        }
+    };
+
+    struct MessageObserverInfo
+    {
+        ObjectMarker * const  marker_objc;
+        MessageFunction const message_func;
+
+        INLINE_FUNCTION
+        MessageObserverInfo (
+            ObjectMarker * const  _marker_objc,
+            MessageFunction const _message_func)
+        :
+            marker_objc(_marker_objc),
+            message_func(_message_func)
+        {
+
+        }
+    };
+
+    typedef std::vector< ObjectMarker* > MarkerListT;
+    typedef std::vector< MessageObserverInfo > MessageObserverInfoListT;
+    typedef std::unordered_map< MessageKey,
+                                MessageObserverInfoListT,
+                                MessageKeyHasher,
+                                MessageKeyComparer > MessageTableT;
+
+    static
+    MessageTableT   ms_message_table;
 
     /// 所属关卡
     GameScene &     m_owner_scene;

@@ -103,8 +103,8 @@ public:
         return m_local_scaling;
     }
 
-    /// 获取当前本地变换矩阵
-    const matrix_3x4 &
+    /// 计算当前本地(Local --> Father)变换矩阵
+    matrix_3x4
     local_transform (
         const TransformType transform_type) const;
 
@@ -152,11 +152,6 @@ private:
     void
     update_combined_rotation () const;
 
-    /// 更新本地变换矩阵
-    void
-    update_local_transform (
-        const TransformType transform_type) const;
-
 private:
     // --- LOCAL TRANSFORM --- //
     float_3             m_local_position;
@@ -171,12 +166,8 @@ private:
     ///   如果旋转一个物体, 相当于先Yaw, 再Pitch, 最后Roll
     /// - 任意点P按照此公式变换: P' := 偏航*俯仰*翻滚 * P
     mutable quaternion  m_combined_rotation;
-    /// 本地转换矩阵: 本地 --> 父节点
-    mutable matrix_3x4  m_local_transform;
 
     // --- FLAGS --- //
     /// 标记是否合成的旋转数据失效
     mutable bool        m_is_combined_rotation_dirty;
-    /// 标记是否本地的变换矩阵失效
-    mutable bool        m_is_local_transform_dirty;
 };

@@ -34,6 +34,7 @@
 #include "DataType/Float3D.hpp"
 #include "DataType/Quaternion.hpp"
 #include "DataType/Matrix3x4.hpp"
+#include "Message/MessageDefines.hpp"
 #include "SceneGraph/ObjectMarker.hpp"
 #include "SceneGraph/TransformType.hpp"
 
@@ -47,6 +48,11 @@ class TransformMarker;
 class TransformMarker : public ObjectMarker
 {
 public:
+    /// 获取Transform属性的消息Id
+    static
+    MessageId
+    message_id ();
+
     // --- HIERARCHY --- //
     /// 获取父节点变换属性
     /// NOTE: COULD BE NULL!!
@@ -83,6 +89,20 @@ public:
 
 
     // --- TRANSFORM --- //
+    /// 将本地空间的点变换到世界空间
+    float_3
+    local_point_to_world_space (
+        const float_3 local_point) const;
+
+    /// 将世界空间的点变换到本地空间
+    float_3
+    world_point_to_local_space (
+        const float_3 world_point) const;
+
+    /// 获取当前的世界变换矩阵
+    const matrix_3x4 &
+    local_to_world_transform () const;
+
     /// 获取当前本地位移
     float_3
     local_position () const;
@@ -107,10 +127,6 @@ public:
 
     float_3
     local_scaling () const;
-
-    /// 获取当前物体的世界变换矩阵
-    const matrix_3x4 &
-    local_to_world_transform () const;
 
     /// 设置本地位移
     void
@@ -202,8 +218,12 @@ private:
 private:
     typedef std::vector<TransformMarker*> KinderListT;
 
-    /// 属性类型信息
-    static const MarkerTypeInfo ms_type_info;
+    /// Marker类型信息
+    static
+    const MarkerTypeInfo  ms_type_info;
+    /// 消息Id
+    static
+    const MessageId       ms_message_id;
 
     // --- CACHED WORLD TRANSFORM --- //
     /// 世界转换矩阵: 本地 --> 世界
@@ -218,6 +238,6 @@ private:
     TransformType         m_transform_type;
 
     // --- DIRTY FLAG --- //
-    /// 标记是否Cache的变换矩阵失效
-    mutable bool          m_is_cache_dirty;
+    /// 标记是否世界变换矩阵失效(Local --> World)
+    mutable bool          m_is_world_transform_dirty;
 };

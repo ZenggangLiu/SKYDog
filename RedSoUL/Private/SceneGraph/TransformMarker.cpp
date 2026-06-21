@@ -79,6 +79,15 @@ private:
 DEFINE_MARKER_TYPE_INFO(
     TransformMarker, TransformMarker::create, TransformMarker::destroy);
 
+const MessageId TransformMarker::ms_message_id = SceneObject::next_marker_message_id();
+
+
+MessageId
+TransformMarker::message_id ()
+{
+    return ms_message_id;
+}
+
 
 const TransformMarker *
 TransformMarker::father () const
@@ -175,6 +184,182 @@ TransformMarker::kinder_at (
 
 
 float_3
+TransformMarker::local_point_to_world_space (
+    const float_3 local_point) const
+{
+    const matrix_3x4 & world_transform = local_to_world_transform();
+    return world_transform.transform_point(local_point);
+}
+
+
+float_3
+TransformMarker::world_point_to_local_space (
+    const float_3 world_point) const
+{
+    /// Local --> World的变换为:
+    ///       TRS Matrix       =   Translation   *      Rotation     *      Scaling
+    /// | e00  e01  e02  e03 |   | 1  0  0  Tx |   | Ux  Vx  Wx  0 |   | Sx  0   0   0 |
+    /// | e10  e11  e12  e13 | = | 0  1  0  Ty | * | Uy  Vy  Wy  0 | * | 0   Sy  0   0 |
+    /// | e20  e21  e22  e23 |   | 0  0  1  Tz |   | Uz  Vz  Wz  0 |   | 0   0   Sz  0 |
+    ///
+    /// | e00  e01  e02  e03 |   | 1  0  0  Tx |   | Sx*Ux  Sy*Vx  Sz*Wx  0 |
+    /// | e10  e11  e12  e13 | = | 0  1  0  Ty | * | Sx*Uy  Sy*Vy  Sz*Wy  0 |
+    /// | e20  e21  e22  e23 |   | 0  0  1  Tz |   | Sx*Uz  Sy*Vz  Sz*Wz  0 |
+    ///
+    /// | e00  e01  e02  e03 |   | Sx*Ux  Sy*Vx  Sz*Wx  Tx |
+    /// | e10  e11  e12  e13 | = | Sx*Uy  Sy*Vy  Sz*Wy  Ty |
+    /// | e20  e21  e22  e23 |   | Sx*Uz  Sy*Vz  Sz*Wz  Tz |
+    ///
+    /// World --> Local的变换为: 通过对上述各个成员变换进行取逆
+    ///   Inverse(TRS) Matrix  =    Inverse(Scaling)     * Inverse(Rotation) * Inverse(Translation)
+    /// | e00  e01  e02  e03 |   | 1/Sx  0     0     0 |   | Ux  Uy  Uz  0 |   | 1  0  0  -Tx |
+    /// | e10  e11  e12  e13 | = | 0     1/Sy  0     0 | * | Vx  Vy  Vz  0 | * | 0  1  0  -Ty |
+    /// | e20  e21  e22  e23 |   | 0     0     1/Sz  0 |   | Wx  Wy  Wz  0 |   | 0  0  1  -Tz |
+    ///
+    /// | e00  e01  e02  e03 |   | Ux/Sx  Uy/Sx  Uz/Sx  0 |   | 1  0  0  -Tx |
+    /// | e10  e11  e12  e13 | = | Vx/Sy  Vy/Sy  Vz/Sy  0 | * | 0  1  0  -Ty |
+    /// | e20  e21  e22  e23 |   | Wx/Sz  Wy/Sz  Wz/Sz  0 |   | 0  0  1  -Tz |
+    ///
+    /// | e00  e01  e02  e03 |   | Ux/Sx  Uy/Sx  Uz/Sx  -(Ux/Sx*Tx + Uy/Sx*Ty + Uz/Sx*Tz) |
+    /// | e10  e11  e12  e13 | = | Vx/Sy  Vy/Sy  Vz/Sy  -(Vx/Sy*Tx + Vy/Sy*Ty + Vz/Sy*Tz) |
+    /// | e20  e21  e22  e23 |   | Wx/Sz  Wy/Sz  Wz/Sz  -(Wx/Sz*Tx + Wy/Sz*Ty + Wz/Sz*Tz) |
+    ///
+    /// | e00  e01  e02  e03 |   | Ux/Sx  Uy/Sx  Uz/Sx  -(U dot T)/Sx |
+    /// | e10  e11  e12  e13 | = | Vx/Sy  Vy/Sy  Vz/Sy  -(V dot T)/Sy |
+    /// | e20  e21  e22  e23 |   | Wx/Sz  Wy/Sz  Wz/Sz  -(W dot T)/Sz |
+    ///
+    /// 此物体的Local Frame为:
+    /// NOTE: 上述中的T(<Tx, Ty, Tz>)为Local Frame的原点O的世界坐标
+    ///   V
+    ///   ^
+    ///   |  / W
+    ///   | /
+    ///   |/
+    ///   O-------> U
+    /// 上述矩阵可以写为:
+    /// | e00  e01  e02  e03 |   | U/Sx  -(U dot O)/Sx |
+    /// | e10  e11  e12  e13 | = | V/Sy  -(V dot O)/Sy |
+    /// | e20  e21  e22  e23 |   | W/Sz  -(W dot O)/Sz |
+    ///
+    /// 对于世界空间中的点P, 变换后的本地点P'为:
+    /// P_local =            M            * P_world
+    ///           | U/Sx  -(U dot O)/Sx |   | Px |   | (U dot P)/Sx - (U dot O)/Sx |
+    /// P'      = | V/Sy  -(V dot O)/Sy | * | Py | = | (V dot P)/Sy - (V dot O)/Sy |
+    ///           | W/Sz  -(W dot O)/Sz |   | Pz |   | (W dot P)/Sz - (W dot O)/Sz |
+    ///           |  0           1      |   | 1  |
+    ///
+    ///      | (U dot P)/Sx - (U dot O)/Sx |   | (U dot P - U dot O)/Sx |
+    /// P' = | (V dot P)/Sy - (V dot O)/Sy | = | (V dot P - V dot O)/Sy |
+    ///      | (W dot P)/Sz - (W dot O)/Sz |   | (W dot P - W dot O)/Sz |
+    ///
+    ///      | (U dot P - U dot O)/Sx |   | [ U dot (P - O) ]/Sx |
+    /// P' = | (V dot P - V dot O)/Sy | = | [ V dot (P - O) ]/Sy |
+    ///      | (W dot P - W dot O)/Sz |   | [ W dot (P - O) ]/Sz |
+    ///
+    /// === 推导如果从世界变换计算逆变换 ===
+    /// 如果世界变换矩阵为: U, V, W为单位向量, U' := Sx*U, V' := Sy*V, W' := Sz*W
+    /// | e00  e01  e02  e03 |   | Sx*Ux  Sy*Vx  Sz*Wx  Ox |
+    /// | e10  e11  e12  e13 | = | Sx*Uy  Sy*Vy  Sz*Wy  Oy |
+    /// | e20  e21  e22  e23 |   | Sx*Uz  Sy*Vz  Sz*Wz  Oz |
+    ///
+    ///      | [ U dot (P - O) ]/Sx |   | [ U'/Sx dot (P - O) ]/Sx |   | [ U' dot (P - O) ]/(|U'|*|U'|) |
+    /// P' = | [ V dot (P - O) ]/Sy | = | [ V'/Sy dot (P - O) ]/Sy | = | [ V' dot (P - O) ]/(|V'|*|V'|) |
+    ///      | [ W dot (P - O) ]/Sz |   | [ W'/Sz dot (P - O) ]/Sz |   | [ W' dot (P - O) ]/(|W'|*|W'|) |
+    ///
+    /// 最终:
+    ///           | [ U'_world dot (P_world - O_world) ]/(|U'_world|*|U'_world|) |
+    /// P_local = | [ V'_world dot (P_world - O_world) ]/(|V'_world|*|V'_world|) |
+    ///           | [ W'_world dot (P_world - O_world) ]/(|W'_world|*|W'_world|) |
+    /// 世界变换矩阵为:
+    /// | U'_world  V'_world  W'_world  O_world |
+
+    /// 获取当前世界变换矩阵
+    const matrix_3x4 & world_transform = local_to_world_transform();
+    /// 合成O, U', V', W'
+    const float_3 frame_origin =
+        float_3::make(world_transform.e03, world_transform.e13, world_transform.e23);
+    const float_3 scaled_right =
+        float_3::make(world_transform.e00, world_transform.e10, world_transform.e20);
+    const float_3 scaled_upward =
+        float_3::make(world_transform.e01, world_transform.e11, world_transform.e21);
+    const float_3 scaled_forward =
+        float_3::make(world_transform.e02, world_transform.e12, world_transform.e22);
+
+    /// 计算P-O
+    const float_3 origin_to_point = world_point - frame_origin;
+
+    /// 计算各个轴的长度平方
+    const float right_axis_length_squared   = scaled_right.length_squared();
+    const float upward_axis_length_squared  = scaled_upward.length_squared();
+    const float forward_axis_length_squared = scaled_forward.length_squared();
+
+    /// 计算P’:
+    ///      | [ U' dot (P - O) ]/(|U'|^2) |
+    /// P' = | [ V' dot (P - O) ]/(|V'|^2) |
+    ///      | [ W' dot (P - O) ]/(|W'|^2) |
+    return float_3::make(
+        origin_to_point.dot(scaled_right  )/right_axis_length_squared,
+        origin_to_point.dot(scaled_upward )/upward_axis_length_squared,
+        origin_to_point.dot(scaled_forward)/forward_axis_length_squared);
+}
+
+
+const matrix_3x4 &
+TransformMarker::local_to_world_transform () const
+{
+    /// 先Update世界变换
+    if (m_is_world_transform_dirty)
+    {
+        /// 此物体无空间变换
+        if (m_transform_type == TransformType::IDENTITY_TRANSFROM)
+        {
+            /// 有父变换
+            if (m_father_transform)
+            {
+                const matrix_3x4 & father_to_world =
+                    m_father_transform->local_to_world_transform();
+
+                m_world_transform = father_to_world;
+            }
+            /// 无父变换
+            else
+            {
+                m_world_transform = matrix_3x4::IDENTITY;
+            }
+        }
+        /// 此物体有空间变换
+        else
+        {
+            /// 有父变换
+            if (m_father_transform)
+            {
+                const matrix_3x4 & father_to_world =
+                    m_father_transform->local_to_world_transform();
+                const matrix_3x4   local_to_father =
+                    m_transform_data->local_transform(m_transform_type);
+
+                m_world_transform = father_to_world * local_to_father;
+            }
+            /// 无父变换
+            else
+            {
+                const matrix_3x4 local_to_father =
+                    m_transform_data->local_transform(m_transform_type);
+
+                m_world_transform = local_to_father;
+            }
+        }
+        /// 发送变换更新消息
+        m_owner.trigger_message(ms_message_id);
+        /// 复位Dirty标记
+        m_is_world_transform_dirty = false;
+    }
+
+    return m_world_transform;
+}
+
+
+float_3
 TransformMarker::local_position () const
 {
     const bool has_position =
@@ -232,47 +417,6 @@ TransformMarker::local_scaling () const
     const bool has_scaling =
         ((uint32_t)m_transform_type & (uint32_t)TransformType::HAS_SCALING) != 0;
     return has_scaling ? m_transform_data->scaling() : float_3::ONE;
-}
-
-
-/// 获取当前物体的世界变换矩阵
-const matrix_3x4 &
-TransformMarker::local_to_world_transform () const
-{
-    if (m_is_cache_dirty)
-    {
-        /// 有父节点
-        if (m_father_transform)
-        {
-            /// 先更新Parent的世界变换
-            const matrix_3x4 & father_to_world = m_father_transform->local_to_world_transform();
-            if (m_transform_type == TransformType::IDENTITY_TRANSFROM)
-            {
-                m_world_transform = father_to_world;
-            }
-            else
-            {
-                const matrix_3x4 & local_to_father = m_transform_data->local_transform(m_transform_type);
-                m_world_transform = father_to_world * local_to_father;
-            }
-        }
-        /// 无父节点
-        else
-        {
-            if (m_transform_type == TransformType::IDENTITY_TRANSFROM)
-            {
-                m_world_transform = matrix_3x4::IDENTITY;
-            }
-            else
-            {
-                const matrix_3x4 & local_to_father = m_transform_data->local_transform(m_transform_type);
-                m_world_transform = local_to_father;
-            }
-        }
-        m_is_cache_dirty = false;
-    }
-
-    return m_world_transform;
 }
 
 
@@ -563,7 +707,7 @@ TransformMarker::TransformMarker (
     m_father_transform(father),
     m_transform_data(TransformData::create()),
     m_transform_type(TransformType::IDENTITY_TRANSFROM),
-    m_is_cache_dirty(father != nullptr)
+    m_is_world_transform_dirty(father != nullptr)
 {
     static constexpr uint8_t INITIAL_KINDER_COUNT = 8;
 
@@ -693,7 +837,7 @@ TransformMarker::set_cache_dirty ()
     }
 
     /// 设置自己的Dirty标记
-    m_is_cache_dirty = true;
+    m_is_world_transform_dirty = true;
 }
 
 
