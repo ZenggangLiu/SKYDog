@@ -37,60 +37,55 @@
 #include "Text/StaticString.hpp"
 
 
-struct CreateParameter;
-class  ObjectMarker;
-class  SceneObject;
+class ObjectMarker;
+class SceneObject;
 
 
 /// 物体属性的创建函数
+///
+/// @param[in]  owner
+///     所有者
 /// @return
 ///     新创建的ObjectMarker实例, 如果成功
 ///     nullptr, 如果失败
-typedef ObjectMarker * (*CreateFuncPtr)(const CreateParameter &);
+typedef ObjectMarker * (*CreateFuncPtr)(SceneObject & owner);
 /// 物体属性的销毁函数
-typedef bool (*DestroyFuncPtr)(ObjectMarker *&);
-
-
-/// 物体属性创建参数
-struct CreateParameter
-{
-    /// 属性的所有者
-    SceneObject &   owner;
-    /// 属性类型名称Id
-    StaticStringIdT name_id;
-
-    CreateParameter (
-        const StaticStringIdT name_id,
-        SceneObject &         owner);
-};
+typedef bool (*DestroyFuncPtr)(ObjectMarker *& marker);
 
 
 /// 属性类型信息
-struct MarkerTypeInfo
+class MarkerTypeInfo
 {
-    const CreateFuncPtr   create_func;
-    const DestroyFuncPtr  destroy_func;
+public:
 #if (BUILD_MODE == DEBUG_BUILD_MODE)
-    const StaticString    marker_name;
-
     MarkerTypeInfo (
         const char * const   marker_name,
         const CreateFuncPtr  create_func,
         const DestroyFuncPtr destroy_func);
-
-    StaticStringIdT
-    name_id () const;
-
 #else
-    const StaticStringIdT marker_name_id;
-
     MarkerTypeInfo (
-        const StaticStringIdT name_id,
+        const StaticStringIdT marker_name_id,
         const CreateFuncPtr   create_func,
         const DestroyFuncPtr  destroy_func);
+#endif
+
+    CreateFuncPtr
+    create_function () const;
+
+    DestroyFuncPtr
+    destroy_function () const;
 
     StaticStringIdT
-    name_id () const;
+    marker_name_id () const;
+
+
+private:
+    const CreateFuncPtr   m_create_func;
+    const DestroyFuncPtr  m_destroy_func;
+#if (BUILD_MODE == DEBUG_BUILD_MODE)
+    const StaticString    m_marker_name;
+#else
+    const StaticStringIdT m_marker_name_id;
 #endif
 };
 

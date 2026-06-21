@@ -202,7 +202,7 @@ void
 GameScene::destroy_all_objects ()
 {
     /// 从列表尾至头依次销毁每个SceneObject: 使用创建时相反的顺序
-    while (m_object_list.size())
+    while (m_object_list.size() > 0)
     {
         destroy_object(m_object_list.back());
     }

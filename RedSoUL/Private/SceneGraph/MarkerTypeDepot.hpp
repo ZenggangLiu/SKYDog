@@ -37,8 +37,8 @@
 #include "Text/StaticStringId.hpp"
 
 
-struct CreateParameter;
-struct MarkerTypeInfo;
+class MarkerTypeInfo;
+class SceneObject;
 
 
 #if (BUILD_MODE == DEBUG_BUILD_MODE)
@@ -65,24 +65,25 @@ public:
     /// 注册一个新的属性类型
     void
     register_type (
-        const StaticStringIdT  name_id,
+        const StaticStringIdT  marker_name_id,
         const MarkerTypeInfo & type_info);
 
     /// 创建指定Id的属性
     ObjectMarker *
     create_marker (
-        const StaticStringIdT   name_id,
-        const CreateParameter & parameter);
+        SceneObject &         object_owner,
+        const StaticStringIdT marker_name_id);
 
     /// 销毁指定Id的属性实例
     bool
     destroy_marker (
-        const StaticStringIdT name_id,
-        ObjectMarker * &      marker);
+        const StaticStringIdT marker_name_id,
+        ObjectMarker * &      marker_object);
 
 
 private:
-    typedef std::unordered_map<StaticStringIdT, const MarkerTypeInfo*> MarkerTypeTableT;
+    typedef std::unordered_map< StaticStringIdT,
+                                const MarkerTypeInfo* > MarkerTypeTableT;
 
     /// NameId --> TypeInfo
     MarkerTypeTableT m_type_table;

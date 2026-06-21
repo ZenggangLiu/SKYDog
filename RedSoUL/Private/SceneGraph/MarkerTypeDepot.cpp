@@ -14,23 +14,23 @@ MarkerTypeDepot::ref ()
 
 void
 MarkerTypeDepot::register_type (
-    const StaticStringIdT  name_id,
+    const StaticStringIdT  marker_name_id,
     const MarkerTypeInfo & type_info)
 {
-    const auto marker_info = m_type_table.find(name_id);
+    const auto marker_info = m_type_table.find(marker_name_id);
     if (marker_info == m_type_table.end())
     {
-        m_type_table.emplace(name_id, &type_info);
+        m_type_table.emplace(marker_name_id, &type_info);
     }
 }
 
 
 ObjectMarker *
 MarkerTypeDepot::create_marker (
-    const StaticStringIdT   name_id,
-    const CreateParameter & parameter)
+    SceneObject &         object_owner,
+    const StaticStringIdT marker_name_id)
 {
-    auto stored_info = m_type_table.find(name_id);
+    auto stored_info = m_type_table.find(marker_name_id);
     RUNTIME_ASSERT(stored_info != m_type_table.end(),
                    "Please register this marker type by calling "
                    "register_type() at first!!");
@@ -41,17 +41,17 @@ MarkerTypeDepot::create_marker (
     }
     else
     {
-        return stored_info->second->create_func(parameter);
+        return stored_info->second->create_function()(object_owner);
     }
 }
 
 
 bool
 MarkerTypeDepot::destroy_marker (
-    const StaticStringIdT name_id,
-    ObjectMarker * &      marker)
+    const StaticStringIdT marker_name_id,
+    ObjectMarker * &      marker_object)
 {
-    auto stored_info = m_type_table.find(name_id);
+    auto stored_info = m_type_table.find(marker_name_id);
     RUNTIME_ASSERT(stored_info != m_type_table.end(),
                    "Please register this marker type by calling "
                    "register_type() at first!!");
@@ -62,6 +62,6 @@ MarkerTypeDepot::destroy_marker (
     }
     else
     {
-        return stored_info->second->destroy_func(marker);
+        return stored_info->second->destroy_function()(marker_object);
     }
 }

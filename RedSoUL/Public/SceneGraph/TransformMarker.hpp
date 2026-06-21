@@ -38,23 +38,9 @@
 #include "SceneGraph/TransformType.hpp"
 
 
+class SceneObject;
 class TransformData;
 class TransformMarker;
-
-
-struct TransformCreateParam : CreateParameter
-{
-    typedef CreateParameter SuperT;
-
-    /// 父节点的空间变换属性
-    /// NOTE: CAN BE NULL
-    TransformMarker * father;
-
-    TransformCreateParam (
-        const StaticStringIdT   name_id,
-        SceneObject &           owner,
-        TransformMarker * const father);
-};
 
 
 /// 空间变换属性(维护SceneObject层级关系的属性)
@@ -164,7 +150,7 @@ private:
     static
     ObjectMarker *
     create (
-        const CreateParameter & parameter);
+        SceneObject & owner);
 
     /// 销毁函数
     ///

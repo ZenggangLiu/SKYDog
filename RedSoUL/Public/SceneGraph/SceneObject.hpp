@@ -36,9 +36,9 @@
 #include "Text/StaticStringId.hpp"
 
 
-struct CreateParameter;
-class  GameScene;
-class  ObjectMarker;
+class GameScene;
+class ObjectMarker;
+class TransformMarker;
 
 
 /// 关卡中的物体
@@ -85,19 +85,16 @@ public:
     ///
     /// @param[in]  type_name
     ///     属性类型的名称
-    /// @param[in]  create_param
-    ///     创建属性使用的参数
     /// @return
     ///     新添加的属性实例, 如果成功
     ///     nullptr,         如果失败
     ///
     /// 使用方法:
-    /// PinholeCamera * const camera =
-    ///     scene_object->add_marker(PinholeCamera);
-    #define add_marker(type_name, create_param) \
+    /// PerspectiveCamera * const camera = scene_object->add_marker(PerspectiveCamera);
+    #define add_marker(type_name) \
         /* NOTE: 使用Templated Function来提供CAST的支持 */ \
         add_marker_with_nameid_and_cast<type_name>( \
-            STATIC_STRING_HASH(STRINGIFY(type_name)), create_param)
+            STATIC_STRING_HASH(STRINGIFY(type_name)))
 
     /// 获取所属关卡
     const GameScene &
@@ -105,6 +102,13 @@ public:
 
     GameScene &
     owner_scene ();
+
+    /// 获取空间变换属性
+    const TransformMarker &
+    transform () const;
+
+    TransformMarker &
+    transform ();
 
 
 private:
@@ -157,17 +161,19 @@ private:
     INLINE_FUNCTION
     MarkerType *
     add_marker_with_nameid_and_cast (
-        const StaticStringIdT   name_id,
-        const CreateParameter & parameter)
+        const StaticStringIdT marker_name_id)
     {
-        return (MarkerType*)add_marker_with_nameid(name_id, parameter);
+        return (MarkerType*)add_marker_with_nameid(*this, marker_name_id);
     }
 
     /// 添加指定类型的属性
+    ///
+    /// @param[in]  marker_name_id
+    ///     Marker名称的Id
     ObjectMarker *
     add_marker_with_nameid (
-        const StaticStringIdT   name_id,
-        const CreateParameter & parameter);
+        SceneObject &         object_owner,
+        const StaticStringIdT marker_name_id);
 
 private:
     friend class GameScene;

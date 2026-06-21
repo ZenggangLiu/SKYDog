@@ -15,18 +15,6 @@
 #include "SceneGraph/TransformMarker.hpp"
 
 
-TransformCreateParam::TransformCreateParam (
-    const StaticStringIdT   _name_id,
-    SceneObject &           _owner,
-    TransformMarker * const _father)
-:
-    SuperT(_name_id, _owner),
-    father(_father)
-{
-
-}
-
-
 
 // MARK: == TransformMarker Allocator ==
 class TransformAllocator
@@ -536,16 +524,13 @@ TransformMarker::set_local_scaling (
 
 ObjectMarker *
 TransformMarker::create (
-    const CreateParameter & parameter)
+    SceneObject & owner)
 {
     /// 申请内存
     void * const new_marker = TransformAllocator::ref().allocate();
     if (new_marker)
     {
-        /// 构建实例
-        const TransformCreateParam & create_param =
-            (const TransformCreateParam&)parameter;
-        new(new_marker)TransformMarker(create_param.owner, create_param.father);
+        new(new_marker)TransformMarker(owner, nullptr);
     }
 
     return (ObjectMarker*)new_marker;
@@ -558,7 +543,7 @@ TransformMarker::destroy (
 {
     RUNTIME_ASSERT(marker, "Marker can not be NULL!!");
 
-    TransformMarker * const transform_marker = (TransformMarker*)marker;
+    TransformMarker * const transform_marker = static_cast<TransformMarker*>(marker);
     /// 调用析构函数
     transform_marker->~TransformMarker();
     /// 释放内存
@@ -573,7 +558,7 @@ TransformMarker::TransformMarker (
     SceneObject &           owner,
     TransformMarker * const father)
 :
-    SuperT(ms_type_info.name_id(), owner),
+    SuperT(ms_type_info.marker_name_id(), owner),
     m_world_transform(matrix_3x4::IDENTITY),
     m_father_transform(father),
     m_transform_data(TransformData::create()),

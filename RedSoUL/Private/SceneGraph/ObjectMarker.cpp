@@ -4,58 +4,59 @@
 #include "SceneGraph/ObjectMarker.hpp"
 
 
-CreateParameter::CreateParameter(
-    const StaticStringIdT _name_id,
-    SceneObject &         _owner)
+#if (BUILD_MODE == DEBUG_BUILD_MODE)
+MarkerTypeInfo::MarkerTypeInfo (
+    const char * const   marker_name,
+    const CreateFuncPtr  create_func,
+    const DestroyFuncPtr destroy_func)
 :
-    owner(_owner),
-    name_id(_name_id)
+    m_create_func(create_func),
+    m_destroy_func(destroy_func),
+    m_marker_name(marker_name)
 {
+    /// 注册此类型
+    MarkerTypeDepot::ref().register_type(m_marker_name.id(), *this);
+}
+#else
+MarkerTypeInfo::MarkerTypeInfo (
+    const StaticStringIdT marker_name_id,
+    const CreateFuncPtr   create_func,
+    const DestroyFuncPtr  destroy_func)
+:
+    m_create_func(create_func),
+    m_destroy_func(destroy_func),
+    m_marker_name_id(marker_name_id)
+{
+    MarkerTypeDepot::ref().register_type(m_marker_name_id, *this);
+}
+#endif
 
+
+CreateFuncPtr
+MarkerTypeInfo::create_function () const
+{
+    return m_create_func;
 }
 
+
+DestroyFuncPtr
+MarkerTypeInfo::destroy_function () const
+{
+    return m_destroy_func;
+}
 
 
 #if (BUILD_MODE == DEBUG_BUILD_MODE)
-MarkerTypeInfo::MarkerTypeInfo (
-    const char * const   _marker_name,
-    const CreateFuncPtr  _create_func,
-    const DestroyFuncPtr _destroy_func)
-:
-    create_func(_create_func),
-    destroy_func(_destroy_func),
-    marker_name(_marker_name)
-{
-    /// 注册此类型
-    MarkerTypeDepot::ref().register_type(marker_name.id(), *this);
-}
-
-
 StaticStringIdT
-MarkerTypeInfo::name_id() const
+MarkerTypeInfo::marker_name_id() const
 {
-    return marker_name.id();
+    return m_marker_name.id();
 }
-
-
 #else
-MarkerTypeInfo::MarkerTypeInfo (
-    const StaticStringIdT _name_id,
-    const CreateFuncPtr   _create_func,
-    const DestroyFuncPtr  _destroy_func)
-:
-    create_func(_create_func),
-    destroy_func(_destroy_func),
-    marker_name_id(_name_id)
-{
-    MarkerTypeDepot::ref().register_type(_name_id, *this);
-}
-
-
 StaticStringIdT
-MarkerTypeInfo::name_id () const
+MarkerTypeInfo::marker_name_id () const
 {
-    return marker_name_id;
+    return m_marker_name_id;
 }
 #endif
 

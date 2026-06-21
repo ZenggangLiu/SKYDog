@@ -21,6 +21,23 @@ SceneObject::owner_scene ()
 }
 
 
+const TransformMarker &
+SceneObject::transform () const
+{
+    const TransformMarker * const transform_marker = find_marker(TransformMarker);
+    RUNTIME_ASSERT(transform_marker, "SceneObject has no TransformMarker!!");
+
+    return *transform_marker;
+}
+
+
+TransformMarker &
+SceneObject::transform ()
+{
+    return const_cast<TransformMarker&>(((const SceneObject*)this)->transform());
+}
+
+
 SceneObject::SceneObject (
     GameScene * const   owner,
     SceneObject * const father)
@@ -31,14 +48,11 @@ SceneObject::SceneObject (
     m_layer_id(0),
     m_is_enabled(true)
 {
-    /// 创建TransformMarker
-    TransformCreateParam create_param
-    (
-        TransformMarker::ms_type_info.name_id(),
-        *this,
-        father ? father->find_marker(TransformMarker) : nullptr
-    );
-    add_marker(TransformMarker, create_param);
+    TransformMarker * const transform = add_marker(TransformMarker);
+    if (father)
+    {
+        father->transform().attach(*transform);
+    }
 }
 
 
@@ -86,19 +100,19 @@ SceneObject::find_marker_with_nameid (
 
 ObjectMarker *
 SceneObject::add_marker_with_nameid (
-    const StaticStringIdT   name_id,
-    const CreateParameter & parameter)
+    SceneObject &         object_owner,
+    const StaticStringIdT marker_name_id)
 {
     /// 添加TransformMarker时, 属性列表必须为空
     if (m_marker_list.size() &&
-        name_id == TransformMarker::ms_type_info.name_id())
+        marker_name_id == TransformMarker::ms_type_info.marker_name_id())
     {
         return nullptr;
     }
     else
     {
         ObjectMarker * const marker =
-            MarkerTypeDepot::ref().create_marker(name_id, parameter);
+            MarkerTypeDepot::ref().create_marker(object_owner, marker_name_id);
         RUNTIME_ASSERT(marker, "Can not create new marker!!");
 
         if (marker)
