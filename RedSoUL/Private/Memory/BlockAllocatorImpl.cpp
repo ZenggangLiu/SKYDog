@@ -5,6 +5,7 @@
 /// Library headers
 #include "Assert/RuntimeAssert.hpp"
 #include "Common/CommonDefines.hpp"
+#include "Common/CompilerDefines.hpp" /// BUILD_MODE
 #include "Math/BitOperationUtilities.hpp"
 #include "Math/MathUtilities.hpp"
 #include "Memory/BlockAllocator.hpp"
@@ -17,7 +18,9 @@
 static constexpr uint32_t LOGIC_PAGE_SIZE = BLOCK_ALLOCATOR_PAGE_SIZE;
 /// OS内存申请支持的最多Logic页
 static constexpr uint32_t MAX_SUPPORTED_LOGIC_PAGE_COUNT = 32u;
+#if (BUILD_MODE == DEBUG_BUILD_MODE)
 static constexpr uint32_t PAGE_INFO_MAGIC_ID = FOUR_CC_32('B', 'A', 'L', 'C');
+#endif
 
 
 BlockAllocatorImpl::BlockAllocatorImpl (
