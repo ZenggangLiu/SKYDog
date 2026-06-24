@@ -66,12 +66,12 @@ public:
     void
     register_type (
         const StaticStringIdT  marker_name_id,
-        const MarkerTypeInfo & type_info);
+        const MarkerTypeInfo & marker_type_info);
 
     /// 创建指定Id的属性
     ObjectMarker *
     create_marker (
-        SceneObject &         object_owner,
+        SceneObject &         marker_owner,
         const StaticStringIdT marker_name_id);
 
     /// 销毁指定Id的属性实例

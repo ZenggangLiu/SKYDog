@@ -43,14 +43,17 @@ class SceneObject;
 
 /// 物体属性的创建函数
 ///
-/// @param[in]  owner
-///     所有者
+/// @param[in]  marker_owner
+///     Marker的所有者
 /// @return
 ///     新创建的ObjectMarker实例, 如果成功
 ///     nullptr, 如果失败
-typedef ObjectMarker * (*CreateFuncPtr)(SceneObject & owner);
+typedef ObjectMarker * (*CreateFuncPtr)(SceneObject & marker_owner);
 /// 物体属性的销毁函数
-typedef bool (*DestroyFuncPtr)(ObjectMarker *& marker);
+///
+/// @param[in]  marker_object
+///     Marker的实例
+typedef bool (*DestroyFuncPtr)(ObjectMarker * & marker_object);
 
 
 /// 属性类型信息
@@ -95,9 +98,11 @@ private:
 class ObjectMarker
 {
 protected:
+    /// @param[in]  marker_name_id
+    ///     Marker类型的名称。例如: TransformMarker
     ObjectMarker (
-        const StaticStringIdT name_id,
-        SceneObject &         owner);
+        SceneObject &         marker_owner,
+        const StaticStringIdT marker_name_id);
 
     ~ObjectMarker ();
 
@@ -109,6 +114,6 @@ protected:
 protected:
     friend class SceneObject;
 
-    SceneObject &   m_owner;
-    StaticStringIdT m_name_id;
+    SceneObject &   m_marker_owner;
+    StaticStringIdT m_marker_name_id;
 };

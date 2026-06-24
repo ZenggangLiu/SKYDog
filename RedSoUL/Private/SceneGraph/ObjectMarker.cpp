@@ -63,11 +63,11 @@ MarkerTypeInfo::marker_name_id () const
 
 
 ObjectMarker::ObjectMarker (
-    const StaticStringIdT name_id,
-    SceneObject &         owner)
+    SceneObject &         marker_owner,
+    const StaticStringIdT marker_name_id)
 :
-    m_owner(owner),
-    m_name_id(name_id)
+    m_marker_owner(marker_owner),
+    m_marker_name_id(marker_name_id)
 {
 
 }

@@ -163,26 +163,29 @@ private:
     typedef ObjectMarker SuperT;
 
     /// 创建函数
+    ///
+    /// @param[in]  marker_owner
+    ///     Marker的所有者
     static
     ObjectMarker *
     create (
-        SceneObject & owner);
+        SceneObject & marker_owner);
 
     /// 销毁函数
     ///
-    /// @param[in,out] marker
-    ///     属性实例。设置为nullptr, 如果销毁成功
+    /// @param[in,out] marker_object
+    ///     Marker实例。设置为nullptr, 如果销毁成功
     /// @return
     ///     True,  如果销毁成功
     ///     False, 如果销毁失败
     static
     bool
     destroy (
-        ObjectMarker * & marker);
+        ObjectMarker * & marker_object);
 
     TransformMarker (
-        SceneObject &           owner,
-        TransformMarker * const father);
+        SceneObject &           marker_owner,
+        TransformMarker * const father_transform);
 
     ~TransformMarker ();
 

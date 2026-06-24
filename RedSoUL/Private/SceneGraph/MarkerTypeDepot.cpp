@@ -15,19 +15,19 @@ MarkerTypeDepot::ref ()
 void
 MarkerTypeDepot::register_type (
     const StaticStringIdT  marker_name_id,
-    const MarkerTypeInfo & type_info)
+    const MarkerTypeInfo & marker_type_info)
 {
     const auto marker_info = m_type_table.find(marker_name_id);
     if (marker_info == m_type_table.end())
     {
-        m_type_table.emplace(marker_name_id, &type_info);
+        m_type_table.emplace(marker_name_id, &marker_type_info);
     }
 }
 
 
 ObjectMarker *
 MarkerTypeDepot::create_marker (
-    SceneObject &         object_owner,
+    SceneObject &         marker_owner,
     const StaticStringIdT marker_name_id)
 {
     auto stored_info = m_type_table.find(marker_name_id);
@@ -41,7 +41,7 @@ MarkerTypeDepot::create_marker (
     }
     else
     {
-        return stored_info->second->create_function()(object_owner);
+        return stored_info->second->create_function()(marker_owner);
     }
 }
 

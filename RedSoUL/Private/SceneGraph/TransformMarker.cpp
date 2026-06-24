@@ -350,7 +350,7 @@ TransformMarker::local_to_world_transform () const
             }
         }
         /// 发送变换更新消息
-        m_owner.trigger_message(ms_message_id);
+        m_marker_owner.trigger_message(ms_message_id);
         /// 复位Dirty标记
         m_is_world_transform_dirty = false;
     }
@@ -668,13 +668,13 @@ TransformMarker::set_local_scaling (
 
 ObjectMarker *
 TransformMarker::create (
-    SceneObject & owner)
+    SceneObject & marker_owner)
 {
     /// 申请内存
     void * const new_marker = TransformAllocator::ref().allocate();
     if (new_marker)
     {
-        new(new_marker)TransformMarker(owner, nullptr);
+        new(new_marker)TransformMarker(marker_owner, nullptr);
     }
 
     return (ObjectMarker*)new_marker;
@@ -683,31 +683,31 @@ TransformMarker::create (
 
 bool
 TransformMarker::destroy (
-    ObjectMarker * & marker)
+    ObjectMarker * & marker_object)
 {
-    RUNTIME_ASSERT(marker, "Marker can not be NULL!!");
+    RUNTIME_ASSERT(marker_object, "Marker can not be NULL!!");
 
-    TransformMarker * const transform_marker = static_cast<TransformMarker*>(marker);
+    TransformMarker * const transform = static_cast<TransformMarker*>(marker_object);
     /// 调用析构函数
-    transform_marker->~TransformMarker();
+    transform->~TransformMarker();
     /// 释放内存
-    const bool opcode = TransformAllocator::ref().deallocate(marker);
+    const bool opcode = TransformAllocator::ref().deallocate(marker_object);
     /// 清除参考
-    marker = nullptr;
+    marker_object = nullptr;
     return opcode;
 }
 
 
 TransformMarker::TransformMarker (
-    SceneObject &           owner,
-    TransformMarker * const father)
+    SceneObject &           marker_owner,
+    TransformMarker * const father_transform)
 :
-    SuperT(ms_type_info.marker_name_id(), owner),
+    SuperT(marker_owner, ms_type_info.marker_name_id()),
     m_world_transform(matrix_3x4::IDENTITY),
-    m_father_transform(father),
+    m_father_transform(father_transform),
     m_transform_data(TransformData::create()),
     m_transform_type(TransformType::IDENTITY_TRANSFROM),
-    m_is_world_transform_dirty(father != nullptr)
+    m_is_world_transform_dirty(father_transform != nullptr)
 {
     static constexpr uint8_t INITIAL_KINDER_COUNT = 8;
 
@@ -716,15 +716,15 @@ TransformMarker::TransformMarker (
     m_kinder_list.reserve(INITIAL_KINDER_COUNT);
 
     /// 连接父节点
-    if (father)
+    if (father_transform)
     {
-        father->attach(*this);
+        father_transform->attach(*this);
     }
     /// 无父节点变换
     else
     {
         /// 在关卡中注册此TOPLEVEL物体
-        m_owner.owner_scene().register_toplevel_object(m_owner);
+        m_marker_owner.owner_scene().register_toplevel_object(m_marker_owner);
     }
 }
 
@@ -738,8 +738,8 @@ TransformMarker::~TransformMarker ()
         /// 断开此子节点
         detach(*kinder);
         /// 销毁子物体
-        SceneObject * kinder_object = &(kinder->m_owner);
-        m_owner.owner_scene().destroy_object(kinder_object);
+        SceneObject * kinder_object = &(kinder->m_marker_owner);
+        m_marker_owner.owner_scene().destroy_object(kinder_object);
     }
 
     /// 断开父节点
@@ -751,7 +751,7 @@ TransformMarker::~TransformMarker ()
     else
     {
         /// 在关卡中注销此TOPLEVEL物体
-        m_owner.owner_scene().unregister_toplevel_object(m_owner);
+        m_marker_owner.owner_scene().unregister_toplevel_object(m_marker_owner);
     }
 
     /// 释放TransformData实例
@@ -791,7 +791,7 @@ TransformMarker::attach (
         /// 如果指定子节点为TOPLEVEL节点, 在关卡中TOPLEVEL列表中注销它
         if (new_kinder.m_father_transform == nullptr)
         {
-            m_owner.owner_scene().unregister_toplevel_object(new_kinder.m_owner);
+            m_marker_owner.owner_scene().unregister_toplevel_object(new_kinder.m_marker_owner);
         }
         /// 添加指定子节点
         m_kinder_list.push_back(&new_kinder);
@@ -822,7 +822,7 @@ TransformMarker::detach (
         /// 移除指定子节点
         m_kinder_list.erase(kinder_it);
         /// 在关卡中TOPLEVEL列表中注册它
-        m_owner.owner_scene().register_toplevel_object(old_kinder.m_owner);
+        m_marker_owner.owner_scene().register_toplevel_object(old_kinder.m_marker_owner);
     }
 }
 
