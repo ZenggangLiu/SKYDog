@@ -17,10 +17,10 @@
     Author:   (___()'`; Zee...  \_/|_)     )                                            
               /,    /`             \  __  /                                             
               \\"--\\              (_/ (_/                                              
-    Created:  22/05/26  @  11:36 PM
-    FileName: MarkerTypeDepot.hpp @ RedSoUL Project
+    Created:  21/06/26  @  10:12 PM
+    FileName: PerspectiveCamera.hpp @ RedSoUL Project
     History:
-             - created by: 22/05/26: Zenggang LIU
+             - created by: 21/06/26: Zenggang LIU
                                                                                         
 ***************************************************************************************/
 
@@ -28,66 +28,97 @@
 #pragma once
 
 
-/// System headers
-#include <unordered_map>
 /// Library headers
-#include "Common/CommonDefines.hpp"   /// STRINGIFY
-#include "Common/CompilerDefines.hpp" /// BUILD_MODE
-#include "SceneGraph/ObjectMarker.hpp"
-#include "Text/StaticStringId.hpp"
+#include "SceneGraph/Camera/CameraMarker.hpp"
 
 
-class MarkerTypeInfo;
-class SceneObject;
-
-
-#if (BUILD_MODE == DEBUG_BUILD_MODE)
-    #define DEFINE_MARKER_TYPE_INFO(marker_class, create_func, destroy_func) \
-    const MarkerTypeInfo marker_class::ms_type_info( \
-        STRINGIFY(marker_class), create_func, destroy_func);
-#else
-    #define DEFINE_MARKER_TYPE_INFO(marker_class, create_func, destroy_func) \
-    const MarkerTypeInfo marker_class::ms_type_info( \
-        STATIC_STRING_HASH(STRINGIFY(marker_class)), create_func, destroy_func);
-#endif
-
-
-/// 维护各种物体属性类型创建/销毁信息的仓库
+/// 透视相机
+/// NOTE:
+/// - 使用Infinite Far Plane
+/// - Reversed Depth/Z: 即, Near Plane映射到1, Far Plane映射到0
 ///
-class MarkerTypeDepot
+class PerspectiveCamera : public CameraMarker
 {
 public:
-    /// 获得对此Depot的参考
-    static
-    MarkerTypeDepot &
-    ref ();
+    /// 获取水平Fov(角度衡量)
+    float
+    field_of_view () const;
 
-    /// 注册一个新的属性类型
+    /// 获取宽高比
+    float
+    aspect_ratio () const;
+
+    /// 获取近平面距离(Camera空间, 沿Z轴)
+    float
+    near_plane_distance () const;
+
+    /// 获取Clip空间变换矩阵: World --> Clip
+    const matrix_4x4 &
+    world_to_clip_space_transform () const;
+
     void
-    register_type (
-        const StaticStringIdT  marker_name_id,
-        const MarkerTypeInfo & marker_type_info);
+    set_field_of_view (
+        const float fov_degress);
 
-    /// 创建指定Id的属性
-    ///
-    /// @param[in]  marker_owner
-    ///     Marker的所有者
-    ObjectMarker *
-    create_marker (
-        SceneObject &         marker_owner,
-        const StaticStringIdT marker_name_id);
+    void
+    set_aspect_ratio (
+        const float aspect_ratio);
 
-    /// 销毁指定Id的属性实例
-    bool
-    destroy_marker (
-        const StaticStringIdT marker_name_id,
-        ObjectMarker * &      marker_object);
+    void
+    set_near_plane_distance (
+        const float distance);
 
 
 private:
-    typedef std::unordered_map< StaticStringIdT,
-                                const MarkerTypeInfo* > MarkerTypeTableT;
+    friend class SceneObject;
 
-    /// NameId --> TypeInfo
-    MarkerTypeTableT m_type_table;
+    typedef CameraMarker SuperT;
+
+    /// 创建一个缺省的透视相机: Fov(90°), 16比9, 10厘米(0.1米)Near Plane
+    ///
+    /// @param[in]  marker_owner
+    ///     Marker的所有者
+    static
+    ObjectMarker *
+    create (
+        SceneObject & marker_owner);
+
+    /// 销毁函数
+    ///
+    /// @param[in,out] marker_object
+    ///     Marker实例。设置为nullptr, 如果销毁成功
+    /// @return
+    ///     True,  如果销毁成功
+    ///     False, 如果销毁失败
+    static
+    bool
+    destroy (
+        ObjectMarker * & marker_object);
+
+    PerspectiveCamera (
+        SceneObject & marker_owner,
+        const float   fov_degrees,
+        const float   aspect_ratio,
+        const float   near_plane_dist);
+
+    ~PerspectiveCamera ();
+
+    PerspectiveCamera (
+        const PerspectiveCamera &) = delete;
+    PerspectiveCamera & operator = (
+        const PerspectiveCamera &) = delete;
+
+private:
+    static const MarkerTypeInfo ms_type_info;
+
+    /// 水平Fov(角度衡量)
+    float m_field_of_view;
+    /// 宽高比: 宽/高
+    float m_aspect_ratio;
+    /// 近平面距离(相机空间, 沿Z轴)
+    float m_near_plane_distance;
+
+    // --- CACHED DATA --- //
+    /// cotangent(Fov * 0.5)
+    float m_cotangent_half_fov;
 };

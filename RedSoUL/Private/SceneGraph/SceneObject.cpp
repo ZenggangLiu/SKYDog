@@ -2,6 +2,8 @@
 #include "Assert/RuntimeAssert.hpp"
 #include "Common/CompilerDefines.hpp" /// BUILD_MODE
 #include "SceneGraph/MarkerTypeDepot.hpp"
+#include "SceneGraph/Camera/OrthogonalCamera.hpp"
+#include "SceneGraph/Camera/PerspectiveCamera.hpp"
 #include "SceneGraph/TransformMarker.hpp"
 #include "Text/StaticString.hpp"
 /// Self header
@@ -45,6 +47,44 @@ TransformMarker &
 SceneObject::transform ()
 {
     return const_cast<TransformMarker&>(((const SceneObject*)this)->transform());
+}
+
+
+OrthogonalCamera *
+SceneObject::add_orthogonal_camera (
+    const float view_width,
+    const float aspect_ratio,
+    const float near_plane_dist,
+    const float far_plane_dist)
+{
+    OrthogonalCamera * const camera = add_marker(OrthogonalCamera);
+    if (camera)
+    {
+        camera->set_view_volume_width(view_width);
+        camera->set_aspect_ratio(aspect_ratio);
+        camera->set_near_plane_distance(near_plane_dist);
+        camera->set_far_plane_distance(far_plane_dist);
+    }
+
+    return camera;
+}
+
+
+PerspectiveCamera *
+SceneObject::add_perspective_camera (
+    const float fov_degrees,
+    const float aspect_ratio,
+    const float near_plane_dist)
+{
+    PerspectiveCamera * const camera = add_marker(PerspectiveCamera);
+    if (camera)
+    {
+        camera->set_field_of_view(fov_degrees);
+        camera->set_aspect_ratio(aspect_ratio);
+        camera->set_near_plane_distance(near_plane_dist);
+    }
+
+    return camera;
 }
 
 
@@ -99,19 +139,19 @@ SceneObject::trigger_message (
 
 
 SceneObject::SceneObject (
-    GameScene * const   owner,
-    SceneObject * const father)
+    GameScene * const   owner_scene,
+    SceneObject * const father_object)
 :
-    m_owner_scene(*owner),
+    m_owner_scene(*owner_scene),
     m_self_name_id(StaticString::get_empty_string_id()),
     m_tag_name_id(StaticString::get_empty_string_id()),
     m_layer_id(0),
     m_is_enabled(true)
 {
     TransformMarker * const transform = add_marker(TransformMarker);
-    if (father)
+    if (father_object)
     {
-        father->transform().attach(*transform);
+        father_object->transform().attach(*transform);
     }
 }
 
@@ -121,7 +161,7 @@ SceneObject::~SceneObject ()
     /// 使用MarkerTypeDepot来销毁所有属性
     for (auto marker : m_marker_list)
     {
-        MarkerTypeDepot::ref().destroy_marker(marker->m_name_id, marker);
+        MarkerTypeDepot::ref().destroy_marker(marker->m_marker_name_id, marker);
     }
     m_marker_list.clear();
 }
@@ -139,7 +179,7 @@ SceneObject::find_marker_with_nameid (
     {
         for (const auto marker : m_marker_list)
         {
-            if (marker->m_name_id == name_id)
+            if (marker->m_marker_name_id == name_id)
             {
                 return marker;
             }
@@ -160,7 +200,7 @@ SceneObject::find_marker_with_nameid (
 
 ObjectMarker *
 SceneObject::add_marker_with_nameid (
-    SceneObject &         object_owner,
+    SceneObject &         marker_owner,
     const StaticStringIdT marker_name_id)
 {
     /// 添加TransformMarker时, 属性列表必须为空
@@ -172,7 +212,7 @@ SceneObject::add_marker_with_nameid (
     else
     {
         ObjectMarker * const marker =
-            MarkerTypeDepot::ref().create_marker(object_owner, marker_name_id);
+            MarkerTypeDepot::ref().create_marker(marker_owner, marker_name_id);
         RUNTIME_ASSERT(marker, "Can not create new marker!!");
 
         if (marker)

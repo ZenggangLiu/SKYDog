@@ -40,6 +40,8 @@
 
 class GameScene;
 class ObjectMarker;
+class OrthogonalCamera;
+class PerspectiveCamera;
 class TransformMarker;
 
 
@@ -68,7 +70,10 @@ class SceneObject
 {
 public:
     /// Marker消息处理函数
-    typedef void (*MessageFunction)(ObjectMarker * const marker);
+    ///
+    /// @param[in]  marker_object
+    ///     作为监听器的Marker实例
+    typedef void (*MessageFunction)(ObjectMarker * const marker_object);
 
     /// 获取指定属性
     ///
@@ -120,6 +125,21 @@ public:
     TransformMarker &
     transform ();
 
+    /// 添加一个正交相机
+    OrthogonalCamera *
+    add_orthogonal_camera (
+        const float view_width,
+        const float aspect_ratio,
+        const float near_plane_dist,
+        const float far_plane_dist);
+
+    /// 添加一个透视相机
+    PerspectiveCamera *
+    add_perspective_camera (
+        const float fov_degrees,
+        const float aspect_ratio,
+        const float near_plane_dist);
+
     /// 注册一个Marker消息监听器
     ///
     /// @param[in]  message_id
@@ -142,15 +162,15 @@ public:
 
 private:
     /// 构造一个物体
-    /// NOTE: 只由GameScene::create_object()创建。可以确保owner始终有效。
+    /// NOTE: 只由GameScene::create_object()创建。可以确保owner_scene始终有效
     ///
-    /// @param[in]   owner
+    /// @param[in]   owner_scene
     ///      所有者(关卡, 不可为nullptr)
-    /// @param[in]   father
+    /// @param[in]   father_object
     ///      父节点(如果无, 设置为nullptr)
     SceneObject (
-        GameScene * const   owner,
-        SceneObject * const father);
+        GameScene * const   owner_scene,
+        SceneObject * const father_object);
 
     ~SceneObject ();
 
@@ -197,11 +217,13 @@ private:
 
     /// 添加指定类型的属性
     ///
+    /// @param[in]  marker_owner
+    ///     Marker的所有者
     /// @param[in]  marker_name_id
-    ///     Marker名称的Id
+    ///     Marker类型名称的Id
     ObjectMarker *
     add_marker_with_nameid (
-        SceneObject &         object_owner,
+        SceneObject &         marker_owner,
         const StaticStringIdT marker_name_id);
 
 private:

@@ -17,10 +17,10 @@
     Author:   (___()'`; Zee...  \_/|_)     )                                            
               /,    /`             \  __  /                                             
               \\"--\\              (_/ (_/                                              
-    Created:  22/05/26  @  11:36 PM
-    FileName: MarkerTypeDepot.hpp @ RedSoUL Project
+    Created:  05/06/26  @  10:52 PM
+    FileName: CameraMarker.hpp @ RedSoUL Project
     History:
-             - created by: 22/05/26: Zenggang LIU
+             - created by: 05/06/26: Zenggang LIU
                                                                                         
 ***************************************************************************************/
 
@@ -28,66 +28,72 @@
 #pragma once
 
 
-/// System headers
-#include <unordered_map>
 /// Library headers
-#include "Common/CommonDefines.hpp"   /// STRINGIFY
-#include "Common/CompilerDefines.hpp" /// BUILD_MODE
+#include "DataType/Float3D.hpp"
+#include "DataType/Matrix3x4.hpp"
+#include "DataType/Matrix4x4.hpp"
+#include "SceneGraph/Camera/CameraType.hpp"
 #include "SceneGraph/ObjectMarker.hpp"
 #include "Text/StaticStringId.hpp"
 
 
-class MarkerTypeInfo;
 class SceneObject;
+class TransformMarker;
 
 
-#if (BUILD_MODE == DEBUG_BUILD_MODE)
-    #define DEFINE_MARKER_TYPE_INFO(marker_class, create_func, destroy_func) \
-    const MarkerTypeInfo marker_class::ms_type_info( \
-        STRINGIFY(marker_class), create_func, destroy_func);
-#else
-    #define DEFINE_MARKER_TYPE_INFO(marker_class, create_func, destroy_func) \
-    const MarkerTypeInfo marker_class::ms_type_info( \
-        STATIC_STRING_HASH(STRINGIFY(marker_class)), create_func, destroy_func);
-#endif
-
-
-/// 维护各种物体属性类型创建/销毁信息的仓库
-///
-class MarkerTypeDepot
+/// Camera属性基类
+class CameraMarker : public ObjectMarker
 {
 public:
-    /// 获得对此Depot的参考
-    static
-    MarkerTypeDepot &
-    ref ();
+    /// 获取当前的照相机类型
+    CameraType
+    camera_type () const;
 
-    /// 注册一个新的属性类型
-    void
-    register_type (
-        const StaticStringIdT  marker_name_id,
-        const MarkerTypeInfo & marker_type_info);
+    /// 将相机空间的点变换到世界空间
+    float_3
+    camera_point_to_world_space (
+        const float_3 camera_point) const;
 
-    /// 创建指定Id的属性
-    ///
-    /// @param[in]  marker_owner
-    ///     Marker的所有者
-    ObjectMarker *
-    create_marker (
+    /// 将世界空间的点变换到相机空间
+    float_3
+    world_point_to_camera_space (
+        const float_3 world_point) const;
+
+
+protected:
+    typedef ObjectMarker SuperT;
+
+    CameraMarker (
         SceneObject &         marker_owner,
-        const StaticStringIdT marker_name_id);
-
-    /// 销毁指定Id的属性实例
-    bool
-    destroy_marker (
         const StaticStringIdT marker_name_id,
-        ObjectMarker * &      marker_object);
+        const CameraType      camera_type);
 
+    ~CameraMarker ();
 
-private:
-    typedef std::unordered_map< StaticStringIdT,
-                                const MarkerTypeInfo* > MarkerTypeTableT;
+    CameraMarker (
+        const CameraMarker &) = delete;
+    CameraMarker & operator = (
+        const CameraMarker &) = delete;
 
-    /// NameId --> TypeInfo
-    MarkerTypeTableT m_type_table;
+    /// 获取相机变换矩阵: World --> Camera空间
+    const matrix_3x4 &
+    world_to_camera_transform () const;
+
+    // === 事件处理 === //
+    /// 世界变换更新
+    void on_world_transform_updated ();
+
+protected:
+    /// 相机变换矩阵: 世界 --> 相机空间
+    mutable matrix_3x4 m_camera_transform;
+    /// 投影变换矩阵: 世界 --> 剪切空间
+    mutable matrix_4x4 m_project_transform;
+    /// 空间变换属性的参考
+    TransformMarker &  m_transform_marker;
+    /// 标记是否相机变换矩阵失效(World --> Camera)
+    mutable bool       m_is_camera_transform_dirty;
+    /// 标记是否投影变换矩阵失效(World --> Clip)
+    mutable bool       m_is_projection_transform_dirty;
+    /// 相机类型
+    const CameraType   m_camera_type;
 };

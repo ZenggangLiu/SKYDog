@@ -17,10 +17,10 @@
     Author:   (___()'`; Zee...  \_/|_)     )                                            
               /,    /`             \  __  /                                             
               \\"--\\              (_/ (_/                                              
-    Created:  22/05/26  @  11:36 PM
-    FileName: MarkerTypeDepot.hpp @ RedSoUL Project
+    Created:  21/06/26  @  10:17 PM
+    FileName: CameraAllocator.hpp @ RedSoUL Project
     History:
-             - created by: 22/05/26: Zenggang LIU
+             - created by: 21/06/26: Zenggang LIU
                                                                                         
 ***************************************************************************************/
 
@@ -29,65 +29,65 @@
 
 
 /// System headers
-#include <unordered_map>
+#include <stdint.h> /// uint16_t
 /// Library headers
-#include "Common/CommonDefines.hpp"   /// STRINGIFY
-#include "Common/CompilerDefines.hpp" /// BUILD_MODE
-#include "SceneGraph/ObjectMarker.hpp"
-#include "Text/StaticStringId.hpp"
+#include "Assert/RuntimeAssert.hpp"
+#include "Common/CommonDefines.hpp" /// INLINE_FUNCTION, UNUSED_VARIABLE
+#include "Math/MathUtilities.hpp"   /// round_up_count
+#include "Memory/BlockAllocator.hpp"
 
 
-class MarkerTypeInfo;
-class SceneObject;
-
-
-#if (BUILD_MODE == DEBUG_BUILD_MODE)
-    #define DEFINE_MARKER_TYPE_INFO(marker_class, create_func, destroy_func) \
-    const MarkerTypeInfo marker_class::ms_type_info( \
-        STRINGIFY(marker_class), create_func, destroy_func);
-#else
-    #define DEFINE_MARKER_TYPE_INFO(marker_class, create_func, destroy_func) \
-    const MarkerTypeInfo marker_class::ms_type_info( \
-        STATIC_STRING_HASH(STRINGIFY(marker_class)), create_func, destroy_func);
-#endif
-
-
-/// 维护各种物体属性类型创建/销毁信息的仓库
-///
-class MarkerTypeDepot
+/// 按照不同的CameraType, 使用BlockAllocator分配实例
+template <typename CameraType>
+class CameraAllocator
 {
 public:
-    /// 获得对此Depot的参考
     static
-    MarkerTypeDepot &
-    ref ();
+    INLINE_FUNCTION
+    CameraAllocator &
+    ref ()
+    {
+        static CameraAllocator s_instance;
+        return s_instance;
+    }
 
-    /// 注册一个新的属性类型
-    void
-    register_type (
-        const StaticStringIdT  marker_name_id,
-        const MarkerTypeInfo & marker_type_info);
+    INLINE_FUNCTION
+    void *
+    allocate ()
+    {
+        return m_allocator.allocate();
+    }
 
-    /// 创建指定Id的属性
-    ///
-    /// @param[in]  marker_owner
-    ///     Marker的所有者
-    ObjectMarker *
-    create_marker (
-        SceneObject &         marker_owner,
-        const StaticStringIdT marker_name_id);
-
-    /// 销毁指定Id的属性实例
+    INLINE_FUNCTION
     bool
-    destroy_marker (
-        const StaticStringIdT marker_name_id,
-        ObjectMarker * &      marker_object);
-
+    deallocate (
+        void * const alloc_addr)
+    {
+        return m_allocator.deallocate(alloc_addr);
+    }
 
 private:
-    typedef std::unordered_map< StaticStringIdT,
-                                const MarkerTypeInfo* > MarkerTypeTableT;
+    INLINE_FUNCTION
+    CameraAllocator ()
+    {
+        static constexpr uint32_t MARKER_BYTE_SIZE = (uint32_t)sizeof(CameraType);
+        static constexpr uint16_t CAMERA_COUNT     = 4;
+        static constexpr uint32_t EXPECT_BYTE_SIZE = MARKER_BYTE_SIZE * CAMERA_COUNT;
 
-    /// NameId --> TypeInfo
-    MarkerTypeTableT m_type_table;
+        const bool is_initialized = m_allocator.initialize(
+            MathUtility::round_up_count(EXPECT_BYTE_SIZE, BLOCK_ALLOCATOR_PAGE_SIZE), 2);
+        UNUSED_VARIABLE(is_initialized);
+        RUNTIME_ASSERT(is_initialized, "Can not initialize the allocator!!");
+    }
+
+    INLINE_FUNCTION
+    ~CameraAllocator ()
+    {
+        m_allocator.release();
+    }
+
+private:
+    typedef BlockAllocator<CameraType> AllocatorTypeT;
+
+    AllocatorTypeT m_allocator;
 };
