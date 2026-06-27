@@ -128,7 +128,7 @@ private:
     /// 远平面距离(相机空间, 沿Z轴)
     float m_far_plane_distance;
 
-    // === CACHED DATA === //
+    // --- CACHED DATA --- //
     /// 计算的可视长方体的高度(相机空间, 沿Y轴)
     float m_view_volume_height;
     /// 2 * 1/width

@@ -36,9 +36,9 @@
 enum class CameraType : uint8_t
 {
     // --- PINHOLE CAMERA --- //
-    ORTHOGONAL_CAMEAR  = 0,
-    PERSPECTIVE_CAMERA = 1,
+    ORTHOGONAL_CAMEAR = 0,
+    PERSPECTIVE_CAMERA,
 
     // --- PHYSICAL/THINLENS CAMERA --- //
-    THIN_LENS_CAMERA   = 2,
+    THIN_LENS_CAMERA,
 };

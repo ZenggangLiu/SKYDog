@@ -1,0 +1,83 @@
+沿着固定坐标轴旋转：
+Rx:(沿X轴的旋转)                 Ry(沿Y轴的旋转)                  Rz(沿Z轴的旋转)
+|   1       0       0   |       |   cy      0       sy  |       |   cr      -sr     0   |
+|   0       cp      -sp |       |   0       1       0   |       |   sr      cr      0   |
+|   0       sp      cp  |       |   -sy     0       cy  |       |   0       0       1   |
+
+Rx: 俯仰/Pitch(横向轴X)
+Ry: 偏航/Yaw(垂直轴Y)
+Rz: 翻滚/Roll(翻滚轴Z)
+
+我们内部的旋转角合成顺序： 偏航 * 俯仰 * 翻滚： Ry * Rx * Rz
+这里: 
+cp: Cos(Pitch)  sp: Sin(Pitch)
+cy: Cos(Yaw)    sy: Sin(Yaw)
+cr: Cos(Roll)   sr: Sin(Roll)
+
+Ry * Rx * Rz
+|   cy      0       sy  |       |   1       0       0   |       |   cr      -sr     0   |
+|   0       1       0   |   *   |   0       cp      -sp |   *   |   sr      cr      0   |
+|   -sy     0       cy  |       |   0       sp      cp  |       |   0       0       1   |
+
+    |   cy      0       sy  |       |   cr      -sr     0   |
+=   |   0       1       0   |   *   |   cpsr    cpcr    -sp |
+    |   -sy     0       cy  |       |   spsr    spcr    cp  |
+
+    | e00      e01     e02 |       |   cycr + syspsr       -cysr + syspcr      sycp    |
+=   | e10      e11     e12 |   =   |   cpsr                cpcr                -sp     |
+    | e20      e21     e22 |       |   -sycr + cyspsr      sysr + cyspcr       cycp    |
+
+因此：
+e12 = -Sine(Pitch)
+
+对于Ry * Rx * Rz的合成顺序，如果Pitch的角度为 ±0.5π，将会产生异常(Singularity)
+
+1. 如果Pitch = 0.5π, 则cp = 0, sp = 1
+使用如下公式：
+Sin(a-b) = Sin(a)Cos(b) - Cos(a)Sin(b)
+Cos(a-b) = Cos(a)Cos(b) + Sin(a)Sin(b)
+
+ | e00      e01     e02 |       |   cycr + sysr     -cysr + sycr    0   |       |   cycr + sysr     sycr - cysr     0   |
+ | e10      e11     e12 |   =   |   0               0               -1  |   =   |   0               0               -1  |
+ | e20      e21     e22 |       |   -sycr + cysr    sysr + cycr     0   |       |   -(sycr - cysr)  cycr + sysr     0   |
+
+
+    |   Cos(y-r)        Sin(y-r)        0   |
+=   |   0               0               -1  |
+    |   -Sin(y-r)       Cos(y-r)        0   |
+
+总结：
+Pitch = 0.5π
+Yaw - Roll = actan2(e01, e00)
+Roll = 0
+
+ 2. 如果Pitch = -0.5π, 则cp = 0, sp = -1
+ 使用如下公式：
+Sin(a+b) = Sin(a)Cos(b) + Cos(a)Sin(b)
+Cos(a+b) = Cos(a)Cos(b) - Sin(a)Sin(b)
+
+ | e00      e01     e02 |       |   cycr - sysr     -cysr - sycr    0   |       |   cycr - sysr     -(sycr + cysr)  0   |
+ | e10      e11     e12 |   =   |   0               0               1   |   =   |   0               0               1   |
+ | e20      e21     e22 |       |   -sycr - cysr    sysr - cycr     0   |       |   -(sycr + cysr)  -(cycr - sysr） 0   |
+
+
+     |   Cos(y+r)        -Sin(y+r)   0   |
+ =   |   0               0           1   |
+     |   -Sin(y+r)      -Cos(y+r)    0   |
+总结：
+Pitch = -0.5π
+Yaw + Roll = actan2(-e01, e00)
+Roll = 0
+
+3. Pitch ≠±0.5π
+| e00      e01     e02 |       |   cycr + syspsr       -cysr + syspcr      sycp    |
+| e10      e11     e12 |   =   |   cpsr                cpcr                -sp     |
+| e20      e21     e22 |       |   -sycr + cyspsr      sysr + cyspcr       cycp    |
+
+Pitch = asine(-e12)
+Yaw   = actan2(e02, e22)
+Roll  = actan2(e10, e11)
+
+Sin(89.9) = 0.99999847691328769880290124792571
+
+更多参考：Euler_Angle_Formulas__Matrix_to_Euler.pdf
