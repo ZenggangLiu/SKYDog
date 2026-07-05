@@ -173,6 +173,12 @@
 		BD9FAFBE2F6E756B000B085D /* Float4D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD9FAFBC2F6E756B000B085D /* Float4D.cpp */; };
 		BDA3D1B42FFA5B42001075BB /* MarkerAllocator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA3D1B32FFA5B42001075BB /* MarkerAllocator.hpp */; };
 		BDA3D1B52FFA5B42001075BB /* MarkerAllocator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA3D1B32FFA5B42001075BB /* MarkerAllocator.hpp */; };
+		BDA3D1B82FFA5FE6001075BB /* LightType.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA3D1B72FFA5FE6001075BB /* LightType.hpp */; };
+		BDA3D1B92FFA5FE6001075BB /* LightType.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA3D1B72FFA5FE6001075BB /* LightType.hpp */; };
+		BDA3D1BB2FFA6132001075BB /* LightMarker.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA3D1BA2FFA6132001075BB /* LightMarker.hpp */; };
+		BDA3D1BC2FFA6132001075BB /* LightMarker.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA3D1BA2FFA6132001075BB /* LightMarker.hpp */; };
+		BDA3D1BF2FFA61C7001075BB /* LightMarker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDA3D1BE2FFA61C7001075BB /* LightMarker.cpp */; };
+		BDA3D1C02FFA61C7001075BB /* LightMarker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDA3D1BE2FFA61C7001075BB /* LightMarker.cpp */; };
 		BDA8960E2F6F6F0300B0683B /* Float3D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA8960D2F6F6F0300B0683B /* Float3D.hpp */; };
 		BDA8960F2F6F6F0300B0683B /* Float3D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA8960D2F6F6F0300B0683B /* Float3D.hpp */; };
 		BDA896112F6F70FA00B0683B /* Float3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDA896102F6F70FA00B0683B /* Float3D.cpp */; };
@@ -346,6 +352,9 @@
 		BD9FAFB82F6E7430000B085D /* Float4D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = Float4D.hpp; path = Public/DataType/Float4D.hpp; sourceTree = "<group>"; };
 		BD9FAFBC2F6E756B000B085D /* Float4D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = Float4D.cpp; path = Private/DataType/Float4D.cpp; sourceTree = "<group>"; };
 		BDA3D1B32FFA5B42001075BB /* MarkerAllocator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = MarkerAllocator.hpp; path = Private/SceneGraph/MarkerAllocator.hpp; sourceTree = "<group>"; };
+		BDA3D1B72FFA5FE6001075BB /* LightType.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = LightType.hpp; path = Public/SceneGraph/Light/LightType.hpp; sourceTree = "<group>"; };
+		BDA3D1BA2FFA6132001075BB /* LightMarker.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = LightMarker.hpp; path = Public/SceneGraph/Light/LightMarker.hpp; sourceTree = "<group>"; };
+		BDA3D1BE2FFA61C7001075BB /* LightMarker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = LightMarker.cpp; path = Private/SceneGraph/Light/LightMarker.cpp; sourceTree = "<group>"; };
 		BDA8960D2F6F6F0300B0683B /* Float3D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = Float3D.hpp; path = Public/DataType/Float3D.hpp; sourceTree = "<group>"; };
 		BDA896102F6F70FA00B0683B /* Float3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = Float3D.cpp; path = Private/DataType/Float3D.cpp; sourceTree = "<group>"; };
 		BDA896162F6F9C8300B0683B /* Matrix3x4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = Matrix3x4.cpp; path = Private/DataType/Matrix3x4.cpp; sourceTree = "<group>"; };
@@ -525,6 +534,7 @@
 			isa = PBXGroup;
 			children = (
 				BD72C0CC2FD2E38900491766 /* Camera */,
+				BDA3D1B62FFA5FC9001075BB /* Light */,
 				BDC05CAC2FC56EF4005CCA1C /* GameScene.hpp */,
 				BD5510002FB91E0000110001 /* ObjectMarker.hpp */,
 				BD5510032FB91E0000110001 /* SceneObject.hpp */,
@@ -538,6 +548,7 @@
 			isa = PBXGroup;
 			children = (
 				BD3F04A12FE7F19B0062ACC2 /* Camera */,
+				BDA3D1BD2FFA61AD001075BB /* Light */,
 				BDC05CAF2FC59D5F005CCA1C /* GameScene.cpp */,
 				BDA3D1B32FFA5B42001075BB /* MarkerAllocator.hpp */,
 				BD54E2252FC07755009DBD8C /* MarkerTypeDepot.hpp */,
@@ -799,6 +810,23 @@
 			name = DataType;
 			sourceTree = "<group>";
 		};
+		BDA3D1B62FFA5FC9001075BB /* Light */ = {
+			isa = PBXGroup;
+			children = (
+				BDA3D1BA2FFA6132001075BB /* LightMarker.hpp */,
+				BDA3D1B72FFA5FE6001075BB /* LightType.hpp */,
+			);
+			name = Light;
+			sourceTree = "<group>";
+		};
+		BDA3D1BD2FFA61AD001075BB /* Light */ = {
+			isa = PBXGroup;
+			children = (
+				BDA3D1BE2FFA61C7001075BB /* LightMarker.cpp */,
+			);
+			name = Light;
+			sourceTree = "<group>";
+		};
 		BDA896272F74F46E00B0683B /* Codec */ = {
 			isa = PBXGroup;
 			children = (
@@ -934,7 +962,9 @@
 				BD58B0832F4EECE10024C670 /* ThreadDefines.hpp in Headers */,
 				BDC9CB262F978AFF0042BF24 /* Layout_Pos_Colr_Uv.hpp in Headers */,
 				BDC9CB462F9C7E7E0042BF24 /* RMeshHead_v1.0.hpp in Headers */,
+				BDA3D1BB2FFA6132001075BB /* LightMarker.hpp in Headers */,
 				BDC9CB012F94DD580042BF24 /* NativeReadStream.hpp in Headers */,
+				BDA3D1B82FFA5FE6001075BB /* LightType.hpp in Headers */,
 				BDC9CB232F978AB60042BF24 /* Layout_Pos_Colr_Norm_Uv.hpp in Headers */,
 				BDC9CB492F9C7F410042BF24 /* RMeshFile.hpp in Headers */,
 				BD58B0982F56DCDC0024C670 /* ClockTime.hpp in Headers */,
@@ -1017,7 +1047,9 @@
 				BD58B0842F4EECE10024C670 /* ThreadDefines.hpp in Headers */,
 				BDC9CB272F978AFF0042BF24 /* Layout_Pos_Colr_Uv.hpp in Headers */,
 				BDC9CB472F9C7E7E0042BF24 /* RMeshHead_v1.0.hpp in Headers */,
+				BDA3D1BC2FFA6132001075BB /* LightMarker.hpp in Headers */,
 				BDC9CB022F94DD580042BF24 /* NativeReadStream.hpp in Headers */,
+				BDA3D1B92FFA5FE6001075BB /* LightType.hpp in Headers */,
 				BDC9CB242F978AB60042BF24 /* Layout_Pos_Colr_Norm_Uv.hpp in Headers */,
 				BDC9CB4A2F9C7F410042BF24 /* RMeshFile.hpp in Headers */,
 				BD58B0992F56DCDC0024C670 /* ClockTime.hpp in Headers */,
@@ -1142,6 +1174,7 @@
 				BD58B0A62F582F480024C670 /* GameMainLoop.cpp in Sources */,
 				BDA8962A2F74F48400B0683B /* X2TeaCodec.cpp in Sources */,
 				BD8FB82B2F8230E300EE67B4 /* RenderMesh.cpp in Sources */,
+				BDA3D1C02FFA61C7001075BB /* LightMarker.cpp in Sources */,
 				BD3F04A72FE7F23E0062ACC2 /* CameraMarker.cpp in Sources */,
 				BDA8961E2F6FE89900B0683B /* Matrix4x4.cpp in Sources */,
 				BD58B0DD2F5B97BA0024C670 /* RuntimeHash.cpp in Sources */,
@@ -1192,6 +1225,7 @@
 				BD58B0A52F582F480024C670 /* GameMainLoop.cpp in Sources */,
 				BDA896292F74F48400B0683B /* X2TeaCodec.cpp in Sources */,
 				BD8FB82A2F8230E300EE67B4 /* RenderMesh.cpp in Sources */,
+				BDA3D1BF2FFA61C7001075BB /* LightMarker.cpp in Sources */,
 				BD3F04A62FE7F23E0062ACC2 /* CameraMarker.cpp in Sources */,
 				BDA8961D2F6FE89900B0683B /* Matrix4x4.cpp in Sources */,
 				BD58B0DC2F5B97BA0024C670 /* RuntimeHash.cpp in Sources */,
