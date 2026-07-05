@@ -103,6 +103,10 @@ public:
     const matrix_3x4 &
     local_to_world_transform () const;
 
+    /// 获取当前世界朝向(单位向量|Forward/Z轴)
+    float_3
+    world_forward_vector () const;
+
     /// 获取当前本地位移
     float_3
     local_position () const;
@@ -127,6 +131,15 @@ public:
 
     float_3
     local_scaling () const;
+
+    /// 设置世界朝向
+    ///
+    /// @param[in]  world_point
+    ///     世界空间中的观察点
+    /// NOTE: 将绕着当前的UP轴旋转
+    void
+    set_world_forward_vector (
+        const float_3 world_point);
 
     /// 设置本地位移
     void

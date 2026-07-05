@@ -181,6 +181,10 @@ struct alignas(16) matrix_3x4
     operator* (
         const matrix_3x4 & matx) const;
 
+    /// 计算当前旋转矩阵对应的四元数
+    quaternion
+    rotation () const;
+
     /// 使用当前矩阵对指定点P进行变换
     /// P' = M * P
     float_3

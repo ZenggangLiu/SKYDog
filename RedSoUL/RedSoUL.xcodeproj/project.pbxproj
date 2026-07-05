@@ -53,8 +53,6 @@
 		BD3F049D2FE799EB0062ACC2 /* MessageDefines.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD3F049B2FE799EB0062ACC2 /* MessageDefines.hpp */; };
 		BD3F049F2FE7F0770062ACC2 /* PerspectiveCamera.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD3F049E2FE7F0770062ACC2 /* PerspectiveCamera.hpp */; };
 		BD3F04A02FE7F0770062ACC2 /* PerspectiveCamera.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD3F049E2FE7F0770062ACC2 /* PerspectiveCamera.hpp */; };
-		BD3F04A32FE7F1B30062ACC2 /* CameraAllocator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD3F04A22FE7F1B30062ACC2 /* CameraAllocator.hpp */; };
-		BD3F04A42FE7F1B30062ACC2 /* CameraAllocator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD3F04A22FE7F1B30062ACC2 /* CameraAllocator.hpp */; };
 		BD3F04A62FE7F23E0062ACC2 /* CameraMarker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD3F04A52FE7F23E0062ACC2 /* CameraMarker.cpp */; };
 		BD3F04A72FE7F23E0062ACC2 /* CameraMarker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD3F04A52FE7F23E0062ACC2 /* CameraMarker.cpp */; };
 		BD3F04A92FE7F37D0062ACC2 /* PerspectiveCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD3F04A82FE7F37D0062ACC2 /* PerspectiveCamera.cpp */; };
@@ -173,6 +171,8 @@
 		BD9FAFBA2F6E7430000B085D /* Float4D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD9FAFB82F6E7430000B085D /* Float4D.hpp */; };
 		BD9FAFBD2F6E756B000B085D /* Float4D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD9FAFBC2F6E756B000B085D /* Float4D.cpp */; };
 		BD9FAFBE2F6E756B000B085D /* Float4D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD9FAFBC2F6E756B000B085D /* Float4D.cpp */; };
+		BDA3D1B42FFA5B42001075BB /* MarkerAllocator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA3D1B32FFA5B42001075BB /* MarkerAllocator.hpp */; };
+		BDA3D1B52FFA5B42001075BB /* MarkerAllocator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA3D1B32FFA5B42001075BB /* MarkerAllocator.hpp */; };
 		BDA8960E2F6F6F0300B0683B /* Float3D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA8960D2F6F6F0300B0683B /* Float3D.hpp */; };
 		BDA8960F2F6F6F0300B0683B /* Float3D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA8960D2F6F6F0300B0683B /* Float3D.hpp */; };
 		BDA896112F6F70FA00B0683B /* Float3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDA896102F6F70FA00B0683B /* Float3D.cpp */; };
@@ -283,7 +283,6 @@
 		BD326F382F4958CE007EE8EC /* RingBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = RingBuffer.cpp; path = Private/Container/RingBuffer.cpp; sourceTree = "<group>"; };
 		BD3F049B2FE799EB0062ACC2 /* MessageDefines.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = MessageDefines.hpp; path = Public/Message/MessageDefines.hpp; sourceTree = "<group>"; };
 		BD3F049E2FE7F0770062ACC2 /* PerspectiveCamera.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = PerspectiveCamera.hpp; path = Public/SceneGraph/Camera/PerspectiveCamera.hpp; sourceTree = "<group>"; };
-		BD3F04A22FE7F1B30062ACC2 /* CameraAllocator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = CameraAllocator.hpp; path = Private/SceneGraph/Camera/CameraAllocator.hpp; sourceTree = "<group>"; };
 		BD3F04A52FE7F23E0062ACC2 /* CameraMarker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = CameraMarker.cpp; path = Private/SceneGraph/Camera/CameraMarker.cpp; sourceTree = "<group>"; };
 		BD3F04A82FE7F37D0062ACC2 /* PerspectiveCamera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = PerspectiveCamera.cpp; path = Private/SceneGraph/Camera/PerspectiveCamera.cpp; sourceTree = "<group>"; };
 		BD3F04AB2FEBE7520062ACC2 /* OrthogonalCamera.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = OrthogonalCamera.hpp; path = Public/SceneGraph/Camera/OrthogonalCamera.hpp; sourceTree = "<group>"; };
@@ -346,6 +345,7 @@
 		BD9FAFB22F6E528C000B085D /* MathUtilities.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = MathUtilities.cpp; path = Private/Math/MathUtilities.cpp; sourceTree = "<group>"; };
 		BD9FAFB82F6E7430000B085D /* Float4D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = Float4D.hpp; path = Public/DataType/Float4D.hpp; sourceTree = "<group>"; };
 		BD9FAFBC2F6E756B000B085D /* Float4D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = Float4D.cpp; path = Private/DataType/Float4D.cpp; sourceTree = "<group>"; };
+		BDA3D1B32FFA5B42001075BB /* MarkerAllocator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = MarkerAllocator.hpp; path = Private/SceneGraph/MarkerAllocator.hpp; sourceTree = "<group>"; };
 		BDA8960D2F6F6F0300B0683B /* Float3D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = Float3D.hpp; path = Public/DataType/Float3D.hpp; sourceTree = "<group>"; };
 		BDA896102F6F70FA00B0683B /* Float3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = Float3D.cpp; path = Private/DataType/Float3D.cpp; sourceTree = "<group>"; };
 		BDA896162F6F9C8300B0683B /* Matrix3x4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = Matrix3x4.cpp; path = Private/DataType/Matrix3x4.cpp; sourceTree = "<group>"; };
@@ -514,7 +514,6 @@
 		BD3F04A12FE7F19B0062ACC2 /* Camera */ = {
 			isa = PBXGroup;
 			children = (
-				BD3F04A22FE7F1B30062ACC2 /* CameraAllocator.hpp */,
 				BD3F04A52FE7F23E0062ACC2 /* CameraMarker.cpp */,
 				BD3F04AE2FEBE85C0062ACC2 /* OrthogonalCamera.cpp */,
 				BD3F04A82FE7F37D0062ACC2 /* PerspectiveCamera.cpp */,
@@ -540,6 +539,7 @@
 			children = (
 				BD3F04A12FE7F19B0062ACC2 /* Camera */,
 				BDC05CAF2FC59D5F005CCA1C /* GameScene.cpp */,
+				BDA3D1B32FFA5B42001075BB /* MarkerAllocator.hpp */,
 				BD54E2252FC07755009DBD8C /* MarkerTypeDepot.hpp */,
 				BD54E2282FC1606B009DBD8C /* MarkerTypeDepot.cpp */,
 				BDC05CB22FC59E16005CCA1C /* ObjectMarker.cpp */,
@@ -937,7 +937,6 @@
 				BDC9CB012F94DD580042BF24 /* NativeReadStream.hpp in Headers */,
 				BDC9CB232F978AB60042BF24 /* Layout_Pos_Colr_Norm_Uv.hpp in Headers */,
 				BDC9CB492F9C7F410042BF24 /* RMeshFile.hpp in Headers */,
-				BD3F04A32FE7F1B30062ACC2 /* CameraAllocator.hpp in Headers */,
 				BD58B0982F56DCDC0024C670 /* ClockTime.hpp in Headers */,
 				BD8FB8222F81047F00EE67B4 /* IndexedTriangle.hpp in Headers */,
 				BDD403602F947EB80019BE16 /* FileName.hpp in Headers */,
@@ -952,6 +951,7 @@
 				BD326F2A2F431CD5007EE8EC /* MemoryUtilities.hpp in Headers */,
 				BD8FB8482F8512B100EE67B4 /* Layout_Pos_Uv.hpp in Headers */,
 				BD9FAFB92F6E7430000B085D /* Float4D.hpp in Headers */,
+				BDA3D1B42FFA5B42001075BB /* MarkerAllocator.hpp in Headers */,
 				BD58B0802F4DA6D40024C670 /* WorkerThread.hpp in Headers */,
 				BD58B0BE2F5974630024C670 /* RuntimeHash.hpp in Headers */,
 				BD8FB8332F850FA800EE67B4 /* AABB.hpp in Headers */,
@@ -1020,7 +1020,6 @@
 				BDC9CB022F94DD580042BF24 /* NativeReadStream.hpp in Headers */,
 				BDC9CB242F978AB60042BF24 /* Layout_Pos_Colr_Norm_Uv.hpp in Headers */,
 				BDC9CB4A2F9C7F410042BF24 /* RMeshFile.hpp in Headers */,
-				BD3F04A42FE7F1B30062ACC2 /* CameraAllocator.hpp in Headers */,
 				BD58B0992F56DCDC0024C670 /* ClockTime.hpp in Headers */,
 				BD8FB8232F81047F00EE67B4 /* IndexedTriangle.hpp in Headers */,
 				BDD403612F947EB80019BE16 /* FileName.hpp in Headers */,
@@ -1035,6 +1034,7 @@
 				BD326F2B2F431CD5007EE8EC /* MemoryUtilities.hpp in Headers */,
 				BD8FB8492F8512B100EE67B4 /* Layout_Pos_Uv.hpp in Headers */,
 				BD9FAFBA2F6E7430000B085D /* Float4D.hpp in Headers */,
+				BDA3D1B52FFA5B42001075BB /* MarkerAllocator.hpp in Headers */,
 				BD58B0812F4DA6D40024C670 /* WorkerThread.hpp in Headers */,
 				BD58B0BF2F5974630024C670 /* RuntimeHash.hpp in Headers */,
 				BD8FB8342F850FA800EE67B4 /* AABB.hpp in Headers */,

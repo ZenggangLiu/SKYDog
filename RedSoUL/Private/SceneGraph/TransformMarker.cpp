@@ -360,6 +360,33 @@ TransformMarker::local_to_world_transform () const
 
 
 float_3
+TransformMarker::world_forward_vector () const
+{
+    /// 获得世界变换
+    const matrix_3x4 & world_transform = local_to_world_transform();
+
+    /// 世界变换矩阵为:
+    ///    X    Y    Z    O
+    /// | e00  e01  e02  e03 |
+    /// | e10  e11  e12  e13 |
+    /// | e20  e21  e22  e23 |
+    ///
+    /// Y(上|👆)
+    /// ↑
+    /// |   /Z(前)
+    /// |  /
+    /// | /
+    /// o------→ X(右|👉)
+    /// 世界朝向为Z轴, 即, 第三列
+    ///
+    float_3 forward_vector =
+        float_3::make(world_transform.e02, world_transform.e12, world_transform.e22);
+    forward_vector.normalize();
+    return forward_vector;
+}
+
+
+float_3
 TransformMarker::local_position () const
 {
     const bool has_position =
@@ -417,6 +444,66 @@ TransformMarker::local_scaling () const
     const bool has_scaling =
         ((uint32_t)m_transform_type & (uint32_t)TransformType::HAS_SCALING) != 0;
     return has_scaling ? m_transform_data->scaling() : float_3::ONE;
+}
+
+
+void
+TransformMarker::set_world_forward_vector (
+    const float_3 world_point)
+{
+    /// 对上方向量(Y|👆)施加的微小偏移: 为了防止观察向量与上方向量相同
+    static constexpr float_3 UP_VECTOR_SHIFT{ 0.006f, 0.006f, 0.006f };
+
+    /// 将世界空间中的观察点转换到父节点空间
+    const float_3 point_in_father_space =
+        (m_father_transform == nullptr)
+        ? world_point
+        : m_father_transform->world_point_to_local_space(world_point);
+
+    // === 以下所有计算均在父节点空间内进行 === //
+    /// 计算Forwardt向量: 原点 --> TargetPnt
+    const float_3 forward_vector =
+        (point_in_father_space - local_position()).unified_vec();
+
+    /// 获取本地旋转矩阵
+    const quaternion rotate_quat = m_transform_data->rotation();
+    const matrix_3x4 rotate_matx = matrix_3x4::make_rotation(rotate_quat);
+
+    /// 旋转矩阵为:
+    ///    X    Y    Z
+    /// | e00  e01  e02  0 |
+    /// | e10  e11  e12  0 |
+    /// | e20  e21  e22  0 |
+    ///
+    /// Y(上|👆)
+    /// ↑
+    /// |   /Z(前)
+    /// |  /
+    /// | /
+    /// o------→ X(右|👉)
+    ///
+    const float_3 composed_up_vector =
+        UP_VECTOR_SHIFT +
+        float_3::make(rotate_matx.e01, rotate_matx.e11, rotate_matx.e21);
+
+    /// 计算X(右|👉)向量
+    /// X := cross(Y, Z)
+    const float_3 right_vector = composed_up_vector.cross(forward_vector).unified_vec();
+    /// 重新计算Y(上|👆)向量
+    /// Y := cross(Z, X)
+    const float_3 up_vector = forward_vector.cross(right_vector).unified_vec();
+
+    /// 合成旋转矩阵
+    const matrix_3x4 updated_rotate_matx
+    {
+        right_vector.x, up_vector.x, forward_vector.x, 0.0f,
+        right_vector.y, up_vector.y, forward_vector.y, 0.0f,
+        right_vector.z, up_vector.z, forward_vector.z, 0.0f,
+    };
+
+    /// 获取旋转矩阵对应的四元数
+    const quaternion updated_rotate_quat = updated_rotate_matx.rotation();
+    set_local_rotation(updated_rotate_quat);
 }
 
 

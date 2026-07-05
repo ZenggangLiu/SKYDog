@@ -153,6 +153,9 @@ private:
     update_combined_rotation () const;
 
 private:
+    /// 起始的变换个数
+    static constexpr uint16_t INIT_TRANSFORM_COUNT = 100;
+
     // --- LOCAL TRANSFORM --- //
     float_3             m_local_position;
     /// 俯仰/Pitch(X轴), 偏航/Yaw(Y轴), 翻滚/Roll(Z轴)旋转角(以度来衡量):

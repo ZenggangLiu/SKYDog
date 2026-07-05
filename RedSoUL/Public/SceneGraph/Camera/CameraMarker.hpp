@@ -84,6 +84,9 @@ protected:
     void on_world_transform_updated ();
 
 protected:
+    /// 每种相机的起始个数
+    static constexpr uint8_t INIT_CAMERA_COUNT = 2;
+
     /// 相机变换矩阵: 世界 --> 相机空间
     mutable matrix_3x4 m_camera_transform;
     /// 投影变换矩阵: 世界 --> 剪切空间
