@@ -63,13 +63,16 @@ LightMarker::set_intensity (
 LightMarker::LightMarker (
     SceneObject &         marker_owner,
     const StaticStringIdT marker_name_id,
-    const LightType       light_type)
+    const LightType       light_type,
+    const float_3         light_color,
+    const float           light_intensity,
+    const bool            does_cast_shadow)
 :
     SuperT(marker_owner, marker_name_id),
     m_transform_marker(marker_owner.transform()),
-    m_color(float_3::ONE),
-    m_intensity(1.0f),
-    m_cast_shadow(true),
+    m_color(light_color),
+    m_intensity(light_intensity),
+    m_cast_shadow(does_cast_shadow),
     m_light_type(light_type)
 {
 

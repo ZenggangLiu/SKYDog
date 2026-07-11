@@ -360,6 +360,93 @@ TransformMarker::local_to_world_transform () const
 
 
 float_3
+TransformMarker::world_position() const
+{
+    /// 获得世界变换
+    const matrix_3x4 & world_transform = local_to_world_transform();
+
+    /// 世界变换矩阵为:
+    ///    X    Y    Z    O
+    /// | e00  e01  e02  e03 |
+    /// | e10  e11  e12  e13 |
+    /// | e20  e21  e22  e23 |
+    ///
+    /// Y(上|👆)
+    /// ↑
+    /// |   /Z(前)
+    /// |  /
+    /// | /
+    /// o------→ X(右|👉)
+    /// X列为世界右方, 即, 第一列
+    /// Y列为世界上方, 即, 第二列
+    /// Z列为世界朝向, 即, 第三列
+    /// O列为世界位移, 即, 第四列
+    ///
+    return float_3::make(world_transform.e03, world_transform.e13, world_transform.e23);
+}
+
+
+float_3
+TransformMarker::world_rightward_vector () const
+{
+    /// 获得世界变换
+    const matrix_3x4 & world_transform = local_to_world_transform();
+
+    /// 世界变换矩阵为:
+    ///    X    Y    Z    O
+    /// | e00  e01  e02  e03 |
+    /// | e10  e11  e12  e13 |
+    /// | e20  e21  e22  e23 |
+    ///
+    /// Y(上|👆)
+    /// ↑
+    /// |   /Z(前)
+    /// |  /
+    /// | /
+    /// o------→ X(右|👉)
+    /// X列为世界右方, 即, 第一列
+    /// Y列为世界上方, 即, 第二列
+    /// Z列为世界朝向, 即, 第三列
+    /// O列为世界位移, 即, 第四列
+    ///
+    float_3 rightward_vector =
+        float_3::make(world_transform.e00, world_transform.e10, world_transform.e20);
+    rightward_vector.normalize();
+    return rightward_vector;
+}
+
+
+float_3
+TransformMarker::world_upward_vector () const
+{
+    /// 获得世界变换
+    const matrix_3x4 & world_transform = local_to_world_transform();
+
+    /// 世界变换矩阵为:
+    ///    X    Y    Z    O
+    /// | e00  e01  e02  e03 |
+    /// | e10  e11  e12  e13 |
+    /// | e20  e21  e22  e23 |
+    ///
+    /// Y(上|👆)
+    /// ↑
+    /// |   /Z(前)
+    /// |  /
+    /// | /
+    /// o------→ X(右|👉)
+    /// X列为世界右方, 即, 第一列
+    /// Y列为世界上方, 即, 第二列
+    /// Z列为世界朝向, 即, 第三列
+    /// O列为世界位移, 即, 第四列
+    ///
+    float_3 upward_vector =
+        float_3::make(world_transform.e01, world_transform.e11, world_transform.e21);
+    upward_vector.normalize();
+    return upward_vector;
+}
+
+
+float_3
 TransformMarker::world_forward_vector () const
 {
     /// 获得世界变换
@@ -377,7 +464,10 @@ TransformMarker::world_forward_vector () const
     /// |  /
     /// | /
     /// o------→ X(右|👉)
-    /// 世界朝向为Z轴, 即, 第三列
+    /// X列为世界右方, 即, 第一列
+    /// Y列为世界上方, 即, 第二列
+    /// Z列为世界朝向, 即, 第三列
+    /// O列为世界位移, 即, 第四列
     ///
     float_3 forward_vector =
         float_3::make(world_transform.e02, world_transform.e12, world_transform.e22);

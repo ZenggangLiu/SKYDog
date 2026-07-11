@@ -116,6 +116,25 @@ struct MathUtility
         const float a,
         const float b,
         const float epsilon = EPSILON);
+
+    /// 在[0, length-1]之内REPEAT指定数值value
+    static
+    float
+    repeat (
+        const float value,
+        const float length);
+
+    /// 将指定数值value映射到[0, 1]之间
+    ///
+    /// @return
+    /// 0: 如果value <= left_edge
+    /// 1: 如果value >= right_edge
+    static
+    float
+    smooth_step (
+        const float value,
+        const float left_edge,
+        const float right_edge);
 };
 
 

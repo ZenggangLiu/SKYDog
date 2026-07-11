@@ -103,6 +103,18 @@ public:
     const matrix_3x4 &
     local_to_world_transform () const;
 
+    /// 获取当前世界的位移
+    float_3
+    world_position () const;
+
+    /// 获取当前世界右方向量(单位向量|Rightward/X轴)
+    float_3
+    world_rightward_vector () const;
+
+    /// 获取当前世界上方向量(单位向量|Upward/Y轴)
+    float_3
+    world_upward_vector () const;
+
     /// 获取当前世界朝向(单位向量|Forward/Z轴)
     float_3
     world_forward_vector () const;

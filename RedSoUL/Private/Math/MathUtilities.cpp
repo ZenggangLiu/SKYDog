@@ -1,5 +1,7 @@
 /// System headers
-#include <cmath> /// std::fabsf, std::sqrtf
+#include <cmath> /// std::fabsf, std::floorf, std::sqrtf
+/// Library headers
+#include "Assert/RuntimeAssert.hpp"
 /// Self header
 #include "Math/MathUtilities.hpp"
 
@@ -223,4 +225,31 @@ MathUtility::equal (
     ///
     const float _max_a_b = std::max(std::fabsf(a), std::fabsf(b));
     return std::fabsf(a - b) <= epsilon * std::max(_max_a_b, 1.f);
+}
+
+
+float
+MathUtility::repeat (
+    const float value,
+    const float length)
+{
+    return value - std::floorf(value / length) * length;
+}
+
+
+float
+MathUtility::smooth_step (
+    const float value,
+    const float left_edge,
+    const float right_edge)
+{
+    RUNTIME_ASSERT(right_edge >= left_edge,
+                   "Right edge must be greater than or equal to left edge!!");
+
+    /// 参考:https://en.wikipedia.org/wiki/Smoothstep
+    /// Hermit Interpolation: S(x) = 3x^2 - 2x^3 = x * x * (3 - 2*x)
+    /// - 如果x∈[0, 1], 那么S(x)∈[0, 1]
+    ///
+    const float x = clamp((value - left_edge) / (right_edge - left_edge), 0.0f, 1.0f);
+    return x * x * (3.0f - 2.0f * x);
 }

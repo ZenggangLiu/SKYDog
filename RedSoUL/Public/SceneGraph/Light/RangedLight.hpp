@@ -17,10 +17,10 @@
     Author:   (___()'`; Zee...  \_/|_)     )                                            
               /,    /`             \  __  /                                             
               \\"--\\              (_/ (_/                                              
-    Created:  5/07/26  @  9:53 PM
-    FileName: LightMarker.hpp @ RedSoUL Project
+    Created:  10/07/26  @  11:39 PM
+    FileName: RangedLight.hpp @ RedSoUL Project
     History:
-             - created by: 5/07/26: Zenggang LIU
+             - created by: 10/07/26: Zenggang LIU
                                                                                         
 ***************************************************************************************/
 
@@ -29,69 +29,68 @@
 
 
 /// Library headers
-#include "DataType/Float3D.hpp"
+#include "SceneGraph/Light/LightMarker.hpp"
 #include "SceneGraph/Light/LightType.hpp"
-#include "SceneGraph/ObjectMarker.hpp"
 #include "Text/StaticStringId.hpp"
 
 
 class SceneObject;
-class TransformMarker;
 
 
-class LightMarker : public ObjectMarker
+/// 区域光源(带有基于点P到光源L距离d的衰减函数A(d)的光源):
+///
+/// Eye👀__             💡L
+///     |\    |N        *
+///       \   |       * d
+///     ωo \  |     *
+///         \ |   *
+///          \| *
+///  ---------P---------
+///
+class RangedLight : public LightMarker
 {
 public:
-    /// 获取光源类型
-    LightType
-    light_type () const;
-
-    /// 检测光源是否产生阴影
-    bool
-    cast_shadow () const;
-
-    float_3
-    color () const;
-
+    /// 获取衰减距离(米)
     float
-    intensity () const;
+    range () const;
 
+    /// 设置衰减距离(米)
     void
-    set_cast_shadow (
-        const bool enabled);
-
-    void
-    set_color (
-        const float_3 color);
-
-    void
-    set_intensity (
-        const float intensity);
+    set_range (
+        const float range);
 
 
 protected:
-    typedef ObjectMarker SuperT;
+    friend class SceneObject;
 
-    LightMarker (
+    typedef LightMarker SuperT;
+
+    RangedLight (
         SceneObject &         marker_owner,
         const StaticStringIdT marker_name_id,
         const LightType       light_type,
         const float_3         light_color,
         const float           light_intensity,
+        const float           light_range,
         const bool            does_cast_shadow);
 
-    ~LightMarker ();
+    ~RangedLight ();
 
-    LightMarker (
-        const LightMarker &) = delete;
-    LightMarker & operator = (
-        const LightMarker &) = delete;
+    RangedLight (
+        const RangedLight &) = delete;
+    RangedLight & operator = (
+        const RangedLight &) = delete;
+
 
 protected:
-    /// 空间变换属性的参考
-    TransformMarker & m_transform_marker;
-    float_3           m_color;
-    float             m_intensity;
-    bool              m_cast_shadow;
-    const LightType   m_light_type;
+    /// 衰减函数:
+    ///
+    ///                d*d
+    /// A(d) := [ 1 - ───── ]^2
+    ///                R*R
+    /// - R为Range(衰减距离)
+    /// - d*d为点P到光源L的距离的平方: d*d = (L - P) dot (L - P)
+    ///
+    /// 衰减距离(米)
+    float m_range;
 };
