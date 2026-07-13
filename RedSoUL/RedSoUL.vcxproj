@@ -32,7 +32,6 @@
     <ClInclude Include="Private\Render\VertexLayout\Layout_Pos_Colr_Uv.hpp" />
     <ClInclude Include="Private\Render\VertexLayout\Layout_Pos_Norm.hpp" />
     <ClInclude Include="Private\Render\VertexLayout\Layout_Pos_Uv.hpp" />
-    <ClInclude Include="Private\SceneGraph\Camera\CameraAllocator.hpp" />
     <ClInclude Include="Private\SceneGraph\MarkerTypeDepot.hpp" />
     <ClInclude Include="Private\SceneGraph\TransformData.hpp" />
     <ClInclude Include="Private\Text\StaticStringDepot.hpp" />
@@ -63,6 +62,7 @@
     <ClInclude Include="Public\Hashing\StaticXXHash32.hpp" />
     <ClInclude Include="Public\Hashing\StaticXXHash64.hpp" />
     <ClInclude Include="Public\Math\BitOperationUtilities.hpp" />
+    <ClInclude Include="Public\Math\Interpolator.hpp" />
     <ClInclude Include="Public\Math\MathDefines.hpp" />
     <ClInclude Include="Public\Math\MathUtilities.hpp" />
     <ClInclude Include="Public\Math\RandomNumber.hpp" />
@@ -77,6 +77,12 @@
     <ClInclude Include="Public\SceneGraph\Camera\OrthogonalCamera.hpp" />
     <ClInclude Include="Public\SceneGraph\Camera\PerspectiveCamera.hpp" />
     <ClInclude Include="Public\SceneGraph\GameScene.hpp" />
+    <ClInclude Include="Public\SceneGraph\Light\LightMarker.hpp" />
+    <ClInclude Include="Public\SceneGraph\Light\LightType.hpp" />
+    <ClInclude Include="Public\SceneGraph\Light\PointLight.hpp" />
+    <ClInclude Include="Public\SceneGraph\Light\RangedLight.hpp" />
+    <ClInclude Include="Public\SceneGraph\Light\SpotLight.hpp" />
+    <ClInclude Include="Public\SceneGraph\Light\SunLight.hpp" />
     <ClInclude Include="Public\SceneGraph\ObjectMarker.hpp" />
     <ClInclude Include="Public\SceneGraph\SceneObject.hpp" />
     <ClInclude Include="Public\SceneGraph\TransformMarker.hpp" />
@@ -124,6 +130,11 @@
     <ClCompile Include="Private\SceneGraph\Camera\OrthogonalCamera.cpp" />
     <ClCompile Include="Private\SceneGraph\Camera\PerspectiveCamera.cpp" />
     <ClCompile Include="Private\SceneGraph\GameScene.cpp" />
+    <ClCompile Include="Private\SceneGraph\Light\LightMarker.cpp" />
+    <ClCompile Include="Private\SceneGraph\Light\PointLight.cpp" />
+    <ClCompile Include="Private\SceneGraph\Light\RangedLight.cpp" />
+    <ClCompile Include="Private\SceneGraph\Light\SpotLight.cpp" />
+    <ClCompile Include="Private\SceneGraph\Light\SunLight.cpp" />
     <ClCompile Include="Private\SceneGraph\MarkerTypeDepot.cpp" />
     <ClCompile Include="Private\SceneGraph\ObjectMarker.cpp" />
     <ClCompile Include="Private\SceneGraph\SceneObject.cpp" />

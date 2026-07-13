@@ -1,6 +1,6 @@
 ﻿/// Library headers
 #include "Assert/RuntimeAssert.hpp"
-#include "SceneGraph/MarkerAllocator.hpp"
+#include "Memory/BlockAllocator.hpp"
 #include "SceneGraph/MarkerTypeDepot.hpp"
 #include "SceneGraph/TransformMarker.hpp"
 /// Self header
@@ -16,7 +16,7 @@ PointLight::create (
 {
     /// 申请内存
     void* const new_marker =
-        MarkerAllocator<PointLight, INIT_POINT_LIGHT_COUNT>::ref().allocate();
+        BlockAllocator<PointLight, INIT_POINT_LIGHT_COUNT>::ref().allocate();
     if (new_marker)
     {
         /// 构建实例
@@ -38,7 +38,7 @@ PointLight::destroy (
     light->~PointLight();
     /// 释放内存
     const bool opcode =
-        MarkerAllocator<PointLight, INIT_POINT_LIGHT_COUNT>::ref().deallocate(
+        BlockAllocator<PointLight, INIT_POINT_LIGHT_COUNT>::ref().deallocate(
             marker_object);
     /// 清除参考
     marker_object = nullptr;

@@ -2,7 +2,7 @@
 #include "Assert/RuntimeAssert.hpp"
 #include "Math/MathDefines.hpp" /// DEGREE_TO_RADIAN
 #include "Math/MathUtilities.hpp"
-#include "SceneGraph/MarkerAllocator.hpp"
+#include "Memory/BlockAllocator.hpp"
 #include "SceneGraph/MarkerTypeDepot.hpp"
 #include "SceneGraph/TransformMarker.hpp"
 /// Self header
@@ -48,7 +48,7 @@ Spotight::create (
 {
     /// 申请内存
     void* const new_marker =
-        MarkerAllocator<Spotight, INIT_POINT_LIGHT_COUNT>::ref().allocate();
+        BlockAllocator<Spotight, INIT_POINT_LIGHT_COUNT>::ref().allocate();
     if (new_marker)
     {
         /// 构建实例
@@ -71,7 +71,7 @@ Spotight::destroy (
     light->~Spotight();
     /// 释放内存
     const bool opcode =
-        MarkerAllocator<Spotight, INIT_POINT_LIGHT_COUNT>::ref().deallocate(
+        BlockAllocator<Spotight, INIT_POINT_LIGHT_COUNT>::ref().deallocate(
             marker_object);
     /// 清除参考
     marker_object = nullptr;

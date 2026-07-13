@@ -1,11 +1,10 @@
 /// System headers
 #include <algorithm> /// std::find
-#include <cmath>     /// std::fmodf
+#include <cmath>     /// std::fmod
 /// Library headers
 #include "Assert/RuntimeAssert.hpp"
-#include "Common/CommonDefines.hpp"   /// INLINE_FUNCTION, UNUSED_VARIABLE
 #include "Common/CompilerDefines.hpp" /// BUILD_MODE
-#include "Math/MathUtilities.hpp"     /// round_up_count
+#include "Math/MathUtilities.hpp"     /// equal
 #include "Memory/BlockAllocator.hpp"
 #include "SceneGraph/GameScene.hpp"
 #include "SceneGraph/MarkerTypeDepot.hpp"
@@ -13,65 +12,6 @@
 #include "SceneGraph/TransformData.hpp"
 /// Self header
 #include "SceneGraph/TransformMarker.hpp"
-
-
-
-// MARK: == TransformMarker Allocator ==
-class TransformAllocator
-{
-public:
-    static
-    INLINE_FUNCTION
-    TransformAllocator &
-    ref ()
-    {
-        static TransformAllocator s_instance;
-        return s_instance;
-    }
-
-    INLINE_FUNCTION
-    void *
-    allocate ()
-    {
-        return m_allocator.allocate();
-    }
-
-    INLINE_FUNCTION
-    bool
-    deallocate (
-        void * const alloc_addr)
-    {
-        return m_allocator.deallocate(alloc_addr);
-    }
-
-
-private:
-    INLINE_FUNCTION
-    TransformAllocator ()
-    {
-        static constexpr uint32_t MARKER_BYTE_SIZE = (uint32_t)sizeof(TransformMarker);
-        /// 起始的变换属性个数
-        static constexpr uint16_t TRANSFORM_COUNT  = 100;
-        static constexpr uint32_t EXPECT_BYTE_SIZE = MARKER_BYTE_SIZE * TRANSFORM_COUNT;
-
-        const bool is_initialized = m_allocator.initialize(
-            MathUtility::round_up_count(EXPECT_BYTE_SIZE, BLOCK_ALLOCATOR_PAGE_SIZE), 2);
-        UNUSED_VARIABLE(is_initialized);
-        RUNTIME_ASSERT(is_initialized, "Can not initialize the allocator!!");
-    }
-
-    INLINE_FUNCTION
-    ~TransformAllocator ()
-    {
-        m_allocator.release();
-    }
-
-private:
-    typedef BlockAllocator<TransformMarker> AllocatorTypeT;
-
-    AllocatorTypeT m_allocator;
-};
-
 
 
 // MARK: == TransformMarker ==
@@ -659,7 +599,7 @@ TransformMarker::set_local_pitch (
     else
     {
         /// 检查是否企图设置相同的角度
-        if (m_transform_data->pitch() == std::fmodf(angle_degs, 360.0f))
+        if (m_transform_data->pitch() == std::fmod(angle_degs, 360.0f))
         {
             return;
         }
@@ -691,7 +631,7 @@ TransformMarker::set_local_yaw (
     else
     {
         /// 检查是否企图设置相同的角度
-        if (m_transform_data->yaw() == std::fmodf(angle_degs, 360.0f))
+        if (m_transform_data->yaw() == std::fmod(angle_degs, 360.0f))
         {
             return;
         }
@@ -723,7 +663,7 @@ TransformMarker::set_local_roll (
     else
     {
         /// 检查是否企图设置相同的角度
-        if (m_transform_data->roll() == std::fmodf(angle_degs, 360.0f))
+        if (m_transform_data->roll() == std::fmod(angle_degs, 360.0f))
         {
             return;
         }
@@ -848,7 +788,8 @@ TransformMarker::create (
     SceneObject & marker_owner)
 {
     /// 申请内存
-    void * const new_marker = TransformAllocator::ref().allocate();
+    void * const new_marker =
+        BlockAllocator<TransformMarker, INIT_TRANSFORM_MARKER_COUNT>::ref().allocate();
     if (new_marker)
     {
         new(new_marker)TransformMarker(marker_owner, nullptr);
@@ -868,7 +809,9 @@ TransformMarker::destroy (
     /// 调用析构函数
     transform->~TransformMarker();
     /// 释放内存
-    const bool opcode = TransformAllocator::ref().deallocate(marker_object);
+    const bool opcode =
+        BlockAllocator<TransformMarker, INIT_TRANSFORM_MARKER_COUNT>::ref().deallocate(
+            marker_object);
     /// 清除参考
     marker_object = nullptr;
     return opcode;

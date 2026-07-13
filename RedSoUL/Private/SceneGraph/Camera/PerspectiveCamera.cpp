@@ -5,7 +5,7 @@
 #include "DataType/Matrix3x4.hpp"
 #include "Math/MathDefines.hpp"   /// DEGREE_TO_RADIAN
 #include "Math/MathUtilities.hpp" /// equal, fast_sincos
-#include "SceneGraph/MarkerAllocator.hpp"
+#include "Memory/BlockAllocator.hpp"
 #include "SceneGraph/MarkerTypeDepot.hpp"
 /// Self header
 #include "SceneGraph/Camera/PerspectiveCamera.hpp"
@@ -217,7 +217,7 @@ PerspectiveCamera::create (
 {
     /// 申请内存
     void * const new_marker =
-        MarkerAllocator<PerspectiveCamera, INIT_CAMERA_COUNT>::ref().allocate();
+        BlockAllocator<PerspectiveCamera, INIT_CAMERA_COUNT>::ref().allocate();
     if (new_marker)
     {
         /// 构建实例
@@ -239,7 +239,7 @@ PerspectiveCamera::destroy (
     camera->~PerspectiveCamera();
     /// 释放内存
     const bool opcode =
-        MarkerAllocator<PerspectiveCamera, INIT_CAMERA_COUNT>::ref().deallocate(
+        BlockAllocator<PerspectiveCamera, INIT_CAMERA_COUNT>::ref().deallocate(
             marker_object);
     /// 清除参考
     marker_object = nullptr;

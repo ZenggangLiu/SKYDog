@@ -97,6 +97,9 @@
     <Filter Include="Private\IO\MeshFile">
       <UniqueIdentifier>{976dec17-f7e4-49e3-84fe-0181833ce285}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Public\Message">
+      <UniqueIdentifier>{b05acedb-9f5c-437b-8a77-e54ba7c997fc}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Public\Render">
       <UniqueIdentifier>{02cf7142-7ecd-412f-887e-b6de96834682}</UniqueIdentifier>
     </Filter>
@@ -114,6 +117,18 @@
     </Filter>
     <Filter Include="Private\SceneGraph">
       <UniqueIdentifier>{7bfaa0a5-fc3c-4a00-b24e-bb933459aaa4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Public\SceneGraph\Camera">
+      <UniqueIdentifier>{6a851aba-b3c0-4ee7-9e82-187b9e2e9056}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Private\SceneGraph\Camera">
+      <UniqueIdentifier>{4b15c48f-346c-44f5-a1bb-854122798a82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Public\SceneGraph\Light">
+      <UniqueIdentifier>{abdc19b0-6670-4c65-9a6e-1135436e421a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Private\SceneGraph\Light">
+      <UniqueIdentifier>{f3f24ba7-cfda-4387-9568-ccaa6df331f2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -261,6 +276,9 @@
     <ClInclude Include="Public\Math\BitOperationUtilities.hpp">
       <Filter>Public\Math</Filter>
     </ClInclude>
+    <ClInclude Include="Public\Math\Interpolator.hpp">
+      <Filter>Public\Math</Filter>
+    </ClInclude>
     <ClInclude Include="Public\Math\RandomNumber.hpp">
       <Filter>Public\Math</Filter>
     </ClInclude>
@@ -269,6 +287,9 @@
     </ClInclude>
     <ClInclude Include="Public\Memory\BlockAllocator.hpp">
       <Filter>Public\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\Message\MessageDefines.hpp">
+      <Filter>Public\Message</Filter>
     </ClInclude>
     <ClInclude Include="Public\Render\RenderMeshId.hpp">
       <Filter>Public\Render</Filter>
@@ -329,6 +350,36 @@
     </ClInclude>
     <ClInclude Include="Public\SceneGraph\TransformType.hpp">
       <Filter>Public\SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\SceneGraph\Camera\CameraMarker.hpp">
+      <Filter>Public\SceneGraph\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\SceneGraph\Camera\CameraType.hpp">
+      <Filter>Public\SceneGraph\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\SceneGraph\Camera\OrthogonalCamera.hpp">
+      <Filter>Public\SceneGraph\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\SceneGraph\Camera\PerspectiveCamera.hpp">
+      <Filter>Public\SceneGraph\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\SceneGraph\Light\LightMarker.hpp">
+      <Filter>Public\SceneGraph\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\SceneGraph\Light\LightType.hpp">
+      <Filter>Public\SceneGraph\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\SceneGraph\Light\PointLight.hpp">
+      <Filter>Public\SceneGraph\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\SceneGraph\Light\RangedLight.hpp">
+      <Filter>Public\SceneGraph\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\SceneGraph\Light\SpotLight.hpp">
+      <Filter>Public\SceneGraph\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\SceneGraph\Light\SunLight.hpp">
+      <Filter>Public\SceneGraph\Light</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -422,8 +473,32 @@
     <ClCompile Include="Private\Runtime\GameMainLoop.cpp">
       <Filter>Private\Runtime</Filter>
     </ClCompile>
+    <ClCompile Include="Private\SceneGraph\Camera\CameraMarker.cpp">
+      <Filter>Private\SceneGraph\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\SceneGraph\Camera\OrthogonalCamera.cpp">
+      <Filter>Private\SceneGraph\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\SceneGraph\Camera\PerspectiveCamera.cpp">
+      <Filter>Private\SceneGraph\Camera</Filter>
+    </ClCompile>
     <ClCompile Include="Private\SceneGraph\GameScene.cpp">
       <Filter>Private\SceneGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\SceneGraph\Light\LightMarker.cpp">
+      <Filter>Private\SceneGraph\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\SceneGraph\Light\RangedLight.cpp">
+      <Filter>Private\SceneGraph\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\SceneGraph\Light\PointLight.cpp">
+      <Filter>Private\SceneGraph\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\SceneGraph\Light\SpotLight.cpp">
+      <Filter>Private\SceneGraph\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\SceneGraph\Light\SunLight.cpp">
+      <Filter>Private\SceneGraph\Light</Filter>
     </ClCompile>
     <ClCompile Include="Private\SceneGraph\MarkerTypeDepot.cpp">
       <Filter>Private\SceneGraph</Filter>

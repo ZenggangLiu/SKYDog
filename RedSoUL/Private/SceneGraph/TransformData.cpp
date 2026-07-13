@@ -1,9 +1,9 @@
 /// System headers
-#include <cmath> /// std::fmodf
+#include <cmath> /// std::fmod
 /// Library headers
 #include "Assert/RuntimeAssert.hpp"
 #include "Math/MathDefines.hpp"     /// DEGREE_TO_RADIAN, RADIAN_TO_DEGREE
-#include "SceneGraph/MarkerAllocator.hpp"
+#include "Memory/BlockAllocator.hpp"
 /// Self header
 #include "SceneGraph/TransformData.hpp"
 
@@ -13,7 +13,7 @@ TransformData::create ()
 {
     /// 申请内存
     void * const new_transform_data =
-        MarkerAllocator<TransformData, INIT_TRANSFORM_COUNT>::ref().allocate();
+        BlockAllocator<TransformData, INIT_TRANSFORM_COUNT>::ref().allocate();
     if (new_transform_data)
     {
         /// 构建实例
@@ -30,7 +30,7 @@ TransformData::destroy ()
     this->~TransformData();
     /// 释放内存
     const bool opcode =
-        MarkerAllocator<TransformData, INIT_TRANSFORM_COUNT>::ref().deallocate(this);
+        BlockAllocator<TransformData, INIT_TRANSFORM_COUNT>::ref().deallocate(this);
     return opcode;
 }
 
@@ -252,11 +252,11 @@ TransformData::set_euler_angle (
     const float angle_degs,
     float &     stored_loc)
 {
-    RUNTIME_ASSERT(stored_loc != std::fmodf(angle_degs, 360.0f),
+    RUNTIME_ASSERT(stored_loc != std::fmod(angle_degs, 360.0f),
                    "We can not set the same angle!!");
 
     /// 保存新的角度：确保角度在[0, 360)之间
-    stored_loc = std::fmodf(angle_degs, 360.0f);
+    stored_loc = std::fmod(angle_degs, 360.0f);
     /// 设置Dirty标记
     m_is_combined_rotation_dirty = true;
 }

@@ -1,7 +1,7 @@
 /// Library headers
 #include "Assert/RuntimeAssert.hpp"
 #include "DataType/Matrix3x4.hpp"
-#include "SceneGraph/MarkerAllocator.hpp"
+#include "Memory/BlockAllocator.hpp"
 #include "SceneGraph/MarkerTypeDepot.hpp"
 /// Self header
 #include "SceneGraph/Camera/OrthogonalCamera.hpp"
@@ -204,7 +204,7 @@ OrthogonalCamera::create (
 {
     /// 申请内存
     void * const new_marker =
-        MarkerAllocator<OrthogonalCamera, INIT_CAMERA_COUNT>::ref().allocate();
+        BlockAllocator<OrthogonalCamera, INIT_CAMERA_COUNT>::ref().allocate();
     if (new_marker)
     {
         /// 构建实例
@@ -226,7 +226,7 @@ OrthogonalCamera::destroy (
     camera->~OrthogonalCamera();
     /// 释放内存
     const bool opcode =
-        MarkerAllocator<OrthogonalCamera, INIT_CAMERA_COUNT>::ref().deallocate(
+        BlockAllocator<OrthogonalCamera, INIT_CAMERA_COUNT>::ref().deallocate(
             marker_object);
     /// 清除参考
     marker_object = nullptr;

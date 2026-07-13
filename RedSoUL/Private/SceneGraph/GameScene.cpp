@@ -3,9 +3,7 @@
 #include <new>
 /// Library headers
 #include "Assert/RuntimeAssert.hpp"
-#include "Common/CommonDefines.hpp"   /// INLINE_FUNCTION, UNUSED_VARIABLE
 #include "Common/CompilerDefines.hpp" /// BUILD_MODE
-#include "Math/MathUtilities.hpp"     /// round_up_count
 #include "Memory/BlockAllocator.hpp"
 #include "SceneGraph/SceneObject.hpp"
 #include "SceneGraph/TransformMarker.hpp"
@@ -15,63 +13,6 @@
 
 /// 全局的唯一的当前(活跃的)关卡
 static GameScene * g_active_scene = nullptr;
-
-
-// MARK: == 场景物体分配器 ==
-class SceneObjectAllocator
-{
-public:
-    static
-    INLINE_FUNCTION
-    SceneObjectAllocator &
-    ref ()
-    {
-        static SceneObjectAllocator s_instance;
-        return s_instance;
-    }
-
-    INLINE_FUNCTION
-    void *
-    allocate ()
-    {
-        return m_allocator.allocate();
-    }
-
-    bool
-    deallocate (
-        void * const alloc_addr)
-    {
-        return m_allocator.deallocate(alloc_addr);
-    }
-
-
-private:
-    INLINE_FUNCTION
-    SceneObjectAllocator ()
-    {
-        static constexpr uint32_t OBJECT_BYTE_SIZE = (uint32_t)sizeof(SceneObject);
-        /// 起始的物体个数
-        static constexpr uint16_t SCENEOBJECT_COUNT = 100;
-        static constexpr uint32_t EXPECT_BYTE_SIZE  = OBJECT_BYTE_SIZE * SCENEOBJECT_COUNT;
-
-        const bool is_initialized = m_allocator.initialize(
-            MathUtility::round_up_count(EXPECT_BYTE_SIZE, BLOCK_ALLOCATOR_PAGE_SIZE), 2);
-        UNUSED_VARIABLE(is_initialized);
-        RUNTIME_ASSERT(is_initialized, "Can not initialize the allocator!!");
-    }
-
-    INLINE_FUNCTION
-    ~SceneObjectAllocator ()
-    {
-        m_allocator.release();
-    }
-
-private:
-    typedef BlockAllocator<SceneObject> AllocatorTypeT;
-
-    AllocatorTypeT m_allocator;
-};
-
 
 
 // MARK: == 游戏场景 ==
@@ -105,17 +46,17 @@ GameScene::create_object (
     SceneObject * const father)
 {
     /// 申请内存
-    SceneObject * const scene_object =
-        (SceneObject*)SceneObjectAllocator::ref().allocate();
-    if (scene_object)
+    void  * const new_object =
+        BlockAllocator<SceneObject, INIT_SCENEOBJECT_COUNT>::ref().allocate();
+    if (new_object)
     {
-        /// 构造SceneObject实例
-        new(scene_object) SceneObject(this, father);
+        /// 构建实例
+        new(new_object) SceneObject(this, father);
         /// 加入列表
-        m_object_list.push_back(scene_object);
+        m_object_list.push_back((SceneObject*)new_object);
     }
 
-    return scene_object;
+    return (SceneObject*)new_object;
 }
 
 
@@ -135,7 +76,8 @@ GameScene::destroy_object (
             /// 调用析构函数
             scene_object->~SceneObject();
             /// 释放内存
-            SceneObjectAllocator::ref().deallocate(scene_object);
+            BlockAllocator<SceneObject, INIT_SCENEOBJECT_COUNT>::ref().deallocate(
+                scene_object);
             /// 清除参考
             scene_object = nullptr;
         }

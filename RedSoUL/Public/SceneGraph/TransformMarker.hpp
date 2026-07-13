@@ -246,6 +246,9 @@ private:
 private:
     typedef std::vector<TransformMarker*> KinderListT;
 
+    /// 起始的Marker个数
+    static constexpr uint16_t INIT_TRANSFORM_MARKER_COUNT = 100;
+
     /// Marker类型信息
     static
     const MarkerTypeInfo  ms_type_info;

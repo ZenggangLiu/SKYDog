@@ -99,6 +99,9 @@ private:
 private:
     typedef std::vector<SceneObject*> SceneObjectListT;
 
+    /// 起始的SceneObject个数
+    static constexpr uint16_t INIT_SCENEOBJECT_COUNT = 100;
+
     // === SCENE GRAPH === //
     /// 所有SceneObject的列表
     SceneObjectListT m_object_list;
