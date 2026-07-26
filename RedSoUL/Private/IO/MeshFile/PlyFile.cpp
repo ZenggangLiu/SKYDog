@@ -13,6 +13,8 @@
 #include "Render/VertexLayout/Layout_Pos_Colr_Norm.hpp"
 #include "Render/VertexLayout/Layout_Pos_Colr_Norm_Uv.hpp"
 #include "Render/VertexLayout/Layout_Pos_Colr_Uv.hpp"
+#include "Render/VertexLayout/Layout_Pos_Norm.hpp"
+#include "Render/VertexLayout/Layout_Pos_Norm_Uv.hpp"
 #include "Render/VertexLayout/Layout_Pos_Uv.hpp"
 /// Self header
 #include "IO/MeshFile/PlyFile.hpp"
@@ -285,6 +287,20 @@ write_vertices_data (
             break;
         }
 
+        /// Pos数据 + Normal数据
+        case Layout_Pos_Norm::LAYOUT_DECL:
+        {
+            for (uint32_t c = 0; c < mesh_data.vertex_count; ++c)
+            {
+                const Layout_Pos_Norm & data =
+                    *(const Layout_Pos_Norm*)(mesh_data.vertex_list + data_offset);
+                write_position_data(data.position, ply_file, DATA_SEPARATOR);
+                write_normal_data(data.normal, ply_file, LINE_FEED);
+                data_offset += sizeof(Layout_Pos_Norm);
+            }
+            break;
+        }
+
         /// Pos数据 + UV数据
         case Layout_Pos_Uv::LAYOUT_DECL:
         {
@@ -325,6 +341,21 @@ write_vertices_data (
                 write_color_data(data.color, ply_file, DATA_SEPARATOR);
                 write_texcoord_data(data.texcoord, ply_file, LINE_FEED);
                 data_offset += sizeof(Layout_Pos_Colr_Uv);
+            }
+            break;
+        }
+
+        /// Pos数据 + Normal数据 + UV数据
+        case Layout_Pos_Norm_Uv::LAYOUT_DECL:
+        {
+            for (uint32_t c = 0; c < mesh_data.vertex_count; ++c)
+            {
+                const Layout_Pos_Norm_Uv & data =
+                    *(const Layout_Pos_Norm_Uv*)(mesh_data.vertex_list + data_offset);
+                write_position_data(data.position, ply_file, DATA_SEPARATOR);
+                write_normal_data(data.normal, ply_file, DATA_SEPARATOR);
+                write_texcoord_data(data.texcoord, ply_file, LINE_FEED);
+                data_offset += sizeof(Layout_Pos_Norm_Uv);
             }
             break;
         }

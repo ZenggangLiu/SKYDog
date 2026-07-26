@@ -17,6 +17,8 @@
 #include "Render/VertexLayout/Layout_Pos_Colr_Norm.hpp"
 #include "Render/VertexLayout/Layout_Pos_Colr_Norm_Uv.hpp"
 #include "Render/VertexLayout/Layout_Pos_Colr_Uv.hpp"
+#include "Render/VertexLayout/Layout_Pos_Norm.hpp"
+#include "Render/VertexLayout/Layout_Pos_Norm_Uv.hpp"
 #include "Render/VertexLayout/Layout_Pos_Uv.hpp"
 #include "IO/MeshFile/RMeshHead_v1.0.hpp"
 /// Self header
@@ -128,6 +130,27 @@ deserialize_from_rmesh_file_v1_0 (
                         }
                     }
 
+                    /// Pos数据 + Normal数据
+                    case Layout_Pos_Norm::LAYOUT_DECL:
+                    {
+                        const uint32_t exp_vertex_list_size =
+                            (uint32_t)(sizeof(Layout_Pos_Norm) * vertex_count);
+                        if (rmesh_file_head.vertex_list_size == exp_vertex_list_size)
+                        {
+                            vertex_list = (uint8_t*)MemoryUtility::aligned_alloc(
+                                rmesh_file_head.vertex_list_size, alignof(Layout_Pos_Norm));
+                            break;
+                        }
+                        else
+                        {
+                            std::snprintf(
+                                buffer, buffer_size,
+                                "vertex list size not match(%u needed NOT %u)!!\n",
+                                exp_vertex_list_size, rmesh_file_head.vertex_list_size);
+                            return false;
+                        }
+                    }
+
                     /// Pos数据 + UV数据
                     case Layout_Pos_Uv::LAYOUT_DECL:
                     {
@@ -179,6 +202,27 @@ deserialize_from_rmesh_file_v1_0 (
                         {
                             vertex_list = (uint8_t*)MemoryUtility::aligned_alloc(
                                 rmesh_file_head.vertex_list_size, alignof(Layout_Pos_Colr_Uv));
+                            break;
+                        }
+                        else
+                        {
+                            std::snprintf(
+                                buffer, buffer_size,
+                                "vertex list size not match(%u needed NOT %u)!!\n",
+                                exp_vertex_list_size, rmesh_file_head.vertex_list_size);
+                            return false;
+                        }
+                    }
+
+                    /// Pos数据 + Normal数据 + UV数据
+                    case Layout_Pos_Norm_Uv::LAYOUT_DECL:
+                    {
+                        const uint32_t exp_vertex_list_size =
+                            (uint32_t)(sizeof(Layout_Pos_Norm_Uv) * vertex_count);
+                        if (rmesh_file_head.vertex_list_size == exp_vertex_list_size)
+                        {
+                            vertex_list = (uint8_t*)MemoryUtility::aligned_alloc(
+                                rmesh_file_head.vertex_list_size, alignof(Layout_Pos_Norm_Uv));
                             break;
                         }
                         else

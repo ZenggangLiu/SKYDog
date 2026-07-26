@@ -195,6 +195,8 @@
 		BDA3D1DC30024448001075BB /* PointLight.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDA3D1D530024448001075BB /* PointLight.cpp */; };
 		BDA3D1DD30024448001075BB /* SpotLight.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDA3D1D630024448001075BB /* SpotLight.cpp */; };
 		BDA3D1DE30024448001075BB /* SpotLight.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDA3D1D630024448001075BB /* SpotLight.cpp */; };
+		BDA3D1E03015D71D001075BB /* Layout_Pos_Norm_Uv.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA3D1DF3015D71D001075BB /* Layout_Pos_Norm_Uv.hpp */; };
+		BDA3D1E13015D71D001075BB /* Layout_Pos_Norm_Uv.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA3D1DF3015D71D001075BB /* Layout_Pos_Norm_Uv.hpp */; };
 		BDA8960E2F6F6F0300B0683B /* Float3D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA8960D2F6F6F0300B0683B /* Float3D.hpp */; };
 		BDA8960F2F6F6F0300B0683B /* Float3D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA8960D2F6F6F0300B0683B /* Float3D.hpp */; };
 		BDA896112F6F70FA00B0683B /* Float3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDA896102F6F70FA00B0683B /* Float3D.cpp */; };
@@ -379,6 +381,7 @@
 		BDA3D1D430024448001075BB /* SunLight.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = SunLight.cpp; path = Private/SceneGraph/Light/SunLight.cpp; sourceTree = "<group>"; };
 		BDA3D1D530024448001075BB /* PointLight.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = PointLight.cpp; path = Private/SceneGraph/Light/PointLight.cpp; sourceTree = "<group>"; };
 		BDA3D1D630024448001075BB /* SpotLight.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = SpotLight.cpp; path = Private/SceneGraph/Light/SpotLight.cpp; sourceTree = "<group>"; };
+		BDA3D1DF3015D71D001075BB /* Layout_Pos_Norm_Uv.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = Layout_Pos_Norm_Uv.hpp; path = Private/Render/VertexLayout/Layout_Pos_Norm_Uv.hpp; sourceTree = "<group>"; };
 		BDA8960D2F6F6F0300B0683B /* Float3D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = Float3D.hpp; path = Public/DataType/Float3D.hpp; sourceTree = "<group>"; };
 		BDA896102F6F70FA00B0683B /* Float3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = Float3D.cpp; path = Private/DataType/Float3D.cpp; sourceTree = "<group>"; };
 		BDA896162F6F9C8300B0683B /* Matrix3x4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = Matrix3x4.cpp; path = Private/DataType/Matrix3x4.cpp; sourceTree = "<group>"; };
@@ -795,6 +798,7 @@
 				BDC9CB222F978AB60042BF24 /* Layout_Pos_Colr_Norm_Uv.hpp */,
 				BDC9CB252F978AFF0042BF24 /* Layout_Pos_Colr_Uv.hpp */,
 				BDC9CB282F978B320042BF24 /* Layout_Pos_Norm.hpp */,
+				BDA3D1DF3015D71D001075BB /* Layout_Pos_Norm_Uv.hpp */,
 				BD8FB8432F8512B100EE67B4 /* Layout_Pos_Uv.hpp */,
 			);
 			name = VertexLayout;
@@ -972,6 +976,7 @@
 				BD326ED82F3C24A5007EE8EC /* RuntimeAssert.hpp in Headers */,
 				BD58B08A2F519C4A0024C670 /* ArenaAllocator.hpp in Headers */,
 				BD44779B2FB731D7003DBF3C /* BitOperationUtilities.hpp in Headers */,
+				BDA3D1E03015D71D001075BB /* Layout_Pos_Norm_Uv.hpp in Headers */,
 				BD5510012FB91E0000110001 /* ObjectMarker.hpp in Headers */,
 				BD5510042FB91E0000110001 /* SceneObject.hpp in Headers */,
 				BD72C0CA2FCFEFBA00491766 /* TransformType.hpp in Headers */,
@@ -1061,6 +1066,7 @@
 				BD326ED92F3C24A5007EE8EC /* RuntimeAssert.hpp in Headers */,
 				BD58B08B2F519C4A0024C670 /* ArenaAllocator.hpp in Headers */,
 				BD44779C2FB731D7003DBF3C /* BitOperationUtilities.hpp in Headers */,
+				BDA3D1E13015D71D001075BB /* Layout_Pos_Norm_Uv.hpp in Headers */,
 				BD5510022FB91E0000110001 /* ObjectMarker.hpp in Headers */,
 				BD5510052FB91E0000110001 /* SceneObject.hpp in Headers */,
 				BD72C0CB2FCFEFBA00491766 /* TransformType.hpp in Headers */,

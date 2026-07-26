@@ -10,6 +10,8 @@
 #include "Render/VertexLayout/Layout_Pos_Colr_Norm.hpp"
 #include "Render/VertexLayout/Layout_Pos_Colr_Norm_Uv.hpp"
 #include "Render/VertexLayout/Layout_Pos_Colr_Uv.hpp"
+#include "Render/VertexLayout/Layout_Pos_Norm.hpp"
+#include "Render/VertexLayout/Layout_Pos_Norm_Uv.hpp"
 #include "Render/VertexLayout/Layout_Pos_Uv.hpp"
 /// Self header
 #include "Render/RenderMesh.hpp"
@@ -40,6 +42,12 @@ calc_vertex_list_size (
             return (uint32_t)(sizeof(Layout_Pos_Colr) * vertex_count);
         }
 
+        /// Pos数据 + Normal数据
+        case Layout_Pos_Norm::LAYOUT_DECL:
+        {
+            return (uint32_t)(sizeof(Layout_Pos_Norm) * vertex_count);
+        }
+
         /// Pos数据 + UV数据
         case Layout_Pos_Uv::LAYOUT_DECL:
         {
@@ -56,6 +64,12 @@ calc_vertex_list_size (
         case Layout_Pos_Colr_Uv::LAYOUT_DECL:
         {
             return (uint32_t)(sizeof(Layout_Pos_Colr_Uv) * vertex_count);
+        }
+
+        /// Pos数据 + Normal数据 + UV数据
+        case Layout_Pos_Norm_Uv::LAYOUT_DECL:
+        {
+            return (uint32_t)(sizeof(Layout_Pos_Norm_Uv) * vertex_count);
         }
 
         /// Pos数据 + Color数据 + Normal数据 + UV数据
