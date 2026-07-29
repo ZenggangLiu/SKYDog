@@ -318,6 +318,9 @@
     <ClInclude Include="Private\Render\VertexLayout\Layout_Pos_Norm.hpp">
       <Filter>Private\Render\VertexLayout</Filter>
     </ClInclude>
+    <ClInclude Include="Private\Render\VertexLayout\Layout_Pos_Norm_Uv.hpp">
+      <Filter>Private\Render\VertexLayout</Filter>
+    </ClInclude>
     <ClInclude Include="Private\Render\VertexLayout\Layout_Pos_Uv.hpp">
       <Filter>Private\Render\VertexLayout</Filter>
     </ClInclude>

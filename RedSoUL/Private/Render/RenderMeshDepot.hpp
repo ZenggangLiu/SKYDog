@@ -88,7 +88,7 @@ public:
     RenderMeshIdT
     create_unit_square_uv ();
 
-    /// 创建一个单位Cube(无纹理坐标)
+    /// 创建一个单位Cube(只有位置数据, 无纹理坐标)
     ///
     ///              ^ Y
     ///              |     / Z
@@ -107,12 +107,17 @@ public:
     RenderMeshIdT
     create_unit_cube ();
 
+    /// 创建一个单位Beveled Cube(带Position, Normal, UV数据)
     RenderMeshIdT
-    create_unit_cube_uv ();
+    create_unit_beveled_cube ();
 
-    /// 创建一个单位十二面体(无纹理坐标)
+    /// 创建一个单位二十面体(无纹理坐标)
     RenderMeshIdT
     create_unit_icosahedron ();
+
+    /// 创建一个单位Icosphere(带Position, Normal, UV数据)
+    RenderMeshIdT
+    create_unit_icosphere ();
 
     /// 创建指定RenderMesh文件中的几何体
     ///

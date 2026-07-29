@@ -31,6 +31,7 @@
     <ClInclude Include="Private\Render\VertexLayout\Layout_Pos_Colr_Norm_Uv.hpp" />
     <ClInclude Include="Private\Render\VertexLayout\Layout_Pos_Colr_Uv.hpp" />
     <ClInclude Include="Private\Render\VertexLayout\Layout_Pos_Norm.hpp" />
+    <ClInclude Include="Private\Render\VertexLayout\Layout_Pos_Norm_Uv.hpp" />
     <ClInclude Include="Private\Render\VertexLayout\Layout_Pos_Uv.hpp" />
     <ClInclude Include="Private\SceneGraph\MarkerTypeDepot.hpp" />
     <ClInclude Include="Private\SceneGraph\TransformData.hpp" />
