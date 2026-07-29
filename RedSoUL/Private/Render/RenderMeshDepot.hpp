@@ -105,6 +105,10 @@ public:
     /// (-0.5, -0.5, -0.5)
     ///
     RenderMeshIdT
+    create_unit_cube_pos ();
+
+    /// 创建一个单位Cube(带Position, Normal, UV数据)
+    RenderMeshIdT
     create_unit_cube ();
 
     /// 创建一个单位Beveled Cube(带Position, Normal, UV数据)

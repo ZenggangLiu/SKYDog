@@ -131,7 +131,7 @@ RenderMeshDepot::create_unit_square_uv ()
 
     /// 计算 Mesh Id
     static constexpr RenderMeshIdT MESH_ID =
-        STATIC_RENDER_MESH_HASH(GENERATE_BUILTIN_MESH_NAME("UNIT_SQUARE"));
+        STATIC_RENDER_MESH_HASH(GENERATE_BUILTIN_MESH_NAME("UNIT_SQUARE_UV"));
 
     /// 包围盒
     static constexpr AABB MESH_BOUND_BOX
@@ -203,13 +203,13 @@ RenderMeshDepot::create_unit_square_uv ()
 
 
 RenderMeshIdT
-RenderMeshDepot::create_unit_cube ()
+RenderMeshDepot::create_unit_cube_pos ()
 {
     typedef struct Layout_Pos VertexLayoutT;
 
     /// 计算 Mesh Id
     static constexpr RenderMeshIdT MESH_ID =
-        STATIC_RENDER_MESH_HASH(GENERATE_BUILTIN_MESH_NAME("UNIT_CUBE"));
+        STATIC_RENDER_MESH_HASH(GENERATE_BUILTIN_MESH_NAME("UNIT_CUBE_POS"));
 
     /// 包围盒
     static constexpr AABB MESH_BOUND_BOX
@@ -270,37 +270,9 @@ RenderMeshDepot::create_unit_cube ()
         }
     };
 
-    /// 三角面列表
+    /// 三角面列表: Face数据以-Z, +Z开头
     static const IndexedTriangle TRIANGLE_LIST[] =
     {
-        /// -X平面:
-        /// 6+-------------+2
-        ///  |           * |
-        ///  |         *   |
-        ///  |       *     |
-        ///  |     *       |
-        ///  |   *         |
-        ///  | *           |
-        /// 4+-------------+0
-        /// <0, 4, 2>
-        { 0, 4, 2 },
-        /// <2, 4, 6>
-        { 2, 4, 6 },
-
-        /// +Y平面:
-        /// 6+-------------+7
-        ///  |           * |
-        ///  |         *   |
-        ///  |       *     |
-        ///  |     *       |
-        ///  |   *         |
-        ///  | *           |
-        /// 2+-------------+3
-        /// <3, 2, 7>
-        { 3, 2, 7 },
-        /// <7, 2, 6>
-        { 7, 2, 6 },
-
         /// -Z平面:
         /// 2+-------------+3
         ///  | *           |
@@ -315,19 +287,19 @@ RenderMeshDepot::create_unit_cube ()
         /// <1, 2, 3>
         { 1, 2, 3 },
 
-        /// -Y平面:
-        /// 0+-------------+1
+        /// -X平面:
+        /// 6+-------------+2
         ///  |           * |
         ///  |         *   |
         ///  |       *     |
         ///  |     *       |
         ///  |   *         |
         ///  | *           |
-        /// 4+-------------+5
-        /// <5, 4, 1>
-        { 5, 4, 1 },
-        /// <1, 4, 0>
-        { 1, 4, 0 },
+        /// 4+-------------+0
+        /// <0, 4, 2>
+        { 0, 4, 2 },
+        /// <2, 4, 6>
+        { 2, 4, 6 },
 
         /// +X平面:
         /// 3+-------------+7
@@ -343,6 +315,34 @@ RenderMeshDepot::create_unit_cube ()
         /// <7, 1, 3>
         { 7, 1, 3  },
 
+        /// +Y平面:
+        /// 6+-------------+7
+        ///  |           * |
+        ///  |         *   |
+        ///  |       *     |
+        ///  |     *       |
+        ///  |   *         |
+        ///  | *           |
+        /// 2+-------------+3
+        /// <3, 2, 7>
+        { 3, 2, 7 },
+        /// <7, 2, 6>
+        { 7, 2, 6 },
+
+        /// -Y平面:
+        /// 0+-------------+1
+        ///  |           * |
+        ///  |         *   |
+        ///  |       *     |
+        ///  |     *       |
+        ///  |   *         |
+        ///  | *           |
+        /// 4+-------------+5
+        /// <5, 4, 1>
+        { 5, 4, 1 },
+        /// <1, 4, 0>
+        { 1, 4, 0 },
+
         /// +Z平面:
         /// 7+-------------+6
         ///  | *           |
@@ -356,6 +356,214 @@ RenderMeshDepot::create_unit_cube ()
         { 5, 7, 4 },
         /// <4, 7, 6>
         { 4, 7, 6 }
+    };
+
+    /// #vertex
+    static constexpr uint16_t VERTEX_COUNT   = ARRAY_SIZE(VERTEX_LIST);
+    /// #triangle
+    static constexpr uint16_t TRIANGLE_COUNT = ARRAY_SIZE(TRIANGLE_LIST);
+
+    cache_mesh(
+        MESH_ID, MESH_BOUND_BOX,
+        VertexLayoutT::LAYOUT_DECL, VERTEX_COUNT, TRIANGLE_COUNT,
+        false, (const uint8_t*)VERTEX_LIST, TRIANGLE_LIST);
+    return MESH_ID;
+}
+
+
+RenderMeshIdT
+RenderMeshDepot::create_unit_cube ()
+{
+    typedef struct Layout_Pos_Norm_Uv VertexLayoutT;
+
+    /// 计算 Mesh Id
+    static constexpr RenderMeshIdT MESH_ID =
+        STATIC_RENDER_MESH_HASH(GENERATE_BUILTIN_MESH_NAME("UNIT_CUBE"));
+
+    /// 包围盒
+    static constexpr AABB MESH_BOUND_BOX
+    {
+        { -0.5f, -0.5f, -0.5f },
+        { +0.5f, +0.5f, +0.5f }
+    };
+
+    /// 按照如下设定创建方块Cube:
+    ///
+    ///              ^ Y
+    ///              |     / Z
+    ///       6+-----|-------+7
+    ///       /|     .   /  /|
+    ///      / |        .  / |
+    ///    2+-------------+3 |
+    ///     |  |     |/   |  |
+    ///     |  |     O----|.------> X
+    ///     |  |          |  |
+    ///     | 4+----------|--+5
+    ///     | /           | /
+    ///    0+-------------+1
+    ///
+    /// 每个Face独立使用完整UV空间[0, 1]x[0, 1]
+    static constexpr VertexLayoutT VERTEX_LIST[] =
+    {
+        /// -Z平面
+        {
+            { -0.50f, -0.50f, -0.50f }, /// Position
+            { +0.00f, +0.00f, -1.00f }, /// Normal
+            { +0.00f, +0.00f         }  /// UV
+        },
+        {
+            { +0.50f, -0.50f, -0.50f }, /// Position
+            { +0.00f, +0.00f, -1.00f }, /// Normal
+            { +1.00f, +0.00f         }  /// UV
+        },
+        {
+            { -0.50f, +0.50f, -0.50f }, /// Position
+            { +0.00f, +0.00f, -1.00f }, /// Normal
+            { +0.00f, +1.00f         }  /// UV
+        },
+        {
+            { +0.50f, +0.50f, -0.50f }, /// Position
+            { +0.00f, +0.00f, -1.00f }, /// Normal
+            { +1.00f, +1.00f         }  /// UV
+        },
+
+        /// -X平面
+        {
+            { -0.50f, -0.50f, -0.50f }, /// Position
+            { -1.00f, +0.00f, +0.00f }, /// Normal
+            { +0.00f, +0.00f         }  /// UV
+        },
+        {
+            { -0.50f, -0.50f, +0.50f }, /// Position
+            { -1.00f, +0.00f, +0.00f }, /// Normal
+            { +1.00f, +0.00f         }  /// UV
+        },
+        {
+            { -0.50f, +0.50f, -0.50f }, /// Position
+            { -1.00f, +0.00f, +0.00f }, /// Normal
+            { +0.00f, +1.00f         }  /// UV
+        },
+        {
+            { -0.50f, +0.50f, +0.50f }, /// Position
+            { -1.00f, +0.00f, +0.00f }, /// Normal
+            { +1.00f, +1.00f         }  /// UV
+        },
+
+        /// +X平面
+        {
+            { +0.50f, -0.50f, +0.50f }, /// Position
+            { +1.00f, +0.00f, +0.00f }, /// Normal
+            { +1.00f, +0.00f         }  /// UV
+        },
+        {
+            { +0.50f, -0.50f, -0.50f }, /// Position
+            { +1.00f, +0.00f, +0.00f }, /// Normal
+            { +0.00f, +0.00f         }  /// UV
+        },
+        {
+            { +0.50f, +0.50f, +0.50f }, /// Position
+            { +1.00f, +0.00f, +0.00f }, /// Normal
+            { +1.00f, +1.00f         }  /// UV
+        },
+        {
+            { +0.50f, +0.50f, -0.50f }, /// Position
+            { +1.00f, +0.00f, +0.00f }, /// Normal
+            { +0.00f, +1.00f         }  /// UV
+        },
+
+        /// +Y平面
+        {
+            { +0.50f, +0.50f, -0.50f }, /// Position
+            { +0.00f, +1.00f, +0.00f }, /// Normal
+            { +1.00f, +0.00f         }  /// UV
+        },
+        {
+            { -0.50f, +0.50f, -0.50f }, /// Position
+            { +0.00f, +1.00f, +0.00f }, /// Normal
+            { +0.00f, +0.00f         }  /// UV
+        },
+        {
+            { +0.50f, +0.50f, +0.50f }, /// Position
+            { +0.00f, +1.00f, +0.00f }, /// Normal
+            { +1.00f, +1.00f         }  /// UV
+        },
+        {
+            { -0.50f, +0.50f, +0.50f }, /// Position
+            { +0.00f, +1.00f, +0.00f }, /// Normal
+            { +0.00f, +1.00f         }  /// UV
+        },
+
+        /// -Y平面
+        {
+            { +0.50f, -0.50f, +0.50f }, /// Position
+            { +0.00f, -1.00f, +0.00f }, /// Normal
+            { +1.00f, +1.00f         }  /// UV
+        },
+        {
+            { -0.50f, -0.50f, +0.50f }, /// Position
+            { +0.00f, -1.00f, +0.00f }, /// Normal
+            { +0.00f, +1.00f         }  /// UV
+        },
+        {
+            { +0.50f, -0.50f, -0.50f }, /// Position
+            { +0.00f, -1.00f, +0.00f }, /// Normal
+            { +1.00f, +0.00f         }  /// UV
+        },
+        {
+            { -0.50f, -0.50f, -0.50f }, /// Position
+            { +0.00f, -1.00f, +0.00f }, /// Normal
+            { +0.00f, +0.00f         }  /// UV
+        },
+
+        /// +Z平面
+        {
+            { +0.50f, -0.50f, +0.50f }, /// Position
+            { +0.00f, +0.00f, +1.00f }, /// Normal
+            { +1.00f, +0.00f         }  /// UV
+        },
+        {
+            { +0.50f, +0.50f, +0.50f }, /// Position
+            { +0.00f, +0.00f, +1.00f }, /// Normal
+            { +1.00f, +1.00f         }  /// UV
+        },
+        {
+            { -0.50f, -0.50f, +0.50f }, /// Position
+            { +0.00f, +0.00f, +1.00f }, /// Normal
+            { +0.00f, +0.00f         }  /// UV
+        },
+        {
+            { -0.50f, +0.50f, +0.50f }, /// Position
+            { +0.00f, +0.00f, +1.00f }, /// Normal
+            { +0.00f, +1.00f         }  /// UV
+        }
+    };
+
+    /// 三角面列表
+    static const IndexedTriangle TRIANGLE_LIST[] =
+    {
+        /// -Z平面:
+        { 0, 2, 1 },
+        { 1, 2, 3 },
+
+        /// -X平面:
+        { 4, 5, 6 },
+        { 6, 5, 7 },
+
+        /// +X平面:
+        { 8, 9, 10 },
+        { 10, 9, 11 },
+
+        /// +Y平面:
+        { 12, 13, 14 },
+        { 14, 13, 15 },
+
+        /// -Y平面:
+        { 16, 17, 18 },
+        { 18, 17, 19 },
+
+        /// +Z平面:
+        { 20, 21, 22 },
+        { 22, 21, 23 }
     };
 
     /// #vertex
