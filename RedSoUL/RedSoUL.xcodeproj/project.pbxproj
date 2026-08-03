@@ -197,6 +197,12 @@
 		BDA3D1DE30024448001075BB /* SpotLight.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDA3D1D630024448001075BB /* SpotLight.cpp */; };
 		BDA3D1E03015D71D001075BB /* Layout_Pos_Norm_Uv.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA3D1DF3015D71D001075BB /* Layout_Pos_Norm_Uv.hpp */; };
 		BDA3D1E13015D71D001075BB /* Layout_Pos_Norm_Uv.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA3D1DF3015D71D001075BB /* Layout_Pos_Norm_Uv.hpp */; };
+		BDA3D1F830209D24001075BB /* Half.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA3D1F730209D24001075BB /* Half.hpp */; };
+		BDA3D1F930209D24001075BB /* Half.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA3D1F730209D24001075BB /* Half.hpp */; };
+		BDA3D1FC3020A021001075BB /* HalfFloatConversionTable.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA3D1FA3020A021001075BB /* HalfFloatConversionTable.hpp */; };
+		BDA3D1FD3020A021001075BB /* HalfFloatConversionTable.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA3D1FA3020A021001075BB /* HalfFloatConversionTable.hpp */; };
+		BDA3D1FE3020A021001075BB /* Half.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDA3D1FB3020A021001075BB /* Half.cpp */; };
+		BDA3D1FF3020A021001075BB /* Half.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDA3D1FB3020A021001075BB /* Half.cpp */; };
 		BDA8960E2F6F6F0300B0683B /* Float3D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA8960D2F6F6F0300B0683B /* Float3D.hpp */; };
 		BDA8960F2F6F6F0300B0683B /* Float3D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA8960D2F6F6F0300B0683B /* Float3D.hpp */; };
 		BDA896112F6F70FA00B0683B /* Float3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDA896102F6F70FA00B0683B /* Float3D.cpp */; };
@@ -382,6 +388,9 @@
 		BDA3D1D530024448001075BB /* PointLight.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = PointLight.cpp; path = Private/SceneGraph/Light/PointLight.cpp; sourceTree = "<group>"; };
 		BDA3D1D630024448001075BB /* SpotLight.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = SpotLight.cpp; path = Private/SceneGraph/Light/SpotLight.cpp; sourceTree = "<group>"; };
 		BDA3D1DF3015D71D001075BB /* Layout_Pos_Norm_Uv.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = Layout_Pos_Norm_Uv.hpp; path = Private/Render/VertexLayout/Layout_Pos_Norm_Uv.hpp; sourceTree = "<group>"; };
+		BDA3D1F730209D24001075BB /* Half.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = Half.hpp; path = Public/DataType/Half.hpp; sourceTree = "<group>"; };
+		BDA3D1FA3020A021001075BB /* HalfFloatConversionTable.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = HalfFloatConversionTable.hpp; path = Private/DataType/HalfFloatConversionTable.hpp; sourceTree = "<group>"; };
+		BDA3D1FB3020A021001075BB /* Half.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = Half.cpp; path = Private/DataType/Half.cpp; sourceTree = "<group>"; };
 		BDA8960D2F6F6F0300B0683B /* Float3D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = Float3D.hpp; path = Public/DataType/Float3D.hpp; sourceTree = "<group>"; };
 		BDA896102F6F70FA00B0683B /* Float3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = Float3D.cpp; path = Private/DataType/Float3D.cpp; sourceTree = "<group>"; };
 		BDA896162F6F9C8300B0683B /* Matrix3x4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = Matrix3x4.cpp; path = Private/DataType/Matrix3x4.cpp; sourceTree = "<group>"; };
@@ -468,6 +477,7 @@
 				BD0E41092F778DF600CFA766 /* Float2D.hpp */,
 				BDA8960D2F6F6F0300B0683B /* Float3D.hpp */,
 				BD9FAFB82F6E7430000B085D /* Float4D.hpp */,
+				BDA3D1F730209D24001075BB /* Half.hpp */,
 				BD0E41242F7BC7F400CFA766 /* Matrix3x4.hpp */,
 				BD0E41272F7BC83D00CFA766 /* Matrix4x4.hpp */,
 				BDA8961F2F714B9400B0683B /* Quaternion.hpp */,
@@ -831,6 +841,8 @@
 				BD0E410C2F778E4A00CFA766 /* Float2D.cpp */,
 				BDA896102F6F70FA00B0683B /* Float3D.cpp */,
 				BD9FAFBC2F6E756B000B085D /* Float4D.cpp */,
+				BDA3D1FB3020A021001075BB /* Half.cpp */,
+				BDA3D1FA3020A021001075BB /* HalfFloatConversionTable.hpp */,
 				BDA896162F6F9C8300B0683B /* Matrix3x4.cpp */,
 				BDA8961C2F6FE89900B0683B /* Matrix4x4.cpp */,
 				BDA896222F72A05D00B0683B /* Quaternion.cpp */,
@@ -988,6 +1000,7 @@
 				BD4477A42FB8205B003DBF3C /* BlockAllocatorImpl.hpp in Headers */,
 				BD0E41252F7BC7F400CFA766 /* Matrix3x4.hpp in Headers */,
 				BD54E2262FC07755009DBD8C /* MarkerTypeDepot.hpp in Headers */,
+				BDA3D1F830209D24001075BB /* Half.hpp in Headers */,
 				BD8FB8442F8512B100EE67B4 /* Layout_Pos.hpp in Headers */,
 				BDC9CB2D2F978BA00042BF24 /* PpmFile.hpp in Headers */,
 				BD72C0D12FD2E40400491766 /* CameraMarker.hpp in Headers */,
@@ -1017,6 +1030,7 @@
 				BDC9CB102F9633470042BF24 /* ApplFileHandle.hpp in Headers */,
 				BDD4034D2F9300F70019BE16 /* NativeDirectory.hpp in Headers */,
 				BD58B0D32F5B93F30024C670 /* StaticStringHash.hpp in Headers */,
+				BDA3D1FC3020A021001075BB /* HalfFloatConversionTable.hpp in Headers */,
 				BD326F322F495429007EE8EC /* RingBuffer.hpp in Headers */,
 				BDA3D1C23000F5C9001075BB /* Interpolator.hpp in Headers */,
 				BDC9CB342F978C0E0042BF24 /* PlyFile.hpp in Headers */,
@@ -1078,6 +1092,7 @@
 				BD4477A52FB8205B003DBF3C /* BlockAllocatorImpl.hpp in Headers */,
 				BD0E41262F7BC7F400CFA766 /* Matrix3x4.hpp in Headers */,
 				BD54E2272FC07755009DBD8C /* MarkerTypeDepot.hpp in Headers */,
+				BDA3D1F930209D24001075BB /* Half.hpp in Headers */,
 				BD8FB8452F8512B100EE67B4 /* Layout_Pos.hpp in Headers */,
 				BDC9CB2E2F978BA00042BF24 /* PpmFile.hpp in Headers */,
 				BD72C0D22FD2E40400491766 /* CameraMarker.hpp in Headers */,
@@ -1107,6 +1122,7 @@
 				BDC9CB112F9633470042BF24 /* ApplFileHandle.hpp in Headers */,
 				BDD4034E2F9300F70019BE16 /* NativeDirectory.hpp in Headers */,
 				BD58B0D42F5B93F30024C670 /* StaticStringHash.hpp in Headers */,
+				BDA3D1FD3020A021001075BB /* HalfFloatConversionTable.hpp in Headers */,
 				BD326F332F495429007EE8EC /* RingBuffer.hpp in Headers */,
 				BDA3D1C33000F5C9001075BB /* Interpolator.hpp in Headers */,
 				BDC9CB352F978C0E0042BF24 /* PlyFile.hpp in Headers */,
@@ -1241,6 +1257,7 @@
 				BD0E41202F79245600CFA766 /* Ray3D.cpp in Sources */,
 				BDC9CB0B2F94DE020042BF24 /* NativeReadStream.cpp in Sources */,
 				BD58B0EE2F5BA1790024C670 /* StaticStringDepot.cpp in Sources */,
+				BDA3D1FF3020A021001075BB /* Half.cpp in Sources */,
 				BDA3D1DA30024448001075BB /* SunLight.cpp in Sources */,
 				BDC05CB12FC59D5F005CCA1C /* GameScene.cpp in Sources */,
 				BD8FB8402F85112900EE67B4 /* Triangle3D.cpp in Sources */,
@@ -1296,6 +1313,7 @@
 				BD0E411F2F79245600CFA766 /* Ray3D.cpp in Sources */,
 				BDC9CB0A2F94DE020042BF24 /* NativeReadStream.cpp in Sources */,
 				BD58B0ED2F5BA1790024C670 /* StaticStringDepot.cpp in Sources */,
+				BDA3D1FE3020A021001075BB /* Half.cpp in Sources */,
 				BDA3D1D930024448001075BB /* SunLight.cpp in Sources */,
 				BDC05CB02FC59D5F005CCA1C /* GameScene.cpp in Sources */,
 				BD8FB83F2F85112900EE67B4 /* Triangle3D.cpp in Sources */,
