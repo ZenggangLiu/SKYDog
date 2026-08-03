@@ -1,0 +1,1256 @@
+/// System headers
+#include <cstdio>   /// std::printf, std::vsnprintf
+#include <fstream>  /// std::fstream
+#if defined(WIN32) || defined(_WIN32) || defined(WIN64) || defined(_WIN64)
+#include <intrin.h> /// _BitScanForward/_BitScanReverse()
+#endif
+#include <iostream> /// std::cout
+#include <stdint.h> /// uint16_t
+#include <vector>
+/// Lib headers
+#include "DataType/Half.hpp"
+
+
+/// 返回最后一个为1的位置(zero based, LSB为第0位)
+/// LSB --> MSB
+/// 0   --> 31
+///
+/// @param[in] data
+///      32位整数
+/// @return
+///      zero-based的位置,  如果此整数不为0
+///      -1,               如果此整数为0
+static
+int32_t
+find_last_set_bit_position (
+    const uint32_t data)
+{
+#if defined(WIN32) || defined(_WIN32) || defined(WIN64) || defined(_WIN64)
+    /// zero-based的位置
+    unsigned long set_pos;
+    /// checks if the given value is zero
+    /// YES
+    if (_BitScanReverse(&set_pos, data) == 0)
+    {
+        return -1;
+    }
+    /// NO
+    else
+    {
+        /// return zero-based position
+        return (int32_t)set_pos;
+    }
+#else
+    /// fls()：
+    /// - one based的位置，如果输入数据不为0
+    /// - 零，             如果输入的数据为0
+    return fls((int32_t)data) - 1;
+#endif
+}
+
+
+class TableGenerator
+{
+public:
+    TableGenerator (
+       const char * const table_file_path)
+    :
+        m_is_ready(false)
+    {
+        if (table_file_path && table_file_path[0])
+        {
+            m_file_stream.open(
+                table_file_path, std::fstream::out | std::fstream::trunc);
+            m_is_ready = m_file_stream.is_open();
+        }
+    }
+
+    ~TableGenerator ()
+    {
+        m_file_stream.close();
+    }
+
+    bool
+    is_ready () const
+    {
+        return m_is_ready;
+    }
+
+    /// FLOAT --> HALF
+    half
+    convert_to_half (
+        const float float_value) const
+    {
+        const uint32_t f32_bits = *(const uint32_t*)&float_value;
+
+        /// 处理特殊情况:
+        /// - +NAN: [0x7F80 0001, 0x7F80 1FFF]  ---> 0x7C01
+        /// - -NAN: [0xFF80 0001, 0xFF80 1FFF]  ---> 0xFC01
+        if (f32_bits >= 0x7F800001 && f32_bits <= 0x7F801FFF)
+        {
+            return half{ 0x7C01 };
+        }
+        else if (f32_bits >= 0xFF800001 && f32_bits <= 0xFF801FFF)
+        {
+            return half{ 0xFC01 };
+        }
+        else
+        {
+            /// HALF = Base[ Sign(FLOAT) | Exponent(FLOAT) ]
+            ///      | Mantissa(FLOAT) >> Shift[ Sign(FLOAT) | Exponent(FLOAT) ]
+            ///
+            // --- FLOAT(32位) ---//
+            ///  31 (msb)
+            ///  |
+            ///  |  30     23
+            ///  |  |      |
+            ///  |  |      | 22                    0 (lsb)
+            ///  |  |      | |                     |
+            ///  X  XXXXXXXX XXXXXXXXXXXXXXXXXXXXXXX
+            /// |S| |  E   | |         M           |
+            ///
+            /// 获得Sign以及Exponent的数值
+            const uint32_t sign_exp  = (f32_bits >> 23) & 0x1FF; /// 9位
+            // gets the base value and shift value
+            const uint16_t base_val  = m_f2h_base_table[sign_exp];
+            const uint16_t shift_val = m_f2h_shift_table[sign_exp];
+            const uint32_t mantissa  = f32_bits & 0x7FFFFF; /// 23位
+            return half{ (uint16_t)(base_val | (mantissa >> shift_val)) };
+        }
+    }
+
+    /// HALF --> FLOAT
+    float
+    convert_to_float (
+        const half half_value) const
+    {
+        /// FLOAT = Base[ Sign(HALF) | Exponent(HALF) ]
+        ///       | Mod[ Offset[Exponent(HALF)] + Mantissa(HALF) ]
+        ///
+        // --- HALF(16位) --- //
+        ///  15 (msb)
+        ///  |
+        ///  |  14  10
+        ///  |  |   |
+        ///  |  |   | 9        0 (lsb)
+        ///  |  |   | |        |
+        ///  X  XXXXX XXXXXXXXXX
+        /// |S| | E | |   M    |
+        ///
+        /// 获得Sign以及Exponent的数值
+        const uint32_t sign_exp = (half_value.bits >> 10) & 0x3F; /// 6位
+        const uint32_t base_val = m_h2f_base_table[sign_exp];
+        const uint32_t offset   = m_h2f_offset_table[sign_exp & 0x1F]; /// 5位
+        const uint32_t mantissa = half_value.bits & 0x3FF; /// 10位
+        const uint32_t mod_val  = m_h2f_mod_table[offset + mantissa];
+        const uint32_t f32_bits = base_val | mod_val;
+        return *(const float*)&f32_bits;
+    }
+
+
+    void
+    generate_all_kinds_of_tables ()
+    {
+        // === 生成 FLOAT --> HALF 转换表格 === //
+        generate_float_to_half_table();
+
+        //  === 生成 HALF --> FLOAT 转换表格 === //
+        generate_m_half_to_float_base_table();
+        generate_m_half_to_float_offset_table();
+        generate_m_half_to_float_mod_table();
+    }
+
+    bool
+    validate_generation () const
+    {
+        return check_float_to_half() && check_half_to_float();
+    }
+
+    void
+    write_to_file ()
+    {
+        // --- FLOAT(32位) ---//
+        /// 31 (msb)
+        /// |
+        /// | 30     23
+        /// | |      |
+        /// | |      | 22                    0 (lsb)
+        /// | |      | |                     |
+        /// X XXXXXXXX XXXXXXXXXXXXXXXXXXXXXXX
+        /// |1| <-8->| |<--       23      -->|
+        ///  s    e               m
+        /// s: sign bit       : 1bit
+        /// e: exponential bit: 8bits: the real exponential = e - 127: [-127, +128]
+        /// m: mantissa bit   : 23bits
+
+        // --- HALF(16位) --- //
+        /// 15 (msb)
+        /// |
+        /// | 14  10
+        /// | |   |
+        /// | |   | 9        0 (lsb)
+        /// | |   | |        |
+        /// X XXXXX XXXXXXXXXX
+        /// |1| 5 | | <--10->|
+        ///  s  e        m
+        /// s: sign bit       : 1bit
+        /// e: exponential bit: 5bits: the real exponential = e - 15: [-15, +16]
+        /// m: mantissa bit   : 10bits
+
+        char buffer[64];
+        uint32_t column_idx = 0;
+
+        m_file_stream <<
+        "//------------------------------------------------------------------------------//\n";
+        m_file_stream <<
+        "//------------------------------------------------------------------------------//\n";
+        m_file_stream <<
+        "//            AUTOMATICALLY GENERATED BY HALF-FLOAT TABLE GENERATOR             //\n";
+        m_file_stream <<
+        "//------------------------------------------------------------------------------//\n";
+        m_file_stream <<
+        "//------------------------------------------------------------------------------//\n";
+        m_file_stream << "\n\n";
+
+        m_file_stream << "#pragma once\n";
+        m_file_stream << "\n\n";
+
+        m_file_stream << "/// System headers\n";
+        m_file_stream << "#include <stdint.h> /// uint16_t\n";
+        m_file_stream << "\n\n";
+
+        // --- 生成 FLOAT --> HALF 转换的Offset Table --- //
+        m_file_stream << "// --- 生成 FLOAT --> HALF 转换的Offset Table --- //\n";
+        m_file_stream << "\n";
+        m_file_stream << "/// 使用如下方法将 FLOAT 浮点数转换为 HALF浮点数:\n";
+        m_file_stream << "/// HALF = Base[S(FLOAT) | E(FLOAT)] | mantissa(FLOAT) >> shift[S(FLOAT) | E(FLOAT)]\n";
+        m_file_stream << "/// where:\n";
+        m_file_stream << "/// - S(FLOAT) is the sign of FLOAT\n";
+        m_file_stream << "/// - E(FLOAT) is the exponent of the FLOAT\n";
+        m_file_stream << "\n";
+        m_file_stream << "/// Base table:\n";
+        m_file_stream << "/// - 使用Sign(FLOAT), 以及Exponent(FLOAT)来检索\n";
+        m_file_stream << "static constexpr uint16_t FLOAT_TO_HALF_BASE_TABLE[] =\n";
+        m_file_stream << "{\n";
+        m_file_stream << "    ";
+
+        for (uint32_t i = 0; i < 512; ++i)
+        {
+            if (column_idx == MAXIMAL_F2H_TABLE_COLUMN_COUNT)
+            {
+                m_file_stream << "\n";
+                m_file_stream << "    ";
+                column_idx = 0;
+            }
+            std::snprintf(buffer, sizeof(buffer), "0x%04X", m_f2h_base_table[i]);
+            m_file_stream << buffer << ", ";
+            column_idx++;
+        }
+        m_file_stream << "\n";
+        m_file_stream << "};\n";
+        m_file_stream << "\n\n";
+
+        // --- 生成 FLOAT --> HALF 转换的Shift Table --- //
+        m_file_stream << "// --- 生成 FLOAT --> HALF 转换的Shift Table --- //\n";
+        m_file_stream << "\n";
+        m_file_stream << "/// Shift table:\n";
+        m_file_stream << "/// - 使用Sign(FLOAT), 以及Exponent(FLOAT)来检索\n";
+        m_file_stream << "static constexpr uint16_t FLOAT_TO_HALF_SHIFT_TABLE[] =\n";
+        m_file_stream << "{\n";
+        m_file_stream << "    ";
+
+        column_idx = 0;
+        for (uint32_t i = 0; i < 512; ++i)
+        {
+            if (column_idx == MAXIMAL_F2H_TABLE_COLUMN_COUNT)
+            {
+                m_file_stream << "\n";
+                m_file_stream << "    ";
+                column_idx = 0;
+            }
+            std::snprintf(buffer, sizeof(buffer), "0x%04X", m_f2h_shift_table[i]);
+            m_file_stream << buffer << ", ";
+            column_idx++;
+        }
+        m_file_stream << "\n";
+        m_file_stream << "};\n";
+        m_file_stream << "\n\n";
+
+        // --- 生成 HALF --> FLOAT 转换的Base Table --- //
+        uint32_t element_idx = 0;
+
+        m_file_stream << "// --- 生成 HALF --> FLOAT 转换的Base Table --- //\n";
+        m_file_stream << "\n";
+        m_file_stream << "/// 使用如下方法将 HALF 浮点数转换到 FLOAT 浮点数:\n";
+        m_file_stream << "/// FLOAT = Base[S(HALF)|E(HALF)] | Mod[Offset[E(HALF)]+mantissa(HALF)]\n";
+        m_file_stream << "/// where:\n";
+        m_file_stream << "/// - S(HALF) is the sign of HALF\n";
+        m_file_stream << "/// - E(HALF) is the exponent of the FALF\n";
+        m_file_stream << "\n";
+        m_file_stream << "/// Base table:\n";
+        m_file_stream << "/// - 使用Sign(HALF), 以及Exponent(HALF)来检索\n";
+        m_file_stream << "static constexpr uint32_t HALF_TO_FLOAT_BASE_TABLE[] =\n";
+        m_file_stream << "{\n";
+        m_file_stream << "    /// S = 0 and E = 0: 表示+ZERO/+Un-normalized的数值, 我们存储0.\n";
+        m_file_stream << "    /// MOD table将包括32位浮点数的Pattern\n";
+        std::snprintf(buffer, sizeof(buffer), "0x%08X", m_h2f_base_table[element_idx++]);
+        m_file_stream << "    " << buffer << ",\n";
+        m_file_stream << "    /// S = 0 and E = 1, 2, 3, ..., 30:\n";
+        m_file_stream << "    /// 表示 + normalised数值: (E - 15 + 127) << 23\n";
+        m_file_stream << "    ";
+
+        column_idx  = 0;
+        for (uint32_t e = 1; e <= 30; ++e)
+        {
+            if (column_idx == MAXIMAL_H2F_TABLE_COLUMN_COUNT)
+            {
+                m_file_stream << "\n";
+                m_file_stream << "    ";
+                column_idx = 0;
+            }
+
+            std::snprintf(buffer, sizeof(buffer), "0x%08X", m_h2f_base_table[element_idx++]);
+            m_file_stream << buffer << ", ";
+            column_idx++;
+        }
+        m_file_stream << "\n";
+
+        m_file_stream << "    /// S = 0 and E = 31:\n";
+        m_file_stream << "    /// 表示 + infinity or +NaN: +infinity / +NaN : 0x7F80 0000\n";
+        std::snprintf(buffer, sizeof(buffer), "0x%08X", m_h2f_base_table[element_idx++]);
+        m_file_stream << "    " << buffer <<",\n";
+        m_file_stream << "    /// S = 1 and E = 0:\n";
+        m_file_stream << "    /// 表示 - ZERO / -Un - normalized numbers : 0x8000 0000\n";
+        std::snprintf(buffer, sizeof(buffer), "0x%08X", m_h2f_base_table[element_idx++]);
+        m_file_stream << "    " << buffer <<",\n";
+        m_file_stream << "    /// S = 1 and E: 1, 2, 3, ..., 30:\n";
+        m_file_stream << "    /// 表示-normalised values: 0x8000 0000 | (E-15+127) << 23\n";
+        m_file_stream << "    ";
+
+        column_idx = 0;
+        for (uint32_t e = 1; e <= 30; ++e)
+        {
+            if (column_idx == MAXIMAL_H2F_TABLE_COLUMN_COUNT)
+            {
+                m_file_stream << "\n";
+                m_file_stream << "    ";
+                column_idx = 0;
+            }
+
+            std::snprintf(buffer, sizeof(buffer), "0x%08X", m_h2f_base_table[element_idx++]);
+            m_file_stream << buffer << ", ";
+            column_idx++;
+        }
+        m_file_stream << "\n";
+
+        m_file_stream << "    /// S = 1 and E = 31: 表示-infinity/-NaN: 0xFF80 0000\n";
+        std::snprintf(buffer, sizeof(buffer), "0x%08X", m_h2f_base_table[element_idx++]);
+        m_file_stream << "    " << buffer <<"\n";
+        m_file_stream << "};\n";
+        m_file_stream << "\n\n";
+
+
+        // --- 生成 HALF --> FLOAT 转换的Offset Table --- //
+        element_idx = 0;
+        m_file_stream << "// --- 生成 HALF --> FLOAT 转换的Base Table --- //\n";
+        m_file_stream << "\n";
+
+        m_file_stream << "/// Offset table:\n";
+        m_file_stream << "/// - 使用Sign(HALF), 以及Exponent(HALF)来检索: [0, 31]\n";
+        m_file_stream << "static constexpr uint32_t HALF_TO_FLOAT_OFFSET_TABLE[] =\n";
+        m_file_stream << "{\n";
+
+        /// ZERO and Un-normalized values using 0 as the offset
+        m_file_stream << "    /// ZERO and Un-normalized的数值使用0作为他们的Offset\n";
+        std::snprintf(buffer, sizeof(buffer), "0x%08X", m_h2f_offset_table[element_idx++]);
+        m_file_stream << "    " << buffer << ",\n";
+        m_file_stream << "    /// E = 1, 2, 3, ..., 31: 我们使用1024作为他的Offset\n";
+        m_file_stream << "    ";
+
+        column_idx = 0;
+        for (uint32_t e = 1; e <= 31; ++e)
+        {
+            if (column_idx == MAXIMAL_H2F_TABLE_COLUMN_COUNT)
+            {
+                m_file_stream << "\n";
+                m_file_stream << "    ";
+                column_idx = 0;
+            }
+            std::snprintf(buffer, sizeof(buffer), "0x%08X", m_h2f_offset_table[element_idx++]);
+            m_file_stream << buffer << ", ";
+            column_idx++;
+        }
+        m_file_stream << "\n";
+        m_file_stream << "};\n";
+        m_file_stream << "\n\n";
+
+
+        // --- 生成 HALF --> FLOAT 转换的MOD Table --- //
+        element_idx = 0;
+        m_file_stream << "// --- 生成 HALF --> FLOAT 转换的MOD Table --- //\n";
+        m_file_stream << "/// Mod table:\n";
+        m_file_stream << "///使用如下方法进行检索:\n";
+        m_file_stream << "///   Mod[Offset[Exponent(HALF)] + Mantissa(HALF)]\n";
+        m_file_stream << "static constexpr uint32_t HALF_TO_FLOAT_MOD_TABLE[] =\n";
+        m_file_stream << "{\n";
+        m_file_stream << "    /// ZERO: 0\n";
+        /// ZERO: 0
+        std::snprintf(buffer, sizeof(buffer), "0x%08X", m_h2f_offset_table[element_idx++]);
+        m_file_stream << "    " << buffer << ",\n";
+
+        /// generates mantissa for all un-normalized values: [0x0001, 0x03FF]: [1, 1023]
+        m_file_stream << "    /// Un-normalised的数值: [1, 1023]:\n";
+        m_file_stream << "    /// 我们使用此un - normalised number的32位浮点数的Pattern\n";
+        m_file_stream << "    ";
+
+        column_idx = 0;
+        for (uint32_t i = 1; i <= 0x3FF; ++i)
+        {
+            if (column_idx == MAXIMAL_H2F_TABLE_COLUMN_COUNT)
+            {
+                m_file_stream << "\n";
+                m_file_stream << "    ";
+                column_idx = 0;
+            }
+
+            std::snprintf(buffer, sizeof(buffer), "0x%08X", m_h2f_mod_table[element_idx++]);
+            m_file_stream << buffer << ", ";
+            column_idx++;
+        }
+        m_file_stream << "\n";
+
+        // normalised number: [1024, 2047]: i << 13, where i:[0, 3FF]
+        m_file_stream << "    /// normalised的数值: [1024, 2047]: 我们将i的数值向左移动13位：i << 13\n";
+        m_file_stream << "    /// - 这里 i为[0, 3FF]中的数值\n";
+        m_file_stream << "    ";
+
+        column_idx = 0;
+        for (uint32_t i = 0; i <= 0x3FF; ++i)
+        {
+            if (column_idx == MAXIMAL_H2F_TABLE_COLUMN_COUNT)
+            {
+                m_file_stream << "\n";
+                m_file_stream << "    ";
+                column_idx = 0;
+            }
+            std::snprintf(buffer, sizeof(buffer), "0x%08X", m_h2f_mod_table[element_idx++]);
+            m_file_stream << buffer << ", ";
+            column_idx++;
+        }
+        m_file_stream << "\n";
+        m_file_stream << "};\n";
+
+        // === DONE === //
+        m_file_stream << "\n";
+    }
+
+
+private:
+    void
+    generate_float_to_half_table ()
+    {
+        /// 递归所有Eexponent part E: [0, 0xFF]
+        for (uint32_t e = 0; e <= 0xFF; ++e)
+        {
+            /// 获得exponent value: E - 127
+            const int32_t exponent = e - 127;
+            /// +TINY numbers: exponent < (-24), [0x0000 0001, 0x337F FFFF] mapped to +ZERO
+            /// -TINY numbers: exponent < (-24), [0x8000 0001, 0xB37F FFFF] mapped to -ZERO
+            /// S << 15
+            if (exponent < -24)
+            {
+                m_f2h_base_table[e | 0x000]  = 0x0000;
+                m_f2h_base_table[e | 0x100]  = 0x8000;
+                /// shifts everything away
+                m_f2h_shift_table[e | 0x000] = 24;
+                m_f2h_shift_table[e | 0x100] = 24;
+            }
+            /// +SMALL numbers: [0x3380 0000, 0x387F FFFF]: [ 5.96046448e-08,  6.10351526e-05]
+            /// -SMALL numbers: [0xB380 0000, 0xB87F FFFF]: [-5.96046448e-08, -6.10351526e-05]
+            /// exponent < -14
+            /// we have to convert them to un-normalised half numbers
+            /// (S << 15) | (((0x400 | (mantissa >> 13)) >> (-14 -(E - 127))) & 0x3FF)
+            /// (S << 15) | (0x400 >> (-14 - (E-127))) | (mantissa >> (13 - 14 - (E-127))
+            /// NOTE:
+            /// 0x400 is used to represent that 1 in 1.xyz and make the mantissa to be 11bits
+            else if (exponent < -14)
+            {
+                m_f2h_base_table [e | 0x000] = 0x400 >> (-exponent - 14);
+                m_f2h_base_table [e | 0x100] = 0x8000 | (0x400 >> (-exponent - 14));
+                m_f2h_shift_table[e | 0x000] = -exponent - 1;
+                m_f2h_shift_table[e | 0x100] = -exponent - 1;
+            }
+            /// +NORM/normalised numbers: [0x3880 0000, 0x477F FFFF]: lose some kinds of precision
+            /// -NORM/normalised numbers: [0xB880 0000, 0xC77F FFFF]
+            /// (S << 15) | ((E - 127) + 15) << 10 | ((mantissa & 0x7F FFFF) >> 13)
+            else if (exponent <= 15)
+            {
+                m_f2h_base_table [e | 0x000] = (exponent + 15) << 10;
+                m_f2h_base_table [e | 0x100] = 0x8000 | ((exponent + 15) << 10);
+                m_f2h_shift_table[e | 0x000] = 13;
+                m_f2h_shift_table[e | 0x100] = 13;
+            }
+            /// +HUGE numbers: E > 15, [0x4780 0000, 0x7F7F FFFF] mapped to +INFINITY
+            /// -HUGE numbers: E > 15, [0xC780 0000, 0xFF7F FFFF] mapped to -INFINITY
+            /// (S << 15) | 0x7C00
+            else if (exponent < 128)
+            {
+                m_f2h_base_table [e | 0x000] = 0x7C00; /// +INFINITY
+                m_f2h_base_table [e | 0x100] = 0xFC00; /// -INFINITY
+                m_f2h_shift_table[e | 0x000] = 24;
+                m_f2h_shift_table[e | 0x100] = 24;
+            }
+            /// +/-INFINITY and +/-NAN: E = 128
+            /// +NAN     : [0x7F80 2000, 0x7FFF FFFF] ---> [0x7C01, 0x7FFF]
+            /// -NAN     : [0xFF80 2000, 0xFFFF FFFF] ---> [0xFC01, 0xFFFF]
+            ///     0x7C00 | (mantissa >> 13)
+            else
+            {
+                m_f2h_base_table [e | 0x000] = 0x7C00; /// +INFINITY
+                m_f2h_base_table [e | 0x100] = 0xFC00; /// -INFINITY
+                /// mantissa >> 13
+                m_f2h_shift_table[e | 0x000] = 13;
+                m_f2h_shift_table[e | 0x100] = 13;
+            }
+        }
+    }
+
+    // 生成多个表格来实现16位, 32位浮点数之间转换
+    /// 生成m_h2f_base_table
+    void
+    generate_m_half_to_float_base_table ()
+    {
+        /// Base table:
+        /// - 使用Sign(HALF), 以及Exponent(HALF)来检索
+        ///
+        m_h2f_base_table.clear();
+
+        /// S = 0 and E = 0: 表示+ZERO/+Un-normalized的数值，我们存储0. MOD table将包括32位浮点数的Pattern
+        m_h2f_base_table.push_back(0x00000000);
+
+        /// S = 0 and E = 1, 2, 3, ..., 30: 表示+normalised数值: (E-15+127) << 23
+        for (uint32_t e = 1; e <= 30; ++e)
+        {
+            m_h2f_base_table.push_back((e - 15 + 127) << 23);
+        }
+
+        /// S = 0 and E = 31: 表示+infinity or +NaN: +infinity/+NaN: 0x7F80 0000
+        m_h2f_base_table.push_back(0x7F800000);
+
+        /// S = 1 and E = 0: 表示-ZERO/-Un-normalized numbers: 0x8000 0000
+        /// 我们使用0x80000000作为它的Base，它的Mod表格中含有32位浮点数的Pattern
+        m_h2f_base_table.push_back(0x80000000);
+
+        /// S = 1 and E: 1, 2, 3, ..., 30: 表示-normalised values: 0x8000 0000 | (E-15+127) << 23
+        for (uint32_t e = 1; e <= 30; ++e)
+        {
+            m_h2f_base_table.push_back(0x80000000 | ((e - 15 + 127) << 23));
+        }
+
+        // S = 1 and E = 31: 表示-infinity/-NaN: 0xFF80 0000
+        m_h2f_base_table.push_back(0xFF800000);
+    }
+
+    void
+    generate_m_half_to_float_offset_table ()
+    {
+        /// Offset table:
+        /// - 使用Sign(HALF), 以及Exponent(HALF)来检索
+        ///
+        m_h2f_offset_table.clear();
+        
+        /// ZERO and Un-normalized的数值使用0作为他们的Offset
+        m_h2f_offset_table.push_back(0x00000000);
+        
+        /// E = 1, 2, 3, ..., 31: 我们使用1024作为他的Offset
+        for (uint32_t e = 1; e <= 31; ++e)
+        {
+            m_h2f_offset_table.push_back(1024);
+        }
+    }
+
+    void
+    generate_m_half_to_float_mod_table ()
+    {
+        /// Mod table
+        /// - 使用如下方法进行检索:
+        ///   Mod[Offset[Exponent(HALF)] + Mantissa(HALF)]
+        ///
+        m_h2f_mod_table.clear();
+
+        /// ZERO: 0
+        m_h2f_mod_table.push_back(0x00000000);
+
+        /// Un-normalised的数值: [1, 1023]: 我们使用此un-normalised number的32位浮点数的Pattern
+        /// 生成[0x0001, 0x03FF]之间的所有un-normalized浮点数的mantissa: [1, 1023]
+        for (uint32_t i = 1; i <= 0x3FF; ++i)
+        {
+            /// we have to normalise a decimal number in binary format:
+            /// (0.00010001001)_2 --> 2^(-4)(1.0001001)_2
+            /// 0 00000 (0000000110): = 2^(-14)*(0.0000000110)_2 = 2^(-14)*2^(-8)*(1.10)_2
+            /// 2^(-22) *(1.10)_2  = 0 01101001 10000000000000000000000
+            ///                      0 01101001 10000000000000000000000
+            ///                      X XXXXXXXX XXXXXXXXXXXXXXXXXXXXXXX
+            /// gets the mantissa/significant
+            /// 0 00000 1111111111
+            /// X XXXXX XXXXXXXXXX
+            const uint32_t mantissa = i & 0x3FF;
+            /// finds the position of the last set bit from LSB
+            const int32_t last_set_bit = find_last_set_bit_position(mantissa);
+            /// calculates the bits to be shifted to the left
+            const int32_t shift_count  = 10 - last_set_bit;
+            /// calculates new exponent:
+            const int32_t exponent_new = 127 - 14 - shift_count;
+            /// calculates new mantissa:
+            /// shift out the last set bit: 0.0000100001 ---> 1.0001000000 shift 5 left
+            /// --> mask out the shift 1 with 0x3FF: 1.0001000000 & 0.1111111111 --> 0001000000
+            /// --> shift the result left 13: 0001000000 << 13 --> 10000000000000000000
+            const uint32_t mantissa_new = ((mantissa << shift_count) & 0x3FF) << 13;
+            /// creates F32: X XXXXXXXX XXXXXXXXXXXXXXXXXXXXXXX
+            const uint32_t float_value = (exponent_new << 23) | mantissa_new;
+            m_h2f_mod_table.push_back(float_value);
+        }
+
+        /// normalised的数值: [1024, 2047]: 我们将i的数值向左移动13位：i << 13, 这里 i为[0, 3FF]中的数值
+        for (uint32_t i = 0; i <= 0x3FF; ++i)
+        {
+            m_h2f_mod_table.push_back(i << 13);
+        }
+    }
+
+    /// 计算给定的 HALF 浮点数对应的 FLOAT 浮点数
+    float
+    calc_float_from_half (
+        const half half_value) const
+    {
+        const uint16_t f16_bits = half_value.bits;
+
+        /// --- 16Bits Float --- //
+        /// 15 (msb)
+        /// |
+        /// | 14  10
+        /// | |   |
+        /// | |   | 9        0 (lsb)
+        /// | |   | |        |
+        /// X XXXXX XXXXXXXXXX
+        /// |1| 5 | | <--10->|
+        ///  s  e        m
+        /// s: sign bit       : 1bit
+        /// e: exponential bit: 5bits: the real exponential = e - 15: [-15, +16]
+        /// m: mantissa bit: 10bits
+        ///
+        /// positive numbers: Hex: [0x0000, 0x7FFF], Dec: [    0, 32767]
+        /// negative numbers: Hex: [0x8000, 0xFFFF], Dec: [32768, 65535]
+        ///
+        /// special patterns:
+        /// 1. +ZERO: Hex: 0x0000, Dec: 0
+        ///      sign:     0
+        ///    exponent: 0
+        ///    mantissa: 0
+        ///    value: 2^(-15) * (0*2^0 + 0)
+        /// 2. +Un-normalised numbers: 0.xyz: Hex: [0x0001, 0x03FF], Dec: [1, 1023]
+        ///    sign:     0
+        ///    exponent: 0
+        ///    mantissa: [0x0001, 0x3FF]
+        ///    value: 2^(-14)*(0 + ...): NOTE: 2^(-14) NOT 2^(-15)
+        ///    for instance:
+        ///    - the minimal positive Non-normalized number: 0x0001:
+        ///      2^(-14)*(0*2^0 + 1*2^(-10)) = 0.000000059604644775390625
+        /// 3. +normalised numbers: 1.xyz: Hex: [0x0400, 0x7BFF], Dec: [1024, 31743]
+        ///    sign:     0
+        ///    exponent: [1, 30]
+        ///    mantissa: [0x0000, 0x3FF]
+        ///    value: 2^(-14)*(1 + ...)
+        ///    for instance:
+        ///    - the minimal normalised positive number: 0x4000, exponent = 1
+        ///      2^(-14)*(1*2^0 + 0) = 0.00006103515625
+        ///    - ONE: 0x3C00, exponent = 15
+        ///      2^0*(1*2^0 + 0) = 1
+        ///    - the maximal normalised positive number: 0x7BFF, exponent = 30
+        ///      2^(15)*(1*2^0 + 1*2^-1 + ... 1 * 2^(-10)) = 2^(15) * 1.9990234375 = 65504
+        /// 4. +infinity: Hex: 0x7C00, Dec: 31744
+        ///    exponent: 31
+        ///    mantissa: 0
+        /// 5. +NaN: Hex: [0x7C01, 0x7FFF], Dec: [31745, 32767]
+        ///    exponent: 31
+        ///    mantissa: [0x0001, 0x3FF]
+        /// 6. -ZERO: Hex: 0x8000, Dec: 32768
+        ///      sign:     1
+        ///      exponent: 0
+        ///    mantissa: 0
+        ///    value: -1*2^(-15) * (0*2^0 + 0)
+        /// 7. -Un-normalised numbers: -0.xyz: Hex: [0x8001, 0x83FF], Dec: [32769, 33791]
+        ///      sign:     1
+        ///    exponent: 0
+        ///    mantissa: [0x0001, 0x3FF]
+        ///    value: -1*2^(-14)*(0 + ...): NOTE: 2^(-14) NOT 2^(-15)
+        /// 8. -normalised numbers: -1.xyz: Hex: [0x8400, 0xFBFF], Dec: [33792, 64511]
+        ///    sign:     1
+        ///      exponent: [1, 30]
+        ///    mantissa: [0x0000, 0x3FF]
+        ///    value: -1*2^(-14)*(1 + ...)
+        /// 9. -infinity: Hex: 0xFC00, Dec: 64512
+        ///    sign:     1
+        ///    exponent: 31
+        ///    mantissa: 0
+        /// 10.-NaN: Hex: [0xFC01, 0xFFFF], Dec: [64513, 65535]
+        ///    sign:     1
+        ///    exponent: 31
+        ///    mantissa: [0x0001, 0x3FF]
+        ///
+        /// converts Real16 to Real32
+        /// 1. +ZERO: 0x0000 --> 0x0000 0000
+        /// 2. -ZERO: 0x8000 --> 0x8000 0000
+        /// 3. +infinity/+NaN: Hex: [0x7C00, 0x7FFF], Dec: [31744, 32767]
+        ///    (0xFF << 23) | (mantissa << 13) = 0x7F80 0000 | (mantissa << 13)
+        /// 4. -infinity/-NaN: Hex: [0xFC00, 0xFFFF], Dec: [64512, 65535]
+        ///    0x8000 0000 | (0xFF << 23) | (mantissa << 13) = 0xFF80 000 | (mantissa << 13)
+        /// 5. +normalised numbers: Hex: [0x0400, 0x7BFF], Dec: [1024, 31743]
+        ///    (((exponent >> 10) - 15 + 127) << 23) | (mantissa << 13)
+        /// 6. -normalised numbers: Hex: [0x8400, 0xFBFF], Dec: [33792, 64511]
+        ///    0x8000 0000 | (((exponent >> 10) - 15 + 127) << 23) | (mantissa << 13)
+        /// 7. +un-normalised numbers: Hex: [0x0001, 0x03FF], Dec: [1, 1023]
+        ///    -un-normalised numbers: Hex: [0x8400, 0xFBFF], Dec: [33792, 64511]
+        ///    HAVE to normalise the current number:
+        ///    + find the first 1 bit from MSB --> LSB
+        ///    + shift the mantissa to MSB
+        ///    + adjust the exponent accordingly
+        ///    + apply the sign
+        ///
+        uint32_t f32_bits;
+        /// +ZERO: 0x0000 --> 0x0000 0000
+        if (f16_bits == 0)
+        {
+            f32_bits = 0x00000000;
+        }
+        /// -ZERO: 0x8000 --> 0x8000 0000
+        else if (f16_bits == 0x8000)
+        {
+            f32_bits = 0x80000000;
+        }
+        /// +infinity/+NaN: Hex: [0x7C00, 0x7FFF], Dec: [31744, 32767]
+        /// 0x7F80 0000 | (mantissa << 13)
+        /// -infinity/-NaN: Hex: [0xFC00, 0xFFFF], Dec: [64512, 65535]
+        /// 0xFF80 000 | (mantissa << 13)
+        /// (sign << 16) | (mantissa << 13)
+        else if ((f16_bits >= 0x7C00 && f16_bits <= 0x7FFF) || f16_bits >= 0xFC00)
+        {
+            const uint32_t sign     = (f16_bits & 0x8000) << 16;
+            const uint32_t exponent = 0xFF << 23;
+            const uint32_t mantissa = (f16_bits & 0x3FF) << 13;
+            f32_bits = sign | exponent | mantissa;
+        }
+        /// +normalised numbers: Hex: [0x0400, 0x7BFF], Dec: [1024, 31743]
+        /// (((exponent >> 10) - 15 + 127) << 23) | (mantissa << 13)
+        /// -normalised numbers: Hex: [0x8400, 0xFBFF], Dec: [33792, 64511]
+        /// 0x8000 0000 | (((exponent >> 10) - 15 + 127) << 23) | (mantissa << 13)
+        /// (sign << 16) | (((exponent >> 10) - 15 + 127) << 23) | (mantissa << 13)
+        else if ((f16_bits >= 0x0400 && f16_bits <= 0x7BFF) ||
+                 (f16_bits >= 0x8400 && f16_bits <= 0xFBFF))
+        {
+            const uint32_t sign     = (f16_bits & 0x8000) << 16;
+            const uint32_t exponent = (((f16_bits & 0x7FFF) >> 10) - 15 + 127) << 23;
+            const uint32_t mantissa = (f16_bits & 0x3FF) << 13;
+            f32_bits = sign | exponent | mantissa;
+        }
+        /// +un-normalised numbers: Hex: [0x0001, 0x03FF], Dec: [1, 1023]
+        /// -un-normalised numbers: Hex: [0x8400, 0xFBFF], Dec: [33792, 64511]
+        ///    HAVE to normalise the current number:
+        ///    + find the first 1 bit from MSB --> LSB
+        ///    + shift the mantissa to MSB
+        ///    + adjust the exponent accordingly
+        ///    + apply the sign
+        /// NOTE: for +/-un-normalized numbers: 2^(-14) NOT 2^(-15)
+        else
+        {
+            /// --- Some un-normalized Numbers --- //
+            /// [0 00000 0000000001, 0 00000 1111111111]: [0x0001, 0x03FF]: [1, 1023]
+            /// 0 00000 0000000001: 2^(-14)*(0*2^0 + 1*2^(-10)): 0.000000059604644775390625
+            /// 0 01100111 00000000000000000000000: 2^(-24)
+            /// 0 00000 0000000001 --> 0 01100111 00000000000000000000000: 0x001 --> 0x3380 0000
+
+            /// 0 00000 0000000010: 2^(-14)*(0*2^0 + 1*2^(-9)): 0.00000011920928955078125
+            /// 0 01101000 00000000000000000000000: 2^(-23)
+            /// 0 00000 0000000010 --> 0 01101000 00000000000000000000000: 0x002 --> 0x3400 0000
+
+            /// 0 00000 0000000011: 2^(-14)*(0*2^0 + 1*2^(-9) + 1*2^(-10)):     0.000000178813934326171875
+            /// 0 01101000 10000000000000000000000: 2^(-23)*(1*2^0 + 1*2^(-1)): 0.000000178813934326171875
+            /// 0 00000 0000000011 --> 0 01101000 10000000000000000000000: 0x003 --> 0x3440 0000
+
+            /// 0 00000 0000000100: 2^(-14)*(0*2^0 + 1*2^(-8)): 0.0000002384185791015625
+            /// 0 01101001 00000000000000000000000: 2^(-22):    0.0000002384185791015625
+            /// 0 00000 0000000100 --> 0 01101001 00000000000000000000000: 0x004 --> 0x3480 0000
+
+            /// 0 00000 0000000101: 2^(-14)*(0*2^0 + 1*2^(-8) + 1*2^(-10)):     0.000000298023223876953125
+            /// 0 01101001 01000000000000000000000: 2^(-22)*(1*2^0 + 1*2^(-2)): 0.000000298023223876953125
+            /// 0 00000 0000000101 --> 0 01101001 01000000000000000000000: 0x005 --> 0x34A0 0000
+
+            /// 0 00000 0000000110: 2^(-14)*(0*2^0 + 1*2^(-8) + 1*2^(-9)):     0.00000035762786865234375
+            /// 0 01101001 10000000000000000000000: 2^(-22)*(1*2^0 + 1*2(-1)): 0.00000035762786865234375
+            /// 0 00000 0000000100 --> 0 01101001 10000000000000000000000: 0x006 --> 0x34C0 0000
+
+            /// 0 00000 0000000111: 2^(-14)*(0*2^0 + 1*2^(-8) + 1*2^(-9) + 1*2^(-10)):    0.000000417232513427734375
+            /// 0 01101001 11000000000000000000000: 2^(-22)*(1*2^0 + 1*2(-1) + 1*2^(-2)): 0.000000417232513427734375
+            /// 0 00000 0000000101 --> 0 01101001 11000000000000000000000: 0x007 --> 0x34E0 0000
+            ///                        X XXXXXXXX XXXXXXXXXXXXXXXXXXXXXXX
+
+            /// 0 00000 0000001000: 2^(-14)*(0*2^0 + 1*2^(-7)):    0.000000476837158203125: 0x008 --> 0x3500 0000
+            /// 0 00000 0000001001: 2^(-14)*(0*2^0 + 1*2^(-7) + 2^(-10)): 0.000000536441802978515625 : 0x009 --> 0x3510 0000
+
+            /// we have to normalise a decimal number in binary format:
+            /// (0.00010001001)_2 --> 2^(-4)(1.0001001)_2
+            /// 0 00000 (0000000110): = 2^(-14)*(0.0000000110)_2 = 2^(-14)*2^(-8)*(1.10)_2
+            /// 2^(-22) *(1.10)_2  = 0 01101001 10000000000000000000000
+            ///                      0 01101001 10000000000000000000000
+            ///                      X XXXXXXXX XXXXXXXXXXXXXXXXXXXXXXX
+            /// gets the mantissa of the given Real16
+            /// 0 00000 1111111111
+            /// X XXXXX XXXXXXXXXX
+            const uint32_t mantissa_half = f16_bits & 0x3FF;
+            /// finds the position of the last set bit from LSB
+            const int32_t last_set_bit = find_last_set_bit_position(mantissa_half);
+            /// calculates the bits to be shifted to the left
+            const int32_t shift_count = 10 - last_set_bit;
+            /// calculates exponent: -14 - shift + 127
+            const int32_t exponent = 127 - 14 - shift_count;
+            /// calculates mantissa of Real32:
+            /// shift out the last set bit: 0.0000100001 ---> 1.0001000000 shift 5 left
+            /// --> mask out the shift 1 with 0x3FF: 1.0001000000 & 0.1111111111 --> 0001000000
+            /// --> shift the result left 13: 0001000000 << 13 --> 10000000000000000000
+            const uint32_t mantissa = ((mantissa_half << shift_count) & 0x3FF) << 13;
+            /// creates F32: X XXXXXXXX XXXXXXXXXXXXXXXXXXXXXXX
+            const uint32_t sign = (f16_bits & 0x8000) << 16;
+            f32_bits = sign | (exponent << 23) | mantissa;
+        }
+        return *(float*)&f32_bits;
+    }
+
+    /// 计算给定的 FLOAT 浮点数对应的 HALF 浮点数
+    half
+    calc_half_from_float (
+        const float float_value) const
+    {
+        const uint32_t f32_bits = *(const uint32_t*)&float_value;
+
+        /// --- 32Bits Float --- //
+        /// 31 (msb)
+        /// |
+        /// | 30     23
+        /// | |      |
+        /// | |      | 22                    0 (lsb)
+        /// | |      | |                     |
+        /// X XXXXXXXX XXXXXXXXXXXXXXXXXXXXXXX
+        /// |1| <-8->| |<--       23      -->|
+        ///  s    e               m
+        /// s: sign bit       : 1bit
+        /// e: exponential bit: 8bits: the real exponential = e - 127: [-127, +128]
+        /// m: mantissa bit   : 23bits
+        ///
+        /// --- 16Bit Float --- //
+        /// 15 (msb)
+        /// |
+        /// | 14  10
+        /// | |   |
+        /// | |   | 9        0 (lsb)
+        /// | |   | |        |
+        /// X XXXXX XXXXXXXXXX
+        /// |1| 5 | | <--10->|
+        ///  s  e        m
+        /// s: sign bit       : 1bit
+        /// e: exponential bit: 5bits: the real exponential = e - 15: [-15, +16]
+        /// m: mantissa bit   : 10bits
+        ///
+        ///
+        /// --- Method on convert float to half --- //
+        /// 1. one to one mappings:
+        ///  i)   +ZERO: 0x0000 0000 ---> 0x0000
+        ///  ii)  -ZERO: 0x8000 0000 ---> 0x8000
+        ///  iii) +INFINITY:  0x7F80 0000 ---> 0x7C00
+        ///  iv)  -INFINITY:  0XFF80 0000 ---> 0XFC00
+        /// 2. +NAN: [0x7F80 0001, 0x7FFF FFFF]
+        /// i)  +NAN_SPEC: [0x7F80 0001, 0x7F80 1FFF] ---> 0x7C01, special handling for them:
+        ///                if not, we shift its mantissa, half will be +infinity
+        /// ii) +NAN     : [0x7F80 2000, 0x7FFF FFFF] ---> [0x7C01, 0x7FFF]
+        ///     0x7C00 | (mantissa >> 13)
+        /// 3. -NAN: [0xFF80 0001, 0xFFFF FFFF]
+        /// i) -NAN_SPEC: [0xFF80 0001, 0xFF80 1FFF] ---> 0xFC01
+        /// i) -NAN     : [0xFF80 2000, 0xFFFF FFFF] ---> [0xFC01, 0xFFFF]
+        ///     0xFC00 | (mantissa >> 13)
+        /// 4. +TINY numbers: E < -24, [0x0000 0001, 0x337F FFFF] we round them to +ZERO
+        /// 5. -TINY numbers: E < -24, [0x8000 0001, 0xB37F FFFF] we round them to -ZERO
+        ///    S << 15
+        /// 6. +HUGE numbers: E > 15, [0x4780 0000, 0x7F7F FFFF] we round them to +INFINITY
+        /// 7. -HUGE numbers: E > 15, [0xC780 0000, 0xFF7F FFFF] we round them to -INFINITY
+        ///    (S << 15) | 0x7C00
+        /// 8. +NORM/normalised numbers: [0x3880 0000, 0x477F FFFF]: lose some kinds of precision
+        /// 9. -NORM/normalised numbers: [0xB880 0000, 0xC77F FFFF]
+        ///    (S << 15) | ((E - 127) + 15) << 10 | ((mantissa & 0x7F FFFF) >> 13)
+        /// 10. +SMALL numbers: [0x3380 0000, 0x387F FFFF]: [ 5.96046448e-08,  6.10351526e-05]
+        /// 11. -SMALL numbers: [0xB380 0000, 0xB87F FFFF]: [-5.96046448e-08, -6.10351526e-05]
+        ///     we have to convert them to un-normalised half numbers
+        ///     (S << 15) | (((0x400 | (mantissa >> 13)) >> (-14 -(E - 127))) & 0x3FF)
+        ///     NOTE:
+        ///     0x400 is used to represent that 1 in 1.xyz and make the mantissa to be 11bits
+        ///
+        /// --- Examples on converting float to half --- //
+        /// 1. 0x3380 0000: 2^(-24) ---> -14 - (E - 127) = 10, 10000000000 >> 10 = 1
+        ///    0 01100111 00000000000000000000000 ---> 0 00000 0000000001
+        /// 2. 0x387F FFFF: 2^(-15)*(2^1 + 2^(-1) + 2^(-2) + ... + 2^(-10) + ... + 2^(-23))
+        /// --->
+        /// 0x03FF: 2^(-14)(2^(-1) + 2^(-2) + ... + 2^(-10))
+        /// 0 01110000 11111111111111111111111 ---> 0 00000 1111111111
+        ///
+        /// --- Distribution of Numbers --- //
+        /// +ZERO[0x0000 0000], +TINY[0x0000 0001, 0x337F FFFF],  +SMALL[0x3380 0000, 0x387F FFFF],
+        /// +NORM[0x3880 0000, 0x477F FFFF], +HUGE[0x4780 0000, 0x7F7F FFFF], +INFINITY[0x7F80 0000],
+        /// +NAN_SPEC[0x7F80 0001, 0x7F80 1FFF], +NAN[0x7F80 2000, 0x7FFF FFFF],
+        ///
+        /// -ZERO[0x8000 0000], -TINY[0x8000 0001, 0xB37F FFFF], -SMALL[0xB380 0000, 0xB87F FFFF],
+        /// -NORM[0xB880 0000, 0xC77F FFFF], -HUGE[0xC780 0000, 0xFF7F FFFF], -INFINITY[0XFF80 0000],
+        /// -NAN_SPEC[0xFF80 0001, 0xFF80 1FFF], -NAN[0xFF80 2000, 0xFFFF FFFF]
+        ///
+        /// 1. mapping of special patterns:
+        ///  i)   +ZERO: 0x0000 0000 ---> 0x0000
+        ///  ii)  -ZERO: 0x8000 0000 ---> 0x8000
+        ///  iii) +INFINITY:  0x7F80 0000 ---> 0x7C00
+        ///  iv)  -INFINITY:  0XFF80 0000 ---> 0XFC00
+        if (f32_bits == 0x00000000)
+        {
+            return half{ 0x0000 };
+        }
+        else if (f32_bits == 0x80000000)
+        {
+            return half{ 0x8000 };
+        }
+        else if (f32_bits == 0x7F800000)
+        {
+            return half{ 0x7C00 };
+        }
+        else if (f32_bits == 0XFF800000)
+        {
+            return half{ 0XFC00 };
+        }
+        /// 2. +NAN: [0x7F80 0001, 0x7FFF FFFF]
+        /// i)  +NAN_SPEC: [0x7F80 0001, 0x7F80 1FFF] ---> 0x7C01, otherwise if we shift its mantissa, half will be +infinity
+        /// ii) +NAN     : [0x7F80 2000, 0x7FFF FFFF] ---> [0x7C01, 0x7FFF]
+        ///     0x7C00 | (mantissa >> 13)
+        else if (f32_bits >= 0x7F800001 && f32_bits <= 0x7F801FFF)
+        {
+            return half{ 0x7C01 };
+        }
+        else if (f32_bits >= 0x7F802000 && f32_bits <= 0x7FFFFFFF)
+        {
+            const uint32_t mantissa = (f32_bits & 0x7FFFFF) >> 13;
+            return half{ (uint16_t)(0x7C00 | mantissa) };
+        }
+        /// 3. -NAN: [0xFF80 0001, 0xFFFF FFFF]
+        /// i) -NAN_SPEC: [0xFF80 0001, 0xFF80 1FFF] ---> 0xFC01
+        /// i) -NAN     : [0xFF80 2000, 0xFFFF FFFF] ---> [0xFC01, 0xFFFF]
+        ///     0xFC00 | (mantissa >> 13)
+        else if (f32_bits >= 0xFF800001 && f32_bits <= 0xFF801FFF)
+        {
+            return half{ 0xFC01 };
+        }
+        else if (f32_bits >= 0xFF802000 && f32_bits <= 0xFFFFFFFF)
+        {
+            const uint32_t mantissa = (f32_bits & 0x7FFFFF) >> 13;
+            return half{ (uint16_t)(0xFC00 | mantissa) };
+        }
+        /// 4. +TINY numbers: E < -24, [0x0000 0001, 0x337F FFFF] we round them to +ZERO
+        /// 5. -TINY numbers: E < -24, [0x8000 0001, 0xB37F FFFF] we round them to -ZERO
+        ///    S << 15
+        else if ((f32_bits >= 0x00000001 && f32_bits <= 0x337FFFFF) ||
+                 (f32_bits >= 0x80000001 && f32_bits <= 0xB37FFFFF))
+        {
+            const uint32_t sign = f32_bits >> 31;
+            return half{ (uint16_t)(sign << 15) };
+        }
+        /// 6. +HUGE numbers: E > 15, [0x4780 0000, 0x7F7F FFFF] we round them to +INFINITY
+        /// 7. -HUGE numbers: E > 15, [0xC780 0000, 0xFF7F FFFF] we round them to -INFINITY
+        ///    (S << 15) | 0x7C00
+        else if ((f32_bits >= 0x47800000 && f32_bits <= 0x7F7FFFFF) ||
+                 (f32_bits >= 0xC7800000 && f32_bits <= 0xFF7FFFFF))
+        {
+            const uint32_t sign = f32_bits >> 31;
+            return half{ (uint16_t)((sign << 15) | 0x7C00) };
+        }
+        /// 8. +NORM/normalised numbers: [0x3880 0000, 0x477F FFFF]: lose some kinds of precision
+        /// 9. -NORM/normalised numbers: [0xB880 0000, 0xC77F FFFF]
+        ///    (S << 15) | ((E - 127) + 15) << 10 | ((mantissa & 0x7F FFFF) >> 13)
+        else if ((f32_bits >= 0x38800000 && f32_bits <= 0x477FFFFF) ||
+                 (f32_bits >= 0xB8800000 && f32_bits <= 0xC77FFFFF))
+        {
+            const uint32_t sign     = f32_bits >> 31;
+            const uint32_t exponent = ((f32_bits & 0x7F800000) >> 23) - 127 + 15;
+            const uint32_t mantissa = (f32_bits & 0x7FFFFF) >> 13;
+            return half{ (uint16_t)((sign << 15) | (exponent << 10) | mantissa) };
+            /// X XXXXXXXX XXXXXXXXXXXXXXXXXXXXXXX
+        }
+        /// 10. +SMALL numbers: to un-normalised numbers: [0x3380 0000, 0x387F FFFF]: [ 5.96046448e-08,  6.10351526e-05]
+        /// 11. -SMALL numbers: to un-normalised numbers: [0xB380 0000, 0xB87F FFFF]: [-5.96046448e-08, -6.10351526e-05]
+        ///     (S << 15) | (((0x400 | (mantissa >> 13)) >> (-14 -(E - 127))) & 0x3FF)
+        ///     0x400 is used to represent that 1 in 1.xyz and make the mantissa to be 11bits
+        else if ((f32_bits >= 0x33800000 && f32_bits <= 0x387FFFFF) ||
+                 (f32_bits >= 0xB3800000 && f32_bits <= 0xB87FFFFF))
+        {
+            const uint32_t sign     = f32_bits >> 31;
+            const uint32_t mantissa = 0x400 | ((f32_bits & 0x7FFFFF) >> 13);
+            const uint32_t shift    = 127 - ((f32_bits & 0x7F800000) >> 23) - 14;
+            return half{ (uint16_t)((sign << 15) | ((mantissa >> shift) & 0x3FF)) };
+        }
+        else
+        {
+            /// ERROR
+            return half {0 };
+        }
+    }
+
+    /// 检查 FLOAT --> HALF 变换
+    bool
+    check_float_to_half () const
+    {
+        /// FIXED: NO LOG IN THE TERMINAL WINDOWS:
+        /// because cout will cache the output in a internal buffer, we have to call
+        /// - cout.flush() to manually flush the buffer or
+        /// - std::endl to insert a new line and flush the buffer:
+        /// https://en.cppreference.com/w/cpp/io/manip/endl
+        ///
+        std::cout << "Checking float --> half..." << std::endl;
+        std::cout << "0%                          100%" << std::endl;
+
+        char buffer[64];
+        uint16_t row_idx = 0;
+        for (uint64_t i = 0x00000000u; i <= 0xFFFFFFFFu; ++i)
+        {
+            const float float_value = *(const float*)&i;
+            const half calculated_half = calc_half_from_float(float_value);
+            const half converted_half  = convert_to_half(float_value);
+            if (!(i % 0x8000000))
+            {
+                std::cout << '.';
+                /// flushes the cache buffer, we don't need an extra new line
+                std::cout.flush();
+                ++row_idx;
+            }
+
+            if (calculated_half.bits != converted_half.bits)
+            {
+                std::snprintf(
+                    buffer, sizeof(buffer),
+                    "\n"
+                    "float[0x%08X] can NOT be converted correctly\n"
+                    "[calcuate function]: 0x%04X != [conversion function]: 0x%04X",
+                    (uint32_t)i, calculated_half.bits, converted_half.bits);
+                std::cout << buffer << std::endl;
+                return false;
+            }
+        }
+
+        std::cout << std::endl;
+        std::cout << "Checking Done." << std::endl;
+        return true;
+    }
+
+    /// 检测是否所有half都可以正确的转换成float
+    bool
+    check_half_to_float () const
+    {
+        std::cout << "Checking half --> float..." << std::endl;
+        std::cout << "0%                          100%" << std::endl;
+
+        char buffer[256];
+        for (uint32_t f16_bits = 0; f16_bits <= 0xFFFF; ++f16_bits)
+        {
+            if (!(f16_bits % 0x0800))
+            {
+                std::cout << '.';
+                /// flushes the cache buffer, we don't need an extra new line
+                std::cout.flush();
+            }
+
+            const float calculated_float = calc_float_from_half(half{ (uint16_t)f16_bits });
+            const float converted_float  = convert_to_float(half{ (uint16_t)f16_bits });
+            const uint32_t calculated_bits = *(const uint32_t*)&calculated_float;
+            const uint32_t converted_bits  = *(const uint32_t*)&converted_float;
+            if (converted_bits != calculated_bits)
+            {
+                std::snprintf(
+                    buffer, sizeof(buffer),
+                    "\n"
+                    "half[0x%04X] must be converted to float[0x%08X].\n"
+                    "But it is converted to 0x%08X.",
+                    f16_bits, converted_bits, calculated_bits);
+                std::cout << buffer << std::endl;
+                return false;
+            }
+        }
+        std::cout << std::endl;
+        std::cout << "Checking Done." << std::endl;
+        return true;
+    }
+
+private:
+        /// 最大列数(16位-->32位浮点数转换表格)
+    static const uint8_t MAXIMAL_H2F_TABLE_COLUMN_COUNT = 6;
+    /// 最大列数(32位-->16位浮点数转换表格)
+    static const uint8_t MAXIMAL_F2H_TABLE_COLUMN_COUNT = 10;
+
+    // === HALF --> FLOAT 表格 === //
+
+    /// 1. +ZERO: 0x0000 --> 0x0000 0000
+    /// 2. -ZERO: 0x8000 --> 0x8000 0000
+    /// 3. +infinity/+NaN: Hex: [0x7C00, 0x7FFF], Dec: [31744, 32767]
+    ///    (0xFF << 23) | (mantissa << 13) = 0x7F80 0000 | (mantissa << 13)
+    /// 4. -infinity/-NaN: Hex: [0xFC00, 0xFFFF], Dec: [64512, 65535]
+    ///    0x8000 0000 | (0xFF << 23) | (mantissa << 13) = 0xFF80 000 | (mantissa << 13)
+    /// 5. +normalised numbers: Hex: [0x0400, 0x7BFF], Dec: [1024, 31743]
+    ///    (((exponent >> 10) - 15 + 127) << 23) | (mantissa << 13)
+    /// 6. -normalised numbers: Hex: [0x8400, 0xFBFF], Dec: [33792, 64511]
+    ///    0x8000 0000 | (((exponent >> 10) - 15 + 127) << 23) | (mantissa << 13)
+    /// 7. +un-normalised numbers: Hex: [0x0001, 0x03FF], Dec: [1, 1023]
+    ///    -un-normalised numbers: Hex: [0x8400, 0xFBFF], Dec: [33792, 64511]
+    ///    HAVE to normalise the current number:
+    ///    + find the first 1 bit from MSB --> LSB
+    ///    + shift the mantissa to MSB
+    ///    + adjust the exponent accordingly
+    ///    + apply the sign
+    ///
+    /// 32位浮点数FLOAT的Patern使用如下的方法从16位浮点数HALF的数值产生:
+    /// FLOAT = Base[S(HALF)|E(HALF)] | Mod[Offset[E(HALF)]+mantissa(HALF)]
+    /// where:
+    /// - S(HALF) is the sign of HALF
+    /// - E(HALF) is the exponent of the HALF
+    /// - Mantissa table has 2048 items
+    /// Base table: indexed using the (sign | exponent) of half: [0, 0xFFFF]
+    /// - sign | exponent = 0: +ZERO/+Un-normalized numbers: 0, its mod table contains FLOAT's pattern
+    /// - sign | exponent <- [1, 30]: +normalised numbers:
+    ///   (((exponent >> 10) - 15 + 127) << 23)
+    ///   for instance:
+    ///   + sign | exponent =  1: (1-15+127)  << 23 = 0x3880 0000
+    ///   + sign | exponent = 30: (30-15+127) << 23 = 0x4000 0000
+    /// - sign | exponent = 31: +infinity/+NaN: 0x7F80 0000
+    /// - sign | exponent = 32: -ZERO/-Un-normalized numbers: 0x8000 0000,
+    ///   its mod table contains float's pattern
+    /// - sign | exponent <- [33, 62]: -normalised numbers:
+    ///   0x8000 0000 | (((exponent >> 10) - 15 + 127) << 23)
+    /// - sign | exponent = 63: -infinity/-NaN: 0xFF80 0000
+    /// Offset table: indexed using the exponent part of half
+    /// - exponent = 0: ZERO/Un-normalised numbers: 0
+    /// - exponent <- [1, 31]: 1024
+    /// Mod table: indexed using the value of mantissa shifted by the offset value
+    /// - +ZERO/-ZERO: 0
+    /// - [1, 1023]: float pattern for the +/-un-normalised numbers
+    /// - [1024, 2047]: i << 13, where i:[0, 3FF]
+    ///
+    /// Base table
+    /// - 使用Sign(HALF), 以及Exponent(HALF)来检索
+    std::vector<uint32_t> m_h2f_base_table;
+    /// Offset table
+    /// - 使用Exponent(HALF)来检索: [0, 31]
+    std::vector<uint32_t> m_h2f_offset_table;
+    /// Mod table
+    /// - 使用如下方法进行检索:
+    ///   Mod[Offset[Exponent(HALF)] + Mantissa(HALF)]
+    std::vector<uint32_t> m_h2f_mod_table;
+
+    // MARK: === 生成 FLOAT --> HALF 转换表格 ===
+
+    /// 1. one to one mappings:
+    ///  i)   +ZERO: 0x0000 0000 ---> 0x0000
+    ///  ii)  -ZERO: 0x8000 0000 ---> 0x8000
+    ///  iii) +INFINITY:  0x7F80 0000 ---> 0x7C00
+    ///  iv)  -INFINITY:  0XFF80 0000 ---> 0XFC00
+    /// 2. +NAN: [0x7F80 0001, 0x7FFF FFFF]
+    /// i)  +NAN_SPEC: [0x7F80 0001, 0x7F80 1FFF] ---> 0x7C01, special handling for them:
+    ///                if not, we shift its mantissa, half will be +infinity
+    /// ii) +NAN     : [0x7F80 2000, 0x7FFF FFFF] ---> [0x7C01, 0x7FFF]
+    ///     0x7C00 | (mantissa >> 13)
+    /// 3. -NAN: [0xFF80 0001, 0xFFFF FFFF]
+    /// i) -NAN_SPEC: [0xFF80 0001, 0xFF80 1FFF] ---> 0xFC01
+    /// i) -NAN     : [0xFF80 2000, 0xFFFF FFFF] ---> [0xFC01, 0xFFFF]
+    ///     0xFC00 | (mantissa >> 13)
+    /// 4. +TINY numbers: E < -24, [0x0000 0001, 0x337F FFFF] we round them to +ZERO
+    /// 5. -TINY numbers: E < -24, [0x8000 0001, 0xB37F FFFF] we round them to -ZERO
+    ///    S << 15
+    /// 6. +HUGE numbers: E > 15, [0x4780 0000, 0x7F7F FFFF] we round them to +INFINITY
+    /// 7. -HUGE numbers: E > 15, [0xC780 0000, 0xFF7F FFFF] we round them to -INFINITY
+    ///    (S << 15) | 0x7C00
+    /// 8. +NORM/normalised numbers: [0x3880 0000, 0x477F FFFF]: lose some kinds of precision
+    /// 9. -NORM/normalised numbers: [0xB880 0000, 0xC77F FFFF]
+    ///    (S << 15) | ((E - 127) + 15) << 10 | ((mantissa & 0x7F FFFF) >> 13)
+    /// 10. +SMALL numbers: [0x3380 0000, 0x387F FFFF]: [ 5.96046448e-08,  6.10351526e-05]
+    /// 11. -SMALL numbers: [0xB380 0000, 0xB87F FFFF]: [-5.96046448e-08, -6.10351526e-05]
+    ///     we have to convert them to un-normalised half numbers
+    ///     (S << 15) | (((0x400 | (mantissa >> 13)) >> (-14 -(E - 127))) & 0x3FF)
+    ///     NOTE:
+    ///     0x400 is used to represent that 1 in 1.xyz and make the mantissa to be 11bits
+    ///
+    /// --- Examples on converting float to half --- //
+    /// 1. 0x3380 0000: 2^(-24) ---> -14 - (E - 127) = 10, 10000000000 >> 10 = 1
+    ///    0 01100111 00000000000000000000000 ---> 0 00000 0000000001
+    /// 2. 0x387F FFFF: 2^(-15)*(2^1 + 2^(-1) + 2^(-2) + ... + 2^(-10) + ... + 2^(-23))
+    /// --->
+    /// 0x03FF: 2^(-14)(2^(-1) + 2^(-2) + ... + 2^(-10))
+    /// 0 01110000 11111111111111111111111 ---> 0 00000 1111111111
+    ///
+    /// --- Distribution of Numbers --- //
+    /// +ZERO[0x0000 0000], +TINY[0x0000 0001, 0x337F FFFF],  +SMALL[0x3380 0000, 0x387F FFFF],
+    /// +NORM[0x3880 0000, 0x477F FFFF], +HUGE[0x4780 0000, 0x7F7F FFFF], +INFINITY[0x7F80 0000],
+    /// +NAN_SPEC[0x7F80 0001, 0x7F80 1FFF], +NAN[0x7F80 2000, 0x7FFF FFFF],
+    ///
+    /// -ZERO[0x8000 0000], -TINY[0x8000 0001, 0xB37F FFFF], -SMALL[0xB380 0000, 0xB87F FFFF],
+    /// -NORM[0xB880 0000, 0xC77F FFFF], -HUGE[0xC780 0000, 0xFF7F FFFF], -INFINITY[0XFF80 0000],
+    /// -NAN_SPEC[0xFF80 0001, 0xFF80 1FFF], -NAN[0xFF80 2000, 0xFFFF FFFF]
+    /// --- Calculates Base & Shift Tablers to convert float to half --- //
+    uint16_t     m_f2h_base_table [512];
+    uint16_t     m_f2h_shift_table[512];
+    std::fstream m_file_stream;
+    bool         m_is_ready;
+};
+
+
+
+//--------------------------------------------------------------------------------------------------
+// MAIN ENTRY
+//--------------------------------------------------------------------------------------------------
+// MARK: - 程序主入口
+
+int32_t
+main (
+    const int32_t      argc,
+    const char * const argv[])
+{
+    if (argc < 2)
+    {
+        std::printf("Usage: HalfFloatTableGen output_file_path(absolute|relative)\n");
+        return -1;
+    }
+
+    TableGenerator tab_generator(argv[1]);
+    if (tab_generator.is_ready())
+    {
+        /// 创建各种表格
+        std::cout << "Generating half <--> float tables..." << std::endl;
+        tab_generator.generate_all_kinds_of_tables();
+        std::cout << "Generation Done." << std::endl;
+
+        /// 检测生成的结果
+        if (tab_generator.validate_generation())
+        {
+            /// 输出生成结果
+            tab_generator.write_to_file();
+            std::cout << "Writing Done." << std::endl;
+            std::cout << "Output file: " << argv[1] << std::endl;
+            return 0;
+        }
+        else
+        {
+            return -1;
+        }
+    }
+    else
+    {
+        std::printf("'%s' can not be opened for output.\n", argv[1]);
+        return -1;;
+    }
+}
