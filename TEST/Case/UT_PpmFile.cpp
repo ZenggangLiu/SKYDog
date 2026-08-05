@@ -70,12 +70,17 @@ TEST_CASE("Checking PPM File", "[PPM File]")
                           NativeDirectory::document_folder());
 
             REQUIRE((PpmFile::write_to(
-                        file_name,
-                        IMAGE_WIDTH, IMAGE_HEIGHT,
-                        IMAGE_DATA_BGRA8, IMAGE_PIXEL_COUNT,
-                        false,    /// is RGBA
-                        true,     /// use Alpha
-                        false))); /// use binary file
+                     file_name,
+                     IMAGE_WIDTH, IMAGE_HEIGHT,
+                     IMAGE_DATA_BGRA8, IMAGE_PIXEL_COUNT,
+                     false,    /// is RGBA
+                     true,     /// use Alpha
+                     false))); /// use binary file
+
+            std::snprintf(file_name, sizeof(file_name),
+                          "%s/UNIT_TEST/PpmFile/BGR8_image_data_ASCII_file.ppm",
+                          NativeDirectory::document_folder());
+            std::printf("[Output Ppm]: %s\n", file_name);
         }
 
         /// BGR8 BINARY格式
@@ -85,12 +90,14 @@ TEST_CASE("Checking PPM File", "[PPM File]")
                           NativeDirectory::document_folder());
 
             REQUIRE((PpmFile::write_to(
-                        file_name,
-                        IMAGE_WIDTH, IMAGE_HEIGHT,
-                        IMAGE_DATA_BGRA8, IMAGE_PIXEL_COUNT,
-                        false,   /// is RGBA
-                        true,    /// use Alpha
-                        true))); /// use binary file
+                     file_name,
+                     IMAGE_WIDTH, IMAGE_HEIGHT,
+                     IMAGE_DATA_BGRA8, IMAGE_PIXEL_COUNT,
+                     false,   /// is RGBA
+                     true,    /// use Alpha
+                     true))); /// use binary file
+
+            std::printf("[Output Ppm]: %s\n", file_name);
         }
 
         /// RGB8 ASCII格式
@@ -100,14 +107,17 @@ TEST_CASE("Checking PPM File", "[PPM File]")
                           NativeDirectory::document_folder());
 
             REQUIRE((PpmFile::write_to(
-                        file_name,
-                        IMAGE_WIDTH, IMAGE_HEIGHT,
-                        IMAGE_DATA_RGBA8, IMAGE_PIXEL_COUNT,
-                        true,     /// is RGBA
-                        true,     /// use Alpha
-                        false))); /// use binary file
-            std::printf("Output: %s\n", file_name);
+                     file_name,
+                     IMAGE_WIDTH, IMAGE_HEIGHT,
+                     IMAGE_DATA_RGBA8, IMAGE_PIXEL_COUNT,
+                     true,     /// is RGBA
+                     true,     /// use Alpha
+                     false))); /// use binary file
 
+            std::snprintf(file_name, sizeof(file_name),
+                          "%s/UNIT_TEST/PpmFile/RGB8_image_data_ASCII_file.ppm",
+                          NativeDirectory::document_folder());
+            std::printf("[Output Ppm]: %s\n", file_name);
         }
 
         /// RGB8 BINARY格式
@@ -117,13 +127,17 @@ TEST_CASE("Checking PPM File", "[PPM File]")
                           NativeDirectory::document_folder());
 
             REQUIRE((PpmFile::write_to(
-                        file_name,
-                        IMAGE_WIDTH, IMAGE_HEIGHT,
-                        IMAGE_DATA_RGBA8, IMAGE_PIXEL_COUNT,
-                        true,    /// is RGBA
-                        true,    /// use Alpha
-                        true))); /// use binary file
-            std::printf("Output: %s\n", file_name);
+                     file_name,
+                     IMAGE_WIDTH, IMAGE_HEIGHT,
+                     IMAGE_DATA_RGBA8, IMAGE_PIXEL_COUNT,
+                     true,    /// is RGBA
+                     true,    /// use Alpha
+                     true))); /// use binary file
+
+            std::snprintf(file_name, sizeof(file_name),
+                          "%s/UNIT_TEST/PpmFile/RGB8_image_data_BINARY_file.ppm",
+                          NativeDirectory::document_folder());
+            std::printf("[Output Ppm]: %s\n", file_name);
          }
 
         std::printf("--- Checking PPM File: OK!\n");

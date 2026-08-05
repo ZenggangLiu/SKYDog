@@ -137,15 +137,15 @@ TEST_CASE("Checking EXR File", "[EXR File]")
             checker_board_param.cell_border_texel_width);
 
         REQUIRE((ExrFile::write_to(
-                    file_name,
-                    checker_board_param.image_width,
-                    checker_board_param.image_height,
-                    image_data.data(),
-                    (uint32_t)image_data.size())));
+                 file_name,
+                 checker_board_param.image_width,
+                 checker_board_param.image_height,
+                 image_data.data(),
+                 (uint32_t)image_data.size())));
         REQUIRE((NativeFile::does_file_exist(file_name)));
         REQUIRE((NativeFile::file_length(file_name) > 0));
 
-        std::printf("Output: %s\n", file_name);
+        std::printf("[Output Exr]: %s\n", file_name);
         std::printf("--- Checking EXR File: OK!\n");
     }
 
