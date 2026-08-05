@@ -5,6 +5,7 @@
 /// System headers
 #include <stdint.h> /// uint32_t,...
 /// Library headers
+#include "DataType/LdrColor.hpp"
 #include "FileSystem/NativeDirectory.hpp"
 #include "IO/ImageFile/PpmFile.hpp"
 
@@ -31,32 +32,33 @@ TEST_CASE("Checking PPM File", "[PPM File]")
         ///   | RED       RED_GREEN             RED_BLUE
         /// O +-------------------------------------------------> RIGHT
         ///
-        /// 24bit色彩
-        /// BGRA8
-        const uint8_t IMAGE_DATA_BGRA8[] =
+        /// BGRA8原始字节布局
+        const LdrColor IMAGE_DATA_BGRA8[] =
         {
-            /// RED         RED_GREEN           RED_BLUE
-            0,0,255,255,    0,255,255,255,      255,0,255,255,
-            /// GREEN       RED_GREEN           GREEN_BLUE
-            0,255,0,255,    0,255,255,255,      255,255,0,255,
-            /// BLUE        RED_BLUE            GREEN_BLUE
-            255,0,0,255,    255,0,255,255,      255,255,0,255,
-            /// BLACK       1/2*RED_GREEN_BLUE  RED_GREEN_BLUE
-            0,0,0,255,      127,127,127,255,    255,255,255,255
+            /// RED             RED_GREEN       RED_BLUE
+            {0,   0,   255, 255}, {0,   255, 255, 255}, {255, 0,   255, 255},
+            /// GREEN           RED_GREEN       GREEN_BLUE
+            {0,   255, 0,   255}, {0,   255, 255, 255}, {255, 255, 0,   255},
+            /// BLUE            RED_BLUE        GREEN_BLUE
+            {255, 0,   0,   255}, {255, 0,   255, 255}, {255, 255, 0,   255},
+            /// BLACK           1/2*RGB         RED_GREEN_BLUE
+            {0,   0,   0,   255}, {127, 127, 127, 255}, {255, 255, 255, 255}
         };
 
         /// RGBA8
-        const uint8_t IMAGE_DATA_RGBA8[] =
+        const LdrColor IMAGE_DATA_RGBA8[] =
         {
-            /// RED         RED_GREEN           RED_BLUE
-            255,0,0,255,    255,255,0,255,      255,0,255,255,
-            /// GREEN       RED_GREEN           GREEN_BLUE
-            0,255,0,255,    255,255,0,255,      0,255,255,255,
-            /// BLUE        RED_BLUE            GREEN_BLUE
-            0,0,255,255,    255,0,255,255,      0,255,255,255,
-            /// BLACK       1/2*RED_GREEN_BLUE  RED_GREEN_BLUE
-            0,0,0,255,      127,127,127,255,    255,255,255,255
+            /// RED             RED_GREEN       RED_BLUE
+            {255, 0,   0,   255}, {255, 255, 0,   255}, {255, 0,   255, 255},
+            /// GREEN           RED_GREEN       GREEN_BLUE
+            {0,   255, 0,   255}, {255, 255, 0,   255}, {0,   255, 255, 255},
+            /// BLUE            RED_BLUE        GREEN_BLUE
+            {0,   0,   255, 255}, {255, 0,   255, 255}, {0,   255, 255, 255},
+            /// BLACK           1/2*RGB         RED_GREEN_BLUE
+            {0,   0,   0,   255}, {127, 127, 127, 255}, {255, 255, 255, 255}
         };
+
+        const uint32_t IMAGE_PIXEL_COUNT = IMAGE_WIDTH * IMAGE_HEIGHT;
 
         char file_name[1024];
 
@@ -70,7 +72,7 @@ TEST_CASE("Checking PPM File", "[PPM File]")
             REQUIRE((PpmFile::write_to(
                         file_name,
                         IMAGE_WIDTH, IMAGE_HEIGHT,
-                        IMAGE_DATA_BGRA8, sizeof(IMAGE_DATA_BGRA8),
+                        IMAGE_DATA_BGRA8, IMAGE_PIXEL_COUNT,
                         false,    /// is RGBA
                         true,     /// use Alpha
                         false))); /// use binary file
@@ -85,7 +87,7 @@ TEST_CASE("Checking PPM File", "[PPM File]")
             REQUIRE((PpmFile::write_to(
                         file_name,
                         IMAGE_WIDTH, IMAGE_HEIGHT,
-                        IMAGE_DATA_BGRA8, sizeof(IMAGE_DATA_BGRA8),
+                        IMAGE_DATA_BGRA8, IMAGE_PIXEL_COUNT,
                         false,   /// is RGBA
                         true,    /// use Alpha
                         true))); /// use binary file
@@ -100,10 +102,11 @@ TEST_CASE("Checking PPM File", "[PPM File]")
             REQUIRE((PpmFile::write_to(
                         file_name,
                         IMAGE_WIDTH, IMAGE_HEIGHT,
-                        IMAGE_DATA_RGBA8, sizeof(IMAGE_DATA_RGBA8),
+                        IMAGE_DATA_RGBA8, IMAGE_PIXEL_COUNT,
                         true,     /// is RGBA
                         true,     /// use Alpha
                         false))); /// use binary file
+            std::printf("Output: %s\n", file_name);
 
         }
 
@@ -116,10 +119,11 @@ TEST_CASE("Checking PPM File", "[PPM File]")
             REQUIRE((PpmFile::write_to(
                         file_name,
                         IMAGE_WIDTH, IMAGE_HEIGHT,
-                        IMAGE_DATA_RGBA8, sizeof(IMAGE_DATA_RGBA8),
+                        IMAGE_DATA_RGBA8, IMAGE_PIXEL_COUNT,
                         true,    /// is RGBA
                         true,    /// use Alpha
                         true))); /// use binary file
+            std::printf("Output: %s\n", file_name);
          }
 
         std::printf("--- Checking PPM File: OK!\n");

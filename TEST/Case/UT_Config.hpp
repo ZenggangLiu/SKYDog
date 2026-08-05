@@ -7,9 +7,13 @@
 //
 /// 通过设置相应的宏为1，来Enable相应的测试
 ///
+/// 检查Block Allocator
+#define BLOCK_ALLOCATOR_CHECKING            1
+/// 检查EXR图形文件
+#define EXR_IMAGE_FILE_CHECKING             1
 /// 检查Game Loop
 #define GAME_LOOP_CHECKING                  1
-// 检查Static/Runtime Hashing
+/// 检查Static/Runtime Hashing
 #define HASHING_CHECKING                    1
 /// 检查Mathematic Utility
 #define MATH_UTILITY_CHECKING               1

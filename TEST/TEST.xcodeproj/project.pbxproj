@@ -9,12 +9,14 @@
 /* Begin PBXBuildFile section */
 		BD0E41372F7BD96000CFA766 /* UT_RandomNumber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD0E41362F7BD96000CFA766 /* UT_RandomNumber.cpp */; };
 		BD3AB8DB2FA29E9000DC91D1 /* UT_RMeshFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD3AB8DA2FA29E8F00DC91D1 /* UT_RMeshFile.cpp */; };
+		BD4BA0012FC87A0000BA1001 /* UT_BlockAllocator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD4BA0002FC87A0000BA1001 /* UT_BlockAllocator.cpp */; };
 		BD58B0762F49C72A0024C670 /* catch_v2.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B0702F49C6CC0024C670 /* catch_v2.hpp */; };
 		BD58B0782F49C7860024C670 /* UnitTestMain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD58B0772F49C7860024C670 /* UnitTestMain.cpp */; };
 		BD58B07C2F4ABB780024C670 /* UT_RingBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD58B07A2F4ABB780024C670 /* UT_RingBuffer.cpp */; };
 		BD58B07D2F4ABB780024C670 /* UT_Config.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD58B07B2F4ABB780024C670 /* UT_Config.hpp */; };
 		BD58B0AA2F582F5E0024C670 /* UT_GameLoop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD58B0A92F582F5E0024C670 /* UT_GameLoop.cpp */; };
 		BD58B0DF2F5B991F0024C670 /* UT_Hashing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD58B0DE2F5B991F0024C670 /* UT_Hashing.cpp */; };
+		BDA3D20D3022F504001075BB /* UT_ExrFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDA3D20C3022F504001075BB /* UT_ExrFile.cpp */; };
 		BDA896262F72A07400B0683B /* UT_MathUtility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDA896252F72A07400B0683B /* UT_MathUtility.cpp */; };
 		BDA896302F74F61200B0683B /* UT_XXTEA.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDA8962F2F74F61200B0683B /* UT_XXTEA.cpp */; };
 		BDC9CB3E2F98D8220042BF24 /* UT_PlyFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDC9CB3A2F98D8220042BF24 /* UT_PlyFile.cpp */; };
@@ -38,6 +40,7 @@
 /* Begin PBXFileReference section */
 		BD0E41362F7BD96000CFA766 /* UT_RandomNumber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = UT_RandomNumber.cpp; path = Case/UT_RandomNumber.cpp; sourceTree = "<group>"; };
 		BD3AB8DA2FA29E8F00DC91D1 /* UT_RMeshFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = UT_RMeshFile.cpp; path = Case/UT_RMeshFile.cpp; sourceTree = "<group>"; };
+		BD4BA0002FC87A0000BA1001 /* UT_BlockAllocator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = UT_BlockAllocator.cpp; path = Case/UT_BlockAllocator.cpp; sourceTree = "<group>"; };
 		BD58B0642F49C6550024C670 /* TEST */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TEST; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD58B0702F49C6CC0024C670 /* catch_v2.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = catch_v2.hpp; path = External/Catch/catch_v2.hpp; sourceTree = "<group>"; };
 		BD58B0772F49C7860024C670 /* UnitTestMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = UnitTestMain.cpp; sourceTree = "<group>"; };
@@ -45,6 +48,7 @@
 		BD58B07B2F4ABB780024C670 /* UT_Config.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = UT_Config.hpp; path = Case/UT_Config.hpp; sourceTree = "<group>"; };
 		BD58B0A92F582F5E0024C670 /* UT_GameLoop.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = UT_GameLoop.cpp; path = Case/UT_GameLoop.cpp; sourceTree = "<group>"; };
 		BD58B0DE2F5B991F0024C670 /* UT_Hashing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = UT_Hashing.cpp; path = Case/UT_Hashing.cpp; sourceTree = "<group>"; };
+		BDA3D20C3022F504001075BB /* UT_ExrFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = UT_ExrFile.cpp; path = Case/UT_ExrFile.cpp; sourceTree = "<group>"; };
 		BDA896252F72A07400B0683B /* UT_MathUtility.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = UT_MathUtility.cpp; path = Case/UT_MathUtility.cpp; sourceTree = "<group>"; };
 		BDA8962F2F74F61200B0683B /* UT_XXTEA.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = UT_XXTEA.cpp; path = Case/UT_XXTEA.cpp; sourceTree = "<group>"; };
 		BDC9CB3A2F98D8220042BF24 /* UT_PlyFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = UT_PlyFile.cpp; path = Case/UT_PlyFile.cpp; sourceTree = "<group>"; };
@@ -101,7 +105,9 @@
 		BD58B0792F4AB95D0024C670 /* Case */ = {
 			isa = PBXGroup;
 			children = (
+				BD4BA0002FC87A0000BA1001 /* UT_BlockAllocator.cpp */,
 				BD58B07B2F4ABB780024C670 /* UT_Config.hpp */,
+				BDA3D20C3022F504001075BB /* UT_ExrFile.cpp */,
 				BD58B0A92F582F5E0024C670 /* UT_GameLoop.cpp */,
 				BD58B0DE2F5B991F0024C670 /* UT_Hashing.cpp */,
 				BDA896252F72A07400B0683B /* UT_MathUtility.cpp */,
@@ -187,9 +193,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD4BA0012FC87A0000BA1001 /* UT_BlockAllocator.cpp in Sources */,
 				BD58B07C2F4ABB780024C670 /* UT_RingBuffer.cpp in Sources */,
 				BDA896262F72A07400B0683B /* UT_MathUtility.cpp in Sources */,
 				BD58B0DF2F5B991F0024C670 /* UT_Hashing.cpp in Sources */,
+				BDA3D20D3022F504001075BB /* UT_ExrFile.cpp in Sources */,
 				BD0E41372F7BD96000CFA766 /* UT_RandomNumber.cpp in Sources */,
 				BDC9CB3E2F98D8220042BF24 /* UT_PlyFile.cpp in Sources */,
 				BDA896302F74F61200B0683B /* UT_XXTEA.cpp in Sources */,
@@ -349,6 +357,7 @@
 		BD58B06C2F49C6550024C670 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y5GL7GR624;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -359,6 +368,7 @@
 		BD58B06D2F49C6550024C670 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y5GL7GR624;
 				ENABLE_HARDENED_RUNTIME = YES;

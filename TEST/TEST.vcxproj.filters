@@ -17,7 +17,10 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Case\UT_RingBuffer.cpp">
+    <ClCompile Include="Case\UT_BlockAllocator.cpp">
+      <Filter>Case</Filter>
+    </ClCompile>
+    <ClCompile Include="Case\UT_ExrFile.cpp">
       <Filter>Case</Filter>
     </ClCompile>
     <ClCompile Include="UnitTestMain.cpp" />
@@ -28,12 +31,6 @@
       <Filter>Case</Filter>
     </ClCompile>
     <ClCompile Include="Case\UT_MathUtility.cpp">
-      <Filter>Case</Filter>
-    </ClCompile>
-    <ClCompile Include="Case\UT_XXTEA.cpp">
-      <Filter>Case</Filter>
-    </ClCompile>
-    <ClCompile Include="Case\UT_RandomNumber.cpp">
       <Filter>Case</Filter>
     </ClCompile>
     <ClCompile Include="Case\UT_NativeDirectory.cpp">
@@ -48,7 +45,16 @@
     <ClCompile Include="Case\UT_PlyFile.cpp">
       <Filter>Case</Filter>
     </ClCompile>
+    <ClCompile Include="Case\UT_RandomNumber.cpp">
+      <Filter>Case</Filter>
+    </ClCompile>
+    <ClCompile Include="Case\UT_RingBuffer.cpp">
+      <Filter>Case</Filter>
+    </ClCompile>
     <ClCompile Include="Case\UT_RMeshFile.cpp">
+      <Filter>Case</Filter>
+    </ClCompile>
+    <ClCompile Include="Case\UT_XXTEA.cpp">
       <Filter>Case</Filter>
     </ClCompile>
   </ItemGroup>
