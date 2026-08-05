@@ -1,14 +1,15 @@
 /// Library headers
 #include "DataType/HalfFloatConversionTable.hpp"
+#include "Math/MathUtilities.hpp"
 /// Self header
 #include "DataType/Half.hpp"
 
 
 half
 half::make (
-    const float value)
+    const float float_value)
 {
-    const uint32_t f32_bits = *(const uint32_t*)&value;
+    const uint32_t f32_bits = MathUtility::bits_from_float32(float_value);
 
     /// 处理特殊情况:
     /// - +NAN: [0x7F80 0001, 0x7F80 1FFF]  ---> 0x7C01
@@ -70,5 +71,5 @@ half::to_float () const
     const uint32_t mantissa = bits & 0x3FF; /// 10位
     const uint32_t mod_val  = HALF_TO_FLOAT_MOD_TABLE[offset + mantissa];
     const uint32_t f32_bits = base_val | mod_val;
-    return *(const float*)&f32_bits;
+    return MathUtility::float32_from_bits(f32_bits);
 }

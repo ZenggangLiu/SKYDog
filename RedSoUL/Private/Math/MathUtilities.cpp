@@ -1,5 +1,6 @@
 /// System headers
-#include <cmath> /// std::fabsf, std::floorf, std::sqrtf
+#include <cmath>   /// std::fabs, std::floor, std::sqrt
+#include <cstring> /// std::memcpy
 /// Library headers
 #include "Assert/RuntimeAssert.hpp"
 /// Self header
@@ -8,6 +9,36 @@
 
 /// 要使用快速近似, 将此宏设置为1
 #define USE_FAST_APPROXIMATION  1
+
+
+uint32_t
+MathUtility::bits_from_float32 (
+    const float float_value)
+{
+    /// 现代C++标准不允许：
+    /// - CASTING: 从一个类型Pointer到另一个类型Pointer。例如pointer(float) to point(uint32_t)
+    /// - READING: 从UNION中读取一个成员, 如果其它成员已赋值
+    /// 使用std::memcpy()
+    ///
+    uint32_t f32_bits;
+    std::memcpy(&f32_bits, &float_value, sizeof(float_value));
+    return f32_bits;
+}
+
+
+float
+MathUtility::float32_from_bits (
+    const uint32_t f32_bits)
+{
+    /// 现代C++标准不允许：
+    /// - CASTING: 从一个类型Pointer到另一个类型Pointer。例如pointer(float) to point(uint32_t)
+    /// - READING: 从UNION中读取一个成员, 如果其它成员已赋值
+    /// 使用std::memcpy()
+    ///
+    float float_value;
+    std::memcpy(&float_value, &f32_bits, sizeof(f32_bits));
+    return float_value;
+}
 
 
 float
@@ -21,12 +52,12 @@ MathUtility::fast_acos (
     const bool is_neg = clamped_num < 0;
 
     /// 在第一象限中计算角度[0, π/2]
-    const float positive_cos = std::fabsf(clamped_num);
+    const float positive_cos = std::fabs(clamped_num);
     float angle_rads = -0.0187293f;
     angle_rads = angle_rads * positive_cos + 0.0742610f;
     angle_rads = angle_rads * positive_cos - 0.2121144f;
     angle_rads = angle_rads * positive_cos + 1.5707288f;
-    angle_rads = angle_rads * std::sqrtf(1.f - positive_cos);
+    angle_rads = angle_rads * std::sqrt(1.f - positive_cos);
 
     /// 如果在第二象限: π - angle
     return is_neg ? ONE_PI - angle_rads : angle_rads;
@@ -223,8 +254,8 @@ MathUtility::equal (
     /// 使用如下近似无法实现1: 绝对tolerance比较
     /// absolute(a - b) <= tolerence * (absolute(a) + absolute(b) + 1)
     ///
-    const float _max_a_b = std::max(std::fabsf(a), std::fabsf(b));
-    return std::fabsf(a - b) <= epsilon * std::max(_max_a_b, 1.f);
+    const float _max_a_b = std::max(std::fabs(a), std::fabs(b));
+    return std::fabs(a - b) <= epsilon * std::max(_max_a_b, 1.f);
 }
 
 
@@ -233,7 +264,7 @@ MathUtility::repeat (
     const float value,
     const float length)
 {
-    return value - std::floorf(value / length) * length;
+    return value - std::floor(value / length) * length;
 }
 
 

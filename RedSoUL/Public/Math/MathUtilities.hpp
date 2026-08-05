@@ -38,6 +38,18 @@
 // MARK: == 函数定义 ==
 struct MathUtility
 {
+    /// 获得给定32位浮点数的Bits
+    static
+    uint32_t
+    bits_from_float32 (
+        const float float_value);
+
+    /// 使用Bits创建一个32位浮点数
+    static
+    float
+    float32_from_bits (
+        const uint32_t f32_bits);
+
     /// 近似计算Arc-Cosine
     ///
     /// @param[in]  cos_num
