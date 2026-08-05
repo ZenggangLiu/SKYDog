@@ -90,7 +90,7 @@ struct HdrColor
     ///
     /// 例如:
     /// const HdrColor color;
-    /// const uint8_t green = color[1];
+    /// const half green = color[1];
     half
     operator[] (
         const uint8_t idx) const;
@@ -99,7 +99,7 @@ struct HdrColor
     ///
     /// 例如:
     /// HdrColor color;
-    /// color[1] = 128;
+    /// color[1] = half::make(2.0f);
     half &
     operator[] (
         const uint8_t idx);
