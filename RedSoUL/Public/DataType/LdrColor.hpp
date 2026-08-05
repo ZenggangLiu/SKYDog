@@ -17,10 +17,10 @@
     Author:   (___()'`; Zee...  \_/|_)     )                                            
               /,    /`             \  __  /                                             
               \\"--\\              (_/ (_/                                              
-    Created:  21/04/26  @  10:40 PM
-    FileName: PpmFile.hpp @ RedSoUL Project
+    Created:  5/08/26  @  4:26 PM
+    FileName: LdrColor.hpp @ RedSoUL Project
     History:
-             - created by: 21/04/26: Zenggang LIU
+             - created by: 5/08/26: Zenggang LIU
                                                                                         
 ***************************************************************************************/
 
@@ -29,68 +29,73 @@
 
 
 /// System headers
-#include <stdint.h> /// uint32_t,...
+#include <stdint.h> /// uint8_t, uint32_t
 
 
-struct LdrColor;
-
-
-/// PPM(Portable Pixel Format)文件
+/// Ldr Rgba色彩
 ///
-struct PpmFile
+/// NOTE:
+/// LdrColor定义为POD/Aggregate类型
+/// - NO constructor, NO copy constructor, NO operator=(),
+///   NO protect/private data, NO base class, NO virtual functions
+/// - 缺省的opeartor=()将使用std::memcpy()逐字节复制
+///
+struct LdrColor
 {
-    /// 创建一个24位RGB PPM文件
-    ///
-    /// @param[in]  abs_file_name
-    ///     绝对文件路径
-    ///     NOTE: .ppm文件扩展符将添加到给定的路径名上
-    /// @param[in]  image_width
-    ///     图形的宽度(Pixel)
-    /// @param[in]  image_height
-    ///     图形的高度(Pixel)
-    /// @param[in]  pixel_array
-    ///     Pixel数组的起始地址
-    /// Pixel数据使用如下坐标系:
-    ///
-    ///   ^ 上方
-    ///   |
-    ///   +-------------+--------------+
-    ///   | First Pixel | Second Pixel |  <----- 第二行
-    ///   |      3      |      4       |
-    ///   +-------------+--------------+
-    ///   | First Pixel | Second Pixel |  <----- 第一行
-    ///   |      1      |      2       |
-    /// O +-------------+--------------+----> 右侧
-    /// @param[in]  pixel_count
-    ///     Pixel的个数
-    /// @param[in]  is_rgba_layout
-    ///     Pixel数据是否以 RGBA 的顺序存储
-    ///     - YES: 存储顺序如下:
-    ///     -      低位             高位
-    ///     -      +---+---+---+---+
-    ///     -      | R | G | B | A |
-    ///     -      +---+---+---+---+
-    ///     - NO:  存储顺序如下:
-    ///     -      低位             高位
-    ///     -      +---+---+---+---+
-    ///     -      | B | G | R | A |
-    ///     -      +---+---+---+---+
-    /// @param[in]  use_alpha
-    ///     表示是否使用Alpha通道
-    /// @param[in]  use_binary
-    ///     是否使用二进制格式存储
-    /// @return
-    ///     True:   PPM文件输出成功
-    ///     False:  PPM文件输出失败
+    static constexpr uint32_t DIMENSION = 4;
+
+    /// 内存分布 [R][G][B][A]
+    ///  低位             高位
+    ///  +---+---+---+---+
+    ///  | R | G | B | A |
+    ///  +---+---+---+---+
+    union
+    {
+        struct
+        {
+            uint8_t r;
+            uint8_t g;
+            uint8_t b;
+            uint8_t a;
+        };
+        uint8_t  e[DIMENSION];
+        uint32_t rgba;
+    };
+
+    /// 使用指定的数值创建色彩: [r, g, b, a]
     static
+    LdrColor
+    make (
+        const uint8_t r,
+        const uint8_t g,
+        const uint8_t b,
+        const uint8_t a);
+
+    /// 检测当前色彩是否与另一个色彩color相同
     bool
-    write_to (
-        const char * const     abs_file_name,
-        const uint32_t         image_width,
-        const uint32_t         image_height,
-        const LdrColor * const pixel_array,
-        const uint32_t         pixel_count,
-        const bool             is_rgba_layout,
-        const bool             use_alpha,
-        const bool             use_binary);
+    operator== (
+        const LdrColor color) const;
+
+    /// 检测当前色彩是否与另一个色彩color不同
+    bool
+    operator!= (
+        const LdrColor color) const;
+
+    /// 获得指定索引成员的数值
+    ///
+    /// 例如:
+    /// const LdrColor color;
+    /// const uint8_t green = color[1];
+    uint8_t
+    operator[] (
+        const uint8_t idx) const;
+
+    /// 设定指定索引成员
+    ///
+    /// 例如:
+    /// LdrColor color;
+    /// color[1] = 128;
+    uint8_t &
+    operator[] (
+        const uint8_t idx);
 };

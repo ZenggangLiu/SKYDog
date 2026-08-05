@@ -1,10 +1,9 @@
 /// System headers
-#include <cstdio>   /// std::snprintf
-#include <cstring>  /// std::strlen, std::memcpy
+#include <cstdio> /// std::snprintf
 /// Library headers
 #include "Assert/RuntimeAssert.hpp"
+#include "DataType/LdrColor.hpp"
 #include "FileSystem/FileName.hpp"
-#include "FileSystem/NativeFile.hpp"
 #include "FileSystem/NativeWriteStream.hpp"
 /// Self header
 #include "IO/ImageFile/PpmFile.hpp"
@@ -26,22 +25,24 @@
 
 bool
 PpmFile::write_to (
-    const char * const    abs_file_name,
-    const uint32_t        image_width,
-    const uint32_t        image_height,
-    const uint8_t * const data_start,
-    const uint32_t        data_length,
-    const bool            is_rgba_layout,
-    const bool            use_alpha,
-    const bool            use_binary)
+    const char * const     abs_file_name,
+    const uint32_t         image_width,
+    const uint32_t         image_height,
+    const LdrColor * const pixel_array,
+    const uint32_t         pixel_count,
+    const bool             is_rgba_layout,
+    const bool             use_alpha,
+    const bool             use_binary)
 {
-    /// 每个Pixel的Channel数: Red, Green, Glue, Alpha Channels
-    static constexpr uint8_t PIXEL_CHANNEL_COUNT = 4;
     /// 每个Channel所能表示的最大数值：(1 << 8) - 1: 255
     static constexpr uint32_t MAXIMAL_CHANNEL_VALUE = (1 << 8) - 1;
 
     RUNTIME_ASSERT( abs_file_name, "File name can not be NULL!!");
     RUNTIME_ASSERT(*abs_file_name, "File name can not be empty!!");
+    RUNTIME_ASSERT(pixel_array, "No pixel data!!");
+    RUNTIME_ASSERT(pixel_count >= (image_width * image_height),
+                   "No enough pixel data!! Expected #pixel: %u, but given #pixel: %u",
+                   image_width * image_height, pixel_count);
 
     char buffer[1024];
 
@@ -106,7 +107,7 @@ PpmFile::write_to (
         /// 底部
         ///
         /// NOTE: 在二进制格式中如果在Image Data前添加这一行, 会使图像显示错误
-        if (!use_binary)
+        if (use_binary == false)
         {
             ppm_file << "# --- image data ---\n";
         }
@@ -116,11 +117,7 @@ PpmFile::write_to (
         {
             for (uint32_t coln = 0; coln < image_width; ++coln)
             {
-                const uint32_t data_offset =
-                    (row * image_width + coln) * PIXEL_CHANNEL_COUNT;
-                const uint8_t * const current_start = data_start + data_offset;
-                const float alpha_value =
-                    (float)current_start[3] / MAXIMAL_CHANNEL_VALUE;
+                const LdrColor & pixel_data = pixel_array[row * image_width + coln];
 
                 uint8_t red_value, green_value, blue_value;
                 if (is_rgba_layout)
@@ -130,9 +127,9 @@ PpmFile::write_to (
                     /// +---+---+---+---+
                     /// | R | G | B | A |
                     /// +---+---+---+---+
-                    red_value   = current_start[0];
-                    green_value = current_start[1];
-                    blue_value  = current_start[2];
+                    red_value   = pixel_data.r;
+                    green_value = pixel_data.g;
+                    blue_value  = pixel_data.b;
                 }
                 else
                 {
@@ -141,13 +138,15 @@ PpmFile::write_to (
                     // +---+---+---+---+
                     // | B | G | R | A |
                     // +---+---+---+---+
-                    red_value   = current_start[2];
-                    green_value = current_start[1];
-                    blue_value  = current_start[0];
+                    red_value   = pixel_data.b;
+                    green_value = pixel_data.g;
+                    blue_value  = pixel_data.r;
                 }
 
                 if (use_alpha)
                 {
+                    const float alpha_value = (float)pixel_data.a / MAXIMAL_CHANNEL_VALUE;
+
                     red_value   = (uint8_t)(red_value   * alpha_value);
                     green_value = (uint8_t)(green_value * alpha_value);
                     blue_value  = (uint8_t)(blue_value  * alpha_value);
@@ -179,7 +178,7 @@ PpmFile::write_to (
             }
 
             /// 输出完一行
-            if (!use_binary)
+            if (use_binary == false)
             {
                 ppm_file << LINE_FEED;
             }
