@@ -215,6 +215,10 @@
 		BDA3D21030230C61001075BB /* LdrColor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDA3D20E30230C61001075BB /* LdrColor.cpp */; };
 		BDA3D21230230E3D001075BB /* HdrColor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDA3D21130230E3D001075BB /* HdrColor.cpp */; };
 		BDA3D21330230E3D001075BB /* HdrColor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDA3D21130230E3D001075BB /* HdrColor.cpp */; };
+		BDA3D21530288E1D001075BB /* RenderTextureId.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA3D21430288E1D001075BB /* RenderTextureId.hpp */; };
+		BDA3D21630288E1D001075BB /* RenderTextureId.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA3D21430288E1D001075BB /* RenderTextureId.hpp */; };
+		BDA3D21830288E9D001075BB /* TextureDataType.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA3D21730288E9D001075BB /* TextureDataType.hpp */; };
+		BDA3D21930288E9D001075BB /* TextureDataType.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA3D21730288E9D001075BB /* TextureDataType.hpp */; };
 		BDA8960E2F6F6F0300B0683B /* Float3D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA8960D2F6F6F0300B0683B /* Float3D.hpp */; };
 		BDA8960F2F6F6F0300B0683B /* Float3D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA8960D2F6F6F0300B0683B /* Float3D.hpp */; };
 		BDA896112F6F70FA00B0683B /* Float3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDA896102F6F70FA00B0683B /* Float3D.cpp */; };
@@ -409,6 +413,8 @@
 		BDA3D2093022F402001075BB /* ExrFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = ExrFile.cpp; path = Private/IO/ImageFile/ExrFile.cpp; sourceTree = "<group>"; };
 		BDA3D20E30230C61001075BB /* LdrColor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = LdrColor.cpp; path = Private/DataType/LdrColor.cpp; sourceTree = "<group>"; };
 		BDA3D21130230E3D001075BB /* HdrColor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = HdrColor.cpp; path = Private/DataType/HdrColor.cpp; sourceTree = "<group>"; };
+		BDA3D21430288E1D001075BB /* RenderTextureId.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = RenderTextureId.hpp; path = Public/Render/RenderTextureId.hpp; sourceTree = "<group>"; };
+		BDA3D21730288E9D001075BB /* TextureDataType.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = TextureDataType.hpp; path = Private/Render/TextureDataType.hpp; sourceTree = "<group>"; };
 		BDA8960D2F6F6F0300B0683B /* Float3D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = Float3D.hpp; path = Public/DataType/Float3D.hpp; sourceTree = "<group>"; };
 		BDA896102F6F70FA00B0683B /* Float3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = Float3D.cpp; path = Private/DataType/Float3D.cpp; sourceTree = "<group>"; };
 		BDA896162F6F9C8300B0683B /* Matrix3x4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = Matrix3x4.cpp; path = Private/DataType/Matrix3x4.cpp; sourceTree = "<group>"; };
@@ -800,6 +806,7 @@
 			isa = PBXGroup;
 			children = (
 				BD8FB80A2F7F6EF000EE67B4 /* RenderMeshId.hpp */,
+				BDA3D21430288E1D001075BB /* RenderTextureId.hpp */,
 			);
 			name = Render;
 			sourceTree = "<group>";
@@ -814,6 +821,7 @@
 				BD8FB8292F8230E300EE67B4 /* RenderMesh.cpp */,
 				BD8FB80E2F7F701800EE67B4 /* RenderMeshDepot.hpp */,
 				BD8FB8112F7F7C6A00EE67B4 /* RenderMeshDepot.cpp */,
+				BDA3D21730288E9D001075BB /* TextureDataType.hpp */,
 				BD8FB84A2F8512EE00EE67B4 /* VertexDataType.hpp */,
 			);
 			name = Render;
@@ -1057,6 +1065,7 @@
 				BDD4034D2F9300F70019BE16 /* NativeDirectory.hpp in Headers */,
 				BD58B0D32F5B93F30024C670 /* StaticStringHash.hpp in Headers */,
 				BDA3D1FC3020A021001075BB /* HalfFloatConversionTable.hpp in Headers */,
+				BDA3D21530288E1D001075BB /* RenderTextureId.hpp in Headers */,
 				BD326F322F495429007EE8EC /* RingBuffer.hpp in Headers */,
 				BDA3D2013022F2A9001075BB /* HdrColor.hpp in Headers */,
 				BDA3D1C23000F5C9001075BB /* Interpolator.hpp in Headers */,
@@ -1072,6 +1081,7 @@
 				BD8FB80F2F7F701800EE67B4 /* RenderMeshDepot.hpp in Headers */,
 				BD44779E2FB732F1003DBF3C /* BlockAllocator.hpp in Headers */,
 				BD326ECC2F3BFC80007EE8EC /* CommonDefines.hpp in Headers */,
+				BDA3D21830288E9D001075BB /* TextureDataType.hpp in Headers */,
 				BD8FB8362F850FFD00EE67B4 /* AxisType.hpp in Headers */,
 				BD8FB84B2F8512EE00EE67B4 /* VertexDataType.hpp in Headers */,
 				BD58B0E12F5B9C930024C670 /* StaticString.hpp in Headers */,
@@ -1152,6 +1162,7 @@
 				BDD4034E2F9300F70019BE16 /* NativeDirectory.hpp in Headers */,
 				BD58B0D42F5B93F30024C670 /* StaticStringHash.hpp in Headers */,
 				BDA3D1FD3020A021001075BB /* HalfFloatConversionTable.hpp in Headers */,
+				BDA3D21630288E1D001075BB /* RenderTextureId.hpp in Headers */,
 				BD326F332F495429007EE8EC /* RingBuffer.hpp in Headers */,
 				BDA3D2023022F2A9001075BB /* HdrColor.hpp in Headers */,
 				BDA3D1C33000F5C9001075BB /* Interpolator.hpp in Headers */,
@@ -1167,6 +1178,7 @@
 				BD8FB8102F7F701800EE67B4 /* RenderMeshDepot.hpp in Headers */,
 				BD44779F2FB732F1003DBF3C /* BlockAllocator.hpp in Headers */,
 				BD326EC72F3B32F0007EE8EC /* CommonDefines.hpp in Headers */,
+				BDA3D21930288E9D001075BB /* TextureDataType.hpp in Headers */,
 				BD8FB8372F850FFD00EE67B4 /* AxisType.hpp in Headers */,
 				BD8FB84C2F8512EE00EE67B4 /* VertexDataType.hpp in Headers */,
 				BD58B0E22F5B9C930024C670 /* StaticString.hpp in Headers */,
