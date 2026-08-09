@@ -43,7 +43,7 @@ struct PpmFile
     ///
     /// @param[in]  abs_file_name
     ///     绝对文件路径
-    ///     NOTE: .ppm文件扩展符将添加到给定的路径名上
+    ///     NOTE: .ppm文件扩展符将添加到指定的路径名上
     /// @param[in]  image_width
     ///     图形的宽度(Pixel)
     /// @param[in]  image_height

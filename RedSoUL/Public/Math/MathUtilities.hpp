@@ -38,7 +38,7 @@
 // MARK: == 函数定义 ==
 struct MathUtility
 {
-    /// 获得给定32位浮点数的Bits
+    /// 获得指定32位浮点数的Bits
     static
     uint32_t
     bits_from_float32 (

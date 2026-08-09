@@ -618,7 +618,7 @@ private:
         }
     }
 
-    /// 计算给定的 HALF 浮点数对应的 FLOAT 浮点数
+    /// 计算指定的 HALF 浮点数对应的 FLOAT 浮点数
     float
     calc_float_from_half (
         const half half_value) const
@@ -825,7 +825,7 @@ private:
         return *(float*)&f32_bits;
     }
 
-    /// 计算给定的 FLOAT 浮点数对应的 HALF 浮点数
+    /// 计算指定的 FLOAT 浮点数对应的 HALF 浮点数
     half
     calc_half_from_float (
         const float float_value) const

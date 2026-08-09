@@ -39,7 +39,7 @@ struct PlyFile
     ///
     /// @param[in]  abs_file_name
     ///     绝对文件路径
-    ///     NOTE: .ply文件扩展符将添加到给定的路径名上
+    ///     NOTE: .ply文件扩展符将添加到指定的路径名上
     /// @param[in]  mesh_data
     ///     Mesh数据
     /// @return

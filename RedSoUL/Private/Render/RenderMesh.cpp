@@ -120,6 +120,7 @@ RenderMesh::RenderMesh (
     vertex_layout(_vertex_layout),
     is_dyn_allocated(_is_dyn_allocated)
 {
+    RUNTIME_ASSERT(_mesh_id != INVALID_RENDER_MESH_ID, "Mesh Id is invalid!!");
     RUNTIME_ASSERT(
         (uintptr_t)_vertex_list == ALIGN_UP((uintptr_t)_vertex_list, 16),
         "Wrong alignment(16 bytes aligment required)!!");

@@ -70,7 +70,7 @@ struct RMeshFile
     ///
     /// @param[in]  abs_file_name
     ///     绝对文件路径
-    ///     NOTE: .rmesh文件扩展符将添加到给定的路径名上
+    ///     NOTE: .rmesh文件扩展符将添加到指定的路径名上
     /// @param[in]  mesh_data
     ///     Mesh数据
     /// @return
