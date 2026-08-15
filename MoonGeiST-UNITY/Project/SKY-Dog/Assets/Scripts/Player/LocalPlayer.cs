@@ -1,4 +1,5 @@
-﻿#define DRAW_TARGET_MOVE_DIRECTION
+﻿/// 定义在: "Project Settings" --> "Script Compilation" --> "Scripting Define Symbols"
+///#define DRAW_TARGET_MOVE_DIRECTION
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -169,7 +170,8 @@ namespace SKYDog
 
             return line_render;
         }
-    }
 #endif
+
+    }
 
 } /// namespace SKYDog
