@@ -164,8 +164,12 @@ private:
     ///     标记顶点列表, 三角面列表是否为动态分配(TRUE)
     /// @param[in]  vertex_list
     ///     顶点数据列表(16字节对齐)
+    /// @param[in]  vertex_list_size
+    ///     顶点数据列表的大小(字节个数)
     /// @param[in]  triangle_list
     ///     三角面数据列表
+    /// @param[in]  triangle_list_size
+    ///     三角面数据列表的大小(字节个数)
     void
     cache_mesh (
         const RenderMeshIdT           mesh_id,
@@ -175,7 +179,9 @@ private:
         const uint32_t                triangle_count,
         const bool                    is_dyn_allocated,
         const uint8_t * const         vertex_list,
-        const IndexedTriangle * const triangle_list);
+        const uint32_t                vertex_list_size,
+        const IndexedTriangle * const triangle_list,
+        const uint32_t                triangle_list_size);
 
 private:
     typedef std::unordered_map < RenderMeshIdT,

@@ -46,10 +46,15 @@ deserialize_from_rmesh_file_v1_0 (
     uint32_t &          vertex_count,
     uint32_t &          triangle_count,
     uint8_t * &         vertex_list,
+    uint32_t &          vertex_list_size,
     IndexedTriangle * & triangle_list,
+    uint32_t &          triangle_list_size,
     char * const        buffer,
     const uint32_t      buffer_size)
 {
+    vertex_list_size   = 0;
+    triangle_list_size = 0;
+
     /// 读入文件头的后续部分
     int32_t loaded_bytes =
         mesh_file.read(
@@ -285,6 +290,8 @@ deserialize_from_rmesh_file_v1_0 (
                                 0, rmesh_file_head.triangle_list_size);
                             if (loaded_bytes == rmesh_file_head.triangle_list_size)
                             {
+                                vertex_list_size   = rmesh_file_head.vertex_list_size;
+                                triangle_list_size = rmesh_file_head.triangle_list_size;
                                 return true;
                             }
                             else
@@ -295,7 +302,6 @@ deserialize_from_rmesh_file_v1_0 (
                                     buffer, buffer_size, "can not load the triangle data list!!\n");
                                 return false;
                             }
-                            return true;
                         }
                         else
                         {
@@ -431,7 +437,9 @@ RMeshFile::read_from (
     uint32_t &          vertex_count,
     uint32_t &          triangle_count,
     uint8_t * &         vertex_list,
-    IndexedTriangle * & triangle_list)
+    uint32_t &          vertex_list_size,
+    IndexedTriangle * & triangle_list,
+    uint32_t &          triangle_list_size)
 {
     RUNTIME_ASSERT( abs_file_name, "File name can not be NULL!!");
     RUNTIME_ASSERT(*abs_file_name, "File name can not be empty!!");
@@ -442,6 +450,9 @@ RMeshFile::read_from (
 
     /// 确保使用'.rmesh'文件扩展符
     FileName::append_file_extension(abs_file_name, "rmesh", buffer, sizeof(buffer));
+
+    vertex_list_size   = 0;
+    triangle_list_size = 0;
 
     /// 创建ReadOnly文件流
     NativeReadStream mesh_file(buffer);
@@ -463,7 +474,9 @@ RMeshFile::read_from (
                         const bool opcode = deserialize_from_rmesh_file_v1_0(
                             mesh_file, exp_mesh_id, bound_box,
                             vertex_layout, vertex_count, triangle_count,
-                            vertex_list, triangle_list, buffer, (uint32_t)sizeof(buffer));
+                            vertex_list, vertex_list_size,
+                            triangle_list, triangle_list_size,
+                            buffer, (uint32_t)sizeof(buffer));
                         if (opcode == false)
                         {
                             std::printf("[ERROR]: can not read file: %s\nwith error: %s\n",

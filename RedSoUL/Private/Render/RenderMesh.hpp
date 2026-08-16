@@ -69,5 +69,7 @@ struct RenderMesh
         const uint32_t                triangle_count,
         const bool                    is_dyn_allocated,
         const uint8_t * const         vertex_list,
-        const IndexedTriangle * const triangle_list);
+        const uint32_t                vertex_list_size,
+        const IndexedTriangle * const triangle_list,
+        const uint32_t                triangle_list_size);
 };

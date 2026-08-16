@@ -64,7 +64,9 @@ struct RMeshFile
         uint32_t &          vertex_count,
         uint32_t &          triangle_count,
         uint8_t * &         vertex_list,
-        IndexedTriangle * & triangle_list);
+        uint32_t &          vertex_list_size,
+        IndexedTriangle * & triangle_list,
+        uint32_t &          triangle_list_size);
 
     /// 创建一个RenderMesh文件
     ///

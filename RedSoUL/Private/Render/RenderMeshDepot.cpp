@@ -4,6 +4,7 @@
 /// Library headers
 #include "Collision/AABB.hpp"
 #include "Assert/RuntimeAssert.hpp"
+#include "Common/CommonDefines.hpp" /// GENERATE_BUILTIN_NAME
 #include "IO/MeshFile/PlyFile.hpp"
 #include "IO/MeshFile/RMeshFile.hpp"
 #include "Memory/MemoryUtilities.hpp"
@@ -19,9 +20,6 @@
 #include "Render/VertexLayout/Layout_Pos_Uv.hpp"
 /// Self header
 #include "Render/RenderMeshDepot.hpp"
-
-
-#define GENERATE_BUILTIN_MESH_NAME(unique_name) "__/::@" unique_name "@::\\__"
 
 
 RenderMeshDepot &
@@ -57,7 +55,7 @@ RenderMeshDepot::create_unit_square ()
 
     /// 计算 Mesh Id
     static constexpr RenderMeshIdT MESH_ID =
-        STATIC_RENDER_MESH_HASH(GENERATE_BUILTIN_MESH_NAME("UNIT_SQUARE"));
+        STATIC_RENDER_MESH_HASH(GENERATE_BUILTIN_NAME("UNIT_SQUARE"));
 
     /// 包围盒
     static constexpr AABB MESH_BOUND_BOX
@@ -118,8 +116,9 @@ RenderMeshDepot::create_unit_square ()
 
     cache_mesh(
         MESH_ID, MESH_BOUND_BOX,
-        VertexLayoutT::LAYOUT_DECL, VERTEX_COUNT, TRIANGLE_COUNT,
-        false, (const uint8_t*)VERTEX_LIST, TRIANGLE_LIST);
+        VertexLayoutT::LAYOUT_DECL, VERTEX_COUNT, TRIANGLE_COUNT, false,
+        (const uint8_t*)VERTEX_LIST, (uint32_t)sizeof(VERTEX_LIST),
+        TRIANGLE_LIST, (uint32_t)sizeof(TRIANGLE_LIST));
     return MESH_ID;
 }
 
@@ -131,7 +130,7 @@ RenderMeshDepot::create_unit_square_uv ()
 
     /// 计算 Mesh Id
     static constexpr RenderMeshIdT MESH_ID =
-        STATIC_RENDER_MESH_HASH(GENERATE_BUILTIN_MESH_NAME("UNIT_SQUARE_UV"));
+        STATIC_RENDER_MESH_HASH(GENERATE_BUILTIN_NAME("UNIT_SQUARE_UV"));
 
     /// 包围盒
     static constexpr AABB MESH_BOUND_BOX
@@ -196,8 +195,9 @@ RenderMeshDepot::create_unit_square_uv ()
 
     cache_mesh(
         MESH_ID, MESH_BOUND_BOX,
-        VertexLayoutT::LAYOUT_DECL, VERTEX_COUNT, TRIANGLE_COUNT,
-        false, (const uint8_t*)VERTEX_LIST, TRIANGLE_LIST);
+        VertexLayoutT::LAYOUT_DECL, VERTEX_COUNT, TRIANGLE_COUNT, false,
+        (const uint8_t*)VERTEX_LIST, (uint32_t)sizeof(VERTEX_LIST),
+        TRIANGLE_LIST, (uint32_t)sizeof(TRIANGLE_LIST));
     return MESH_ID;
 }
 
@@ -209,7 +209,7 @@ RenderMeshDepot::create_unit_cube_pos ()
 
     /// 计算 Mesh Id
     static constexpr RenderMeshIdT MESH_ID =
-        STATIC_RENDER_MESH_HASH(GENERATE_BUILTIN_MESH_NAME("UNIT_CUBE_POS"));
+        STATIC_RENDER_MESH_HASH(GENERATE_BUILTIN_NAME("UNIT_CUBE_POS"));
 
     /// 包围盒
     static constexpr AABB MESH_BOUND_BOX
@@ -365,8 +365,9 @@ RenderMeshDepot::create_unit_cube_pos ()
 
     cache_mesh(
         MESH_ID, MESH_BOUND_BOX,
-        VertexLayoutT::LAYOUT_DECL, VERTEX_COUNT, TRIANGLE_COUNT,
-        false, (const uint8_t*)VERTEX_LIST, TRIANGLE_LIST);
+        VertexLayoutT::LAYOUT_DECL, VERTEX_COUNT, TRIANGLE_COUNT, false,
+        (const uint8_t*)VERTEX_LIST, (uint32_t)sizeof(VERTEX_LIST),
+        TRIANGLE_LIST, (uint32_t)sizeof(TRIANGLE_LIST));
     return MESH_ID;
 }
 
@@ -378,7 +379,7 @@ RenderMeshDepot::create_unit_cube ()
 
     /// 计算 Mesh Id
     static constexpr RenderMeshIdT MESH_ID =
-        STATIC_RENDER_MESH_HASH(GENERATE_BUILTIN_MESH_NAME("UNIT_CUBE"));
+        STATIC_RENDER_MESH_HASH(GENERATE_BUILTIN_NAME("UNIT_CUBE"));
 
     /// 包围盒
     static constexpr AABB MESH_BOUND_BOX
@@ -573,8 +574,9 @@ RenderMeshDepot::create_unit_cube ()
 
     cache_mesh(
         MESH_ID, MESH_BOUND_BOX,
-        VertexLayoutT::LAYOUT_DECL, VERTEX_COUNT, TRIANGLE_COUNT,
-        false, (const uint8_t*)VERTEX_LIST, TRIANGLE_LIST);
+        VertexLayoutT::LAYOUT_DECL, VERTEX_COUNT, TRIANGLE_COUNT, false,
+        (const uint8_t*)VERTEX_LIST, (uint32_t)sizeof(VERTEX_LIST),
+        TRIANGLE_LIST, (uint32_t)sizeof(TRIANGLE_LIST));
     return MESH_ID;
 }
 
@@ -586,7 +588,7 @@ RenderMeshDepot::create_unit_beveled_cube ()
 
     /// 计算 Mesh Id
     static constexpr RenderMeshIdT MESH_ID =
-        STATIC_RENDER_MESH_HASH(GENERATE_BUILTIN_MESH_NAME("UNIT_BEVELED_CUBE"));
+        STATIC_RENDER_MESH_HASH(GENERATE_BUILTIN_NAME("UNIT_BEVELED_CUBE"));
 
     /// 包围盒
     static constexpr AABB MESH_BOUND_BOX
@@ -1133,8 +1135,9 @@ RenderMeshDepot::create_unit_beveled_cube ()
 
     cache_mesh(
         MESH_ID, MESH_BOUND_BOX,
-        VertexLayoutT::LAYOUT_DECL, VERTEX_COUNT, TRIANGLE_COUNT,
-        false, (const uint8_t*)VERTEX_LIST, TRIANGLE_LIST);
+        VertexLayoutT::LAYOUT_DECL, VERTEX_COUNT, TRIANGLE_COUNT, false,
+        (const uint8_t*)VERTEX_LIST, (uint32_t)sizeof(VERTEX_LIST),
+        TRIANGLE_LIST, (uint32_t)sizeof(TRIANGLE_LIST));
     return MESH_ID;
 }
 
@@ -1146,7 +1149,7 @@ RenderMeshDepot::create_unit_icosahedron ()
 
     /// 计算 Mesh Id
     static constexpr RenderMeshIdT MESH_ID =
-        STATIC_RENDER_MESH_HASH(GENERATE_BUILTIN_MESH_NAME("UNIT_ICOSAHEDRON"));
+        STATIC_RENDER_MESH_HASH(GENERATE_BUILTIN_NAME("UNIT_ICOSAHEDRON"));
 
     /// 参考:
     ///  http://blog.andreaskahler.com/2009/06/creating-icosphere-mesh-in-code.html#comment-2736314361
@@ -1269,8 +1272,9 @@ RenderMeshDepot::create_unit_icosahedron ()
 
     cache_mesh(
         MESH_ID, MESH_BOUND_BOX,
-        VertexLayoutT::LAYOUT_DECL, VERTEX_COUNT, TRIANGLE_COUNT,
-        false, (const uint8_t*)VERTEX_LIST, TRIANGLE_LIST);
+        VertexLayoutT::LAYOUT_DECL, VERTEX_COUNT, TRIANGLE_COUNT, false,
+        (const uint8_t*)VERTEX_LIST, (uint32_t)sizeof(VERTEX_LIST),
+        TRIANGLE_LIST, (uint32_t)sizeof(TRIANGLE_LIST));
     return MESH_ID;
 }
 
@@ -1282,7 +1286,7 @@ RenderMeshDepot::create_unit_icosphere ()
 
     /// 计算 Mesh Id
     static constexpr RenderMeshIdT MESH_ID =
-        STATIC_RENDER_MESH_HASH(GENERATE_BUILTIN_MESH_NAME("UNIT_ICOSPHERE"));
+        STATIC_RENDER_MESH_HASH(GENERATE_BUILTIN_NAME("UNIT_ICOSPHERE"));
 
     /// 包围盒
     static constexpr AABB MESH_BOUND_BOX
@@ -1814,8 +1818,9 @@ RenderMeshDepot::create_unit_icosphere ()
 
     cache_mesh(
         MESH_ID, MESH_BOUND_BOX,
-        VertexLayoutT::LAYOUT_DECL, VERTEX_COUNT, TRIANGLE_COUNT,
-        false, (const uint8_t*)VERTEX_LIST, TRIANGLE_LIST);
+        VertexLayoutT::LAYOUT_DECL, VERTEX_COUNT, TRIANGLE_COUNT, false,
+        (const uint8_t*)VERTEX_LIST, (uint32_t)sizeof(VERTEX_LIST),
+        TRIANGLE_LIST, (uint32_t)sizeof(TRIANGLE_LIST));
     return MESH_ID;
 }
 
@@ -1833,19 +1838,21 @@ RenderMeshDepot::create_from_mesh_file (
         uint32_t vertex_count;
         uint32_t triangle_count;
         uint8_t * vertex_list;
+        uint32_t vertex_list_size;
         IndexedTriangle * triangle_list;
+        uint32_t triangle_list_size;
         const bool opcode = RMeshFile::read_from(
             abs_file_name, exp_mesh_id, bound_box,
             vertex_layout, vertex_count, triangle_count,
-            vertex_list, triangle_list);
+            vertex_list, vertex_list_size, triangle_list, triangle_list_size);
         if (opcode == false)
         {
             return INVALID_RENDER_MESH_ID;
         }
 
         cache_mesh(exp_mesh_id, bound_box, vertex_layout,
-                   vertex_count, triangle_count,
-                   true, vertex_list, triangle_list);
+                   vertex_count, triangle_count, true,
+                   vertex_list, vertex_list_size, triangle_list, triangle_list_size);
     }
 
     return exp_mesh_id;
@@ -1915,7 +1922,9 @@ RenderMeshDepot::cache_mesh (
     const uint32_t                triangle_count,
     const bool                    is_dyn_allocated,
     const uint8_t * const         vertex_list,
-    const IndexedTriangle * const triangle_list)
+    const uint32_t                vertex_list_size,
+    const IndexedTriangle * const triangle_list,
+    const uint32_t                triangle_list_size)
 {
     /// 无此Mesh
     if (m_mesh_table.find(mesh_id) == m_mesh_table.end())
@@ -1924,8 +1933,9 @@ RenderMeshDepot::cache_mesh (
         {
             mesh_id,
             RenderMesh(mesh_id, bound_box, vertex_layout,
-                       vertex_count, triangle_count,
-                       is_dyn_allocated, vertex_list, triangle_list)
+                       vertex_count, triangle_count, is_dyn_allocated,
+                       vertex_list, vertex_list_size,
+                       triangle_list, triangle_list_size)
         });
     }
 }

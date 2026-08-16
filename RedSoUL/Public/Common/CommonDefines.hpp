@@ -174,3 +174,9 @@
 #define MAKE_FILE_VERSION(major_version, minior_version) \
     (((uint16_t)major_version << 8) | (uint16_t)minior_version)
 #endif /// !defined(MAKE_FILE_VERSION)
+
+
+/// 创建一个Built-In使用的特殊名称
+#if !defined(GENERATE_BUILTIN_NAME)
+#define GENERATE_BUILTIN_NAME(unique_name) "__/::@" unique_name "@::\\__"
+#endif /// !defined(GENERATE_BUILTIN_NAME)
