@@ -9,6 +9,8 @@
 #include <vector>
 /// Lib headers
 #include "DataType/Half.hpp"
+#include "DataType/HalfUtilities.hpp"
+#include "Math/MathUtilities.hpp"
 
 
 /// 返回最后一个为1的位置(zero based, LSB为第0位)
@@ -81,42 +83,9 @@ public:
     convert_to_half (
         const float float_value) const
     {
-        const uint32_t f32_bits = *(const uint32_t*)&float_value;
-
-        /// 处理特殊情况:
-        /// - +NAN: [0x7F80 0001, 0x7F80 1FFF]  ---> 0x7C01
-        /// - -NAN: [0xFF80 0001, 0xFF80 1FFF]  ---> 0xFC01
-        if (f32_bits >= 0x7F800001 && f32_bits <= 0x7F801FFF)
-        {
-            return half{ 0x7C01 };
-        }
-        else if (f32_bits >= 0xFF800001 && f32_bits <= 0xFF801FFF)
-        {
-            return half{ 0xFC01 };
-        }
-        else
-        {
-            /// HALF = Base[ Sign(FLOAT) | Exponent(FLOAT) ]
-            ///      | Mantissa(FLOAT) >> Shift[ Sign(FLOAT) | Exponent(FLOAT) ]
-            ///
-            // --- FLOAT(32位) ---//
-            ///  31 (msb)
-            ///  |
-            ///  |  30     23
-            ///  |  |      |
-            ///  |  |      | 22                    0 (lsb)
-            ///  |  |      | |                     |
-            ///  X  XXXXXXXX XXXXXXXXXXXXXXXXXXXXXXX
-            /// |S| |  E   | |         M           |
-            ///
-            /// 获得Sign以及Exponent的数值
-            const uint32_t sign_exp  = (f32_bits >> 23) & 0x1FF; /// 9位
-            // gets the base value and shift value
-            const uint16_t base_val  = m_f2h_base_table[sign_exp];
-            const uint16_t shift_val = m_f2h_shift_table[sign_exp];
-            const uint32_t mantissa  = f32_bits & 0x7FFFFF; /// 23位
-            return half{ (uint16_t)(base_val | (mantissa >> shift_val)) };
-        }
+        return HalfUtility::convert_to_half(
+            float_value, m_f2h_base_table, m_f2h_shift_table,
+            ARRAY_LENGTH(m_f2h_base_table));
     }
 
     /// HALF --> FLOAT
@@ -144,7 +113,7 @@ public:
         const uint32_t mantissa = half_value.bits & 0x3FF; /// 10位
         const uint32_t mod_val  = m_h2f_mod_table[offset + mantissa];
         const uint32_t f32_bits = base_val | mod_val;
-        return *(const float*)&f32_bits;
+        return MathUtility::float32_from_bits(f32_bits);
     }
 
 
@@ -223,10 +192,9 @@ public:
         m_file_stream << "// --- 生成 FLOAT --> HALF 转换的Offset Table --- //\n";
         m_file_stream << "\n";
         m_file_stream << "/// 使用如下方法将 FLOAT 浮点数转换为 HALF浮点数:\n";
-        m_file_stream << "/// HALF = Base[S(FLOAT) | E(FLOAT)] | mantissa(FLOAT) >> shift[S(FLOAT) | E(FLOAT)]\n";
-        m_file_stream << "/// where:\n";
-        m_file_stream << "/// - S(FLOAT) is the sign of FLOAT\n";
-        m_file_stream << "/// - E(FLOAT) is the exponent of the FLOAT\n";
+        m_file_stream << "/// HALF = Base[ Sign(FLOAT) | Exponent(FLOAT) ]\n";
+        m_file_stream << "///      + RoundToNearAndTieToEven(\n";
+        m_file_stream << "///            Mantissa(FLOAT), Shift[Sign(FLOAT) | Exponent(FLOAT)])\n";
         m_file_stream << "\n";
         m_file_stream << "/// Base table:\n";
         m_file_stream << "/// - 使用Sign(FLOAT), 以及Exponent(FLOAT)来检索\n";
@@ -449,13 +417,13 @@ private:
     void
     generate_float_to_half_table ()
     {
-        /// 递归所有Eexponent part E: [0, 0xFF]
+        /// 递归所有Exponent part E: [0, 0xFF]
         for (uint32_t e = 0; e <= 0xFF; ++e)
         {
             /// 获得exponent value: E - 127
             const int32_t exponent = e - 127;
-            /// +TINY numbers: exponent < (-24), [0x0000 0001, 0x337F FFFF] mapped to +ZERO
-            /// -TINY numbers: exponent < (-24), [0x8000 0001, 0xB37F FFFF] mapped to -ZERO
+            /// +TINY: exponent < (-24), [0x0000 0001, 0x337F FFFF] mapped to +ZERO
+            /// -TINY: exponent < (-24), [0x8000 0001, 0xB37F FFFF] mapped to -ZERO
             /// S << 15
             if (exponent < -24)
             {
@@ -465,8 +433,8 @@ private:
                 m_f2h_shift_table[e | 0x000] = 24;
                 m_f2h_shift_table[e | 0x100] = 24;
             }
-            /// +SMALL numbers: [0x3380 0000, 0x387F FFFF]: [ 5.96046448e-08,  6.10351526e-05]
-            /// -SMALL numbers: [0xB380 0000, 0xB87F FFFF]: [-5.96046448e-08, -6.10351526e-05]
+            /// +SMALL: exponent < (-14), [0x3380 0000, 0x387F FFFF]: [ 5.96046448e-08,  6.10351526e-05]
+            /// -SMALL: exponent < (-14), [0xB380 0000, 0xB87F FFFF]: [-5.96046448e-08, -6.10351526e-05]
             /// exponent < -14
             /// we have to convert them to un-normalised half numbers
             /// (S << 15) | (((0x400 | (mantissa >> 13)) >> (-14 -(E - 127))) & 0x3FF)
@@ -490,8 +458,8 @@ private:
                 m_f2h_shift_table[e | 0x000] = 13;
                 m_f2h_shift_table[e | 0x100] = 13;
             }
-            /// +HUGE numbers: E > 15, [0x4780 0000, 0x7F7F FFFF] mapped to +INFINITY
-            /// -HUGE numbers: E > 15, [0xC780 0000, 0xFF7F FFFF] mapped to -INFINITY
+            /// +HUGE: E > (+15), [0x4780 0000, 0x7F7F FFFF] mapped to +INFINITY
+            /// -HUGE: E > (+15), [0xC780 0000, 0xFF7F FFFF] mapped to -INFINITY
             /// (S << 15) | 0x7C00
             else if (exponent < 128)
             {
@@ -501,8 +469,8 @@ private:
                 m_f2h_shift_table[e | 0x100] = 24;
             }
             /// +/-INFINITY and +/-NAN: E = 128
-            /// +NAN     : [0x7F80 2000, 0x7FFF FFFF] ---> [0x7C01, 0x7FFF]
-            /// -NAN     : [0xFF80 2000, 0xFFFF FFFF] ---> [0xFC01, 0xFFFF]
+            /// +NAN: [0x7F80 0001, 0x7FFF FFFF] ---> [0x7C01, 0x7FFF]
+            /// -NAN: [0xFF80 0001, 0xFFFF FFFF] ---> [0xFC01, 0xFFFF]
             ///     0x7C00 | (mantissa >> 13)
             else
             {
@@ -822,7 +790,7 @@ private:
             const uint32_t sign = (f16_bits & 0x8000) << 16;
             f32_bits = sign | (exponent << 23) | mantissa;
         }
-        return *(float*)&f32_bits;
+        return MathUtility::float32_from_bits(f32_bits);
     }
 
     /// 计算指定的 FLOAT 浮点数对应的 HALF 浮点数
@@ -830,7 +798,7 @@ private:
     calc_half_from_float (
         const float float_value) const
     {
-        const uint32_t f32_bits = *(const uint32_t*)&float_value;
+        const uint32_t f32_bits = MathUtility::bits_from_float32(float_value);
 
         /// --- 32Bits Float --- //
         /// 31 (msb)
@@ -909,99 +877,74 @@ private:
         /// -NORM[0xB880 0000, 0xC77F FFFF], -HUGE[0xC780 0000, 0xFF7F FFFF], -INFINITY[0XFF80 0000],
         /// -NAN_SPEC[0xFF80 0001, 0xFF80 1FFF], -NAN[0xFF80 2000, 0xFFFF FFFF]
         ///
-        /// 1. mapping of special patterns:
-        ///  i)   +ZERO: 0x0000 0000 ---> 0x0000
-        ///  ii)  -ZERO: 0x8000 0000 ---> 0x8000
-        ///  iii) +INFINITY:  0x7F80 0000 ---> 0x7C00
-        ///  iv)  -INFINITY:  0XFF80 0000 ---> 0XFC00
-        if (f32_bits == 0x00000000)
+        /// 处理特殊情况:
+        /// +ZERO/+TINY: [0x0000 0000, 0x3300 0000]  ---> 0x0000
+        if (f32_bits <= 0x33000000)
         {
             return half{ 0x0000 };
         }
-        else if (f32_bits == 0x80000000)
+        /// +TINY: [0x3300 0001, 0x337F FFFF]  ---> 0x0001: Minimal positive subnormal
+        else if (f32_bits >= 0x33000001 && f32_bits <= 0x337FFFFF)
         {
-            return half{ 0x8000 };
+            return half{ 0x0001 };
         }
-        else if (f32_bits == 0x7F800000)
+        /// +HUGE/+INF: [0x4780 0000, 0x7F80 0000]  ---> 0x7C00: +INF
+        else if (f32_bits >= 0x47800000 && f32_bits <= 0x7F800000)
         {
             return half{ 0x7C00 };
         }
-        else if (f32_bits == 0XFF800000)
-        {
-            return half{ 0XFC00 };
-        }
-        /// 2. +NAN: [0x7F80 0001, 0x7FFF FFFF]
-        /// i)  +NAN_SPEC: [0x7F80 0001, 0x7F80 1FFF] ---> 0x7C01, otherwise if we shift its mantissa, half will be +infinity
-        /// ii) +NAN     : [0x7F80 2000, 0x7FFF FFFF] ---> [0x7C01, 0x7FFF]
-        ///     0x7C00 | (mantissa >> 13)
-        else if (f32_bits >= 0x7F800001 && f32_bits <= 0x7F801FFF)
+        /// +NAN: [0x7F80 0001, 0x7FFF FFFF]  ---> 0x7C01
+        else if (f32_bits >= 0x7F800001 && f32_bits <= 0x7FFFFFFF)
         {
             return half{ 0x7C01 };
         }
-        else if (f32_bits >= 0x7F802000 && f32_bits <= 0x7FFFFFFF)
+        /// -ZERO/-TINY: [0x8000 0000, 0xB300 0000]  ---> 0x8000
+        else if (f32_bits >= 0x80000000 && f32_bits <= 0xB3000000)
         {
-            const uint32_t mantissa = (f32_bits & 0x7FFFFF) >> 13;
-            return half{ (uint16_t)(0x7C00 | mantissa) };
+            return half{ 0x8000 };
         }
-        /// 3. -NAN: [0xFF80 0001, 0xFFFF FFFF]
-        /// i) -NAN_SPEC: [0xFF80 0001, 0xFF80 1FFF] ---> 0xFC01
-        /// i) -NAN     : [0xFF80 2000, 0xFFFF FFFF] ---> [0xFC01, 0xFFFF]
-        ///     0xFC00 | (mantissa >> 13)
-        else if (f32_bits >= 0xFF800001 && f32_bits <= 0xFF801FFF)
+        /// -TINY: [0xB300 0001, 0xB37F FFFF]  ---> 0x8001: Minimal negative subnormal
+        else if (f32_bits >= 0xB3000001 && f32_bits <= 0xB37FFFFF)
+        {
+            return half{ 0x8001 };
+        }
+        /// -HUGE/-INF: [0xC780 0000, 0xFF80 0000]  ---> 0xFC00: -INF
+        else if (f32_bits >= 0xC7800000 && f32_bits <= 0xFF800000)
+        {
+            return half{ 0xFC00 };
+        }
+        /// -NAN: [0xFF80 0001, 0xFFFF FFFF]  ---> 0xFC01
+        else if (f32_bits >= 0xFF800001)
         {
             return half{ 0xFC01 };
         }
-        else if (f32_bits >= 0xFF802000 && f32_bits <= 0xFFFFFFFF)
-        {
-            const uint32_t mantissa = (f32_bits & 0x7FFFFF) >> 13;
-            return half{ (uint16_t)(0xFC00 | mantissa) };
-        }
-        /// 4. +TINY numbers: E < -24, [0x0000 0001, 0x337F FFFF] we round them to +ZERO
-        /// 5. -TINY numbers: E < -24, [0x8000 0001, 0xB37F FFFF] we round them to -ZERO
-        ///    S << 15
-        else if ((f32_bits >= 0x00000001 && f32_bits <= 0x337FFFFF) ||
-                 (f32_bits >= 0x80000001 && f32_bits <= 0xB37FFFFF))
-        {
-            const uint32_t sign = f32_bits >> 31;
-            return half{ (uint16_t)(sign << 15) };
-        }
-        /// 6. +HUGE numbers: E > 15, [0x4780 0000, 0x7F7F FFFF] we round them to +INFINITY
-        /// 7. -HUGE numbers: E > 15, [0xC780 0000, 0xFF7F FFFF] we round them to -INFINITY
-        ///    (S << 15) | 0x7C00
-        else if ((f32_bits >= 0x47800000 && f32_bits <= 0x7F7FFFFF) ||
-                 (f32_bits >= 0xC7800000 && f32_bits <= 0xFF7FFFFF))
-        {
-            const uint32_t sign = f32_bits >> 31;
-            return half{ (uint16_t)((sign << 15) | 0x7C00) };
-        }
-        /// 8. +NORM/normalised numbers: [0x3880 0000, 0x477F FFFF]: lose some kinds of precision
-        /// 9. -NORM/normalised numbers: [0xB880 0000, 0xC77F FFFF]
-        ///    (S << 15) | ((E - 127) + 15) << 10 | ((mantissa & 0x7F FFFF) >> 13)
-        else if ((f32_bits >= 0x38800000 && f32_bits <= 0x477FFFFF) ||
-                 (f32_bits >= 0xB8800000 && f32_bits <= 0xC77FFFFF))
-        {
-            const uint32_t sign     = f32_bits >> 31;
-            const uint32_t exponent = ((f32_bits & 0x7F800000) >> 23) - 127 + 15;
-            const uint32_t mantissa = (f32_bits & 0x7FFFFF) >> 13;
-            return half{ (uint16_t)((sign << 15) | (exponent << 10) | mantissa) };
-            /// X XXXXXXXX XXXXXXXXXXXXXXXXXXXXXXX
-        }
-        /// 10. +SMALL numbers: to un-normalised numbers: [0x3380 0000, 0x387F FFFF]: [ 5.96046448e-08,  6.10351526e-05]
-        /// 11. -SMALL numbers: to un-normalised numbers: [0xB380 0000, 0xB87F FFFF]: [-5.96046448e-08, -6.10351526e-05]
-        ///     (S << 15) | (((0x400 | (mantissa >> 13)) >> (-14 -(E - 127))) & 0x3FF)
-        ///     0x400 is used to represent that 1 in 1.xyz and make the mantissa to be 11bits
-        else if ((f32_bits >= 0x33800000 && f32_bits <= 0x387FFFFF) ||
-                 (f32_bits >= 0xB3800000 && f32_bits <= 0xB87FFFFF))
-        {
-            const uint32_t sign     = f32_bits >> 31;
-            const uint32_t mantissa = 0x400 | ((f32_bits & 0x7FFFFF) >> 13);
-            const uint32_t shift    = 127 - ((f32_bits & 0x7F800000) >> 23) - 14;
-            return half{ (uint16_t)((sign << 15) | ((mantissa >> shift) & 0x3FF)) };
-        }
         else
         {
-            /// ERROR
-            return half {0 };
+            /// HALF = Base[ Sign(FLOAT) | Exponent(FLOAT) ]
+            ///      + RoundToNearAndTieToEven(
+            ///         Mantissa(FLOAT), Shift[ Sign(FLOAT) | Exponent(FLOAT) ])
+            const uint32_t sign_val      = (f32_bits >> 16) & 0x8000;
+            const uint32_t exponent_bits = (f32_bits >> 23) & 0xFF;
+            const uint32_t mantissa_val  = f32_bits & 0x7FFFFF;
+            const int32_t  exponent_val  = (int32_t)exponent_bits - 127;
+
+            if (exponent_val < -14)
+            {
+                const uint32_t base_value =
+                    sign_val | (0x400 >> (-exponent_val - 14));
+                const uint32_t shift_value = (uint32_t)(-exponent_val - 1);
+                const uint32_t rounded_bits =
+                    HalfUtility::round_to_nearest_and_tie_to_even(mantissa_val, shift_value);
+                return half{ (uint16_t)(base_value + rounded_bits) };
+            }
+            else
+            {
+                const uint32_t base_value =
+                    sign_val | ((uint32_t)(exponent_val + 15) << 10);
+                const uint32_t rounded_bits =
+                    HalfUtility::round_to_nearest_and_tie_to_even(mantissa_val, 13);
+                return half{ (uint16_t)(base_value + rounded_bits) };
+            }
         }
     }
 
@@ -1019,10 +962,9 @@ private:
         std::cout << "0%                          100%" << std::endl;
 
         char buffer[64];
-        uint16_t row_idx = 0;
         for (uint64_t i = 0x00000000u; i <= 0xFFFFFFFFu; ++i)
         {
-            const float float_value = *(const float*)&i;
+            const float float_value = MathUtility::float32_from_bits((uint32_t)i);
             const half calculated_half = calc_half_from_float(float_value);
             const half converted_half  = convert_to_half(float_value);
             if (!(i % 0x8000000))
@@ -1030,7 +972,6 @@ private:
                 std::cout << '.';
                 /// flushes the cache buffer, we don't need an extra new line
                 std::cout.flush();
-                ++row_idx;
             }
 
             if (calculated_half.bits != converted_half.bits)

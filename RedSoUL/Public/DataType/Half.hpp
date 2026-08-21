@@ -42,7 +42,7 @@ struct half
     static
     half
     make (
-        const float float_value);
+        const float f32_value);
 
     float
     to_float () const;

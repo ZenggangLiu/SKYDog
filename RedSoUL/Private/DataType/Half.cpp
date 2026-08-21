@@ -1,5 +1,6 @@
 /// Library headers
 #include "DataType/HalfFloatConversionTable.hpp"
+#include "DataType/HalfUtilities.hpp"
 #include "Math/MathUtilities.hpp"
 /// Self header
 #include "DataType/Half.hpp"
@@ -7,44 +8,12 @@
 
 half
 half::make (
-    const float float_value)
+    const float f32_value)
 {
-    const uint32_t f32_bits = MathUtility::bits_from_float32(float_value);
-
-    /// 处理特殊情况:
-    /// - +NAN: [0x7F80 0001, 0x7F80 1FFF]  ---> 0x7C01
-    /// - -NAN: [0xFF80 0001, 0xFF80 1FFF]  ---> 0xFC01
-    if (f32_bits >= 0x7F800001 && f32_bits <= 0x7F801FFF)
-    {
-        return half{ 0x7C01 };
-    }
-    else if (f32_bits >= 0xFF800001 && f32_bits <= 0xFF801FFF)
-    {
-        return half{ 0xFC01 };
-    }
-    else
-    {
-        /// HALF = Base[ Sign(FLOAT) | Exponent(FLOAT) ]
-        ///      | Mantissa(FLOAT) >> Shift[ Sign(FLOAT) | Exponent(FLOAT) ]
-        ///
-        // --- FLOAT(32位) ---//
-        ///  31 (msb)
-        ///  |
-        ///  |  30     23
-        ///  |  |      |
-        ///  |  |      | 22                    0 (lsb)
-        ///  |  |      | |                     |
-        ///  X  XXXXXXXX XXXXXXXXXXXXXXXXXXXXXXX
-        /// |S| |  E   | |         M           |
-        ///
-        /// 获得Sign以及Exponent的数值
-        const uint32_t sign_exp  = (f32_bits >> 23) & 0x1FF; /// 9位
-        // gets the base value and shift value
-        const uint16_t base_val  = FLOAT_TO_HALF_BASE_TABLE[sign_exp];
-        const uint16_t shift_val = FLOAT_TO_HALF_SHIFT_TABLE[sign_exp];
-        const uint32_t mantissa  = f32_bits & 0x7FFFFF; /// 23位
-        return half{ (uint16_t)(base_val | (mantissa >> shift_val)) };
-    }
+    return HalfUtility::convert_to_half(
+        f32_value,
+        FLOAT_TO_HALF_BASE_TABLE, FLOAT_TO_HALF_SHIFT_TABLE,
+        ARRAY_LENGTH(FLOAT_TO_HALF_BASE_TABLE));
 }
 
 

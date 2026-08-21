@@ -15,10 +15,9 @@
 // --- 生成 FLOAT --> HALF 转换的Offset Table --- //
 
 /// 使用如下方法将 FLOAT 浮点数转换为 HALF浮点数:
-/// HALF = Base[S(FLOAT) | E(FLOAT)] | mantissa(FLOAT) >> shift[S(FLOAT) | E(FLOAT)]
-/// where:
-/// - S(FLOAT) is the sign of FLOAT
-/// - E(FLOAT) is the exponent of the FLOAT
+/// HALF = Base[ Sign(FLOAT) | Exponent(FLOAT) ]
+///      + RoundToNearAndTieToEven(
+///            Mantissa(FLOAT), Shift[Sign(FLOAT) | Exponent(FLOAT)])
 
 /// Base table:
 /// - 使用Sign(FLOAT), 以及Exponent(FLOAT)来检索

@@ -61,20 +61,21 @@
 #endif /// !defined(MEMBER_OFFSET)
 
 
-/// 获得静态数组成员的个数
-#if !defined(ARRAY_SIZE)
+/// 获取静态数组的长度(元素个数)
+#if !defined(ARRAY_LENGTH)
 /// 我们定义N个函数参考的数组
 /// 使用如下方法定义一个对char[N]参考的函数: a function referring to a char[N]
-/// 使用如下方法定义一个对char[N]参考：
+/// 使用如下方法定义一个对char[N]参考:
 /// - char(&reference) [N]: reference is a reference to char[N]
-/// NOTE：if the array has overloaded operator[], it will change the expected behavior
-    template < typename T, uint32_t N > char(&__GetArraySize__(const T(&)[N]))[N];
+/// NOTE:
+/// - if the array has overloaded operator[], it will change the expected behavior
+    template < typename T, uint32_t N > char(&__GetArrayLength__(const T(&)[N]))[N];
 /// 我们使用 sizeof 操作符来获得静态数组的成员个数
 /// NOTE:
-/// sizeof 不会真正计算（evaluate）指定的表达式：此处不会真正调用 _GetArrayItemCount 函数
-    #define ARRAY_SIZE(T) (sizeof(__GetArraySize__(T)))
-    /// #define ARRAY_ITEM_COUNT(array) (sizeof(array) / sizeof(array[0]))
-#endif  /// !defined(ARRAY_SIZE)
+/// sizeof 不会真正计算（evaluate）指定的表达式: 此处不会真正调用 __GetArrayLength__ 函数
+    #define ARRAY_LENGTH(T) (sizeof(__GetArrayLength__(T)))
+    /// #define ARRAY_LENGTH(array) (sizeof(array) / sizeof(array[0]))
+#endif  /// !defined(ARRAY_LENGTH)
 
 
 /// 链接Token: COMBINE(t1, t2) --> t1t2
