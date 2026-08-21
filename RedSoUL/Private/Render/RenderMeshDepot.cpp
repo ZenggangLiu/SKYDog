@@ -110,9 +110,9 @@ RenderMeshDepot::create_unit_square ()
     };
 
     /// #vertex
-    static constexpr uint16_t VERTEX_COUNT = ARRAY_SIZE(VERTEX_LIST);
+    static constexpr uint16_t VERTEX_COUNT   = ARRAY_LENGTH(VERTEX_LIST);
     /// #triangle
-    static constexpr uint16_t TRIANGLE_COUNT = ARRAY_SIZE(TRIANGLE_LIST);
+    static constexpr uint16_t TRIANGLE_COUNT = ARRAY_LENGTH(TRIANGLE_LIST);
 
     cache_mesh(
         MESH_ID, MESH_BOUND_BOX,
@@ -189,9 +189,9 @@ RenderMeshDepot::create_unit_square_uv ()
     };
 
     /// #vertex
-    static constexpr uint16_t VERTEX_COUNT = ARRAY_SIZE(VERTEX_LIST);
+    static constexpr uint16_t VERTEX_COUNT   = ARRAY_LENGTH(VERTEX_LIST);
     /// #triangle
-    static constexpr uint16_t TRIANGLE_COUNT = ARRAY_SIZE(TRIANGLE_LIST);
+    static constexpr uint16_t TRIANGLE_COUNT = ARRAY_LENGTH(TRIANGLE_LIST);
 
     cache_mesh(
         MESH_ID, MESH_BOUND_BOX,
@@ -359,9 +359,9 @@ RenderMeshDepot::create_unit_cube_pos ()
     };
 
     /// #vertex
-    static constexpr uint16_t VERTEX_COUNT   = ARRAY_SIZE(VERTEX_LIST);
+    static constexpr uint16_t VERTEX_COUNT   = ARRAY_LENGTH(VERTEX_LIST);
     /// #triangle
-    static constexpr uint16_t TRIANGLE_COUNT = ARRAY_SIZE(TRIANGLE_LIST);
+    static constexpr uint16_t TRIANGLE_COUNT = ARRAY_LENGTH(TRIANGLE_LIST);
 
     cache_mesh(
         MESH_ID, MESH_BOUND_BOX,
@@ -568,9 +568,9 @@ RenderMeshDepot::create_unit_cube ()
     };
 
     /// #vertex
-    static constexpr uint16_t VERTEX_COUNT   = ARRAY_SIZE(VERTEX_LIST);
+    static constexpr uint16_t VERTEX_COUNT   = ARRAY_LENGTH(VERTEX_LIST);
     /// #triangle
-    static constexpr uint16_t TRIANGLE_COUNT = ARRAY_SIZE(TRIANGLE_LIST);
+    static constexpr uint16_t TRIANGLE_COUNT = ARRAY_LENGTH(TRIANGLE_LIST);
 
     cache_mesh(
         MESH_ID, MESH_BOUND_BOX,
@@ -1129,9 +1129,9 @@ RenderMeshDepot::create_unit_beveled_cube ()
     };
 
     /// #vertex
-    static constexpr uint16_t VERTEX_COUNT   = ARRAY_SIZE(VERTEX_LIST);
+    static constexpr uint16_t VERTEX_COUNT   = ARRAY_LENGTH(VERTEX_LIST);
     /// #triangle
-    static constexpr uint16_t TRIANGLE_COUNT = ARRAY_SIZE(TRIANGLE_LIST);
+    static constexpr uint16_t TRIANGLE_COUNT = ARRAY_LENGTH(TRIANGLE_LIST);
 
     cache_mesh(
         MESH_ID, MESH_BOUND_BOX,
@@ -1266,9 +1266,9 @@ RenderMeshDepot::create_unit_icosahedron ()
     };
 
     /// #vertex
-    static constexpr uint16_t VERTEX_COUNT   = ARRAY_SIZE(VERTEX_LIST);
+    static constexpr uint16_t VERTEX_COUNT   = ARRAY_LENGTH(VERTEX_LIST);
     /// #triangle
-    static constexpr uint16_t TRIANGLE_COUNT = ARRAY_SIZE(TRIANGLE_LIST);
+    static constexpr uint16_t TRIANGLE_COUNT = ARRAY_LENGTH(TRIANGLE_LIST);
 
     cache_mesh(
         MESH_ID, MESH_BOUND_BOX,
@@ -1812,9 +1812,9 @@ RenderMeshDepot::create_unit_icosphere ()
     };
 
     /// #vertex
-    static constexpr uint16_t VERTEX_COUNT   = ARRAY_SIZE(VERTEX_LIST);
+    static constexpr uint16_t VERTEX_COUNT   = ARRAY_LENGTH(VERTEX_LIST);
     /// #triangle
-    static constexpr uint16_t TRIANGLE_COUNT = ARRAY_SIZE(TRIANGLE_LIST);
+    static constexpr uint16_t TRIANGLE_COUNT = ARRAY_LENGTH(TRIANGLE_LIST);
 
     cache_mesh(
         MESH_ID, MESH_BOUND_BOX,

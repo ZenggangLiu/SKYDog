@@ -8,7 +8,7 @@
 #include <Windows.h>
 /// Library headers
 #include "Assert/RuntimeAssert.hpp"
-#include "Common/CommonDefines.hpp" /// ARRAY_SIZE
+#include "Common/CommonDefines.hpp" /// ARRAY_LENGTH
 #include "FileSystem/MiSoft/WCharHelper.hpp"
 /// Self header
 #include "FileSystem/NativeDirectory.hpp"
@@ -63,7 +63,7 @@ fetch_temporary_folder_name ()
     TCHAR folder_name[MAX_PATH + sizeof(TCHAR)] = { 0 };
 
     /// "C:\Users\User_Name\AppData\Local\Temp\"
-    GetTempPath(ARRAY_SIZE(folder_name), folder_name);
+    GetTempPath(ARRAY_LENGTH(folder_name), folder_name);
 
 #if defined(UNICODE)
     std::string utf8_folder_name;
@@ -82,7 +82,7 @@ fetch_working_folder_name ()
 {
     TCHAR folder_name[MAX_PATH + sizeof(TCHAR)] = { 0 };
 
-    GetCurrentDirectory(ARRAY_SIZE(folder_name), folder_name);
+    GetCurrentDirectory(ARRAY_LENGTH(folder_name), folder_name);
 
 #if defined(UNICODE)
     std::string utf8_folder_name;
@@ -133,7 +133,7 @@ delete_named_folder_recur (
     /// 创建search pattern: "folder_name\*"
     TCHAR search_pattern[MAX_PATH + sizeof(TCHAR)];
     _stprintf_s(
-        search_pattern, ARRAY_SIZE(search_pattern),
+        search_pattern, ARRAY_LENGTH(search_pattern),
         TEXT("%s\\*"), absolute_folder_name);
 
     /// 查看指定目录是否存在, 以及有文件或子目录
@@ -161,7 +161,7 @@ delete_named_folder_recur (
 
             /// 使用当前路径/文件名更新Search Pattern: "folder_name\SOMETHING"
             _stprintf_s(
-                search_pattern, ARRAY_SIZE(search_pattern),
+                search_pattern, ARRAY_LENGTH(search_pattern),
                 TEXT("%s\\%s"), absolute_folder_name, file_info.cFileName);
 
             /// 子目录

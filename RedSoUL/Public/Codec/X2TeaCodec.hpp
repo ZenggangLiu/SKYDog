@@ -31,7 +31,7 @@
 /// System headers
 #include <stdint.h> /// uint32_t,...
 /// Library headers
-#include "Common/CommonDefines.hpp" /// ARRAY_SIZE
+#include "Common/CommonDefines.hpp" /// ARRAY_LENGTH
 
 
 struct XXTEA
@@ -81,6 +81,6 @@ struct XXTEA
 
 
 #define XXTEA_ENCODE(key, key_length, data_ptr) \
-    XXTEA::encode(key, key_length, data_ptr, ARRAY_SIZE(data_ptr));
+    XXTEA::encode(key, key_length, data_ptr, ARRAY_LENGTH(data_ptr));
 #define XXTEA_DECODE(key, key_length, data_ptr) \
-    XXTEA::decode(key, key_length, data_ptr, ARRAY_SIZE(data_ptr));
+    XXTEA::decode(key, key_length, data_ptr, ARRAY_LENGTH(data_ptr));

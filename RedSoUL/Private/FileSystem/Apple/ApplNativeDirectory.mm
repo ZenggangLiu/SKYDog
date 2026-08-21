@@ -8,8 +8,6 @@
 #include <string>
 /// Library headers
 #include "Assert/RuntimeAssert.hpp"
-#include "Common/CommonDefines.hpp"   /// ARRAY_SIZE
-#include "Common/PlatformDefines.hpp" /// OS_TYPE
 /// Self header
 #include "FileSystem/NativeDirectory.hpp"
 
