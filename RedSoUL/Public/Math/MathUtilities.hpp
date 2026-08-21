@@ -30,6 +30,7 @@
 
 /// System headers
 #include <algorithm> /// std::min, std::max
+#include <cstring>   /// std::memcpy
 /// Library headers
 #include "Common/CommonDefines.hpp" /// INLINE_FUNCTION
 #include "Math/MathDefines.hpp"     /// EPSILON
@@ -39,12 +40,14 @@
 struct MathUtility
 {
     /// 获得指定32位浮点数的Bits
+    INLINE_FUNCTION
     static
     uint32_t
     bits_from_float32 (
         const float float_value);
 
     /// 使用Bits创建一个32位浮点数
+    INLINE_FUNCTION
     static
     float
     float32_from_bits (
@@ -151,6 +154,38 @@ struct MathUtility
 
 
 // MARK: == 函数实现 ==
+INLINE_FUNCTION
+uint32_t
+MathUtility::bits_from_float32 (
+    const float float_value)
+{
+    /// 现代C++标准不允许：
+    /// - CASTING: 从一个类型Pointer到另一个类型Pointer。例如pointer(float) to point(uint32_t)
+    /// - READING: 从UNION中读取一个成员, 如果其它成员已赋值
+    /// 使用std::memcpy()
+    ///
+    uint32_t f32_bits;
+    std::memcpy(&f32_bits, &float_value, sizeof(float_value));
+    return f32_bits;
+}
+
+
+INLINE_FUNCTION
+float
+MathUtility::float32_from_bits (
+    const uint32_t f32_bits)
+{
+    /// 现代C++标准不允许：
+    /// - CASTING: 从一个类型Pointer到另一个类型Pointer。例如pointer(float) to point(uint32_t)
+    /// - READING: 从UNION中读取一个成员, 如果其它成员已赋值
+    /// 使用std::memcpy()
+    ///
+    float float_value;
+    std::memcpy(&float_value, &f32_bits, sizeof(f32_bits));
+    return float_value;
+}
+
+
 template < typename T >
 INLINE_FUNCTION
 T

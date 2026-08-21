@@ -1,6 +1,5 @@
 /// System headers
-#include <cmath>   /// std::fabs, std::floor, std::sqrt
-#include <cstring> /// std::memcpy
+#include <cmath> /// std::fabs, std::floor, std::sqrt
 /// Library headers
 #include "Assert/RuntimeAssert.hpp"
 /// Self header
@@ -9,36 +8,6 @@
 
 /// 要使用快速近似, 将此宏设置为1
 #define USE_FAST_APPROXIMATION  1
-
-
-uint32_t
-MathUtility::bits_from_float32 (
-    const float float_value)
-{
-    /// 现代C++标准不允许：
-    /// - CASTING: 从一个类型Pointer到另一个类型Pointer。例如pointer(float) to point(uint32_t)
-    /// - READING: 从UNION中读取一个成员, 如果其它成员已赋值
-    /// 使用std::memcpy()
-    ///
-    uint32_t f32_bits;
-    std::memcpy(&f32_bits, &float_value, sizeof(float_value));
-    return f32_bits;
-}
-
-
-float
-MathUtility::float32_from_bits (
-    const uint32_t f32_bits)
-{
-    /// 现代C++标准不允许：
-    /// - CASTING: 从一个类型Pointer到另一个类型Pointer。例如pointer(float) to point(uint32_t)
-    /// - READING: 从UNION中读取一个成员, 如果其它成员已赋值
-    /// 使用std::memcpy()
-    ///
-    float float_value;
-    std::memcpy(&float_value, &f32_bits, sizeof(f32_bits));
-    return float_value;
-}
 
 
 float
