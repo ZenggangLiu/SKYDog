@@ -161,7 +161,7 @@ private:
     /// Cache新的RenderMesh
     ///
     /// @param[in]  is_dyn_allocated
-    ///     标记顶点列表, 三角面列表是否为动态分配(TRUE)
+    ///     标记顶点列表, 三角面列表是否为动态分配(True)
     /// @param[in]  vertex_list
     ///     顶点数据列表(16字节对齐)
     /// @param[in]  vertex_list_size

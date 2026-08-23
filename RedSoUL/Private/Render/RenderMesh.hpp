@@ -59,7 +59,7 @@ struct RenderMesh
     /// 顶点Layout(VertexDataType类型的合集)
     const uint16_t                vertex_layout;
     /// 标记顶点/三角面列表是否为动态分配(True)
-    const uint16_t                is_dyn_allocated;
+    const bool                    is_dyn_allocated;
 
     RenderMesh (
         const RenderMeshIdT           mesh_id,
