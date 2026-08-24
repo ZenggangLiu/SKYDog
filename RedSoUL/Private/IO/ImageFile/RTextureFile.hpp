@@ -17,10 +17,10 @@
     Author:   (___()'`; Zee...  \_/|_)     )                                            
               /,    /`             \  __  /                                             
               \\"--\\              (_/ (_/                                              
-    Created:  9/08/26  @  10:38 PM
-    FileName: RenderTexture.hpp @ RedSoUL Project
+    Created:  24/08/26  @  6:51 PM
+    FileName: RTextureFile.hpp @ RedSoUL Project
     History:
-             - created by: 9/08/26: Zenggang LIU
+             - created by: 24/08/26: Zenggang LIU
                                                                                         
 ***************************************************************************************/
 
@@ -35,58 +35,50 @@
 #include "Render/TextureDataType.hpp"
 
 
-/// Texel数据Layout: Slice0, Slice1, ..., SliceN
-/// NOTE: 贴图由N个连续的Slice构成
-///
-///                  +-----------------------+
-///                  |        Slice N        |
-///          ~~~     |         Mip 0         |
-/// +-----------------------+                |
-/// |        Slice 0        |----+-----------+
-/// |         Mip 0         | 1  | <- Mip 1
-/// |                       |    |
-/// +-----------+-----------+----+
-/// |   Mip 1   |    | Mip 2 |
-/// |           |    +-------+
-/// +-------+---+
-/// | Mip 2 |
-/// +-------+
-///
-struct RenderTexture
-{
-    /// Texel数据列表
-    const uint8_t * const  texel_list;
-    /// Texture Id
-    const RenderTextureIdT texture_id;
-    /// 贴图宽度(Mipmap0横向Texel数)
-    const uint32_t         texture_width;
-    /// 贴图高度(Mipmap0纵向Texel数)
-    const uint32_t         texture_height;
-    /// Slice中的所有Texel数据大小(字节数|即, 所有Mipmap中Texel的总和)
-    const uint32_t         slice_data_size;
-    /// Texel数据列表大小(字节数)
-    const uint32_t         texel_list_size;
-    /// Mipmap总数。如果, 无MipMap, 则设定为1
-    const uint8_t          mipmap_count;
-    /// 贴图数据类型
-    const TextureDataType  texture_data_type;
-    /// 标记贴图是否为CubeMap(True)
-    const bool             is_cube_map;
-    /// 标记Texel数据是否使用Linear Rgb空间(True), 还是使用Gamma encoded Rgb空间(False)
-    const bool             is_linear_rgb;
-    /// 标记Texel数据是否否为动态分配(True)
-    const bool             is_dyn_allocated;
+struct RenderTexture;
 
-    RenderTexture (
-        const RenderTextureIdT texture_id,
-        const uint32_t         texture_width,
-        const uint32_t         texture_height,
-        const uint8_t          mipmap_count,
-        const bool             is_cube_map,
-        const bool             is_linear_rgb,
-        const TextureDataType  texture_data_type,
-        const uint32_t         slice_data_size,
-        const bool             is_dyn_allocated,
-        const uint8_t * const  texel_list,
-        const uint32_t         texel_list_size);
+
+/// Render Texture序列化文件
+///
+/// 文件Layout:
+///
+/// +--------------------------+
+/// | Render Texture File Head |
+/// +--------------------------+
+/// | Texel Data List          |
+/// +--------------------------+
+///
+struct RTextureFile
+{
+    /// 读入一个RenderTexture文件
+    static
+    bool
+    read_from (
+        const char * const     abs_file_name,
+        const RenderTextureIdT exp_texture_id,
+        uint32_t &             texture_width,
+        uint32_t &             texture_height,
+        uint8_t  &             mipmap_count,
+        bool &                 is_cube_map,
+        bool &                 is_linear_rgb,
+        TextureDataType &      texture_data_type,
+        uint32_t &             slice_data_size,
+        uint8_t * &            texel_list,
+        uint32_t &             texel_list_size);
+
+    /// 创建一个RenderTexture文件
+    ///
+    /// @param[in]  abs_file_name
+    ///     绝对文件路径
+    ///     NOTE: .rtexture文件扩展符将添加到指定的路径名上
+    /// @param[in]  texture_data
+    ///     Texture数据
+    /// @return
+    ///     True:   RenderTexture文件输出成功
+    ///     False:  RenderTexture文件输出失败
+    static
+    bool
+    write_to (
+        const char * const    abs_file_name,
+        const RenderTexture & texture_data);
 };

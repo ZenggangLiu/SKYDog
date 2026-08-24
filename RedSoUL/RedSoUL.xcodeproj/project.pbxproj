@@ -219,6 +219,28 @@
 		BDA3D21630288E1D001075BB /* RenderTextureId.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA3D21430288E1D001075BB /* RenderTextureId.hpp */; };
 		BDA3D21830288E9D001075BB /* TextureDataType.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA3D21730288E9D001075BB /* TextureDataType.hpp */; };
 		BDA3D21930288E9D001075BB /* TextureDataType.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA3D21730288E9D001075BB /* TextureDataType.hpp */; };
+		BDA3D21B3028901A001075BB /* RenderTexture.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA3D21A3028901A001075BB /* RenderTexture.hpp */; };
+		BDA3D21C3028901A001075BB /* RenderTexture.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA3D21A3028901A001075BB /* RenderTexture.hpp */; };
+		BDA3D21E30370EEF001075BB /* HalfUtilities.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA3D21D30370EEF001075BB /* HalfUtilities.hpp */; };
+		BDA3D21F30370EEF001075BB /* HalfUtilities.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA3D21D30370EEF001075BB /* HalfUtilities.hpp */; };
+		BDA3D2213037111C001075BB /* EndianUtilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDA3D2203037111C001075BB /* EndianUtilities.cpp */; };
+		BDA3D2223037111C001075BB /* EndianUtilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDA3D2203037111C001075BB /* EndianUtilities.cpp */; };
+		BDA3D22430371145001075BB /* LdrGrayscale.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA3D22330371145001075BB /* LdrGrayscale.hpp */; };
+		BDA3D22530371145001075BB /* LdrGrayscale.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA3D22330371145001075BB /* LdrGrayscale.hpp */; };
+		BDA3D22730371176001075BB /* EndianUtilities.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA3D22630371176001075BB /* EndianUtilities.hpp */; };
+		BDA3D22830371176001075BB /* EndianUtilities.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA3D22630371176001075BB /* EndianUtilities.hpp */; };
+		BDA3D22A303711B1001075BB /* RenderTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDA3D229303711B1001075BB /* RenderTexture.cpp */; };
+		BDA3D22B303711B1001075BB /* RenderTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDA3D229303711B1001075BB /* RenderTexture.cpp */; };
+		BDA3D22D303711D8001075BB /* RenderTextureDepot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDA3D22C303711D8001075BB /* RenderTextureDepot.cpp */; };
+		BDA3D22E303711D8001075BB /* RenderTextureDepot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDA3D22C303711D8001075BB /* RenderTextureDepot.cpp */; };
+		BDA3D230303711EB001075BB /* RenderTextureDepot.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA3D22F303711EB001075BB /* RenderTextureDepot.hpp */; };
+		BDA3D231303711EB001075BB /* RenderTextureDepot.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA3D22F303711EB001075BB /* RenderTextureDepot.hpp */; };
+		BDA3D233303C2171001075BB /* RTextureHead_v1.0.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA3D232303C2171001075BB /* RTextureHead_v1.0.hpp */; };
+		BDA3D234303C2171001075BB /* RTextureHead_v1.0.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA3D232303C2171001075BB /* RTextureHead_v1.0.hpp */; };
+		BDA3D236303C218C001075BB /* RTextureFile.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA3D235303C218C001075BB /* RTextureFile.hpp */; };
+		BDA3D237303C218C001075BB /* RTextureFile.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA3D235303C218C001075BB /* RTextureFile.hpp */; };
+		BDA3D239303C21B5001075BB /* RTextureFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDA3D238303C21B5001075BB /* RTextureFile.cpp */; };
+		BDA3D23A303C21B5001075BB /* RTextureFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDA3D238303C21B5001075BB /* RTextureFile.cpp */; };
 		BDA8960E2F6F6F0300B0683B /* Float3D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA8960D2F6F6F0300B0683B /* Float3D.hpp */; };
 		BDA8960F2F6F6F0300B0683B /* Float3D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BDA8960D2F6F6F0300B0683B /* Float3D.hpp */; };
 		BDA896112F6F70FA00B0683B /* Float3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDA896102F6F70FA00B0683B /* Float3D.cpp */; };
@@ -415,6 +437,17 @@
 		BDA3D21130230E3D001075BB /* HdrColor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = HdrColor.cpp; path = Private/DataType/HdrColor.cpp; sourceTree = "<group>"; };
 		BDA3D21430288E1D001075BB /* RenderTextureId.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = RenderTextureId.hpp; path = Public/Render/RenderTextureId.hpp; sourceTree = "<group>"; };
 		BDA3D21730288E9D001075BB /* TextureDataType.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = TextureDataType.hpp; path = Private/Render/TextureDataType.hpp; sourceTree = "<group>"; };
+		BDA3D21A3028901A001075BB /* RenderTexture.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = RenderTexture.hpp; path = Private/Render/RenderTexture.hpp; sourceTree = "<group>"; };
+		BDA3D21D30370EEF001075BB /* HalfUtilities.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = HalfUtilities.hpp; path = Private/DataType/HalfUtilities.hpp; sourceTree = "<group>"; };
+		BDA3D2203037111C001075BB /* EndianUtilities.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = EndianUtilities.cpp; path = Private/Math/EndianUtilities.cpp; sourceTree = "<group>"; };
+		BDA3D22330371145001075BB /* LdrGrayscale.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = LdrGrayscale.hpp; path = Public/DataType/LdrGrayscale.hpp; sourceTree = "<group>"; };
+		BDA3D22630371176001075BB /* EndianUtilities.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = EndianUtilities.hpp; path = Public/Math/EndianUtilities.hpp; sourceTree = "<group>"; };
+		BDA3D229303711B1001075BB /* RenderTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = RenderTexture.cpp; path = Private/Render/RenderTexture.cpp; sourceTree = "<group>"; };
+		BDA3D22C303711D8001075BB /* RenderTextureDepot.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = RenderTextureDepot.cpp; path = Private/Render/RenderTextureDepot.cpp; sourceTree = "<group>"; };
+		BDA3D22F303711EB001075BB /* RenderTextureDepot.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = RenderTextureDepot.hpp; path = Private/Render/RenderTextureDepot.hpp; sourceTree = "<group>"; };
+		BDA3D232303C2171001075BB /* RTextureHead_v1.0.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = RTextureHead_v1.0.hpp; path = Private/IO/ImageFile/RTextureHead_v1.0.hpp; sourceTree = "<group>"; };
+		BDA3D235303C218C001075BB /* RTextureFile.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = RTextureFile.hpp; path = Private/IO/ImageFile/RTextureFile.hpp; sourceTree = "<group>"; };
+		BDA3D238303C21B5001075BB /* RTextureFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = RTextureFile.cpp; path = Private/IO/ImageFile/RTextureFile.cpp; sourceTree = "<group>"; };
 		BDA8960D2F6F6F0300B0683B /* Float3D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = Float3D.hpp; path = Public/DataType/Float3D.hpp; sourceTree = "<group>"; };
 		BDA896102F6F70FA00B0683B /* Float3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = Float3D.cpp; path = Private/DataType/Float3D.cpp; sourceTree = "<group>"; };
 		BDA896162F6F9C8300B0683B /* Matrix3x4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = Matrix3x4.cpp; path = Private/DataType/Matrix3x4.cpp; sourceTree = "<group>"; };
@@ -504,6 +537,7 @@
 				BDA3D1F730209D24001075BB /* Half.hpp */,
 				BDA3D2003022F2A9001075BB /* HdrColor.hpp */,
 				BDA3D2033022F2E1001075BB /* LdrColor.hpp */,
+				BDA3D22330371145001075BB /* LdrGrayscale.hpp */,
 				BD0E41242F7BC7F400CFA766 /* Matrix3x4.hpp */,
 				BD0E41272F7BC83D00CFA766 /* Matrix4x4.hpp */,
 				BDA8961F2F714B9400B0683B /* Quaternion.hpp */,
@@ -531,6 +565,7 @@
 			isa = PBXGroup;
 			children = (
 				BD44779A2FB731D7003DBF3C /* BitOperationUtilities.hpp */,
+				BDA3D22630371176001075BB /* EndianUtilities.hpp */,
 				BDA3D1C13000F5C9001075BB /* Interpolator.hpp */,
 				BD326EE52F41773A007EE8EC /* MathUtilities.hpp */,
 				BD0E412A2F7BC88E00CFA766 /* MathDefines.hpp */,
@@ -821,6 +856,10 @@
 				BD8FB8292F8230E300EE67B4 /* RenderMesh.cpp */,
 				BD8FB80E2F7F701800EE67B4 /* RenderMeshDepot.hpp */,
 				BD8FB8112F7F7C6A00EE67B4 /* RenderMeshDepot.cpp */,
+				BDA3D21A3028901A001075BB /* RenderTexture.hpp */,
+				BDA3D229303711B1001075BB /* RenderTexture.cpp */,
+				BDA3D22F303711EB001075BB /* RenderTextureDepot.hpp */,
+				BDA3D22C303711D8001075BB /* RenderTextureDepot.cpp */,
 				BDA3D21730288E9D001075BB /* TextureDataType.hpp */,
 				BD8FB84A2F8512EE00EE67B4 /* VertexDataType.hpp */,
 			);
@@ -856,6 +895,7 @@
 			isa = PBXGroup;
 			children = (
 				BD4477A02FB82030003DBF3C /* BitOperationUtilities.cpp */,
+				BDA3D2203037111C001075BB /* EndianUtilities.cpp */,
 				BD9FAFB22F6E528C000B085D /* MathUtilities.cpp */,
 				BD0E41332F7BD6B600CFA766 /* RandomNumber.cpp */,
 			);
@@ -871,6 +911,7 @@
 				BD9FAFBC2F6E756B000B085D /* Float4D.cpp */,
 				BDA3D1FB3020A021001075BB /* Half.cpp */,
 				BDA3D1FA3020A021001075BB /* HalfFloatConversionTable.hpp */,
+				BDA3D21D30370EEF001075BB /* HalfUtilities.hpp */,
 				BDA3D21130230E3D001075BB /* HdrColor.cpp */,
 				BDA3D20E30230C61001075BB /* LdrColor.cpp */,
 				BDA896162F6F9C8300B0683B /* Matrix3x4.cpp */,
@@ -936,6 +977,9 @@
 				BDA3D2093022F402001075BB /* ExrFile.cpp */,
 				BDC9CB2C2F978BA00042BF24 /* PpmFile.hpp */,
 				BDC9CB2F2F978BC80042BF24 /* PpmFile.cpp */,
+				BDA3D235303C218C001075BB /* RTextureFile.hpp */,
+				BDA3D238303C21B5001075BB /* RTextureFile.cpp */,
+				BDA3D232303C2171001075BB /* RTextureHead_v1.0.hpp */,
 			);
 			name = ImageFile;
 			sourceTree = "<group>";
@@ -1005,13 +1049,17 @@
 				BD58B0D02F5B93B90024C670 /* StaticXXHash32.hpp in Headers */,
 				BD58B0CE2F5B93B90024C670 /* StaticXXHash64.hpp in Headers */,
 				BD58B0D72F5B97750024C670 /* RuntimeXXHash32.hpp in Headers */,
+				BDA3D230303711EB001075BB /* RenderTextureDepot.hpp in Headers */,
+				BDA3D21E30370EEF001075BB /* HalfUtilities.hpp in Headers */,
 				BDA3D1CE300111CC001075BB /* PointLight.hpp in Headers */,
+				BDA3D22430371145001075BB /* LdrGrayscale.hpp in Headers */,
 				BD326EE62F41773A007EE8EC /* MathUtilities.hpp in Headers */,
 				BDC9CB552FA0CD620042BF24 /* SoULFileHead.hpp in Headers */,
 				BD3F049C2FE799EB0062ACC2 /* MessageDefines.hpp in Headers */,
 				BD0E412B2F7BC88E00CFA766 /* MathDefines.hpp in Headers */,
 				BD8FB8392F85109100EE67B4 /* TextEncoding.hpp in Headers */,
 				BDA8962D2F74F4C100B0683B /* X2TeaCodec.hpp in Headers */,
+				BDA3D236303C218C001075BB /* RTextureFile.hpp in Headers */,
 				BD58B0EB2F5BA1790024C670 /* StaticStringDepot.hpp in Headers */,
 				BD8FB80B2F7F6EF000EE67B4 /* RenderMeshId.hpp in Headers */,
 				BDC05CAD2FC56EF4005CCA1C /* GameScene.hpp in Headers */,
@@ -1021,11 +1069,14 @@
 				BD58B08A2F519C4A0024C670 /* ArenaAllocator.hpp in Headers */,
 				BD44779B2FB731D7003DBF3C /* BitOperationUtilities.hpp in Headers */,
 				BDA3D1E03015D71D001075BB /* Layout_Pos_Norm_Uv.hpp in Headers */,
+				BDA3D22730371176001075BB /* EndianUtilities.hpp in Headers */,
 				BD5510012FB91E0000110001 /* ObjectMarker.hpp in Headers */,
 				BD5510042FB91E0000110001 /* SceneObject.hpp in Headers */,
 				BD72C0CA2FCFEFBA00491766 /* TransformType.hpp in Headers */,
 				BD5510072FB91E0000110001 /* TransformMarker.hpp in Headers */,
 				BDA3D1CB30011188001075BB /* RangedLight.hpp in Headers */,
+				BDA3D21B3028901A001075BB /* RenderTexture.hpp in Headers */,
+				BDA3D233303C2171001075BB /* RTextureHead_v1.0.hpp in Headers */,
 				BD326EDB2F3C2625007EE8EC /* CompilerDefines.hpp in Headers */,
 				BD3F04AC2FEBE7520062ACC2 /* OrthogonalCamera.hpp in Headers */,
 				BD58B0CA2F5AD4BF0024C670 /* StaticStringId.hpp in Headers */,
@@ -1102,13 +1153,17 @@
 				BD58B0D12F5B93B90024C670 /* StaticXXHash32.hpp in Headers */,
 				BD58B0CF2F5B93B90024C670 /* StaticXXHash64.hpp in Headers */,
 				BD58B0D82F5B97750024C670 /* RuntimeXXHash32.hpp in Headers */,
+				BDA3D231303711EB001075BB /* RenderTextureDepot.hpp in Headers */,
+				BDA3D21F30370EEF001075BB /* HalfUtilities.hpp in Headers */,
 				BDA3D1CF300111CC001075BB /* PointLight.hpp in Headers */,
+				BDA3D22530371145001075BB /* LdrGrayscale.hpp in Headers */,
 				BD326EE72F41773B007EE8EC /* MathUtilities.hpp in Headers */,
 				BDC9CB562FA0CD620042BF24 /* SoULFileHead.hpp in Headers */,
 				BD3F049D2FE799EB0062ACC2 /* MessageDefines.hpp in Headers */,
 				BD0E412C2F7BC88E00CFA766 /* MathDefines.hpp in Headers */,
 				BD8FB83A2F85109100EE67B4 /* TextEncoding.hpp in Headers */,
 				BDA8962E2F74F4C100B0683B /* X2TeaCodec.hpp in Headers */,
+				BDA3D237303C218C001075BB /* RTextureFile.hpp in Headers */,
 				BD58B0EC2F5BA1790024C670 /* StaticStringDepot.hpp in Headers */,
 				BD8FB80C2F7F6EF000EE67B4 /* RenderMeshId.hpp in Headers */,
 				BDC05CAE2FC56EF4005CCA1C /* GameScene.hpp in Headers */,
@@ -1118,11 +1173,14 @@
 				BD58B08B2F519C4A0024C670 /* ArenaAllocator.hpp in Headers */,
 				BD44779C2FB731D7003DBF3C /* BitOperationUtilities.hpp in Headers */,
 				BDA3D1E13015D71D001075BB /* Layout_Pos_Norm_Uv.hpp in Headers */,
+				BDA3D22830371176001075BB /* EndianUtilities.hpp in Headers */,
 				BD5510022FB91E0000110001 /* ObjectMarker.hpp in Headers */,
 				BD5510052FB91E0000110001 /* SceneObject.hpp in Headers */,
 				BD72C0CB2FCFEFBA00491766 /* TransformType.hpp in Headers */,
 				BD5510082FB91E0000110001 /* TransformMarker.hpp in Headers */,
 				BDA3D1CC30011188001075BB /* RangedLight.hpp in Headers */,
+				BDA3D21C3028901A001075BB /* RenderTexture.hpp in Headers */,
+				BDA3D234303C2171001075BB /* RTextureHead_v1.0.hpp in Headers */,
 				BD326EDC2F3C2625007EE8EC /* CompilerDefines.hpp in Headers */,
 				BD3F04AD2FEBE7520062ACC2 /* OrthogonalCamera.hpp in Headers */,
 				BD58B0CB2F5AD4BF0024C670 /* StaticStringId.hpp in Headers */,
@@ -1268,7 +1326,9 @@
 				BDA3D1D830024448001075BB /* RangedLight.cpp in Sources */,
 				BD3F04AA2FE7F37D0062ACC2 /* PerspectiveCamera.cpp in Sources */,
 				BD326EE32F3C7F9A007EE8EC /* RuntimeAssert.cpp in Sources */,
+				BDA3D23A303C21B5001075BB /* RTextureFile.cpp in Sources */,
 				BD4477A82FB83CE4003DBF3C /* BlockAllocatorImpl.cpp in Sources */,
+				BDA3D2223037111C001075BB /* EndianUtilities.cpp in Sources */,
 				BD5510112FB91E0000110001 /* SceneObject.cpp in Sources */,
 				BD5510142FB91E0000110001 /* TransformMarker.cpp in Sources */,
 				BDD403552F93519C0019BE16 /* ApplNativeDirectory.mm in Sources */,
@@ -1283,6 +1343,7 @@
 				BDA8962A2F74F48400B0683B /* X2TeaCodec.cpp in Sources */,
 				BD8FB82B2F8230E300EE67B4 /* RenderMesh.cpp in Sources */,
 				BDA3D1C02FFA61C7001075BB /* LightMarker.cpp in Sources */,
+				BDA3D22E303711D8001075BB /* RenderTextureDepot.cpp in Sources */,
 				BD3F04A72FE7F23E0062ACC2 /* CameraMarker.cpp in Sources */,
 				BDA8961E2F6FE89900B0683B /* Matrix4x4.cpp in Sources */,
 				BD58B0DD2F5B97BA0024C670 /* RuntimeHash.cpp in Sources */,
@@ -1290,6 +1351,7 @@
 				BD58B08E2F519D890024C670 /* ArenaAllocator.cpp in Sources */,
 				BD9FAFBE2F6E756B000B085D /* Float4D.cpp in Sources */,
 				BDD403642F947F2F0019BE16 /* FileName.cpp in Sources */,
+				BDA3D22B303711B1001075BB /* RenderTexture.cpp in Sources */,
 				BDC05CB42FC59E16005CCA1C /* ObjectMarker.cpp in Sources */,
 				BD58B09D2F56DE1D0024C670 /* ClockTime.cpp in Sources */,
 				BD58B0882F4EF27D0024C670 /* WorkerThread.cpp in Sources */,
@@ -1327,7 +1389,9 @@
 				BDA3D1D730024448001075BB /* RangedLight.cpp in Sources */,
 				BD3F04A92FE7F37D0062ACC2 /* PerspectiveCamera.cpp in Sources */,
 				BD326EE22F3C7F9A007EE8EC /* RuntimeAssert.cpp in Sources */,
+				BDA3D239303C21B5001075BB /* RTextureFile.cpp in Sources */,
 				BD4477A72FB83CE4003DBF3C /* BlockAllocatorImpl.cpp in Sources */,
+				BDA3D2213037111C001075BB /* EndianUtilities.cpp in Sources */,
 				BD5510102FB91E0000110001 /* SceneObject.cpp in Sources */,
 				BD5510132FB91E0000110001 /* TransformMarker.cpp in Sources */,
 				BDD403542F93519C0019BE16 /* ApplNativeDirectory.mm in Sources */,
@@ -1342,6 +1406,7 @@
 				BDA896292F74F48400B0683B /* X2TeaCodec.cpp in Sources */,
 				BD8FB82A2F8230E300EE67B4 /* RenderMesh.cpp in Sources */,
 				BDA3D1BF2FFA61C7001075BB /* LightMarker.cpp in Sources */,
+				BDA3D22D303711D8001075BB /* RenderTextureDepot.cpp in Sources */,
 				BD3F04A62FE7F23E0062ACC2 /* CameraMarker.cpp in Sources */,
 				BDA8961D2F6FE89900B0683B /* Matrix4x4.cpp in Sources */,
 				BD58B0DC2F5B97BA0024C670 /* RuntimeHash.cpp in Sources */,
@@ -1349,6 +1414,7 @@
 				BD58B08D2F519D890024C670 /* ArenaAllocator.cpp in Sources */,
 				BD9FAFBD2F6E756B000B085D /* Float4D.cpp in Sources */,
 				BDD403632F947F2F0019BE16 /* FileName.cpp in Sources */,
+				BDA3D22A303711B1001075BB /* RenderTexture.cpp in Sources */,
 				BDC05CB32FC59E16005CCA1C /* ObjectMarker.cpp in Sources */,
 				BD58B09C2F56DE1D0024C670 /* ClockTime.cpp in Sources */,
 				BD58B0872F4EF27D0024C670 /* WorkerThread.cpp in Sources */,

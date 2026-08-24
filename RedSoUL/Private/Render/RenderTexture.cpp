@@ -7,27 +7,27 @@
 
 RenderTexture::RenderTexture (
     const RenderTextureIdT _texture_id,
-    const TextureDataType  _texture_data_type,
     const uint32_t         _texture_width,
     const uint32_t         _texture_height,
-    const uint32_t         _slice_data_size,
     const uint8_t          _mipmap_count,
-    const bool             _is_linear_rgb,
     const bool             _is_cube_map,
+    const bool             _is_linear_rgb,
+    const TextureDataType  _texture_data_type,
+    const uint32_t         _slice_data_size,
     const bool             _is_dyn_allocated,
     const uint8_t * const  _texel_list,
     const uint32_t         _texel_list_size)
 :
     texel_list(_texel_list),
     texture_id(_texture_id),
-    texel_list_size(_texel_list_size),
     texture_width(_texture_width),
     texture_height(_texture_height),
     slice_data_size(_slice_data_size),
+    texel_list_size(_texel_list_size),
     mipmap_count(_mipmap_count),
     texture_data_type(_texture_data_type),
-    is_linear_rgb(_is_linear_rgb),
     is_cube_map(_is_cube_map),
+    is_linear_rgb(_is_linear_rgb),
     is_dyn_allocated(_is_dyn_allocated)
 {
     RUNTIME_ASSERT(_texture_id != INVALID_RENDER_TEXTURE_ID, "Texture Id is invalid!!");
