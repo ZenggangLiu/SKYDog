@@ -69,7 +69,7 @@ PACKED_STRUCT(SoULFileHead,
         {
             return input_stream.read(
                 (uint8_t*)&soul_file_head, sizeof(SoULFileHead),
-                0, sizeof(SoULFileHead));
+                0, sizeof(SoULFileHead)) == sizeof(SoULFileHead);
         }
         else
         {
