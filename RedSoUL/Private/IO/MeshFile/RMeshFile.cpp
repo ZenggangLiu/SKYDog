@@ -52,6 +52,11 @@ deserialize_from_rmesh_file_v1_0 (
     char * const        buffer,
     const uint32_t      buffer_size)
 {
+    /// RMesh文件允许保存的最大顶点数
+    static constexpr uint32_t MAXIMAL_VERTEX_COUNT   = 2 * 1024 * 1024;
+    /// RMesh文件允许保存的最大三角面数: #Triangle = 2 * #Vertex - 4
+    static constexpr uint32_t MAXIMAL_TRIANGLE_COUNT = 2 * MAXIMAL_VERTEX_COUNT;
+
     vertex_list_size   = 0;
     triangle_list_size = 0;
 
@@ -60,13 +65,31 @@ deserialize_from_rmesh_file_v1_0 (
         mesh_file.read(
             (uint8_t*)buffer, buffer_size - sizeof(SoULFileHead),
             sizeof(SoULFileHead), sizeof(RMeshHead_v1_0) - sizeof(SoULFileHead));
-    if (loaded_bytes == sizeof(RMeshHead_v1_0) - sizeof(SoULFileHead))
+    if ((uint32_t)loaded_bytes == sizeof(RMeshHead_v1_0) - sizeof(SoULFileHead))
     {
         const RMeshHead_v1_0 & rmesh_file_head = *(const RMeshHead_v1_0*)buffer;
         if (rmesh_file_head.head_end_mark == RMESH_FILE_HEAD_END_MARK)
         {
-            if ((const RenderMeshIdT)rmesh_file_head.mesh_id == exp_mesh_id)
+            if ((RenderMeshIdT)rmesh_file_head.mesh_id == exp_mesh_id)
             {
+                RUNTIME_ASSERT(
+                    rmesh_file_head.vertex_count <= MAXIMAL_VERTEX_COUNT,
+                    "Vertex count out of range [1, %u]!!", MAXIMAL_VERTEX_COUNT);
+                RUNTIME_ASSERT(
+                    rmesh_file_head.triangle_count <= MAXIMAL_TRIANGLE_COUNT,
+                    "Triangle count out of range [1, %u]!!", MAXIMAL_TRIANGLE_COUNT);
+                RUNTIME_ASSERT(
+                    rmesh_file_head.vertex_data_offset >= sizeof(RMeshHead_v1_0),
+                    "Vertex data offset is inside file head!!");
+                RUNTIME_ASSERT(
+                    rmesh_file_head.index_data_offset >=
+                    (rmesh_file_head.vertex_data_offset + rmesh_file_head.vertex_list_size),
+                    "Triangle data offset overlaps vertex data!!");
+                RUNTIME_ASSERT(
+                    (rmesh_file_head.index_data_offset +
+                     rmesh_file_head.triangle_list_size) <= mesh_file.file_length(),
+                    "Triangle data is out of file range!!");
+
                 /// 赋值
                 bound_box.pmax = float_3::make(rmesh_file_head.maxcorner_x,
                                                rmesh_file_head.maxcorner_y,
@@ -273,10 +296,22 @@ deserialize_from_rmesh_file_v1_0 (
                 /// 读入顶点数据
                 if (vertex_list)
                 {
+                    /// 尝试SEEK至Vertex数据保存处
+                    if (mesh_file.seek(
+                        (int32_t)rmesh_file_head.vertex_data_offset,
+                        SeekMode::FILE_BEGIN_SEEK_MODE) == false)
+                    {
+                        MemoryUtility::aligned_free(vertex_list);
+                        std::snprintf(
+                            buffer, buffer_size,
+                            "can not seek to the vertex data list!!\n");
+                        return false;
+                    }
+
                     loaded_bytes = mesh_file.read(
                         vertex_list, rmesh_file_head.vertex_list_size,
                         0, rmesh_file_head.vertex_list_size);
-                    if (loaded_bytes == rmesh_file_head.vertex_list_size)
+                    if ((uint32_t)loaded_bytes == rmesh_file_head.vertex_list_size)
                     {
                         /// 创建三角面列表
                         triangle_list = (IndexedTriangle*)std::malloc(
@@ -285,10 +320,23 @@ deserialize_from_rmesh_file_v1_0 (
                         /// 读入索引数据
                         if (triangle_list)
                         {
+                            /// 尝试SEEK至Triangle Index数据保存处
+                            if (mesh_file.seek(
+                                (int32_t)rmesh_file_head.index_data_offset,
+                                SeekMode::FILE_BEGIN_SEEK_MODE) == false)
+                            {
+                                MemoryUtility::aligned_free(vertex_list);
+                                std::free(triangle_list);
+                                std::snprintf(
+                                    buffer, buffer_size,
+                                    "can not seek to the triangle data list!!\n");
+                                return false;
+                            }
+
                             loaded_bytes = mesh_file.read(
                                 (uint8_t*)triangle_list, rmesh_file_head.triangle_list_size,
                                 0, rmesh_file_head.triangle_list_size);
-                            if (loaded_bytes == rmesh_file_head.triangle_list_size)
+                            if ((uint32_t)loaded_bytes == rmesh_file_head.triangle_list_size)
                             {
                                 vertex_list_size   = rmesh_file_head.vertex_list_size;
                                 triangle_list_size = rmesh_file_head.triangle_list_size;
@@ -299,7 +347,8 @@ deserialize_from_rmesh_file_v1_0 (
                                 MemoryUtility::aligned_free(vertex_list);
                                 std::free(triangle_list);
                                 std::snprintf(
-                                    buffer, buffer_size, "can not load the triangle data list!!\n");
+                                    buffer, buffer_size,
+                                    "can not load the triangle data list!!\n");
                                 return false;
                             }
                         }
@@ -338,15 +387,17 @@ deserialize_from_rmesh_file_v1_0 (
         }
         else
         {
-            std::snprintf(buffer, buffer_size,
-                          "render mesh file head end mark does not match!!\n");
+            std::snprintf(
+                buffer, buffer_size,
+                "render mesh file head end mark does not match!!\n");
             return false;
         }
     }
     else
     {
-        std::snprintf(buffer, buffer_size,
-                      "can not load the Render Mesh file head version 1.0\n");
+        std::snprintf(
+            buffer, buffer_size,
+            "can not load the Render Mesh file head version 1.0\n");
         return false;
     }
 }
@@ -479,7 +530,8 @@ RMeshFile::read_from (
                             buffer, (uint32_t)sizeof(buffer));
                         if (opcode == false)
                         {
-                            std::printf("[ERROR]: can not read file: %s\nwith error: %s\n",
+                            std::printf(
+                                "[ERROR]: can not read file: %s\nwith error: %s\n",
                                 abs_file_name, buffer);
                         }
                         return opcode;
@@ -496,7 +548,8 @@ RMeshFile::read_from (
             {
                 std::snprintf(
                     buffer, sizeof(buffer), "this file is not a Render Mesh file!!\n");
-                std::printf("[ERROR]: can not read file: %s\nwith error: %s\n",
+                std::printf(
+                    "[ERROR]: can not read file: %s\nwith error: %s\n",
                     abs_file_name, buffer);
                 return false;
             }
@@ -504,8 +557,9 @@ RMeshFile::read_from (
         else
         {
             std::snprintf(buffer, sizeof(buffer), "can not read RedSoUL file head!!\n");
-            std::printf("[ERROR]: can not read file: %s\nwith error: %s\n",
-                        abs_file_name, buffer);
+            std::printf(
+                "[ERROR]: can not read file: %s\nwith error: %s\n",
+                abs_file_name, buffer);
             return false;
         }
     }
@@ -542,8 +596,9 @@ RMeshFile::write_to (
                                                  buffer, sizeof(buffer));
                 if (opcode == false)
                 {
-                    std::printf("[ERROR]: can not store file: %s\nwith error: %s\n",
-                                abs_file_name, buffer);
+                    std::printf(
+                        "[ERROR]: can not store file: %s\nwith error: %s\n",
+                        abs_file_name, buffer);
                 }
                 return opcode;
             }

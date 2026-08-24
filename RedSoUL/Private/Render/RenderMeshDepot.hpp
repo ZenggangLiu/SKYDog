@@ -126,7 +126,7 @@ public:
     /// 创建指定RenderMesh文件中的几何体
     ///
     /// @param[in]  abs_file_name
-    ///     RenderMeshe文件的绝对路径
+    ///     RenderMesh文件的绝对路径
     /// @param[in]  exp_mesh_id
     ///     希望使用的Mesh Id
     /// @return
