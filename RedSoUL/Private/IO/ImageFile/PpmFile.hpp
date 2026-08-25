@@ -33,13 +33,14 @@
 
 
 struct LdrColor;
+struct LdrGrayscale;
 
 
-/// PPM(Portable Pixel Format)文件
+/// Ppm(Portable Pixel Format)文件
 ///
 struct PpmFile
 {
-    /// 创建一个24位RGB PPM文件
+    /// 创建一个24位Rgb Ppm文件
     ///
     /// @param[in]  abs_file_name
     ///     绝对文件路径
@@ -80,8 +81,8 @@ struct PpmFile
     /// @param[in]  use_binary
     ///     是否使用二进制格式存储
     /// @return
-    ///     True:   PPM文件输出成功
-    ///     False:  PPM文件输出失败
+    ///     True:   Ppm文件输出成功
+    ///     False:  Ppm文件输出失败
     static
     bool
     write_to (
@@ -93,4 +94,15 @@ struct PpmFile
         const bool             is_rgba_layout,
         const bool             use_alpha,
         const bool             use_binary);
+
+    /// 创建一个48位Grayscale Ppm文件
+    static
+    bool
+    write_to (
+        const char * const         abs_file_name,
+        const uint32_t             image_width,
+        const uint32_t             image_height,
+        const LdrGrayscale * const pixel_array,
+        const uint32_t             pixel_count,
+        const bool                 use_binary);
 };
