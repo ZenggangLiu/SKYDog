@@ -74,10 +74,10 @@ deserialize_from_rmesh_file_v1_0 (
             {
                 RUNTIME_ASSERT(
                     rmesh_file_head.vertex_count <= MAXIMAL_VERTEX_COUNT,
-                    "Vertex count out of range [1, %u]!!", MAXIMAL_VERTEX_COUNT);
+                    "Vertex count is out of range: [1, %u]!!", MAXIMAL_VERTEX_COUNT);
                 RUNTIME_ASSERT(
                     rmesh_file_head.triangle_count <= MAXIMAL_TRIANGLE_COUNT,
-                    "Triangle count out of range [1, %u]!!", MAXIMAL_TRIANGLE_COUNT);
+                    "Triangle count is out of range: [1, %u]!!", MAXIMAL_TRIANGLE_COUNT);
                 RUNTIME_ASSERT(
                     rmesh_file_head.vertex_data_offset >= sizeof(RMeshHead_v1_0),
                     "Vertex data offset is inside file head!!");

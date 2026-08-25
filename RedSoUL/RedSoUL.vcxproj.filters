@@ -147,6 +147,53 @@
     <ClInclude Include="Public\Container\RingBuffer.hpp">
       <Filter>Public\Container</Filter>
     </ClInclude>
+    <ClInclude Include="Public\Codec\X2TeaCodec.hpp">
+      <Filter>Public\Codec</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\Collision\AABB.hpp">
+      <Filter>Public\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\Collision\Ray3D.hpp">
+      <Filter>Public\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\Collision\Triangle3D.hpp">
+      <Filter>Public\Collision</Filter>
+    <ClInclude Include="Public\DataType\AxisType.hpp">
+      <Filter>Public\DataType</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\DataType\Float2D.hpp">
+      <Filter>Public\DataType</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\DataType\Float3D.hpp">
+      <Filter>Public\DataType</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\DataType\Half.hpp">
+      <Filter>Public\DataType</Filter>
+    </ClInclude>
+    <ClInclude Include="Private\DataType\HalfFloatConversionTable.hpp">
+      <Filter>Private\DataType</Filter>
+    </ClInclude>
+    <ClInclude Include="Private\DataType\HalfUtilities.hpp">
+      <Filter>Private\DataType</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\DataType\HdrColor.hpp">
+      <Filter>Public\DataType</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\DataType\LdrColor.hpp">
+      <Filter>Public\DataType</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\DataType\LdrGrayscale.hpp">
+      <Filter>Public\DataType</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\DataType\Matrix3x4.hpp">
+      <Filter>Public\DataType</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\DataType\Matrix4x4.hpp">
+      <Filter>Public\DataType</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\DataType\Quaternion.hpp">
+      <Filter>Public\DataType</Filter>
+    </ClInclude>
     <ClInclude Include="Public\Math\MathUtilities.hpp">
       <Filter>Public\Math</Filter>
     </ClInclude>
@@ -201,35 +248,6 @@
     <ClInclude Include="Public\Math\MathDefines.hpp">
       <Filter>Public\Math</Filter>
     </ClInclude>
-    <ClInclude Include="Public\DataType\Float3D.hpp">
-      <Filter>Public\DataType</Filter>
-    </ClInclude>
-    <ClInclude Include="Public\DataType\Matrix3x4.hpp">
-      <Filter>Public\DataType</Filter>
-    </ClInclude>
-    <ClInclude Include="Public\DataType\Matrix4x4.hpp">
-      <Filter>Public\DataType</Filter>
-    </ClInclude>
-    <ClInclude Include="Public\DataType\Quaternion.hpp">
-      <Filter>Public\DataType</Filter>
-    </ClInclude>
-    <ClInclude Include="Public\Codec\X2TeaCodec.hpp">
-      <Filter>Public\Codec</Filter>
-    </ClInclude>
-    <ClInclude Include="Public\DataType\Float2D.hpp">
-      <Filter>Public\DataType</Filter>
-    </ClInclude>
-    <ClInclude Include="Public\Collision\Ray3D.hpp">
-      <Filter>Public\Collision</Filter>
-    </ClInclude>
-    <ClInclude Include="Public\Collision\Triangle3D.hpp">
-      <Filter>Public\Collision</Filter>
-    </ClInclude>
-    <ClInclude Include="Public\Collision\AABB.hpp">
-      <Filter>Public\Collision</Filter>
-    </ClInclude>
-    <ClInclude Include="Public\DataType\AxisType.hpp">
-      <Filter>Public\DataType</Filter>
     </ClInclude>
     <ClInclude Include="Public\FileSystem\FileHandle.hpp">
       <Filter>Public\FileSystem</Filter>
@@ -258,7 +276,16 @@
     <ClInclude Include="Public\Hashing\StaticStringHash.hpp">
       <Filter>Public\Hashing</Filter>
     </ClInclude>
+    <ClInclude Include="Private\IO\ImageFile\ExrFile.hpp">
+      <Filter>Private\IO\ImageFile</Filter>
+    </ClInclude>
     <ClInclude Include="Private\IO\ImageFile\PpmFile.hpp">
+      <Filter>Private\IO\ImageFile</Filter>
+    </ClInclude>
+    <ClInclude Include="Private\IO\ImageFile\RTextureFile.hpp">
+      <Filter>Private\IO\ImageFile</Filter>
+    </ClInclude>
+    <ClInclude Include="Private\IO\ImageFile\RTextureHead_v1.0.hpp">
       <Filter>Private\IO\ImageFile</Filter>
     </ClInclude>
     <ClInclude Include="Private\IO\MeshFile\PlyFile.hpp">
@@ -276,6 +303,9 @@
     <ClInclude Include="Public\Math\BitOperationUtilities.hpp">
       <Filter>Public\Math</Filter>
     </ClInclude>
+    <ClInclude Include="Public\Math\EndianUtilities.hpp">
+      <Filter>Public\Math</Filter>
+    </ClInclude>
     <ClInclude Include="Public\Math\Interpolator.hpp">
       <Filter>Public\Math</Filter>
     </ClInclude>
@@ -291,13 +321,25 @@
     <ClInclude Include="Public\Message\MessageDefines.hpp">
       <Filter>Public\Message</Filter>
     </ClInclude>
-    <ClInclude Include="Public\Render\RenderMeshId.hpp">
-      <Filter>Public\Render</Filter>
-    </ClInclude>
     <ClInclude Include="Private\Render\RenderMesh.hpp">
       <Filter>Private\Render</Filter>
     </ClInclude>
     <ClInclude Include="Private\Render\RenderMeshDepot.hpp">
+      <Filter>Private\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\Render\RenderMeshId.hpp">
+      <Filter>Public\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Private\Render\RenderTexture.hpp">
+      <Filter>Private\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\Render\RenderTextureId.hpp">
+      <Filter>Public\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Private\Render\RenderTextureDepot.hpp">
+      <Filter>Private\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Private\Render\TextureDataType.hpp">
       <Filter>Private\Render</Filter>
     </ClInclude>
     <ClInclude Include="Private\Render\VertexDataType.hpp">
@@ -410,6 +452,15 @@
     <ClCompile Include="Private\DataType\Float4D.cpp">
       <Filter>Private\DataType</Filter>
     </ClCompile>
+    <ClCompile Include="Private\DataType\Half.cpp">
+      <Filter>Private\DataType</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\DataType\HdrColor.cpp">
+      <Filter>Private\DataType</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\DataType\LdrColor.cpp">
+      <Filter>Private\DataType</Filter>
+    </ClCompile>
     <ClCompile Include="Private\DataType\Matrix3x4.cpp">
       <Filter>Private\DataType</Filter>
     </ClCompile>
@@ -440,7 +491,13 @@
     <ClCompile Include="Private\Hashing\RuntimeHash.cpp">
       <Filter>Private\Hashing</Filter>
     </ClCompile>
+    <ClCompile Include="Private\IO\ImageFile\ExrFile.cpp">
+      <Filter>Private\IO\ImageFile</Filter>
+    </ClCompile>
     <ClCompile Include="Private\IO\ImageFile\PpmFile.cpp">
+      <Filter>Private\IO\ImageFile</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\IO\ImageFile\RTextureFile.cpp">
       <Filter>Private\IO\ImageFile</Filter>
     </ClCompile>
     <ClCompile Include="Private\IO\MeshFile\PlyFile.cpp">
@@ -450,6 +507,9 @@
       <Filter>Private\IO\MeshFile</Filter>
     </ClCompile>
     <ClCompile Include="Private\Math\BitOperationUtilities.cpp">
+      <Filter>Private\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\Math\EndianUtilities.cpp">
       <Filter>Private\Math</Filter>
     </ClCompile>
     <ClCompile Include="Private\Math\MathUtilities.cpp">
@@ -471,6 +531,12 @@
       <Filter>Private\Render</Filter>
     </ClCompile>
     <ClCompile Include="Private\Render\RenderMeshDepot.cpp">
+      <Filter>Private\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\Render\RenderTexture.cpp">
+      <Filter>Private\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\Render\RenderTextureDepot.cpp">
       <Filter>Private\Render</Filter>
     </ClCompile>
     <ClCompile Include="Private\Runtime\GameMainLoop.cpp">

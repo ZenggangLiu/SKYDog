@@ -11,11 +11,16 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Private\DataType\HalfFloatConversionTable.hpp" />
+    <ClInclude Include="Private\DataType\HalfUtilities.hpp" />
     <ClInclude Include="Private\FileSystem\MiSoft\WCharHelper.hpp" />
     <ClInclude Include="Private\FileSystem\MiSoft\WinFileHandle.hpp" />
     <ClInclude Include="Private\Hashing\RuntimeXXHash32.hpp" />
     <ClInclude Include="Private\Hashing\RuntimeXXHash64.hpp" />
+    <ClInclude Include="Private\IO\ImageFile\ExrFile.hpp" />
     <ClInclude Include="Private\IO\ImageFile\PpmFile.hpp" />
+    <ClInclude Include="Private\IO\ImageFile\RTextureFile.hpp" />
+    <ClInclude Include="Private\IO\ImageFile\RTextureHead_v1.0.hpp" />
     <ClInclude Include="Private\IO\MeshFile\PlyFile.hpp" />
     <ClInclude Include="Private\IO\MeshFile\RMeshFile.hpp" />
     <ClInclude Include="Private\IO\MeshFile\RMeshHead_v1.0.hpp" />
@@ -24,6 +29,9 @@
     <ClInclude Include="Private\Render\IndexedTriangle.hpp" />
     <ClInclude Include="Private\Render\RenderMesh.hpp" />
     <ClInclude Include="Private\Render\RenderMeshDepot.hpp" />
+    <ClInclude Include="Private\Render\RenderTexture.hpp" />
+    <ClInclude Include="Private\Render\RenderTextureDepot.hpp" />
+    <ClInclude Include="Private\Render\TextureDataType.hpp" />
     <ClInclude Include="Private\Render\VertexDataType.hpp" />
     <ClInclude Include="Private\Render\VertexLayout\Layout_Pos.hpp" />
     <ClInclude Include="Private\Render\VertexLayout\Layout_Pos_Colr.hpp" />
@@ -49,6 +57,10 @@
     <ClInclude Include="Public\DataType\Float2D.hpp" />
     <ClInclude Include="Public\DataType\Float3D.hpp" />
     <ClInclude Include="Public\DataType\Float4D.hpp" />
+    <ClInclude Include="Public\DataType\Half.hpp" />
+    <ClInclude Include="Public\DataType\HdrColor.hpp" />
+    <ClInclude Include="Public\DataType\LdrColor.hpp" />
+    <ClInclude Include="Public\DataType\LdrGrayscale.hpp" />
     <ClInclude Include="Public\DataType\Matrix3x4.hpp" />
     <ClInclude Include="Public\DataType\Matrix4x4.hpp" />
     <ClInclude Include="Public\DataType\Quaternion.hpp" />
@@ -63,6 +75,7 @@
     <ClInclude Include="Public\Hashing\StaticXXHash32.hpp" />
     <ClInclude Include="Public\Hashing\StaticXXHash64.hpp" />
     <ClInclude Include="Public\Math\BitOperationUtilities.hpp" />
+    <ClInclude Include="Public\Math\EndianUtilities.hpp" />
     <ClInclude Include="Public\Math\Interpolator.hpp" />
     <ClInclude Include="Public\Math\MathDefines.hpp" />
     <ClInclude Include="Public\Math\MathUtilities.hpp" />
@@ -72,6 +85,7 @@
     <ClInclude Include="Public\Memory\MemoryUtilities.hpp" />
     <ClInclude Include="Public\Message\MessageDefines.hpp" />
     <ClInclude Include="Public\Render\RenderMeshId.hpp" />
+    <ClInclude Include="Public\Render\RenderTextureId.hpp" />
     <ClInclude Include="Public\Runtime\GameLogic.hpp" />
     <ClInclude Include="Public\SceneGraph\Camera\CameraMarker.hpp" />
     <ClInclude Include="Public\SceneGraph\Camera\CameraType.hpp" />
@@ -105,6 +119,9 @@
     <ClCompile Include="Private\DataType\Float2D.cpp" />
     <ClCompile Include="Private\DataType\Float3D.cpp" />
     <ClCompile Include="Private\DataType\Float4D.cpp" />
+    <ClCompile Include="Private\DataType\Half.cpp" />
+    <ClCompile Include="Private\DataType\HdrColor.cpp" />
+    <ClCompile Include="Private\DataType\LdrColor.cpp" />
     <ClCompile Include="Private\DataType\Matrix3x4.cpp" />
     <ClCompile Include="Private\DataType\Matrix4x4.cpp" />
     <ClCompile Include="Private\DataType\Quaternion.cpp" />
@@ -115,10 +132,13 @@
     <ClCompile Include="Private\FileSystem\NativeReadStream.cpp" />
     <ClCompile Include="Private\FileSystem\NativeWriteStream.cpp" />
     <ClCompile Include="Private\Hashing\RuntimeHash.cpp" />
+    <ClCompile Include="Private\IO\ImageFile\ExrFile.cpp" />
     <ClCompile Include="Private\IO\ImageFile\PpmFile.cpp" />
+    <ClCompile Include="Private\IO\ImageFile\RTextureFile.cpp" />
     <ClCompile Include="Private\IO\MeshFile\PlyFile.cpp" />
     <ClCompile Include="Private\IO\MeshFile\RMeshFile.cpp" />
     <ClCompile Include="Private\Math\BitOperationUtilities.cpp" />
+    <ClCompile Include="Private\Math\EndianUtilities.cpp" />
     <ClCompile Include="Private\Math\MathUtilities.cpp" />
     <ClCompile Include="Private\Math\RandomNumber.cpp" />
     <ClCompile Include="Private\Memory\ArenaAllocator.cpp" />
@@ -126,6 +146,8 @@
     <ClCompile Include="Private\Memory\MemoryUtilities.cpp" />
     <ClCompile Include="Private\Render\RenderMesh.cpp" />
     <ClCompile Include="Private\Render\RenderMeshDepot.cpp" />
+    <ClCompile Include="Private\Render\RenderTexture.cpp" />
+    <ClCompile Include="Private\Render\RenderTextureDepot.cpp" />
     <ClCompile Include="Private\Runtime\GameMainLoop.cpp" />
     <ClCompile Include="Private\SceneGraph\Camera\CameraMarker.cpp" />
     <ClCompile Include="Private\SceneGraph\Camera\OrthogonalCamera.cpp" />
