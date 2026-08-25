@@ -291,14 +291,14 @@ TEST_CASE("Checking Compiletime/Runtime XXH3 Hash", "[Compiletime/Runtime XXH3 H
 
         // --- 测试ASCII编码字符串 --- //
         std::printf("--- Checking Static/Runtime XXH3 32Bits Hash of ASCII strings...\n");
-        for (uint64_t idx = 0; idx < ARRAY_SIZE(ASCII_STRINGS); ++idx)
+        for (uint64_t idx = 0; idx < ARRAY_LENGTH(ASCII_STRINGS); ++idx)
         {
             CHECK_STATIC_HASH_32(ASCII_STRINGS, idx);
         }
         std::printf("--- Checking Static/Runtime XXH3 32Bits Hash of ASCII strings: OK!\n");
 
         std::printf("--- Checking Static/Runtime XXH3 64Bits Hash of ASCII strings...\n");
-        for (uint64_t idx = 0; idx < ARRAY_SIZE(ASCII_STRINGS); ++idx)
+        for (uint64_t idx = 0; idx < ARRAY_LENGTH(ASCII_STRINGS); ++idx)
         {
             CHECK_STATIC_HASH_64(ASCII_STRINGS, idx);
         }
@@ -307,14 +307,14 @@ TEST_CASE("Checking Compiletime/Runtime XXH3 Hash", "[Compiletime/Runtime XXH3 H
 
         // --- 测试UTF8编码字符串 --- //
         std::printf("--- Checking Static/Runtime XXH3 32Bits Hash of UTF8 strings...\n");
-        for (uint64_t idx = 0; idx < ARRAY_SIZE(UTF8_STRINGS); ++idx)
+        for (uint64_t idx = 0; idx < ARRAY_LENGTH(UTF8_STRINGS); ++idx)
         {
             CHECK_STATIC_HASH_32(UTF8_STRINGS, idx);
         }
         std::printf("--- Checking Static/Runtime XXH3 32Bits Hash of UTF8 strings: OK!\n");
 
         std::printf("--- Checking Static/Runtime XXH3 64Bits Hash of UTF8 strings...\n");
-        for (uint64_t idx = 0; idx < ARRAY_SIZE(UTF8_STRINGS); ++idx)
+        for (uint64_t idx = 0; idx < ARRAY_LENGTH(UTF8_STRINGS); ++idx)
         {
             CHECK_STATIC_HASH_64(UTF8_STRINGS, idx);
         }

@@ -17,6 +17,8 @@
 		BD58B0AA2F582F5E0024C670 /* UT_GameLoop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD58B0A92F582F5E0024C670 /* UT_GameLoop.cpp */; };
 		BD58B0DF2F5B991F0024C670 /* UT_Hashing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD58B0DE2F5B991F0024C670 /* UT_Hashing.cpp */; };
 		BDA3D20D3022F504001075BB /* UT_ExrFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDA3D20C3022F504001075BB /* UT_ExrFile.cpp */; };
+		BDA3D23D303D9EC7001075BB /* UT_RenderTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDA3D23B303D9EC7001075BB /* UT_RenderTexture.cpp */; };
+		BDA3D23E303D9EC7001075BB /* UT_RTextureFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDA3D23C303D9EC7001075BB /* UT_RTextureFile.cpp */; };
 		BDA896262F72A07400B0683B /* UT_MathUtility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDA896252F72A07400B0683B /* UT_MathUtility.cpp */; };
 		BDA896302F74F61200B0683B /* UT_XXTEA.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDA8962F2F74F61200B0683B /* UT_XXTEA.cpp */; };
 		BDC9CB3E2F98D8220042BF24 /* UT_PlyFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDC9CB3A2F98D8220042BF24 /* UT_PlyFile.cpp */; };
@@ -49,6 +51,8 @@
 		BD58B0A92F582F5E0024C670 /* UT_GameLoop.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = UT_GameLoop.cpp; path = Case/UT_GameLoop.cpp; sourceTree = "<group>"; };
 		BD58B0DE2F5B991F0024C670 /* UT_Hashing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = UT_Hashing.cpp; path = Case/UT_Hashing.cpp; sourceTree = "<group>"; };
 		BDA3D20C3022F504001075BB /* UT_ExrFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = UT_ExrFile.cpp; path = Case/UT_ExrFile.cpp; sourceTree = "<group>"; };
+		BDA3D23B303D9EC7001075BB /* UT_RenderTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = UT_RenderTexture.cpp; path = Case/UT_RenderTexture.cpp; sourceTree = "<group>"; };
+		BDA3D23C303D9EC7001075BB /* UT_RTextureFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = UT_RTextureFile.cpp; path = Case/UT_RTextureFile.cpp; sourceTree = "<group>"; };
 		BDA896252F72A07400B0683B /* UT_MathUtility.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = UT_MathUtility.cpp; path = Case/UT_MathUtility.cpp; sourceTree = "<group>"; };
 		BDA8962F2F74F61200B0683B /* UT_XXTEA.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = UT_XXTEA.cpp; path = Case/UT_XXTEA.cpp; sourceTree = "<group>"; };
 		BDC9CB3A2F98D8220042BF24 /* UT_PlyFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = UT_PlyFile.cpp; path = Case/UT_PlyFile.cpp; sourceTree = "<group>"; };
@@ -116,8 +120,10 @@
 				BDC9CB3A2F98D8220042BF24 /* UT_PlyFile.cpp */,
 				BDC9CB3D2F98D8220042BF24 /* UT_PpmFile.cpp */,
 				BD0E41362F7BD96000CFA766 /* UT_RandomNumber.cpp */,
+				BDA3D23B303D9EC7001075BB /* UT_RenderTexture.cpp */,
 				BD58B07A2F4ABB780024C670 /* UT_RingBuffer.cpp */,
 				BD3AB8DA2FA29E8F00DC91D1 /* UT_RMeshFile.cpp */,
+				BDA3D23C303D9EC7001075BB /* UT_RTextureFile.cpp */,
 				BDA8962F2F74F61200B0683B /* UT_XXTEA.cpp */,
 			);
 			name = Case;
@@ -195,6 +201,7 @@
 			files = (
 				BD4BA0012FC87A0000BA1001 /* UT_BlockAllocator.cpp in Sources */,
 				BD58B07C2F4ABB780024C670 /* UT_RingBuffer.cpp in Sources */,
+				BDA3D23D303D9EC7001075BB /* UT_RenderTexture.cpp in Sources */,
 				BDA896262F72A07400B0683B /* UT_MathUtility.cpp in Sources */,
 				BD58B0DF2F5B991F0024C670 /* UT_Hashing.cpp in Sources */,
 				BDA3D20D3022F504001075BB /* UT_ExrFile.cpp in Sources */,
@@ -207,6 +214,7 @@
 				BDC9CB3F2F98D8220042BF24 /* UT_NativeReadWriteStream.cpp in Sources */,
 				BD58B0782F49C7860024C670 /* UnitTestMain.cpp in Sources */,
 				BDC9CB402F98D8220042BF24 /* UT_NativeDirectory.cpp in Sources */,
+				BDA3D23E303D9EC7001075BB /* UT_RTextureFile.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

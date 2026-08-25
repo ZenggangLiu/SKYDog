@@ -23,7 +23,6 @@
     <ClCompile Include="Case\UT_ExrFile.cpp">
       <Filter>Case</Filter>
     </ClCompile>
-    <ClCompile Include="UnitTestMain.cpp" />
     <ClCompile Include="Case\UT_GameLoop.cpp">
       <Filter>Case</Filter>
     </ClCompile>
@@ -48,6 +47,12 @@
     <ClCompile Include="Case\UT_RandomNumber.cpp">
       <Filter>Case</Filter>
     </ClCompile>
+    <ClCompile Include="Case\UT_RenderTexture.cpp">
+      <Filter>Case</Filter>
+    </ClCompile>
+    <ClCompile Include="Case\UT_RTextureFile.cpp">
+      <Filter>Case</Filter>
+    </ClCompile>
     <ClCompile Include="Case\UT_RingBuffer.cpp">
       <Filter>Case</Filter>
     </ClCompile>
@@ -57,5 +62,6 @@
     <ClCompile Include="Case\UT_XXTEA.cpp">
       <Filter>Case</Filter>
     </ClCompile>
+    <ClCompile Include="UnitTestMain.cpp" />
   </ItemGroup>
 </Project>

@@ -25,6 +25,8 @@
     <ClCompile Include="Case\UT_PpmFile.cpp" />
     <ClCompile Include="Case\UT_RandomNumber.cpp" />
     <ClCompile Include="Case\UT_NativeReadWriteStream.cpp" />
+    <ClCompile Include="Case\UT_RenderTexture.cpp" />
+    <ClCompile Include="Case\UT_RTextureFile.cpp" />
     <ClCompile Include="Case\UT_RingBuffer.cpp" />
     <ClCompile Include="Case\UT_RMeshFile.cpp" />
     <ClCompile Include="Case\UT_XXTEA.cpp" />

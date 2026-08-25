@@ -8,96 +8,36 @@
 #include <vector>
 /// Library headers
 #include "DataType/HdrColor.hpp"
+#include "DataType/LdrColor.hpp"
 #include "FileSystem/NativeDirectory.hpp"
 #include "FileSystem/NativeFile.hpp"
 #include "IO/ImageFile/ExrFile.hpp"
-
-
-struct CheckerBoardCreateParam
-{
-    uint32_t image_width;
-    uint32_t image_height;
-    uint32_t cell_texel_size;
-    uint32_t cell_border_texel_width;
-    HdrColor cell_color_0;
-    HdrColor cell_color_1;
-    HdrColor cell_border_color;
-};
-
-
-static
-bool
-is_cell_border_texel (
-    const uint32_t texel_pos,
-    const uint32_t image_texel_count,
-    const uint32_t cell_texel_size,
-    const uint32_t cell_border_texel_width)
-{
-    if (cell_border_texel_width > 0)
-    {
-        if (cell_border_texel_width >= cell_texel_size ||
-            cell_border_texel_width >= image_texel_count)
-        {
-            return true;
-        }
-        else
-        {
-            const uint32_t local_pos = texel_pos % cell_texel_size;
-            if (local_pos < cell_border_texel_width)
-            {
-                return true;
-            }
-            else
-            {
-                return texel_pos >= image_texel_count - cell_border_texel_width;
-            }
-        }
-    }
-    else
-    {
-        return false;
-    }
-}
+#include "Render/RenderTexture.hpp"
+#include "Render/RenderTextureDepot.hpp"
 
 
 static
 void
-generate_checker_board (
-    const CheckerBoardCreateParam & param,
-    std::vector<HdrColor> &         image_data)
+convert_to_hdr_image_data (
+    const RenderTexture &    texture,
+    std::vector<HdrColor> &  image_data)
 {
-    REQUIRE((param.image_width > 0));
-    REQUIRE((param.image_height > 0));
-    REQUIRE((param.cell_texel_size > 0));
+    REQUIRE((texture.texture_data_type == TextureDataType::LDR_RGBA_TEXTURE));
+    REQUIRE((texture.texel_list));
+    REQUIRE((texture.texture_width > 0));
+    REQUIRE((texture.texture_height > 0));
 
-    image_data.resize(param.image_width * param.image_height);
+    const uint32_t texel_count = texture.texture_width * texture.texture_height;
+    const LdrColor * const texel_list = (const LdrColor*)texture.texel_list;
+    image_data.resize(texel_count);
 
-    for (uint32_t y = 0; y < param.image_height; ++y)
+    for (uint32_t i = 0; i < texel_count; ++i)
     {
-        for (uint32_t x = 0; x < param.image_width; ++x)
-        {
-            const bool is_border =
-                is_cell_border_texel(x, param.image_width,
-                                     param.cell_texel_size,
-                                     param.cell_border_texel_width) ||
-                is_cell_border_texel(y, param.image_height,
-                                     param.cell_texel_size,
-                                     param.cell_border_texel_width);
-
-            const uint32_t data_idx = y * param.image_width + x;
-            if (is_border)
-            {
-                image_data[data_idx] = param.cell_border_color;
-            }
-            else
-            {
-                const uint32_t cell_x = x / param.cell_texel_size;
-                const uint32_t cell_y = y / param.cell_texel_size;
-                const bool use_cell_color_0 = ((cell_x + cell_y) & 1) == 0;
-                image_data[data_idx] =
-                    use_cell_color_0 ? param.cell_color_0 : param.cell_color_1;
-            }
-        }
+        image_data[i] = HdrColor::make(
+            (float)texel_list[i].r / 255.0f,
+            (float)texel_list[i].g / 255.0f,
+            (float)texel_list[i].b / 255.0f,
+            (float)texel_list[i].a / 255.0f);
     }
 }
 
@@ -110,36 +50,45 @@ TEST_CASE("Checking EXR File", "[EXR File]")
     {
         std::printf("--- Checking EXR File...\n");
 
-        CheckerBoardCreateParam checker_board_param =
-        {
-            512, /// image width(texels)
-            521, /// image height(texels)
-            256, /// cell size(texels)
-            12,  /// cell border width(texels)
-            HdrColor::make(0.3419f, 0.4020f, 0.5271f, 1.0f), /// color of cell0
-            HdrColor::make(0.3419f, 0.4020f, 0.5271f, 1.0f), /// color of cell1
-            HdrColor::make(1.0000f, 1.0000f, 1.0000f, 1.0f), /// board color
-        };
+        static constexpr uint32_t CHECKER_BOARD_WIDTH        = 512;
+        static constexpr uint32_t CHECKER_BOARD_HEIGHT       = 521;
+        static constexpr uint32_t CHECKER_BOARD_CELL_SIZE    = 256;
+        static constexpr uint32_t CHECKER_BOARD_BORDER_WIDTH = 12;
+
+        const RenderTextureIdT texture_id =
+            RenderTextureDepot::ref().create_checker_board(
+                CHECKER_BOARD_WIDTH,
+                CHECKER_BOARD_HEIGHT,
+                CHECKER_BOARD_CELL_SIZE,
+                CHECKER_BOARD_BORDER_WIDTH,
+                LdrColor::make( 87, 103, 134, 255),
+                LdrColor::make( 87, 103, 134, 255),
+                LdrColor::make(255, 255, 255, 255));
+        REQUIRE((texture_id != INVALID_RENDER_TEXTURE_ID));
+
+        const RenderTexture * const texture =
+            RenderTextureDepot::ref().texture_data(texture_id);
+        REQUIRE((texture));
 
         std::vector<HdrColor> image_data;
-        generate_checker_board(checker_board_param, image_data);
+        convert_to_hdr_image_data(*texture, image_data);
         REQUIRE((image_data.size() ==
-                 checker_board_param.image_width * checker_board_param.image_height));
+                 CHECKER_BOARD_WIDTH * CHECKER_BOARD_HEIGHT));
 
         char file_name[1024];
         std::snprintf(
             file_name, sizeof(file_name),
             "%s/UNIT_TEST/ExrFile/checker_board_%ux%u_cell%u_border%u.exr",
             NativeDirectory::document_folder(),
-            checker_board_param.image_width,
-            checker_board_param.image_height,
-            checker_board_param.cell_texel_size,
-            checker_board_param.cell_border_texel_width);
+            CHECKER_BOARD_WIDTH,
+            CHECKER_BOARD_HEIGHT,
+            CHECKER_BOARD_CELL_SIZE,
+            CHECKER_BOARD_BORDER_WIDTH);
 
         REQUIRE((ExrFile::write_to(
                  file_name,
-                 checker_board_param.image_width,
-                 checker_board_param.image_height,
+                 CHECKER_BOARD_WIDTH,
+                 CHECKER_BOARD_HEIGHT,
                  image_data.data(),
                  (uint32_t)image_data.size())));
         REQUIRE((NativeFile::does_file_exist(file_name)));
@@ -147,6 +96,50 @@ TEST_CASE("Checking EXR File", "[EXR File]")
 
         std::printf("[Output Exr]: %s\n", file_name);
         std::printf("--- Checking EXR File: OK!\n");
+
+        RenderTextureDepot::ref().clear();
+    }
+
+    SECTION("Checking EXR 32x32 LDR gray image")
+    {
+        std::printf("--- Checking EXR 32x32 LDR gray image...\n");
+
+        static constexpr uint32_t IMAGE_WIDTH  = 32;
+        static constexpr uint32_t IMAGE_HEIGHT = 32;
+        static constexpr uint32_t PIXEL_COUNT  = IMAGE_WIDTH * IMAGE_HEIGHT;
+
+        static constexpr float LDR_COLOR_R = 0.5f;
+        static constexpr float LDR_COLOR_G = 0.5f;
+        static constexpr float LDR_COLOR_B = 0.5f;
+        static constexpr float LDR_COLOR_A = 1.0f;
+
+        const HdrColor hdr_color = HdrColor::make(
+            LDR_COLOR_R, LDR_COLOR_G, LDR_COLOR_B, LDR_COLOR_A);
+
+        std::vector<HdrColor> image_data;
+        image_data.resize(PIXEL_COUNT);
+        for (uint32_t i = 0; i < PIXEL_COUNT; ++i)
+        {
+            image_data[i] = hdr_color;
+        }
+
+        char file_name[1024];
+        std::snprintf(
+            file_name, sizeof(file_name),
+            "%s/UNIT_TEST/ExrFile/ldr_gray_32x32.exr",
+            NativeDirectory::document_folder());
+
+        REQUIRE((ExrFile::write_to(
+                 file_name,
+                 IMAGE_WIDTH,
+                 IMAGE_HEIGHT,
+                 image_data.data(),
+                 (uint32_t)image_data.size())));
+        REQUIRE((NativeFile::does_file_exist(file_name)));
+        REQUIRE((NativeFile::file_length(file_name) > 0));
+
+        std::printf("[Output Exr]: %s\n", file_name);
+        std::printf("--- Checking EXR 32x32 LDR gray image: OK!\n");
     }
 
 } /// TEST_CASE("Checking EXR File", "[EXR File]")

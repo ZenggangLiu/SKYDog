@@ -28,10 +28,10 @@ TEST_CASE("Checking PLY File", "[PLY File]")
         //RenderMeshDepot::ref().write_to_ply_file(file_name, cube_id);
 
         std::snprintf(file_name, sizeof(file_name),
-                      "%s/UNIT_TEST/PlyFile/icosahedron_mesh_file",
+                      "%s/UNIT_TEST/PlyFile/beveled_cube",
                       NativeDirectory::document_folder());
 
-        const RenderMeshIdT icosahedron_id = RenderMeshDepot::ref().create_unit_icosahedron();
+        const RenderMeshIdT icosahedron_id = RenderMeshDepot::ref().create_unit_beveled_cube();
         RenderMeshDepot::ref().write_to_ply_file(file_name, icosahedron_id);
 
         std::printf("--- Checking PLY File: OK!\n");

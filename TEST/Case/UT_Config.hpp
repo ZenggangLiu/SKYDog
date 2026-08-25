@@ -29,6 +29,10 @@
 #define RANDOM_NUMBER_CHECKING              1
 /// 检查RMesh几何体文件
 #define RENDER_MESH_FILE_CHECKING           1
+/// 检查Render Texture
+#define RENDER_TEXTURE_CHECKING             1
+/// 检查RTexture贴图文件
+#define RENDER_TEXTURE_FILE_CHECKING        1
 /// 检查Ring Buffer
 #define RING_BUFFER_CHECKING                1
 /// 检查XXTEA编码/解码
