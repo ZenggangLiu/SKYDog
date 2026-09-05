@@ -175,7 +175,7 @@ PerspectiveCamera::set_field_of_view (
 {
     /// 由于cotangent(HFov)在HFov为0附近无穷大,
     /// 因此Fov: (0, 180]
-    RUNTIME_ASSERT(MathUtility::equal(fov_degress, 0.0f),
+    RUNTIME_ASSERT(MathUtility::not_equal(fov_degress, 0.0f),
                    "Fov can not be ZERO degree!!");
     RUNTIME_ASSERT(fov_degress <= 180.0f,
                    "Fov can not be greater than 180 degrees!!");

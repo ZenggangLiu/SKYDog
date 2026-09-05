@@ -174,7 +174,7 @@ void
 OrthogonalCamera::set_near_plane_distance (
     const float distance)
 {
-    RUNTIME_ASSERT(MathUtility::equal(m_far_plane_distance, distance),
+    RUNTIME_ASSERT(MathUtility::not_equal(m_far_plane_distance, distance),
                    "Far plane and near plane can not be at the same distance!!");
 
     m_near_plane_distance    = distance;
@@ -188,7 +188,7 @@ void
 OrthogonalCamera::set_far_plane_distance (
     const float distance)
 {
-    RUNTIME_ASSERT(MathUtility::equal(m_near_plane_distance, distance),
+    RUNTIME_ASSERT(MathUtility::not_equal(m_near_plane_distance, distance),
                    "Far plane and near plane can not be at the same distance!!");
 
     m_far_plane_distance     = distance;
@@ -253,7 +253,7 @@ OrthogonalCamera::OrthogonalCamera (
     m_inverse_distance_delta(1.0f / (m_far_plane_distance - m_near_plane_distance))
 {
     RUNTIME_ASSERT(aspect_ratio > 0.0f, "Aspect ratio must be positive!!");
-    RUNTIME_ASSERT(MathUtility::equal(far_plane_dist, near_plane_dist),
+    RUNTIME_ASSERT(MathUtility::not_equal(far_plane_dist, near_plane_dist),
                    "Far plane and near plane can not be at the same distance!!");
 
     m_is_projection_transform_dirty = true;
