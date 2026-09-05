@@ -3,7 +3,8 @@
 #include <cstdlib>  /// std::malloc, std::free
 /// Library headers
 #include "Assert/RuntimeAssert.hpp"
-#include "Common/CommonDefines.hpp" /// MAKE_FILE_VERSION
+#include "Common/CommonDefines.hpp"   /// MAKE_FILE_VERSION
+#include "Common/CompilerDefines.hpp" /// BUILD_MODE
 #include "FileSystem/FileName.hpp"
 #include "FileSystem/NativeFile.hpp"
 #include "FileSystem/NativeReadStream.hpp"
@@ -52,10 +53,12 @@ deserialize_from_rmesh_file_v1_0 (
     char * const        buffer,
     const uint32_t      buffer_size)
 {
+#if (BUILD_MODE == DEBUG_BUILD_MODE)
     /// RMesh文件允许保存的最大顶点数
     static constexpr uint32_t MAXIMAL_VERTEX_COUNT   = 2 * 1024 * 1024;
     /// RMesh文件允许保存的最大三角面数: #Triangle = 2 * #Vertex - 4
     static constexpr uint32_t MAXIMAL_TRIANGLE_COUNT = 2 * MAXIMAL_VERTEX_COUNT;
+#endif
 
     vertex_list_size   = 0;
     triangle_list_size = 0;

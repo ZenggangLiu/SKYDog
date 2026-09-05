@@ -104,7 +104,7 @@ TEST_CASE("Checking Render Texture", "[Render Texture]")
         static constexpr uint32_t TEXTURE_HEIGHT = 256;
         static constexpr uint8_t  MIPMAP_COUNT   = 7;
 
-        std::printf("--- Checking debug mipmap textur...\n");
+        std::printf("--- Checking debug mipmap texture...\n");
 
         const RenderTextureIdT texture_id =
             RenderTextureDepot::ref().create_debug_mipmap();
