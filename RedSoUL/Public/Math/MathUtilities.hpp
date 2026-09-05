@@ -132,6 +132,14 @@ struct MathUtility
         const float b,
         const float epsilon = EPSILON);
 
+    /// 判断是否两个浮点数不等(近似不等)
+    static
+    bool
+    not_equal (
+        const float a,
+        const float b,
+        const float epsilon = EPSILON);
+
     /// 在[0, length-1]之内REPEAT指定数值value
     static
     float

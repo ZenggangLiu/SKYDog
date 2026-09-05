@@ -228,6 +228,16 @@ MathUtility::equal (
 }
 
 
+bool
+MathUtility::not_equal (
+    const float a,
+    const float b,
+    const float epsilon /* = EPSILON */)
+{
+    return equal(a, b, epsilon) == false;
+}
+
+
 float
 MathUtility::repeat (
     const float value,
